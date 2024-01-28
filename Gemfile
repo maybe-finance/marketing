@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '3.2.2'
 
 gem 'country_select', '~> 4.0'
 gem 'dotenv-rails'
 gem 'figaro'
 gem 'hashid-rails', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
-gem 'pg', '~> 1.1'
+gem 'pg', '~> 1.3'
 gem 'postmark-rails'
-gem 'rails', '~> 6.1.3.1'
+gem 'rails', '6.1.7.6'
 gem 'rails_admin', '~> 2.2'
 gem 'redcarpet'
 gem 'sass-rails', '>= 6'
@@ -29,7 +29,7 @@ gem 'reverse_markdown'
 gem 'puma', '~> 5.0'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', '>= 1.9.3', require: false
 
 # Sync for Google Data Studio
 gem 'activerecord-import'
