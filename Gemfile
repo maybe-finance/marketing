@@ -29,7 +29,7 @@ group :development, :test do
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
   gem "dotenv-rails"
-  gem "erb_lint"
+  gem "erb_lint", require: false
 end
 
 group :development do
