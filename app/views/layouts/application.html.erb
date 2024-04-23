@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Maybe Marketing" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title><%= content_for(:title) || "Maybe: The OS for your personal finances" %></title>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -16,11 +16,32 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100">
+    <header class="flex items-center justify-between py-5 px-7">
+      <div class="flex items-center">
+        <%= link_to image_tag('logo.svg', alt: 'Maybe Logo', class: 'h-6'), root_path %>
+      </div>
+      <nav class="flex-1 text-sm text-center">
+        <a href="#" class="mx-4 text-neutral-800 hover:text-neutral-900">Articles</a>
+        <a href="#" class="mx-4 text-neutral-800 hover:text-neutral-900">Resources</a>
+        <a href="#" class="mx-4 text-neutral-800 hover:text-neutral-900">Contribute</a>
+      </nav>
+      <div class="flex gap-x-2">
+        <%= link_to 'https://github.com/maybe-finance/maybe', class: "px-3 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-xl hover:bg-neutral-800 bg-transparent border border-neutral-300 hover:border-neutral-400 hover:bg-neutral-100 flex items-center gap-2" do %>
+          <%= image_tag('icon-github.svg', alt: 'GitHub icon', class: 'h-4 w-4') %> Self-Host
+        <% end %>
+        <%= link_to 'Join waitlist', '#', class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 border border-neutral-900" %>
+      </div>
+    </header>
+    <main class="max-w-5xl mx-auto my-10">
       <%= yield %>
     </main>
+    <footer>
+
+    </footer>
   </body>
 </html>
