@@ -5,7 +5,7 @@
       <%= link_to 'https://github.com/maybe-finance/maybe', class: "px-2 py-1.5 border-r shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] bg-neutral-100 rounded-l-md border-neutral-200 flex items-center justify-center" do %>
         <%= image_tag('icon-github.svg', alt: 'GitHub icon', class: 'h-5 w-5') %>
       <% end %>
-      <span class="px-2 py-1.5 text-sm font-medium bg-white shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] rounded-r-md"><%= number_to_human(@stargazers_count, format: "%n%u", units: { thousand: "k" }) %></span>
+      <span class="px-2 py-1.5 text-sm font-medium bg-white shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] rounded-r-md"><%= number_to_human(@stars, format: "%n%u", units: { thousand: "k" }) %></span>
     </div> 
     OS for your personal finances <%= image_tag('icon-chart.svg', alt: 'Chart', class: 'inline') %> built by a small team <%= image_tag('icon-team.png', alt: 'Maybe Team', class: 'inline h-9') %> alongside an incredible community <%= image_tag('icon-discord.svg', alt: 'Discord', class: 'inline') %>
   </div>
