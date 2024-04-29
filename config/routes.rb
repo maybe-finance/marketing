@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  draw :madmin
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]
 

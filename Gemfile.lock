@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/excid3/madmin.git
+  revision: 247256623b0c54f0a354d8a0834b9c3c9d513a7a
+  specs:
+    madmin (1.2.9)
+      pagy (>= 3.5)
+      rails (>= 6.0.3)
+
+GIT
   remote: https://github.com/rails/rails.git
   revision: 185157fe18f33349536ebeddfc792974d81ce762
   branch: main
@@ -210,6 +218,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
+    pagy (8.3.0)
     parallel (1.24.0)
     parser (3.3.0.5)
       ast (~> 2.4.1)
@@ -361,6 +370,7 @@ DEPENDENCIES
   hotwire-livereload
   importmap-rails
   jbuilder
+  madmin!
   pg (~> 1.5)
   propshaft
   puma (>= 5.0)

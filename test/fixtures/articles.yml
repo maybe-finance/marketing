@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  slug: MyString
+  content: MyText
+  publish_at: 2024-04-29 15:00:34
+  author_name: MyString
+
+two:
+  title: MyString
+  slug: MyString
+  content: MyText
+  publish_at: 2024-04-29 15:00:34
+  author_name: MyString
