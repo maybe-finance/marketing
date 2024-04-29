@@ -41,10 +41,64 @@
     <main class="max-w-5xl mx-auto my-10">
       <%= yield %>
     </main>
-    <footer>
-      <div class="max-w-96">
-        <%= render_signup_form %>
+    <footer class="max-w-5xl mx-auto my-8">
+      <div class="flex justify-between gap-x-4">
+        <div class="flex flex-col gap-y-3 max-w-96">
+          <div><%= link_to image_tag("icon-logo.svg", alt: "Maybe Logo", class: "w-12 inline"), root_path %></div>
+          <p class="text-sm text-neutral-500">Join the waitlist to get notified when a hosted version of the app is available.</p>
+          <%= render_signup_form %>
+        </div>
+        <div class="flex text-sm leading-6 gap-x-10 text-neutral-500">
+          <div>
+            <h4 class="mb-4 text-xs font-medium uppercase">General</h4>
+            <ul>
+              <li>
+                <%= link_to "Articles", "#" %>
+              </li>
+              <li>
+                <%= link_to "Glossary", "#" %>
+              </li>
+              <li>
+                <%= link_to "Contribute", "https://github.com/maybe-finance/maybe" %>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="mb-4 text-xs font-medium uppercase">More</h4>
+            <ul>
+              <li>
+                <%= link_to "Join Community", "https://link.maybe.co/discord" %>
+              </li>
+              <li>
+                <%= link_to "Self-Host", "https://github.com/maybe-finance/maybe" %>
+              </li>
+              <li>
+                <%= link_to "Privacy Policy", "#" %>
+              </li>
+              <li>
+                <%= link_to "Terms of Service", "#" %>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="mb-4 text-xs font-medium uppercase">Social</h4>
+            <ul>
+              <li>
+                <%= link_to "Discord", "https://link.maybe.co/discord" %>
+              </li>
+              <li>
+                <%= link_to "Twitter", "https://twitter.com/maybe" %>
+              </li>
+              <li>
+                <%= link_to "LinkedIn", "https://linkedin.com/company/maybe-finance" %>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
+      <div class="flex justify-between mt-12 text-sm text-neutral-500">
+        <p class="">© <%= Time.now.year %> Maybe Finance, Inc.</p>
+        <p class="">Made with ❤️ on planet Earth.</p>
     </footer>
   </body>
 </html>
