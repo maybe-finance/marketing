@@ -21,6 +21,7 @@ gem "stimulus-rails"
 gem "turbo-rails"
 
 # Other
+gem "faraday"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
