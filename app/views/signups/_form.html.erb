@@ -1,9 +1,5 @@
 <%# locals: (centered: false) -%>
-<%= 
-  form_with(
-    url: signups_path,
-  ) do |f| 
-%>
+<%= form_with( url: signups_path ) do |f| %>
   <div class="inline-flex flex-row border rounded-xl bg-white p-1 w-full max-w-96 mb-4 shadow-xs">
     <%= f.email_field :email, placeholder: "Enter your email address", class: "flex-1 border-0 px-2 focus:ring-0 text-sm" %>
     <%= f.submit "Join waitlist", class: "py-2 px-3 font-medium text-white bg-neutral-900 rounded-lg hover:bg-neutral-800 border border-neutral-900 text-sm" %>
@@ -11,4 +7,3 @@
 
   <p class="text-xs text-[#737373] max-w-96 <%= "mx-auto" if centered %>">This waitlist is for a hosted version of the app. Don't want to wait? <a href="https://github.com/maybe-finance/maybe" class="text-[#141414] underline">Self-host</a> an early version of Maybe.</p>
 <% end %>
-
