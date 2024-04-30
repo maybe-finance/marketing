@@ -27,7 +27,7 @@
         <span class="px-1.5 py-0.5 text-[0.1em] uppercase bg-white border rounded-full border-neutral-200/75 text-neutral-500">Early Access</span>
       </div>
       <nav class="flex-1 text-sm text-center gap-x-1">
-        <a href="#" class="px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl">Articles</a>
+        <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %>
         <a href="#" class="px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl">Glossary</a>
         <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-neutral-800 hover:text-neutral-9000 hover:bg-neutral-200/60 rounded-xl">Contribute</a>
       </nav>
@@ -53,7 +53,7 @@
             <h4 class="mb-4 text-xs font-medium uppercase">General</h4>
             <ul>
               <li>
-                <%= link_to "Articles", "#" %>
+                <%= link_to "Articles", articles_path %>
               </li>
               <li>
                 <%= link_to "Glossary", "#" %>
