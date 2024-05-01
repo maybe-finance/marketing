@@ -1,4 +1,25 @@
-<div>
-  <h1 class="font-bold text-4xl">Terms#show</h1>
-  <p>Find me in app/views/terms/show.html.erb</p>
+<div class="max-w-[600px] mx-auto text-center">
+
+<%= link_to image_tag('icon-arrow-left.svg'), terms_path, class:"w-fit flex mx-auto text-center px-2 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-full hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 gap-2" %>
+
+<p class="mt-4 text-sm"><span class="text-neutral-400">Dictionary / <%= @term.title.first.titleize %> / </span> <%= @term.title.titleize %></p>
+
+<h1 class="mt-4 text-3xl font-medium tracking-tight"><%= @term.title.titleize %></h1>
+
+<div class="max-w-[500px] mx-auto mt-4 text-left">
+  <p class=""><%= @term.content %></p>
 </div>
+
+
+<p class="text-xs text-neutral-400 pb-4 mt-10">SHARE</p>
+
+<div class="w-fit mx-auto flex gap-2">
+<%= link_to image_tag('icon-link.svg'), "#", class:"w-fit flex mx-auto text-center px-2 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-full hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 gap-2" %>
+<%= link_to image_tag('icon-x.svg'), "#", class:"w-fit flex mx-auto text-center px-2 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-full hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 gap-2" %>
+<%= link_to image_tag('icon-linkedin.svg'), "#", class:"w-fit flex mx-auto text-center px-2 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-full hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 gap-2" %>
+</div>
+
+</div>
+
+<%= render "shared/cta_waitlist" %>
+
