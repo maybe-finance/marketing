@@ -14,7 +14,7 @@ class TermsController < ApplicationController
   end
 
   def search
-    #
+    @results = Term.search(params[:query])
   end
 
   # GET /terms/1/edit
