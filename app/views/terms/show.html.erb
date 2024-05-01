@@ -28,8 +28,8 @@
   <div class="grid grid-rows-3 grid-flow-col gap-2 w-full">
     <% @six_random_terms.each do |thing| %>
       <%= link_to term_path(thing), class:"bg-gray-500 flex justify-between px-4 py-[0.45rem] text-base font-normal text-black rounded hover:bg-neutral-200/50 bg-neutral-200/20 hover:border-neutral-300 gap-2" do %>
-      <span><%= thing.name %></span>
-      <span><%= image_tag('icon-chevron-right.svg') %></span>
+        <span><%= thing.name %></span>
+        <span><%= image_tag('icon-chevron-right.svg') %></span>
       <% end %>
     <% end %>
   </div>
