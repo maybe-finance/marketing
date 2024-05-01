@@ -1,0 +1,18 @@
+<%= link_to article, class: "block bg-white shadow-xs rounded-xl border p-1" do %>
+  <%= tag.div class: "min-h-60 rounded-lg bg-gradient-to-b #{article_gradient(article)}" %>
+  <div class="px-4 py-5 text-left flex flex-col justify-between min-h-60">
+    <div class="space-y-2">
+      <span class="text-gray-500 font-medium text-xs uppercase">
+        <%= article.created_at.to_date.to_formatted_s(:long) %> — <%= article_reading_time(article) %>
+      </span>
+      <h2 class="text-neutral-900 font-medium text-2xl"><%= article.title %></h2>
+    </div>
+
+    <% if article.author_name.present? %>
+      <div class="flex flex-row items-center gap-3">
+        <%= author_image_tag article.author_name, class: "w-8 h-8 rounded-full bg-neutral-100" %>
+        <p class="text-sm"><%= article.author_name %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
