@@ -3,6 +3,8 @@ class TermsController < ApplicationController
     @terms = Term.all
   end
 
+  def search
+    #
   end
 
   def show
