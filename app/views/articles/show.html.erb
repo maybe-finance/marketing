@@ -1,32 +1,30 @@
 <div class="flex flex-col items-center">
-  <button type="button" class="border border-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+  <%= link_to articles_path, class: "border border-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center" do %>
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7.00008 12.8333L1.16675 6.99996M1.16675 6.99996L7.00008 1.16663M1.16675 6.99996H12.8334" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M7.00008 12.8333L1.16675 6.99996M1.16675 6.99996L7.00008 1.16663M1.16675 6.99996H12.8334" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-  </button>
+  <% end %>
   <article class="max-w-3xl mt-8">
-      <div class="h-96 w-full object-cover bg-gradient-to-t from-pink-500 to-yellow-500 rounded-xl"></div>
+      <div class="h-96 w-full object-cover <%= random_tailwind_gradient_class %> rounded-xl"></div>
       <div class="text-center p-5 flex flex-col gap-6 px-32">
         <div class="flex flex-col gap-2">
           <div class="flex justify-center gap-3">
-            <time datetime="2022-10-10" class="block text-sm text-gray-500"> 10th Oct 2022 </time>
+            <time datetime="2022-10-10" class="block text-sm text-gray-500"><%= @article.publish_at %></time>
             <p class="text-sm text-gray-500">—</p>
-            <p class="text-sm text-gray-500"> 1 min read </p>
+            <p class="text-sm text-gray-500"><%= calculate_read_time(@article.content) %></p>
           </div>
-          <h1 class="mt-0.5 text-3xl text-gray-900 font-semibold">How to make equity investing part of your investment strategy</h1>
+          <h1 class="mt-0.5 text-3xl text-gray-900 font-semibold"><%= @article.title %></h1>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <%= image_tag("joshpigford.png", class: "w-10 h-10 rounded-full") %>
+          <% if @article.author_name.present? %>
+            <%= image_tag("joshpigford.png", class: "w-10 h-10 rounded-full") %>
+          <% else %>
+            <%= image_tag("defaultavatar.jpg", class: "w-10 h-10 rounded-full") %>
+          <% end %>
           <p class="text-gray-500">Author</p>
-          <p>Josh Pigford</p>
+          <p><%= @article.author_name %></p>
         </div>
-        <p class="text-gray-800 text-left">
-          Lorem ipsum dolor sit amet consectetur. Ultricies odio maecenas pretium aliquam. Mi ut semper nisi lacus sodales quisque id nibh ullamcorper. Donec eros at id id. Pretium ac amet et habitant nascetur. Ipsum dignissim pulvinar in fermentum adipiscing. Nec sit volutpat porttitor quam faucibus sed facilisis feugiat ultrices. Pharetra euismod velit urna nec quis. Sollicitudin egestas hendrerit ac convallis. Sit dui amet fermentum ipsum leo ultrices. Parturient venenatis pharetra nibh venenatis commodo. Orci amet luctus tristique enim mus at. Nulla sapien sapien cursus lectus egestas id purus. Feugiat eu vel suspendisse placerat convallis. Porta turpis lectus quis morbi.
-          Interdum orci ornare phasellus viverra diam tristique. Donec massa amet non morbi donec. Enim amet pellentesque tristique lorem tincidunt. Integer consequat tempor donec aenean velit fringilla. Tellus ac pellentesque commodo penatibus suspendisse sed. Sed tincidunt vitae eget commodo ultrices imperdiet enim. Eu in venenatis sapien ornare enim neque ac facilisi. Enim erat vitae ultrices pulvinar quis. Porttitor semper erat at cursus purus sapien orci eros. Lacus quis rhoncus libero cras volutpat ultrices ultrices. Amet fusce adipiscing dui fringilla mauris ac ullamcorper faucibus. At neque elit justo sagittis ut libero commodo ut.
-          Phasellus amet porta quis mi. Erat eu non condimentum leo velit. Nec vel pretium commodo commodo dolor rhoncus. Morbi semper vel pellentesque tincidunt donec dignissim nulla. Sed nisl faucibus est eget est et facilisis.
-          Duis ultrices tempus potenti consequat metus fringilla. Sed ipsum sed libero enim turpis dolor. Elementum lectus vitae eget risus mauris cras at. Consectetur eget erat tristique auctor. Rhoncus lectus placerat phasellus id pellentesque quam.
-          In egestas quisque donec facilisis in in. Natoque lorem egestas feugiat consequat nulla volutpat pellentesque justo sagittis. Nulla sit diam quis aliquam dignissim. Nullam senectus interdum amet tincidunt congue et nunc et felis. Mauris cum at natoque consectetur. Arcu nibh ac sed tellus nisi. Id habitant leo aliquam sagittis arcu sagittis tellus duis lacus. Ut leo id eu tellus amet nam lectus.
-        </p>
+        <p class="text-gray-800 text-left"><%= @article.content %></p>
       </div>
       <div class="flex flex-col items-center gap-4">
         <p class="text-gray-500 text-xs">SHARE</p>
@@ -50,7 +48,7 @@
       </div>
     </article>
     <div class="grid grid-cols-3 gap-4 mt-7 mb-14">
-    <article class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
+    <div class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
       <div class="h-56 w-full object-cover bg-gradient-to-t from-pink-500 to-yellow-500 rounded-xl"></div>
       <div class="bg-white p-4 sm:p-6 text-left p-5 flex flex-col gap-6">
         <div class="flex flex-col gap-2">
@@ -68,8 +66,8 @@
           <p>Josh Pigford</p>
         </div>
       </div>
-    </article>
-    <article class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
+    </div>
+    <div class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
       <div class="h-56 w-full object-cover bg-gradient-to-t from-pink-500 to-yellow-500 rounded-xl"></div>
 
       <div class="bg-white p-4 sm:p-6 text-left p-5 flex flex-col gap-6">
@@ -88,8 +86,8 @@
           <p>Josh Pigford</p>
         </div>
       </div>
-    </article>
-    <article class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
+    </div>
+    <div class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
       <div class="h-56 w-full object-cover bg-gradient-to-t from-pink-500 to-yellow-500 rounded-xl"></div>
 
       <div class="bg-white p-4 sm:p-6 text-left p-5 flex flex-col gap-6">
@@ -108,7 +106,7 @@
           <p>Josh Pigford</p>
         </div>
       </div>
-    </article>
+    </div>
   </div>
   <div class="flex flex-col gap-y-2 items-center">
     <div class="max-w-xl pt-8 mx-auto text-3xl">
