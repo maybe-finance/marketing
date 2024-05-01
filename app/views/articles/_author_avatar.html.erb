@@ -1,0 +1,6 @@
+<%# locals: (author:) -%>
+<% if author.present? %>
+  <%= image_tag("#{author.downcase.gsub(' ', '_')}.png", class: "w-10 h-10 rounded-full") %>
+<% else %>
+  <%= image_tag("defaultavatar.jpg", class: "w-10 h-10 rounded-full") %>
+<% end %>

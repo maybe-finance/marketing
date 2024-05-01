@@ -1,0 +1,12 @@
+<div class="flex flex-col gap-y-2 items-center">
+  <div class="max-w-xl pt-8 mx-auto text-3xl">
+    Join the Maybe <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline") %> waitlist
+  </div>
+  <div class="flex flex-col gap-y-3 max-w-96">
+    <p class="text-sm text-neutral-500">Join the waitlist to get notified when a hosted version of the app is available.</p>
+    <%= render_signup_form %>
+  </div>
+</div>
+<div class="h-80 overflow-hidden p-3 mx-auto mb-10 mt-12 bg-black/[0.02] rounded-t-3xl border border-black/1 shadow-[0px_0px_22.07px_0px_rgba(0,0,0,0.03)]">
+  <%= image_tag "screenshot.png", alt: "Maybe Screenshot", class: "w-full border border-black/1 rounded-2xl shadow-[0_7.36px_7.36px_-3.68px_rgba(11,11,11,0.03)] shadow-[0_18.39px_22.07px_-3.68px_rgba(11,11,11,0.08)]" %>
+</div>

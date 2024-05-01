@@ -5,119 +5,42 @@
     </svg>
   <% end %>
   <article class="max-w-3xl mt-8">
-      <div class="h-96 w-full object-cover <%= random_tailwind_gradient_class %> rounded-xl"></div>
-      <div class="text-center p-5 flex flex-col gap-6 px-32">
-        <div class="flex flex-col gap-2">
-          <div class="flex justify-center gap-3">
-            <time datetime="2022-10-10" class="block text-sm text-gray-500"><%= @article.publish_at %></time>
-            <p class="text-sm text-gray-500">—</p>
-            <p class="text-sm text-gray-500"><%= calculate_read_time(@article.content) %></p>
-          </div>
-          <h1 class="mt-0.5 text-3xl text-gray-900 font-semibold"><%= @article.title %></h1>
+    <div class="h-96 w-full object-cover bg-gradient-to-b <%= article_random_gradient(@article) %> rounded-xl"></div>
+    <div class="text-center p-5 flex flex-col gap-6 px-32">
+      <div class="flex flex-col gap-2">
+        <div class="flex justify-center gap-3">
+          <time datetime="2022-10-10" class="block text-sm text-gray-500"><%= @article.publish_at %></time>
+          <p class="text-sm text-gray-500">—</p>
+          <p class="text-sm text-gray-500"><%= calculate_read_time(@article.content) %></p>
         </div>
-        <div class="flex flex-col items-center gap-3">
-          <% if @article.author_name.present? %>
-            <%= image_tag("joshpigford.png", class: "w-10 h-10 rounded-full") %>
-          <% else %>
-            <%= image_tag("defaultavatar.jpg", class: "w-10 h-10 rounded-full") %>
+        <h1 class="mt-0.5 text-3xl text-gray-900 font-semibold"><%= @article.title %></h1>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <%= render partial: "articles/author_avatar", locals: { author: @article.author_name } %>
+        <p class="text-gray-500">Author</p>
+        <p><%= @article.author_name %></p>
+      </div>
+      <p class="text-gray-800 text-left"><%= @article.content %></p>
+    </div>
+    <div class="flex flex-col items-center gap-4">
+      <p class="text-gray-500 text-xs">SHARE</p>
+      <div class="flex gap-3">
+          <%= link_to "#", class: "border border-gray-300  focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center" do %>
+            <%= lucide_icon("link-2", class: "h-5 w-5 text-gray-700") %>
           <% end %>
-          <p class="text-gray-500">Author</p>
-          <p><%= @article.author_name %></p>
-        </div>
-        <p class="text-gray-800 text-left"><%= @article.content %></p>
-      </div>
-      <div class="flex flex-col items-center gap-4">
-        <p class="text-gray-500 text-xs">SHARE</p>
-        <div class="flex gap-3">
-            <a href="google.com" class="border border-gray-300  focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.50008 9.91668C7.9143 9.91668 8.25008 9.58089 8.25008 9.16668C8.25008 8.75246 7.9143 8.41668 7.50008 8.41668V9.91668ZM5.83341 9.16668L5.83341 8.41668L5.83341 9.16668ZM5.83341 0.833344L5.83341 0.0833435L5.83341 0.833344ZM7.50008 1.58334C7.9143 1.58334 8.25008 1.24756 8.25008 0.833344C8.25008 0.41913 7.9143 0.0833435 7.50008 0.0833435V1.58334ZM12.5001 0.0833435C12.0859 0.0833435 11.7501 0.41913 11.7501 0.833344C11.7501 1.24756 12.0859 1.58334 12.5001 1.58334V0.0833435ZM14.1667 0.833344V0.0833435V0.833344ZM14.1667 9.16668V8.41668V9.16668ZM12.5001 8.41668C12.0859 8.41668 11.7501 8.75246 11.7501 9.16668C11.7501 9.58089 12.0859 9.91668 12.5001 9.91668V8.41668ZM6.66675 4.25001C6.25253 4.25001 5.91675 4.5858 5.91675 5.00001C5.91675 5.41422 6.25253 5.75001 6.66675 5.75001V4.25001ZM13.3334 5.75001C13.7476 5.75001 14.0834 5.41422 14.0834 5.00001C14.0834 4.5858 13.7476 4.25001 13.3334 4.25001V5.75001ZM7.50008 8.41668H5.83341V9.91668H7.50008V8.41668ZM5.83341 8.41668C4.92726 8.41668 4.05822 8.05671 3.41747 7.41596L2.35681 8.47662C3.27886 9.39867 4.52943 9.91668 5.83341 9.91668L5.83341 8.41668ZM3.41747 7.41596C2.77672 6.77521 2.41675 5.90617 2.41675 5.00001H0.916748C0.916748 6.30399 1.43475 7.55456 2.35681 8.47662L3.41747 7.41596ZM2.41675 5.00001C2.41675 4.09385 2.77672 3.22481 3.41747 2.58406L2.35681 1.5234C1.43475 2.44546 0.916748 3.69603 0.916748 5.00001H2.41675ZM3.41747 2.58406C4.05822 1.94331 4.92726 1.58334 5.83341 1.58334L5.83341 0.0833435C4.52943 0.0833435 3.27886 0.601348 2.35681 1.5234L3.41747 2.58406ZM5.83341 1.58334H7.50008V0.0833435H5.83341V1.58334ZM12.5001 1.58334H14.1667V0.0833435H12.5001V1.58334ZM14.1667 1.58334C15.0729 1.58334 15.9419 1.94331 16.5827 2.58406L17.6434 1.5234C16.7213 0.601348 15.4707 0.0833435 14.1667 0.0833435L14.1667 1.58334ZM16.5827 2.58406C17.2234 3.22481 17.5834 4.09385 17.5834 5.00001H19.0834C19.0834 3.69603 18.5654 2.44546 17.6434 1.5234L16.5827 2.58406ZM17.5834 5.00001C17.5834 5.90617 17.2234 6.77521 16.5827 7.41596L17.6434 8.47662C18.5654 7.55456 19.0834 6.30399 19.0834 5.00001H17.5834ZM16.5827 7.41596C15.9419 8.05671 15.0729 8.41668 14.1667 8.41668L14.1667 9.91668C15.4707 9.91668 16.7213 9.39867 17.6434 8.47662L16.5827 7.41596ZM14.1667 8.41668H12.5001V9.91668H14.1667V8.41668ZM6.66675 5.75001H13.3334V4.25001H6.66675V5.75001Z" fill="#737373"/>
-              </svg>
-            </a>
-            <a href="google.com" class="border border-gray-300  focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.743 0.833984H18.7952L12.1285 8.89843L20 19.834H13.8153L8.99598 13.2051L3.45382 19.834H0.401606L7.5502 11.2207L0 0.833984H6.34538L10.7229 6.91398L15.743 0.833984ZM14.6586 17.8918H16.3454L5.42169 2.64954H3.5743L14.6586 17.8918Z" fill="#737373"/>
-              </svg>
-            </a>
-            <a href="google.com" class="border border-gray-300  focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.0409 17.0413H14.0776V12.4004C14.0776 11.2937 14.0578 9.86912 12.5363 9.86912C10.9929 9.86912 10.7567 11.0749 10.7567 12.3199V17.041H7.79336V7.49741H10.6382V8.80165H10.678C10.9627 8.31485 11.3741 7.91439 11.8684 7.64291C12.3627 7.37143 12.9214 7.23911 13.4849 7.26003C16.4884 7.26003 17.0422 9.23567 17.0422 11.8059L17.0409 17.0413ZM4.44969 6.19287C4.10957 6.19293 3.77706 6.09213 3.49422 5.90321C3.21139 5.71429 2.99094 5.44574 2.86073 5.13153C2.73051 4.81731 2.69638 4.47153 2.76268 4.13792C2.82897 3.80431 2.99271 3.49785 3.23317 3.2573C3.47363 3.01675 3.78002 2.8529 4.11359 2.78649C4.44716 2.72007 4.79293 2.75406 5.10719 2.88417C5.42144 3.01428 5.69006 3.23465 5.87907 3.51743C6.06808 3.8002 6.16901 4.13268 6.16907 4.47282C6.16911 4.69866 6.12466 4.92229 6.03827 5.13095C5.95189 5.33962 5.82527 5.52922 5.66561 5.68895C5.50595 5.84867 5.31638 5.97538 5.10775 6.06184C4.89913 6.1483 4.67552 6.19282 4.44969 6.19287ZM5.93137 17.0413H2.96491V7.49741H5.93137V17.0413ZM18.5183 0.00136263H1.47583C1.08901 -0.00300274 0.716265 0.146386 0.439533 0.416702C0.162802 0.687018 0.00472088 1.05614 0 1.44297V18.5567C0.00455931 18.9438 0.162547 19.3131 0.43927 19.5837C0.715992 19.8543 1.08882 20.004 1.47583 19.9999H18.5183C18.9061 20.0047 19.28 19.8555 19.5578 19.5849C19.8356 19.3143 19.9946 18.9445 20 18.5567V1.44174C19.9945 1.05414 19.8353 0.684596 19.5575 0.414287C19.2797 0.143978 18.9059 -0.00498453 18.5183 0.000127351" fill="#737373"/>
-              </svg>
-            </a>
-        </div>
-      </div>
-    </article>
-    <div class="grid grid-cols-3 gap-4 mt-7 mb-14">
-    <div class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
-      <div class="h-56 w-full object-cover bg-gradient-to-t from-pink-500 to-yellow-500 rounded-xl"></div>
-      <div class="bg-white p-4 sm:p-6 text-left p-5 flex flex-col gap-6">
-        <div class="flex flex-col gap-2">
-          <div class="flex items-center gap-3">
-            <time datetime="2022-10-10" class="block text-xs text-gray-500"> 10th Oct 2022 </time>
-            <p class="text-xs text-gray-500">—</p>
-            <p class="text-xs text-gray-500"> 1 min read </p>
-          </div>
-          <a href="#">
-            <h3 class="mt-0.5 text-lg text-gray-900">How to make equity investing part of your investment strategy</h3>
-          </a>
-        </div>
-        <div class="flex items-center gap-3">
-          <%= image_tag("joshpigford.png", class: "w-10 h-10 rounded-full") %>
-          <p>Josh Pigford</p>
-        </div>
+          <%= link_to "#", class: "border border-gray-300  focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center" do %>
+            <%= lucide_icon("twitter", class: "h-5 w-5 text-gray-700") %>
+          <% end %>
+          <%= link_to "#", class: "border border-gray-300  focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center" do %>
+            <%= lucide_icon("linkedin", class: "h-5 w-5 text-gray-700") %>
+          <% end %>
       </div>
     </div>
-    <div class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
-      <div class="h-56 w-full object-cover bg-gradient-to-t from-pink-500 to-yellow-500 rounded-xl"></div>
-
-      <div class="bg-white p-4 sm:p-6 text-left p-5 flex flex-col gap-6">
-        <div class="flex flex-col gap-2">
-          <div class="flex items-center gap-3">
-            <time datetime="2022-10-10" class="block text-xs text-gray-500"> 10th Oct 2022 </time>
-            <p class="text-xs text-gray-500">—</p>
-            <p class="text-xs text-gray-500"> 1 min read </p>
-          </div>
-          <a href="#">
-            <h3 class="mt-0.5 text-lg text-gray-900">How to make equity investing part of your investment strategy</h3>
-          </a>
-        </div>
-        <div class="flex items-center gap-3">
-          <img class="w-10 h-10 rounded-full" src="https://baremetrics.com/hubfs/Imported_Blog_Media/1_xrlIsG9P7XYb7aN8wHUjjg-1.jpeg" alt="Rounded avatar">
-          <p>Josh Pigford</p>
-        </div>
-      </div>
-    </div>
-    <div class="overflow-hidden rounded-2xl shadow transition hover:shadow-lg p-1 bg-white">
-      <div class="h-56 w-full object-cover bg-gradient-to-t from-pink-500 to-yellow-500 rounded-xl"></div>
-
-      <div class="bg-white p-4 sm:p-6 text-left p-5 flex flex-col gap-6">
-        <div class="flex flex-col gap-2">
-          <div class="flex items-center gap-3">
-            <time datetime="2022-10-10" class="block text-xs text-gray-500"> 10th Oct 2022 </time>
-            <p class="text-xs text-gray-500">—</p>
-            <p class="text-xs text-gray-500"> 1 min read </p>
-          </div>
-          <a href="#">
-            <h3 class="mt-0.5 text-lg text-gray-900">How to make equity investing part of your investment strategy</h3>
-          </a>
-        </div>
-        <div class="flex items-center gap-3">
-          <img class="w-10 h-10 rounded-full" src="https://baremetrics.com/hubfs/Imported_Blog_Media/1_xrlIsG9P7XYb7aN8wHUjjg-1.jpeg" alt="Rounded avatar">
-          <p>Josh Pigford</p>
-        </div>
-      </div>
-    </div>
+  </article>
+  <div class="grid grid-cols-3 gap-4 mt-7 mb-14">
+    <% @next_articles.each do |next_article| %>
+      <%= render "articles/article_card", article: next_article %>
+    <% end %>
   </div>
-  <div class="flex flex-col gap-y-2 items-center">
-    <div class="max-w-xl pt-8 mx-auto text-3xl">
-      Join the Maybe <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline") %> waitlist
-    </div>
-    <div class="flex flex-col gap-y-3 max-w-96">
-      <p class="text-sm text-neutral-500">Join the waitlist to get notified when a hosted version of the app is available.</p>
-      <%= render_signup_form %>
-    </div>
-  </div>
-  <div class="h-80 overflow-hidden p-3 mx-auto mb-10 mt-12 bg-black/[0.02] rounded-t-3xl border border-black/1 shadow-[0px_0px_22.07px_0px_rgba(0,0,0,0.03)]">
-    <%= image_tag "screenshot.png", alt: "Maybe Screenshot", class: "w-full border border-black/1 rounded-2xl shadow-[0_7.36px_7.36px_-3.68px_rgba(11,11,11,0.03)] shadow-[0_18.39px_22.07px_-3.68px_rgba(11,11,11,0.08)]" %>
-  </div>
+  <%= render partial: "articles/waitlist_cta_form" %>
 </div>
