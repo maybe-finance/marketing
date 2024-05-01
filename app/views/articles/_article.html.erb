@@ -10,7 +10,7 @@
 
     <% if article.author_name.present? %>
       <div class="flex flex-row items-center gap-3">
-        <%= image_tag article.author_image, class: "w-8 h-8 rounded-full bg-gray-500", alt: "Author" %>
+        <%= author_image_tag article.author_name, class: "w-8 h-8 rounded-full bg-neutral-100" %>
         <p class="text-sm"><%= article.author_name %></p>
       </div>
     <% end %>

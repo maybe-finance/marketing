@@ -14,7 +14,7 @@
 
     <% if @article.author_name.present? %>
       <div class="flex flex-col items-center gap-1">
-        <%= image_tag @article.author_image, class: "w-10 h-10 rounded-full bg-gray-500 mb-3", alt: "Author" %>
+        <%= author_image_tag @article.author_name, class: "w-10 h-10 rounded-full bg-gray-500 mb-3" %>
         <p class="uppercase text-gray-500 text-xs">Author</p>
         <p><%= @article.author_name %></p>
       </div>
