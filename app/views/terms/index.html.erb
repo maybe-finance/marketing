@@ -7,7 +7,7 @@
     <p class="max-w-[360px] mx-auto text-center text-sm text-neutral-400">The A-Z of every finance, crypto or money related term you can possibly think of.</p>
   </div>
 
-  <%= form_with( url: signups_path ) do |f| %>
+  <%= form_with( url: search_terms_path, method: :get ) do |f| %>
     <div class="max-w-[400px] mx-auto flex flex-row w-full p-1 mt-8 mb-4 bg-white border shadow-xs rounded-xl">
       <%= image_tag("icon-search.svg", alt: "Search", class: "inline pl-2") %>
       <%= f.email_field :email, placeholder: "Search for any term", class: "flex-1 border-0 px-2 focus:ring-0 text-sm" %>
