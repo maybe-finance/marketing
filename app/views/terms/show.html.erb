@@ -19,7 +19,22 @@
 <%= link_to image_tag('icon-linkedin.svg'), "#", class:"w-fit flex mx-auto text-center px-2 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-full hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 gap-2" %>
 </div>
 
+
+<div class="flex flex-col p-4 mt-10 mb-4 bg-white border shadow-xs rounded-xl">
+  <div class="text-left pb-3 gap-3">
+    <%= link_to image_tag('icon-bookmark.svg'), "#", class:"w-fit flex text-left px-2 py-[0.45rem] mb-3 bg-neutral-900 rounded-xl hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 gap-2" %>
+    <p class="text-lg font-medium">Discover more terms</p>
+  </div>
+  <div class="grid grid-rows-3 grid-flow-col gap-2 w-full">
+    <% @six_random_terms.each do |thing| %>
+      <%= link_to term_path(thing), class:"bg-gray-500 flex justify-between px-4 py-[0.45rem] text-base font-normal text-black rounded hover:bg-neutral-200/50 bg-neutral-200/20 hover:border-neutral-300 gap-2" do %>
+      <span><%= thing.name %></span>
+      <span><%= image_tag('icon-chevron-right.svg') %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
 </div>
 
 <%= render "shared/cta_waitlist" %>
-
