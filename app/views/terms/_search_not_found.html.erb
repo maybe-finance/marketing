@@ -1,0 +1,5 @@
+<div class="flex flex-col gap-y-1 items-center px-20 py-20">
+  <%= image_tag("icon-search-x.svg", alt: "search query not found", class: "w-6 h-6 inline") %>
+    <h1 class="text-sm font-medium mt-4">No results found</h1>
+  <p class="max-w-[360px] mx-auto text-center text-sm text-neutral-400">We didn’t find "<%= params[:query]%>".</p>
+</div>
