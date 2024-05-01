@@ -1,8 +1,6 @@
 <div class="flex flex-col items-center">
   <%= link_to articles_path, class: "border border-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center" do %>
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M7.00008 12.8333L1.16675 6.99996M1.16675 6.99996L7.00008 1.16663M1.16675 6.99996H12.8334" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+    <%= lucide_icon("arrow-left", class: "h-5 w-5") %>
   <% end %>
   <article class="max-w-3xl mt-8">
     <div class="h-96 w-full object-cover bg-gradient-to-b <%= article_random_gradient(@article) %> rounded-xl"></div>

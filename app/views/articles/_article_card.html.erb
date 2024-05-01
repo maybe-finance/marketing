@@ -1,6 +1,6 @@
 <%# locals: (article:) -%>
 <%= link_to article_url(article.slug), class: "overflow-hidden rounded-xl shadow transition hover:shadow-lg p-1 bg-white border flex flex-col justify-between h-full gap-5" do %>
-  <div class="h-56 w-full object-cover bg-gradient-to-b <%= article_random_gradient(article) %> rounded-xl"></div>
+  <div class="h-56 w-full object-cover bg-gradient-to-b <%= article_random_gradient(article) %> rounded-lg"></div>
   <div class="flex flex-col flex-grow justify-between">
     <div class="flex items-center gap-3 px-6">
       <time datetime="2022-10-10" class="block text-xs text-gray-500"> <%= article.publish_at %> </time>
