@@ -10,6 +10,7 @@ class TermsController < ApplicationController
   end
 
   def show
+    @six_random_terms = Term.all.sample(6)
   end
 
   def search
