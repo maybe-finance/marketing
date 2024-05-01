@@ -1,12 +1,12 @@
 <div class="max-w-5xl mx-auto text-center">
   <div class="flex flex-col gap-y-1">
     <div class="flex items-center justify-center gap-x-2">
-      <h1 class="text-3xl font-medium tracking-tight">Maybe Articles</h1>
-      <%= image_tag("icon-articles.svg", alt: "Articles", class: "inline") %>
+      <h1 class="text-3xl font-medium tracking-tight">Maybe Blog</h1>
+      <%= image_tag("icon-articles.svg", alt: "Blog", class: "inline") %>
     </div>
     <p class="text-sm text-neutral-400">Thoughts and insights around personal finance.</p>
   </div>
-  <div class="grid grid-cols-3 gap-4 mt-7 mb-14">
+  <div class="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-7 mb-14">
     <% @articles.each do |article| %>
       <%= render partial: "articles/article_card", locals: { article: article } %>
     <% end %>
