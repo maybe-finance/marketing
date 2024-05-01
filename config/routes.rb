@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]
   resources :articles, only: [ :index, :show ]
-  resources :terms, only: [ :index, :show ] do
-    get :search
-    post :search
+  resources :terms do
+    get :search, on: :collection
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
