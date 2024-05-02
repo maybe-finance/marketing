@@ -1,4 +1,53 @@
-<div>
-  <h1 class="font-bold text-4xl">Terms#index</h1>
-  <p>Find me in app/views/terms/index.html.erb</p>
+<div data-controller="section-links" data-section-links-active-class="bg-white border-gray-100 shadow-xs text-neutral-900">
+  <div class="max-w-96 mx-auto text-center">
+    <div class="mb-1">
+      <div class="flex items-center justify-center gap-x-2">
+        <h1 class="text-3xl font-medium tracking-tight">Dictionary</h1>
+        <%= image_tag("icon-book.svg", alt: "", class: "inline") %>
+      </div>
+
+      <p class="text-sm text-neutral-400 mt-3">The A-Z of every finance, crypto or money related term you can possibly think of.</p>
+
+      <%= form_with method: :get, class: "mt-4 relative", data: { controller: "auto-submit-form", turbo_frame: "terms_list" } do |f| %>
+        <%= f.text_field:q, value: @query,
+          class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-sm",
+          placeholder: "Search for any term",
+          data: { auto_submit_form_target: "auto" } %>
+        <%= lucide_icon "search", class: "absolute top-2.5 left-3 w-5 h-5 text-gray-500 pointer-events-none" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex gap-1 pt-7 sticky top-0 bg-[#f9f9f9]">
+    <% dict_groups.each do |group| %>
+      <a
+        href="#<%= group.delete " " %>"
+        class="grid place-items-center flex-1 py-2 px-1 text-sm font-medium text-gray-500 border border-transparent hover:bg-white hover:border-gray-100 hover:shadow-xs hover:text-neutral-900 target:bg-white rounded-xl"
+        data-section-links-target="link">
+        <%= group %>
+      </a>
+    <% end %>
+  </div>
+
+  <turbo-frame id="terms_list" target="_top">
+    <div class="hidden only:block max-w-96 mx-auto text-center py-56">
+      <%= lucide_icon "search-x", class: "w-6 h-6 mx-auto text-gray-500" %>
+      <p class="mt-4 text-sm font-medium">No results found</p>
+      <p class="mt-2 text-sm text-gray-500">We didn't find "<%= @query %>".</p>
+    </div>
+
+    <% @terms.group_by { |t| dict_group(t.title) }.each do |group, terms| %>
+      <div id="<%= group.delete " " %>" class="border-b last:border-b-0 py-12 scroll-mt-10" data-section-links-target="section">
+        <h2 class="text-2xl font-medium tracking-tight px-2"><%= group %></h2>
+
+        <div class="columns-4 gap-4 space-y-1 mt-6">
+          <% terms.each do |term| %>
+            <%= link_to term.title, term_path(term), class: "block p-2 hover:bg-[#ececec] rounded-lg" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </turbo-frame>
+
+  <%= render "shared/cta_waitlist" %>
 </div>
