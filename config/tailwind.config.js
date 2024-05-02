@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require("../app/javascript/tailwindColors");
 
 module.exports = {
   content: [
@@ -8,6 +9,7 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}'
   ],
   theme: {
+    colors,
     boxShadow: {
       none: "0 0 #0000",
       inner: "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)",
