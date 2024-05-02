@@ -39,7 +39,7 @@
         <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
           <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
         <% end %>
-        <%= link_to "Join waitlist", "#", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900" %>
+        <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900" %>
       </div>
     </header>
     <main class="max-w-5xl mx-auto my-10">
@@ -52,7 +52,7 @@
           <p class="text-sm text-gray-500">Join the waitlist to get notified when a hosted version of the app is available.</p>
           <%= render_signup_form %>
         </div>
-        <div class="flex text-sm leading-6 gap-x-10 text-gray-500">
+        <div class="flex text-sm leading-6 text-gray-500 gap-x-10">
           <div>
             <h4 class="mb-4 text-xs font-medium uppercase">General</h4>
             <ul>
