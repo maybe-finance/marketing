@@ -1,4 +1,4 @@
-<% 
+<%
   title @article.title
   description "#{markdown(@article.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
 %>
