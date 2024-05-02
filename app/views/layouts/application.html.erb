@@ -24,22 +24,22 @@
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
   </head>
 
-  <body class="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100">
+  <body class="min-h-screen bg-gradient-to-b from-gray-25 to-gray-50">
     <header class="flex items-center justify-between py-5 px-7">
       <div class="flex items-center gap-x-3">
         <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
-        <span class="px-1.5 py-0.5 text-[0.1em] uppercase bg-white border rounded-full border-neutral-200/75 text-neutral-500">Early Access</span>
+        <span class="px-1.5 py-0.5 text-[0.1em] uppercase bg-white border rounded-full border-gray-200/75 text-gray-500">Early Access</span>
       </div>
       <nav class="flex-1 text-sm text-center gap-x-1">
-        <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %>
-        <%= link_to "Financial Terms", terms_path, class: "px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %>
-        <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-neutral-800 hover:text-neutral-9000 hover:bg-neutral-200/60 rounded-xl">Contribute</a>
+        <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
+        <%= link_to "Financial Terms", terms_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
+        <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-gray-800 hover:text-gray-9000 hover:bg-alpha-black-50 rounded-xl">Contribute</a>
       </nav>
       <div class="flex gap-x-2">
-        <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-xl hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 flex items-center gap-2" do %>
+        <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
           <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
         <% end %>
-        <%= link_to "Join waitlist", "#", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 border border-neutral-900" %>
+        <%= link_to "Join waitlist", "#", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900" %>
       </div>
     </header>
     <main class="max-w-5xl mx-auto my-10">
@@ -49,10 +49,10 @@
       <div class="flex justify-between gap-x-4">
         <div class="flex flex-col gap-y-3 max-w-96">
           <div><%= link_to image_tag("icon-logo.svg", alt: "Maybe Logo", class: "w-12 inline"), root_path %></div>
-          <p class="text-sm text-neutral-500">Join the waitlist to get notified when a hosted version of the app is available.</p>
+          <p class="text-sm text-gray-500">Join the waitlist to get notified when a hosted version of the app is available.</p>
           <%= render_signup_form %>
         </div>
-        <div class="flex text-sm leading-6 gap-x-10 text-neutral-500">
+        <div class="flex text-sm leading-6 gap-x-10 text-gray-500">
           <div>
             <h4 class="mb-4 text-xs font-medium uppercase">General</h4>
             <ul>
@@ -100,7 +100,7 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-between mt-12 text-sm text-neutral-500">
+      <div class="flex justify-between mt-12 text-sm text-gray-500">
         <p class="">© <%= Time.now.year %> Maybe Finance, Inc.</p>
         <p class="">Made with ❤️ on planet Earth.</p>
     </footer>

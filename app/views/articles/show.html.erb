@@ -3,7 +3,7 @@
   description "#{markdown(@article.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
 %>
 
-<%= link_to articles_path, class: "w-9 h-9 rounded-full grid place-items-center mx-auto text-gray-500 hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 " do %>
+<%= link_to articles_path, class: "w-9 h-9 rounded-full grid place-items-center mx-auto text-gray-500 hover:bg-gray-200/50 bg-transparent border border-gray-300 hover:border-gray-300 " do %>
   <%= lucide_icon("arrow-left", class: "h-5 w-5") %>
 <% end %>
 
@@ -14,7 +14,7 @@
       <span class="text-xs font-medium text-gray-500 uppercase">
         <%= @article.created_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(@article) %>
       </span>
-      <h1 class="text-3xl font-medium text-neutral-900"><%= @article.title %></h1>
+      <h1 class="text-3xl font-medium text-gray-900"><%= @article.title %></h1>
     </div>
 
     <% if @article.author_name.present? %>

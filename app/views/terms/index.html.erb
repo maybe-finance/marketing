@@ -3,7 +3,7 @@
   description "The A-Z of every personal finance, crypto or money related term you can think of."
 %>
 
-<div data-controller="section-links" data-section-links-active-class="bg-white border-gray-100 shadow-xs text-neutral-900">
+<div data-controller="section-links" data-section-links-active-class="bg-white border-gray-100 shadow-xs text-gray-900">
   <div class="mx-auto text-center max-w-96">
     <div class="mb-1">
       <div class="flex items-center justify-center gap-x-2">
@@ -11,7 +11,7 @@
         <%= image_tag("icon-book.svg", alt: "", class: "inline") %>
       </div>
 
-      <p class="mt-3 text-sm text-neutral-400">The A-Z of every finance, crypto or money related term you can possibly think of.</p>
+      <p class="mt-3 text-sm text-gray-400">The A-Z of every finance, crypto or money related term you can possibly think of.</p>
 
       <%= form_with method: :get, class: "mt-4 relative", data: { controller: "auto-submit-form", turbo_frame: "terms_list" } do |f| %>
         <%= f.text_field:q, value: @query,
@@ -27,7 +27,7 @@
     <% dict_groups.each do |group| %>
       <a
         href="#<%= group.delete " " %>"
-        class="grid flex-1 px-1 py-2 text-sm font-medium text-gray-500 border border-transparent place-items-center hover:bg-white hover:border-gray-100 hover:shadow-xs hover:text-neutral-900 target:bg-white rounded-xl"
+        class="grid flex-1 px-1 py-2 text-sm font-medium text-gray-500 border border-transparent place-items-center hover:bg-white hover:border-gray-100 hover:shadow-xs hover:text-gray-900 target:bg-white rounded-xl"
         data-section-links-target="link">
         <%= group %>
       </a>
@@ -47,7 +47,7 @@
 
         <div class="gap-4 mt-6 space-y-1 columns-4">
           <% terms.each do |term| %>
-            <%= link_to term.name, term_path(term), class: "block p-2 hover:bg-[#ececec] rounded-lg" %>
+            <%= link_to term.name, term_path(term), class: "block p-2 hover:bg-alpha-black-50 rounded-lg" %>
           <% end %>
         </div>
       </div>

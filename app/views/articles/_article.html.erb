@@ -5,12 +5,12 @@
       <span class="text-xs font-medium text-gray-500 uppercase">
         <%= article.created_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(article) %>
       </span>
-      <h2 class="text-2xl font-medium text-neutral-900"><%= article.title %></h2>
+      <h2 class="text-2xl font-medium text-gray-900"><%= article.title %></h2>
     </div>
 
     <% if article.author_name.present? %>
       <div class="flex flex-row items-center gap-3">
-        <%= author_image_tag article.author_name, class: "w-8 h-8 rounded-full bg-neutral-100" %>
+        <%= author_image_tag article.author_name, class: "w-8 h-8 rounded-full bg-gray-100" %>
         <p class="text-sm"><%= article.author_name %></p>
       </div>
     <% end %>
