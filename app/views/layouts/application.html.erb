@@ -17,34 +17,52 @@
   </head>
 
   <body class="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100">
-    <header class="flex items-center justify-between py-5 px-7">
-      <div class="flex items-center gap-x-3">
-        <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
-        <span class="px-1.5 py-0.5 text-[0.1em] uppercase bg-white border rounded-full border-neutral-200/75 text-neutral-500">Early Access</span>
-      </div>
-      <nav class="flex-1 text-sm text-center gap-x-1">
-        <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %>
-        <%= link_to "Financial Terms", terms_path, class: "px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %>
-        <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-neutral-800 hover:text-neutral-9000 hover:bg-neutral-200/60 rounded-xl">Contribute</a>
-      </nav>
-      <div class="flex gap-x-2">
-        <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-xl hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 flex items-center gap-2" do %>
-          <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
-        <% end %>
-        <%= link_to "Join waitlist", "#", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 border border-neutral-900" %>
-      </div>
-    </header>
-    <main class="max-w-5xl mx-auto my-10">
+   <header class="flex items-center justify-between py-5 px-7 flex-wrap">
+    <div class="flex items-center gap-x-3">
+      <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
+      <span class="px-1.5 py-0.5 text-[0.1em] uppercase bg-white border rounded-full border-neutral-200/75 text-neutral-500">Early Access</span>
+    </div>
+    <div class="flex-1 text-sm text-center gap-x-1 hidden md:block">
+      <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %>
+      <%= link_to "Financial Terms", terms_path, class: "px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %>
+      <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl">Contribute</a>
+    </div>
+    <%= image_tag("icon-hamburger.svg", alt: "Menu", class: "w-6 h-6 md:hidden", id: "nav-toggle") %>
+    <div class="flex gap-x-2 hidden md:flex">
+      <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-xl hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 flex items-center gap-2" do %>
+        <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
+      <% end %>
+      <%= link_to "Join waitlist", "#", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 border border-neutral-900" %>
+    </div>
+    <div class="w-full flex flex-col mt-4 font-medium hidden md:hidden" id="mobile-menu">
+      <ul class="flex flex-col lg:flex-row lg:space-x-8">
+        <li><%= link_to "Articles", articles_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
+        <li><%= link_to "Financial Terms", terms_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
+        <li><a href="https://github.com/maybe-finance/maybe" class="block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl">Contribute</a></li>
+        <div class="flex flex-col gap-y-3">
+         <li>
+         <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-xl hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 flex items-center gap-2" do %>
+         <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
+         <% end %>
+         </li>
+         <li>
+         <%= link_to "Join waitlist", "#", class: "px-3 py-[0.45rem] w-full text-sm font-medium text-white bg-neutral-900 rounded-xl hover:bg-neutral-800 border border-neutral-900 flex w-full" %>
+         </li>
+        </div>
+      </ul>
+    </div>
+   </header>
+    <main class="max-w-5xl mx-auto my-10 px-3 md:px-0">
       <%= yield %>
     </main>
-    <footer class="max-w-5xl mx-auto my-8">
-      <div class="flex justify-between gap-x-4">
+    <footer class="max-w-5xl mx-auto my-8 p-6 md:p-0">
+      <div class="flex flex-col md:flex-row justify-between gap-x-4 gap-y-4">
         <div class="flex flex-col gap-y-3 max-w-96">
           <div><%= link_to image_tag("icon-logo.svg", alt: "Maybe Logo", class: "w-12 inline"), root_path %></div>
           <p class="text-sm text-neutral-500">Join the waitlist to get notified when a hosted version of the app is available.</p>
           <%= render_signup_form %>
         </div>
-        <div class="flex text-sm leading-6 gap-x-10 text-neutral-500">
+        <div class="flex flex-col md:flex-row text-sm leading-6 gap-x-10 gap-y-4 text-neutral-500">
           <div>
             <h4 class="mb-4 text-xs font-medium uppercase">General</h4>
             <ul>
@@ -92,7 +110,7 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-between mt-12 text-sm text-neutral-500">
+      <div class="flex flex-col md:flex-row justify-between mt-12 text-sm text-neutral-500 text-center md:text-left">
         <p class="">© <%= Time.now.year %> Maybe Finance, Inc.</p>
         <p class="">Made with ❤️ on planet Earth.</p>
     </footer>
