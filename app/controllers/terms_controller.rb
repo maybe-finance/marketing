@@ -3,10 +3,10 @@ class TermsController < ApplicationController
     @query = params[:q]
 
     @terms = Term.all
-    @terms = @terms.where("title ILIKE ?", "%#{@query}%") if @query.present?
+    @terms = @terms.where("name ILIKE :query OR title ILIKE :query", query: "%#{@query}%") if @query.present?
   end
 
   def show
-    @term = Term.find(params[:id])
+    @term = Term.find_by(slug: params[:id])
   end
 end

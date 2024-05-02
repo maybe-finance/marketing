@@ -1,3 +1,8 @@
+<% 
+  title @article.title
+  description "#{markdown(@article.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
+%>
+
 <%= link_to articles_path, class: "w-9 h-9 rounded-full grid place-items-center mx-auto text-gray-500 hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 " do %>
   <%= lucide_icon("arrow-left", class: "h-5 w-5") %>
 <% end %>
@@ -6,16 +11,16 @@
   <%= tag.div class: "min-h-[420px] rounded-lg bg-gradient-to-b #{article_gradient(@article)}" %>
   <div class="max-w-[520px] mx-auto space-y-4">
     <div class="space-y-4">
-      <span class="text-gray-500 font-medium text-xs uppercase">
-        <%= @article.created_at.to_date.to_formatted_s(:long) %> — <%= article_reading_time(@article) %>
+      <span class="text-xs font-medium text-gray-500 uppercase">
+        <%= @article.created_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(@article) %>
       </span>
-      <h1 class="text-neutral-900 font-medium text-3xl"><%= @article.title %></h1>
+      <h1 class="text-3xl font-medium text-neutral-900"><%= @article.title %></h1>
     </div>
 
     <% if @article.author_name.present? %>
       <div class="flex flex-col items-center gap-1">
         <%= author_image_tag @article.author_name, class: "w-10 h-10 rounded-full bg-gray-500 mb-3" %>
-        <p class="uppercase text-gray-500 text-xs">Author</p>
+        <p class="text-xs text-gray-500 uppercase">Author</p>
         <p><%= @article.author_name %></p>
       </div>
     <% end %>
@@ -23,10 +28,8 @@
 </div>
 
 <div class="max-w-[520px] mt-4 mx-auto prose">
-  <%= simple_format @article.content %>
+  <%= markdown @article.content %>
 </div>
-
-<%= render "shared/social_share" %>
 
 <div class="grid grid-cols-[repeat(auto-fit,_minmax(min(288px,_100%),_1fr))] gap-4 mt-20">
   <%= render Article.random_sample(3, exclude: @article) %>

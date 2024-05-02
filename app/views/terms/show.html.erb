@@ -1,22 +1,25 @@
+<% 
+  title @term.title
+  description "#{markdown(@term.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
+%>
+
 <%= link_to terms_path, class: "w-9 h-9 rounded-full grid place-items-center mx-auto text-gray-500 hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 " do %>
   <%= lucide_icon("arrow-left", class: "h-5 w-5") %>
 <% end %>
 
 <div class="max-w-[520px] mt-4 mx-auto prose">
   <p class="text-sm text-center">
-    <span class="text-gray-500">Dictionary / <%= dict_group(@term.title) %> /</span> <%= @term.title %>
+    <span class="text-gray-500">Dictionary / <%= dict_group(@term.name) %> /</span> <%= @term.name %>
   </p>
-
-  <%= simple_format @term.content %>
+  <h1 class="text-3xl font-medium tracking-tight text-center"><%= @term.title %></h1>
+  <%= markdown @term.content %>
 </div>
-
-<%= render "shared/social_share" %>
 
 <div class="bg-white p-4 border shadow-xs rounded-2xl mt-10 max-w-[594px] mx-auto">
   <div class="rounded-lg grid place-items-center w-10 h-10 bg-[#f5f9ff] border border-[#eef2f8]">
     <%= lucide_icon "bookmark", class: "h-6 w-6 text-blue-500" %>
   </div>
-  <h2 class="font-medium text-lg mt-3">Discover more terms</h2>
+  <h2 class="mt-3 text-lg font-medium">Discover more terms</h2>
 
   <div class="grid grid-cols-2 gap-x-3 gap-y-[6px] mt-3">
     <% Term.random_sample(6, exclude: @term).each do |term| %>
