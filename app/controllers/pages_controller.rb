@@ -8,6 +8,12 @@ class PagesController < ApplicationController
     end
   end
 
+  def tos
+  end
+
+  def privacy
+  end
+
   private
 
   def fetch_stars_count
