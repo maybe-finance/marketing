@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://maybe.co</loc>
+  </url>
+  <url>
+    <loc>https://maybe.co/privacy</loc>
+  </url>
+  <url>
+    <loc>https://maybe.co/tos</loc>
+  </url>
+  <url>
+    <loc>https://maybe.co/financial-terms</loc>
+  </url>
+  <% @terms.each do |term| %>
+  <url>
+    <loc>https://maybe.co/financial-terms/<%= term.slug %></loc>
+  </url>
+  <% end %>
+  <url>
+    <loc>https://maybe.co/articles</loc>
+  </url>
+  <% @articles.each do |article| %>
+  <url>
+    <loc>https://maybe.co/articles/<%= article.slug %></loc>
+  </url>
+  <% end %>
+</urlset>

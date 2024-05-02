@@ -14,6 +14,11 @@ class PagesController < ApplicationController
   def privacy
   end
 
+  def sitemap
+    @terms = Term.all
+    @articles = Article.all.order(publish_at: :desc)
+  end
+
   private
 
   def fetch_stars_count
