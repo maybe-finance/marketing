@@ -1,13 +1,13 @@
 <div class="text-center">
-  <div class="max-w-xl pt-8 mx-auto mb-4 text-3xl">
-    Maybe <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline") %> is a <em class="relative"><span class="border-b-2 border-gray-400 border-dotted">fully</span><sup>*</sup> <span class="absolute w-64 text-xs text-left text-gray-400 left-16 -top-7 -rotate-3"><sup>*</sup>your finances are secure</span></em> open-source
-    <div class="inline-flex border rounded-md shadow-[0_1px_8px_0_rgba(0,0,0,0.04)] border-gray-200">
+  <div class="max-w-xl pt-8 mx-auto mb-4 text-[28px] md:text-3xl ">
+    Maybe <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> is a <em class="relative"><span class="border-b-2 border-gray-400 border-dotted">fully</span><sup>*</sup> <span class="absolute w-40 md:w-64 text-xs text-left text-gray-400 left-2 -top-8 md:left-16 md:-top-7 -rotate-3"><sup>*</sup>your finances are secure</span></em> open-source
+    <div class="inline-flex border rounded-md shadow-[0_1px_8px_0_rgba(0,0,0,0.04)] border-gray-200 scale-[0.8] md:scale-100">
       <%= link_to "https://github.com/maybe-finance/maybe", class: "px-2 py-1.5 border-r shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] bg-gray-100 rounded-l-md border-gray-200 flex items-center justify-center" do %>
         <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-5 w-5") %>
       <% end %>
       <span class="px-2 py-1.5 text-sm font-medium bg-white shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] rounded-r-md"><%= number_to_human(@stars, format: "%n%u", units: { thousand: "k" }) %></span>
     </div>
-    OS for your personal finances <%= image_tag("icon-chart.svg", alt: "Chart", class: "inline") %> built by a small team <%= image_tag("icon-team.png", alt: "Maybe Team", class: "inline h-9") %> alongside an incredible community <%= image_tag("icon-discord.svg", alt: "Discord", class: "inline") %>
+    OS for your personal finances <%= image_tag("icon-chart.svg", alt: "Chart", class: "inline w-8 md:w-auto") %> built by a small team <%= image_tag("icon-team.png", alt: "Maybe Team", class: "inline h-8 md:h-9") %> alongside an incredible community <%= image_tag("icon-discord.svg", alt: "Discord", class: "inline w-8 md:w-auto") %>
   </div>
   <div class="mx-auto max-w-96" id="waitlist">
     <%= render_signup_form %>

@@ -23,11 +23,11 @@
     </div>
   </div>
 
-  <div class="flex gap-1 pt-7 sticky top-0 bg-[#f9f9f9]">
+  <div class="flex gap-1 pt-7 sticky top-0 bg-[#f9f9f9] overflow-x-auto md:overflow-x-visible whitespace-nowrap md:whitespace-normal" style="scrollbar-width: none;">
     <% dict_groups.each do |group| %>
       <a
         href="#<%= group.delete " " %>"
-        class="grid flex-1 px-1 py-2 text-sm font-medium text-gray-500 border border-transparent place-items-center hover:bg-white hover:border-gray-100 hover:shadow-xs hover:text-gray-900 target:bg-white rounded-xl"
+        class="inline-block text-md md:text-sm md:grid flex-1 px-1 py-2 font-medium text-gray-500 border border-transparent place-items-center hover:bg-white hover:border-gray-100 hover:shadow-xs hover:text-gray-900 target:bg-white rounded-xl"
         data-section-links-target="link">
         <%= group %>
       </a>
@@ -45,7 +45,7 @@
       <div id="<%= group.delete " " %>" class="py-12 border-b last:border-b-0 scroll-mt-10" data-section-links-target="section">
         <h2 class="px-2 text-2xl font-medium tracking-tight"><%= group %></h2>
 
-        <div class="gap-4 mt-6 space-y-1 columns-4">
+        <div class="gap-4 mt-6 space-y-1 columns-2 md:columns-4">
           <% terms.each do |term| %>
             <%= link_to term.name, term_path(term), class: "block p-2 hover:bg-alpha-black-50 rounded-lg" %>
           <% end %>
