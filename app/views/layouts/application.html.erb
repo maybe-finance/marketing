@@ -35,7 +35,7 @@
       <%= link_to "Financial Terms", terms_path, class: "px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %>
       <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl">Contribute</a>
     </div>
-    <%= image_tag("icon-hamburger.svg", alt: "Menu", class: "w-6 h-6 md:hidden", id: "nav-toggle") %>
+    <%= lucide_icon("menu", alt: "Menu", class: "w-6 h-6 md:hidden", id: "nav-toggle") %>
     <div class="flex gap-x-2 hidden md:flex">
       <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black bg-neutral-900 rounded-xl hover:bg-neutral-200/50 bg-transparent border border-neutral-300 hover:border-neutral-300 flex items-center gap-2" do %>
         <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
