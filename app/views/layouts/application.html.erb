@@ -15,6 +15,20 @@
     <meta name="msapplication-TileColor" content="#F9F9F9">
     <meta name="theme-color" content="#F9F9F9">
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe" %>">
+    <meta property="og:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe: The OS for your personal finances" %>">
+    <meta property="og:image" content="<%= image_url(content_for?(:meta_image) ? yield(:meta_image) : "meta.png") %>">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe" %>">
+    <meta name="twitter:site" content="@maybe">
+    <meta name="twitter:creator" content="@maybe">
+    <meta name="twitter:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe: The OS for your personal finances" %>">
+    <meta name="twitter:image" content="<%= image_url(content_for?(:meta_image) ? yield(:meta_image) : "meta.png") %>">
+
     <%= yield :head %>
 
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
