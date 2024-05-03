@@ -25,24 +25,24 @@
   </head>
 
   <body class="min-h-screen bg-gradient-to-b from-gray-25 to-gray-50">
-    <header class="flex items-center justify-between py-5 px-7 flex-wrap">
+    <header class="flex flex-wrap items-center justify-between py-5 px-7">
       <div class="flex items-center gap-x-3">
         <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
         <span class="px-1.5 py-0.5 text-[0.1em] uppercase bg-white border rounded-full border-gray-200/75 text-gray-500">Early Access</span>
       </div>
-      <nav class="flex-1 text-sm text-center gap-x-1 hidden md:flex">
+      <nav class="hidden text-sm text-center gap-x-1 md:flex">
         <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
         <%= link_to "Financial Terms", terms_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
         <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-gray-800 hover:text-gray-9000 hover:bg-alpha-black-50 rounded-xl">Contribute</a>
       </nav>
-      <div class="flex gap-x-2 hidden md:flex">
+      <div class="flex hidden gap-x-2 md:flex">
         <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
           <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
         <% end %>
         <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900" %>
       </div>
       <%= lucide_icon("menu", alt: "Menu", class: "w-6 h-6 md:hidden", id: "nav-toggle") %>
-       <div class="w-full flex flex-col mt-4 font-medium hidden md:hidden" id="mobile-menu">
+       <div class="flex flex-col hidden w-full mt-4 font-medium md:hidden" id="mobile-menu">
          <ul class="flex flex-col lg:flex-row lg:space-x-8">
            <li><%= link_to "Articles", articles_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
            <li><%= link_to "Financial Terms", terms_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
@@ -60,10 +60,10 @@
          </ul>
        </div>
     </header>
-    <main class="max-w-5xl mx-auto my-10 px-3 md:px-0">
+    <main class="max-w-5xl px-3 mx-auto my-10 md:px-0">
       <%= yield %>
     </main>
-    <footer class="max-w-5xl mx-auto my-8 p-6 md:p-0">
+    <footer class="max-w-5xl p-6 mx-auto my-8 md:p-0">
       <div class="flex flex-col justify-between gap-x-4 md:flex-row">
         <div class="flex flex-col gap-y-3 max-w-96">
           <div><%= link_to image_tag("icon-logo.svg", alt: "Maybe Logo", class: "w-12 inline"), root_path %></div>
@@ -118,7 +118,7 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col justify-between mt-12 text-sm text-gray-500 text-center md:flex-row md:text-left">
+      <div class="flex flex-col justify-between mt-12 text-sm text-center text-gray-500 md:flex-row md:text-left">
         <p class="">© <%= Time.now.year %> Maybe Finance, Inc.</p>
         <p class="">Made with ❤️ on planet Earth.</p>
     </footer>

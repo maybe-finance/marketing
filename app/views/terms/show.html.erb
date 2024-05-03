@@ -12,10 +12,10 @@
     <span class="text-gray-500">Financial Terms / <%= dict_group(@term.name) %> /</span> <%= @term.name %>
   </p>
   <h1 class="text-3xl font-medium tracking-tight text-center"><%= @term.title %></h1>
-  
+
   <% if @term.video_id.present? %>
   <div class="aspect-w-16 aspect-h-9">
-    <iframe src="https://www.youtube.com/embed/<%=@term.video_id %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/<%= @term.video_id %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   </div>
   <% end %>
 
@@ -49,11 +49,11 @@
     "@id": "<%= request.original_url %>"
   },
   "headline": "<%= @term.name.presence || "#{@term.name} meaning in personal finance" %>",
-  "description": "<%= markdown(@term.content).gsub(%r{</?[^>]+?>}, '') %>",
+  "description": "<%= markdown(@term.content).gsub(%r{</?[^>]+?>}, "") %>",
   "author": {
     "@type": "Organization",
     "name": "Maybe"
-  },  
+  },
   "publisher": {
     "@type": "Organization",
     "name": "Maybe",
@@ -75,7 +75,7 @@
   "thumbnailUrl": "<%= @term.video_thumbnail_url %>",
   "uploadDate": "<%= @term.video_upload_date %>",
   "duration": "<%= @term.video_duration %>",
-  "embedUrl": "https://www.youtube.com/embed/<%=@term.video_id %>"
+  "embedUrl": "https://www.youtube.com/embed/<%= @term.video_id %>"
 }
 </script>
 <% end %>
