@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_05_01_163921) do
+ActiveRecord::Schema[7.2].define(version: 2024_05_02_181717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,5 +31,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_05_01_163921) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "video_id"
+    t.string "video_title"
+    t.text "video_description"
+    t.string "video_thumbnail_url"
+    t.date "video_upload_date"
+    t.string "video_duration"
   end
 end

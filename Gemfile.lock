@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/excid3/madmin.git
-  revision: 247256623b0c54f0a354d8a0834b9c3c9d513a7a
+  revision: cc6cd36ca4a64cb5b75a829fffd41b7948afde6c
   specs:
-    madmin (1.2.9)
+    madmin (1.2.10)
       pagy (>= 3.5)
       rails (>= 6.0.3)
 
@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: cc7f0b0d4cabc4807a271a6dfa22150943c80412
+  revision: 793ff00442723b2ff9ed7b7fb39cae2f5608cc2b
   branch: main
   specs:
     actioncable (7.2.0.alpha)
@@ -103,7 +103,7 @@ GIT
     railties (7.2.0.alpha)
       actionpack (= 7.2.0.alpha)
       activesupport (= 7.2.0.alpha)
-      irb
+      irb (~> 1.13)
       rackup (>= 1.0.0)
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
@@ -177,8 +177,8 @@ GEM
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.7.2)
-    irb (1.12.0)
-      rdoc
+    irb (1.13.0)
+      rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jbuilder (2.12.0)
       actionview (>= 5.0.0)
@@ -271,7 +271,7 @@ GEM
     redis-client (0.22.1)
       connection_pool
     regexp_parser (2.9.0)
-    reline (0.5.4)
+    reline (0.5.5)
       io-console (~> 0.5)
     rexml (3.2.6)
     rubocop (1.63.3)

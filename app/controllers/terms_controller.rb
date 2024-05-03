@@ -2,7 +2,7 @@ class TermsController < ApplicationController
   def index
     @query = params[:q]
 
-    @terms = Term.all
+    @terms = Term.order(:name)
     @terms = @terms.where("name ILIKE :query OR title ILIKE :query", query: "%#{@query}%") if @query.present?
   end
 
