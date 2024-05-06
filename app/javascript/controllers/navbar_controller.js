@@ -1,6 +1,10 @@
-const navToggle = document.getElementById('nav-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
+import { Controller } from "@hotwired/stimulus";
 
-navToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-});
+export default class extends Controller {
+  static targets = ['mobileMenu'];
+  static classes = ['hidden'];
+
+  toggleMobileMenu() {
+    this.mobileMenuTarget.classList.toggle(this.hiddenClass);
+  }
+}
