@@ -42,7 +42,7 @@
     <header class="flex flex-wrap items-center justify-between py-5 px-7" data-controller="navbar" data-navbar-hidden-class="hidden">
       <div class="flex items-center gap-x-3">
         <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
-        <span class="px-1.5 py-0.5 text-[0.1em] uppercase bg-white border rounded-full border-gray-200/75 text-gray-500">Early Access</span>
+        <span class="px-1.5 py-0.5 text-[10px] uppercase bg-white border rounded-full border-gray-200/75 text-gray-500">Early Access</span>
       </div>
       <nav class="hidden text-sm text-center gap-x-1 md:flex">
         <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
@@ -79,54 +79,54 @@
     </main>
     <footer class="max-w-5xl p-6 mx-auto my-8 md:p-0">
       <div class="flex flex-col justify-between gap-x-4 md:flex-row">
-        <div class="flex flex-col gap-y-3 max-w-96">
-          <div><%= link_to image_tag("icon-logo.svg", alt: "Maybe Logo", class: "w-12 inline"), root_path %></div>
+        <div class="flex flex-col gap-y-4 max-w-96">
+          <div><%= link_to image_tag("icon-logo.svg", alt: "Maybe Logo", class: "w-10 inline"), root_path %></div>
           <p class="text-sm text-gray-500">Join the waitlist to get notified when a hosted version of the app is available.</p>
           <%= render_signup_form %>
         </div>
         <div class="flex flex-col text-sm leading-6 text-gray-500 gap-x-10 md:flex-row">
           <div>
             <h4 class="mb-4 text-xs font-medium uppercase">General</h4>
-            <ul>
+            <ul class="flex flex-col gap-y-1">
               <li>
-                <%= link_to "Articles", articles_path %>
+                <%= link_to "Articles", articles_path, class: 'text-[#141414]' %>
               </li>
               <li>
-                <%= link_to "Financial Terms", terms_path %>
+                <%= link_to "Financial Terms", terms_path, class: 'text-[#141414]' %>
               </li>
               <li>
-                <%= link_to "Contribute", "https://github.com/maybe-finance/maybe" %>
+                <%= link_to "Contribute", "https://github.com/maybe-finance/maybe", class: 'text-[#141414]' %>
               </li>
             </ul>
           </div>
           <div>
             <h4 class="mb-4 text-xs font-medium uppercase">More</h4>
-            <ul>
+            <ul class="flex flex-col gap-y-1">
               <li>
-                <%= link_to "Join Community", "https://link.maybe.co/discord" %>
+                <%= link_to "Join Community", "https://link.maybe.co/discord", class: 'text-[#141414]' %>
               </li>
               <li>
-                <%= link_to "Self-Host", "https://github.com/maybe-finance/maybe" %>
+                <%= link_to "Self-Host", "https://github.com/maybe-finance/maybe", class: 'text-[#141414]' %>
               </li>
               <li>
-                <%= link_to "Privacy Policy", privacy_path %>
+                <%= link_to "Privacy Policy", privacy_path, class: 'text-[#141414]' %>
               </li>
               <li>
-                <%= link_to "Terms of Service", tos_path %>
+                <%= link_to "Terms of Service", tos_path, class: 'text-[#141414]' %>
               </li>
             </ul>
           </div>
           <div>
             <h4 class="mb-4 text-xs font-medium uppercase">Social</h4>
-            <ul>
+            <ul class="flex flex-col gap-y-1">
               <li>
-                <%= link_to "Discord", "https://link.maybe.co/discord" %>
+                <%= link_to "Discord", "https://link.maybe.co/discord", class: 'text-[#141414]' %>
               </li>
               <li>
-                <%= link_to "Twitter", "https://twitter.com/maybe" %>
+                <%= link_to "Twitter", "https://twitter.com/maybe", class: 'text-[#141414]' %>
               </li>
               <li>
-                <%= link_to "LinkedIn", "https://linkedin.com/company/maybe-finance" %>
+                <%= link_to "LinkedIn", "https://linkedin.com/company/maybe-finance", class: 'text-[#141414]' %>
               </li>
             </ul>
           </div>

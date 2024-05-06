@@ -3,7 +3,7 @@
   description "The A-Z of every personal finance, crypto or money related term you can think of."
 %>
 
-<div data-controller="section-links" data-section-links-active-class="bg-white border-gray-100 shadow-xs text-gray-900">
+<div data-controller="section-links" data-section-links-active-class="text-gray-900 bg-white !border-gray-200 shadow-xs">
   <div class="mx-auto text-center max-w-96">
     <div class="mb-1">
       <div class="flex items-center justify-center gap-x-2">
@@ -27,7 +27,7 @@
     <% dict_groups.each do |group| %>
       <a
         href="#<%= group.delete " " %>"
-        class="inline-block text-md md:text-sm md:grid flex-1 px-1 py-2 font-medium text-gray-500 border border-transparent place-items-center hover:bg-white hover:border-gray-100 hover:shadow-xs hover:text-gray-900 target:bg-white rounded-xl"
+        class="flex-1 inline-block px-1 py-2 font-medium text-gray-500 border border-transparent text-md md:text-sm md:grid place-items-center hover:bg-gray-200 hover:text-gray-500 target:bg-white rounded-xl"
         data-section-links-target="link">
         <%= group %>
       </a>
