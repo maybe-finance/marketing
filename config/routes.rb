@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  revise_auth
+
+  authenticated -> { _1.admin? } do
+    mount Avo::Engine, at: Avo.configuration.root_path
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]
   resources :articles, only: [ :index, :show ]

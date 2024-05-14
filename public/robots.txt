@@ -1,3 +1,10 @@
 User-agent: *
 
+Disallow: /sign_up
+Disallow: /login
+Disallow: /profile
+Disallow: /password_resets
+Disallow: /logout
+Disallow: /signups
+
 Sitemap: https://maybe.co/sitemap.xml
