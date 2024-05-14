@@ -25,7 +25,6 @@ gem "turbo-rails"
 gem "faraday"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
-gem "madmin", github: "excid3/madmin"
 gem "redcarpet"
 
 group :development, :test do
