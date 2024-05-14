@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  mount Avo::Engine, at: Avo.configuration.root_path
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
+
+  get "login" => "pages#login" # A hack to trigger authentication
 
   get "tos" => "pages#tos"
   get "privacy" => "pages#privacy"
