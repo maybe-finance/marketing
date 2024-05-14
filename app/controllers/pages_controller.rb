@@ -2,6 +2,8 @@ require "net/http"
 require "json"
 
 class PagesController < ApplicationController
+  before_action :authenticate!, only: :login
+
   def index
     @stars = Rails.cache.fetch("stargazers_count", expires_in: 24.hours) do
       fetch_stars_count
@@ -17,6 +19,10 @@ class PagesController < ApplicationController
   def sitemap
     @terms = Term.all
     @articles = Article.all.order(publish_at: :desc)
+  end
+
+  def login
+    redirect_to avo_path
   end
 
   private
