@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/excid3/madmin.git
-  revision: cc6cd36ca4a64cb5b75a829fffd41b7948afde6c
-  specs:
-    madmin (1.2.10)
-      pagy (>= 3.5)
-      rails (>= 6.0.3)
-
-GIT
   remote: https://github.com/maybe-finance/lucide-rails.git
   revision: 6170b3a0eceb43a8af6552638e9526673c356d0d
   specs:
@@ -225,7 +217,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
-    pagy (8.3.0)
     parallel (1.24.0)
     parser (3.3.0.5)
       ast (~> 2.4.1)
@@ -379,7 +370,6 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   lucide-rails!
-  madmin!
   pg (~> 1.5)
   propshaft
   puma (>= 5.0)
