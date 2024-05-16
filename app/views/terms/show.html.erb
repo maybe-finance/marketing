@@ -70,9 +70,9 @@
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "<%= @term.video_title %>",
+  "name": "<%= @term.title %>",
   "description": "<%= @term.video_description %>",
-  "thumbnailUrl": "<%= @term.video_thumbnail_url %>",
+  "thumbnailUrl": "https://i3.ytimg.com/vi/<%= @term.video_id %>/maxresdefault.jpg",
   "uploadDate": "<%= @term.video_upload_date %>",
   "duration": "<%= @term.video_duration %>",
   "embedUrl": "https://www.youtube.com/embed/<%= @term.video_id %>"

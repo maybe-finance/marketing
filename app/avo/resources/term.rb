@@ -15,9 +15,7 @@ class Avo::Resources::Term < Avo::BaseResource
     field :content, as: :markdown
     field :slug, as: :text
     field :video_id, as: :text
-    field :video_title, as: :text
     field :video_description, as: :textarea
-    field :video_thumbnail_url, as: :text
     field :video_upload_date, as: :date
     field :video_duration, as: :text
   end
