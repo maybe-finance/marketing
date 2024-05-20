@@ -45,7 +45,7 @@
       <div id="<%= group.delete " " %>" class="py-12 border-b last:border-b-0 scroll-mt-10" data-section-links-target="section">
         <h2 class="px-2 text-2xl font-medium tracking-tight"><%= group %></h2>
 
-        <div class="gap-4 mt-6 space-y-1 columns-2 md:columns-4">
+        <div class="grid gap-1 mt-6 grid-cols-2 md:grid-cols-4">
           <% terms.each do |term| %>
             <%= link_to term.name, term_path(term), class: "block p-2 hover:bg-alpha-black-50 rounded-lg" %>
           <% end %>
