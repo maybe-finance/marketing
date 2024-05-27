@@ -12,7 +12,7 @@
   <div class="max-w-[520px] mx-auto space-y-4">
     <div class="space-y-4">
       <span class="text-xs font-medium text-gray-500 uppercase">
-        <%= @article.created_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(@article) %>
+        <%= @article.publish_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(@article) %>
       </span>
       <h1 class="text-3xl font-medium text-gray-900"><%= @article.title %></h1>
     </div>
