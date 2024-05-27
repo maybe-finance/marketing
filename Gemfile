@@ -26,7 +26,7 @@ gem "faraday"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "redcarpet"
-gem "avo", ">= 3.2"
+gem "avo", ">= 3.2", github: "avo-hq/avo"
 gem "revise_auth"
 
 
