@@ -3,7 +3,7 @@
   <div class="flex flex-col justify-between px-4 py-5 text-left min-h-60">
     <div class="space-y-2">
       <span class="text-xs font-medium text-gray-500 uppercase">
-        <%= article.created_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(article) %>
+        <%= article.publish_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(article) %>
       </span>
       <h2 class="text-2xl font-medium text-gray-900"><%= article.title %></h2>
     </div>
