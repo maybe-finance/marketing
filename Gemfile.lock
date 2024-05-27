@@ -1,25 +1,4 @@
 GIT
-  remote: https://github.com/avo-hq/avo.git
-  revision: 91268486e0921e3fbb065dd93edf613e9414b52d
-  specs:
-    avo (3.7.4)
-      actionview (>= 6.1)
-      active_link_to
-      activerecord (>= 6.1)
-      activesupport (>= 6.1)
-      addressable
-      docile
-      dry-initializer
-      httparty
-      inline_svg
-      meta-tags
-      pagy (>= 7.0.0)
-      turbo-rails (>= 2.0.0)
-      turbo_power (>= 0.6.0)
-      view_component (>= 3.7.0)
-      zeitwerk (>= 2.6.12)
-
-GIT
   remote: https://github.com/maybe-finance/lucide-rails.git
   revision: 6170b3a0eceb43a8af6552638e9526673c356d0d
   specs:
@@ -131,6 +110,22 @@ GEM
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
+    avo (3.7.4)
+      actionview (>= 6.1)
+      active_link_to
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
+      addressable
+      docile
+      dry-initializer
+      httparty
+      inline_svg
+      meta-tags
+      pagy (>= 7.0.0)
+      turbo-rails (>= 2.0.0)
+      turbo_power (>= 0.6.0)
+      view_component (>= 3.7.0)
+      zeitwerk (>= 2.6.12)
     base64 (0.2.0)
     bcrypt (3.1.20)
     better_html (2.1.1)
@@ -409,7 +404,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  avo (>= 3.2)!
+  avo (>= 3.2)
   bootsnap
   brakeman
   capybara
