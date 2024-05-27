@@ -16,7 +16,7 @@ class PagesController < ApplicationController
 
   def sitemap
     @terms = Term.all
-    @articles = Article.all.order(publish_at: :desc)
+    @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
   end
 
   private

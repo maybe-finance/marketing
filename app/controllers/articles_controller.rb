@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all.order("publish_at DESC")
+    @articles = Article.all.order("publish_at DESC").where("publish_at <= ?", Time.now)
   end
 
   def show
