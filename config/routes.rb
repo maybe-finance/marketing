@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :signups, only: [ :new, :create ]
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
+  resources :stocks, only: [ :index, :show ]
 
   get "tos" => "pages#tos"
   get "privacy" => "pages#privacy"
