@@ -1,4 +1,14 @@
-<div>
-  <h1 class="font-bold text-4xl">Tools#show</h1>
-  <p>Find me in app/views/tools/show.html.erb</p>
+<div class="max-w-[520px] mt-4 mx-auto prose">
+  <p class="text-sm text-center">
+    <span class="text-gray-500">Tools / </span> <%= @tool.name %>
+  </p>
+  <h1 class="text-3xl font-medium tracking-tight text-center"><%= @tool.name %></h1>
+
+  <div class="text-center">
+    <%= markdown @tool.intro %>
+  </div>
+</div>
+
+<div class="max-w-[504px] mt-4 mx-auto prose">
+  <%= markdown @tool.content %>
 </div>
