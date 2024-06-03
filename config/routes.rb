@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
   resources :stocks, only: [ :index, :show ]
+  resources :tools, only: [ :index, :show ]
 
   get "tos" => "pages#tos"
   get "privacy" => "pages#privacy"
