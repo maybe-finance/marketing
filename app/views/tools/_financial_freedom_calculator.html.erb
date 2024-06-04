@@ -9,16 +9,16 @@
     <% end %>
   </div>
 
-  <div class="p-4" data-financial-freedom-calculator-target="resultsContainer">
+  <div class="flex-1 p-4" data-financial-freedom-calculator-target="resultsContainer">
     <p>This is where the results will show.</p>
   </div>
 
   <template data-financial-freedom-calculator-target="resultsTemplate">
     <div t-if="secondsLeft !== Infinity">
-      <div data-controller="countdown" t-attr:data-countdown-time-left-value="secondsLeft">
+      <div data-controller="countdown" t-attr:data-countdown-time-left-value="secondsLeft" class="text-center">
         <p>You have <span data-countdown-target="summary"></span> of freedom ahead of you.</p>
 
-        <div class="flex">
+        <div class="grid grid-flow-col auto-cols-fr">
           <div>
             <p>Years</p>
             <p data-countdown-target="years">-</p>
@@ -46,7 +46,27 @@
         </div>
       </div>
 
-      <div t-attr:data-value="JSON.stringify(months)"></div>
+      <%=
+        tag.div(
+          "",
+          id: "financial-freedom-calculator-chart",
+          class: "h-96",
+          data: {
+            controller: "time-series-bar-chart",
+            time_series_bar_chart_series_value: JSON.generate({
+              savingsRemaining: {
+                name: "Savings Remaining",
+                className: "fill-blue-600"
+              },
+              monthlyExpenditure: {
+                name: "Monthly Expenditure",
+                className: "fill-pink-500"
+              }
+            })
+          },
+          "t-attr:data-time-series-bar-chart-data-value": "JSON.stringify(months)"
+        )
+      %>
     </div>
 
     <div t-if="secondsLeft == Infinity">
