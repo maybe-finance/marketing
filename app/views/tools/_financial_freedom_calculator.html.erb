@@ -1,0 +1,56 @@
+<div class="bg-white shadow-xs border rounded-xl p-2 flex" data-controller="financial-freedom-calculator">
+  <div class="bg-gray-25 p-4 rounded-lg w-1/3">
+    <%= form_with html: { data: { action: "submit->financial-freedom-calculator#calculate" }} do |form| %>
+      <%= form.number_field :current_savings, label: "Current Savings", value: 150000 %>
+      <%= form.number_field :monthly_expenses, label: "Monthly Expenses", value: 6000 %>
+      <%= form.number_field :monthly_savings_growth_rate, label: "Monthly Savings Growth Rate", value: 3 %>
+
+      <%= form.submit "Calculate" %>
+    <% end %>
+  </div>
+
+  <div class="p-4" data-financial-freedom-calculator-target="resultsContainer">
+    <p>This is where the results will show.</p>
+  </div>
+
+  <template data-financial-freedom-calculator-target="resultsTemplate">
+    <div t-if="secondsLeft !== Infinity">
+      <div data-controller="countdown" t-attr:data-countdown-time-left-value="secondsLeft">
+        <p>You have <span data-countdown-target="summary"></span> of freedom ahead of you.</p>
+
+        <div class="flex">
+          <div>
+            <p>Years</p>
+            <p data-countdown-target="years">-</p>
+          </div>
+          <div>
+            <p>Months</p>
+            <p data-countdown-target="months">-</p>
+          </div>
+          <div>
+            <p>Days</p>
+            <p data-countdown-target="days">-</p>
+          </div>
+          <div>
+            <p>Hours</p>
+            <p data-countdown-target="hours">-</p>
+          </div>
+          <div>
+            <p>Minutes</p>
+            <p data-countdown-target="minutes">-</p>
+          </div>
+          <div>
+            <p>Seconds</p>
+            <p data-countdown-target="seconds">-</p>
+          </div>
+        </div>
+      </div>
+
+      <div t-attr:data-value="JSON.stringify(months)"></div>
+    </div>
+
+    <div t-if="secondsLeft == Infinity">
+      <p>Congrats! You will never run out of money.</p>
+    </div>
+  </template>
+</div>
