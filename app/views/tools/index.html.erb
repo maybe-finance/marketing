@@ -4,18 +4,12 @@
     <div class="flex items-center justify-center gap-x-2">
       <h1 class="text-3xl font-medium tracking-tight">Try our free financial tools and calculators</h1>
     </div>
-    <p class="text-sm text-gray-400">All the interactive tools and calculators you need to visualize and navigate your financial journey.</p>
+
+    <p class="text-gray-600">All the interactive tools and calculators you need to visualize and navigate your financial journey.</p>
   </div>
 
   <div class="grid grid-cols-[repeat(auto-fit,_minmax(min(288px,_100%),_1fr))] gap-4 mt-8">
-    <% @tools.each do |tool| %>
-      <%= link_to tool_path(tool) do %>
-        <div class="tool">
-          <h2><%= tool.name %></h2>
-          <p><%= tool.description %></p>
-        </div>
-      <% end %>
-    <% end %>
+    <%= render @tools, min_height: "200px" %>
   </div>
 </div>
 
