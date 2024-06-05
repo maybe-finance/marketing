@@ -175,9 +175,9 @@ export default class extends Controller {
         this.#d3Content
           .insert("rect", ":first-child")
           .attr("class", "guideline")
-          .attr("x", x(d.date) - x.padding() * 2)
+          .attr("x", x(d.date) - x.step() / 8)
           .attr("y", 0)
-          .attr("width", x.bandwidth() + x.padding() * 4)
+          .attr("width", x.bandwidth() + x.step() / 4)
           .attr("height", this.#contentHeight - this.#margin.bottom)
           .attr("fill", tailwindColors["alpha-black"][50])
 
