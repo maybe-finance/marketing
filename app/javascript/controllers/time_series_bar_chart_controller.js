@@ -16,7 +16,10 @@ export default class extends Controller {
     this.#rememberInitialElementSize()
     this.#drawGridlines()
     this.#drawBarChart()
-    if (this.useLabelsValue) this.#drawXAxis()
+    if (this.useLabelsValue) {
+      this.#drawXAxis()
+      this.#drawLegend()
+    }
     this.#installTooltip()
   }
 
@@ -44,7 +47,7 @@ export default class extends Controller {
 
   get #margin() {
     if (this.useLabelsValue) {
-      return { top: 10, right: 0, bottom: 30, left: 0 }
+      return { top: 10, right: 0, bottom: 40, left: 0 }
     } else {
       return { top: 0, right: 0, bottom: 0, left: 0 }
     }
@@ -105,7 +108,7 @@ export default class extends Controller {
 
     const axis = this.#d3Content
       .append("g")
-      .attr("transform", `translate(0, ${this.#contentHeight})`)
+      .attr("transform", `translate(0, ${this.#contentHeight - this.#margin.bottom / 2 - 6})`)
       .call(axisGenerator)
 
     axis
@@ -118,6 +121,41 @@ export default class extends Controller {
       .style("font-size", "12px")
       .style("font-weight", "500")
       .attr("text-anchor", (_, i) => i === 0 ? "start" : "end")
+  }
+
+  #drawLegend() {
+    const legend = this.#d3Content
+      .append("g")
+
+    let offsetX = 0;
+    Object.values(this.seriesValue).forEach((series, i) => {
+      const item = legend
+        .append("g")
+        .attr("transform", `translate(${offsetX}, 0)`);
+
+      item.append("rect")
+        .attr("height", 12)
+        .attr("width", 4)
+        .attr("class", series.fillClass)
+        .attr("rx", 2)
+        .attr("ry", 2)
+        
+      
+      item.append("text")
+        .attr("x", 10)
+        .attr("y", 10)
+        .attr("text-anchor", "start")
+        .style("fill", tailwindColors.gray[500])
+        .style("font-size", "12px")
+        .style("font-weight", "500")
+        .text(series.name)
+
+      const itemWidth = item.node().getBBox().width;
+      offsetX += itemWidth + 12;
+    })
+
+    const legendWidth = legend.node().getBBox().width;
+    legend.attr("transform", `translate(${this.#contentWidth/2 - legendWidth/2}, ${this.#contentHeight})`)
   }
 
   #installTooltip() {
