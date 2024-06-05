@@ -1,4 +1,89 @@
-<div>
-  <h1 class="font-bold text-4xl">Tools#index</h1>
-  <p>Find me in app/views/tools/index.html.erb</p>
-</div>
+<% calculators = [{
+  name: "Financial Freedom Calculator",
+  description: "See how long your savings will last by accounting for your monthly expenses and savings growth rate.",
+  category: "RETIREMENT",
+  icon: "bar-chart-4",
+  icon_color: "#06AED4",
+  icon_bg: "#22CCEE0D"
+},
+{
+  name: "Compound Interest Calculator",
+  description: "See how your investments grow over time by earning interest on interest and letting your money work for you.",
+  category: "SAVINGS",
+  icon: "line-chart",
+  icon_color: "#12B76A",
+  icon_bg: "#32D5830D"
+},
+{
+  name: "Speculator Calculator",
+  description: "What if BTC went to $100k? Forecast different scenarios and see how your investment would fare.",
+  category: "INVESTING",
+  icon: "zap",
+  icon_color: "#875BF7",
+  icon_bg: "#875BF70D"
+},
+{
+  name: "Loan Calculator",
+  description: "See how to easily plan your loans and understand your repayment schedule.",
+  category: "DEBT",
+  icon: "scale",
+  icon_color: "#F23E94",
+  icon_bg: "#F23E940D"
+},
+{
+  name: "ROI Calculator",
+  description: "See how to calculate the return on your investments and evaluate the gain or loss.",
+  category: "INVESTING",
+  icon: "arrow-up-down",
+  icon_color: "#875BF7",
+  icon_bg: "#875BF70D"
+},
+{
+  name: "Inflation Calculator",
+  description: "See how inflation is impacting an asset’s future price and your future buying power.",
+  category: "OTHER",
+  icon: "infinity",
+  icon_color: "#F79009",
+  icon_bg: "#FDB0220D"
+}
+] %>
+
+<div class="flex flex-col justify-center items-center">
+  <div class="md:max-w-[420px] text-center mb-[32px]">
+
+    <h1 class="text-3xl font-medium text-[#141414]">
+      Try our free financial tools and calculators
+    </h1>
+
+    <p class="text-[#525252] mb-4 text-base mt-2">
+      All the interactive tools and calculators you need to visualize and navigate your financial journey.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% calculators.each do |calculator| %>
+      <div class="flex flex-col justify-between p-4 border rounded-lg transition-shadow duration-200 bg-[#FFFFFF]"
+        style="box-shadow: 0px 1px 3px rgba(11, 11, 11, 0.1), 0px 1px 2px rgba(11, 11, 11, 0.06);">
+
+        <div class="rounded-xl p-1 w-10 h-10 inline-flex items-center justify-center"
+          style="background-color: <%= calculator[:icon_bg] %>;">
+          <%= lucide_icon(calculator[:icon], class: "h-6 w-6" , style: "color: #{calculator[:icon_color]};" ) %>
+        </div>
+
+        <div class="mt-[110px]">
+          <h2 class="text-base font-medium text-[#141414]">
+            <%= calculator[:name] %>
+          </h2>
+          <p class="text-[#525252] mb-4 text-base">
+            <%= calculator[:description] %>
+          </p>
+          <span
+            class="inline-flex items-center gap-2 px-2 py-1 text-xs border border-[#0B0B0B14] font-medium bg-transparent rounded-full text-[#737373]">
+            <div class="h-2 w-2 rounded-full" style="background-color: <%= calculator[:icon_color] %>;"></div>
+            <%= calculator[:category] %>
+          </span>
+        </div>
+
+      </div>
+      <% end %>
+  </div>
