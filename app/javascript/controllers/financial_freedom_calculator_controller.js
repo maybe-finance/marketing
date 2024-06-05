@@ -41,10 +41,11 @@ export default class extends Controller {
       daysLeft -= daysOverdrawn;
     }
 
-    const today = new Date();
+    const date = new Date();
+    date.setMonth(date.getMonth() - 1);
     const data = months.map((savingsRemaining) => {
       return {
-        date: new Date(today.setMonth(today.getMonth() + 1)),
+        date: new Date(date.setMonth(date.getMonth() + 1)),
         savingsRemaining: Math.max(savingsRemaining, 0),
         monthlyExpenditure: monthlyExpenses,
       };

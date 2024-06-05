@@ -6,6 +6,7 @@ export default class extends Controller {
   static values = {
     series: { type: Object, default: {} },
     data: { type: Array, default: [] },
+    useLabels: { type: Boolean, default: true },
   }
   
   #initialElementWidth = 0
@@ -15,6 +16,7 @@ export default class extends Controller {
     this.#rememberInitialElementSize()
     this.#drawGridlines()
     this.#drawBarChart()
+    if (this.useLabelsValue) this.#drawXAxis()
     this.#installTooltip()
   }
 
@@ -42,7 +44,7 @@ export default class extends Controller {
 
   get #margin() {
     if (this.useLabelsValue) {
-      return { top: 20, right: 0, bottom: 30, left: 0 }
+      return { top: 10, right: 0, bottom: 30, left: 0 }
     } else {
       return { top: 0, right: 0, bottom: 0, left: 0 }
     }
@@ -69,15 +71,15 @@ export default class extends Controller {
   }
 
   #drawGridlines() {
-    const yGrid = d3.axisRight(this.#d3YScale)
-      .ticks(15)
+    const axisGenerator = d3.axisRight(this.#d3YScale)
+      .ticks(10)
       .tickSize(this.#contentWidth)
       .tickFormat("")
 
     const gridlines = this.#d3Content
       .append("g")
       .attr("class", "d3gridlines")
-      .call(yGrid)
+      .call(axisGenerator)
 
     gridlines
       .selectAll("line")
@@ -88,6 +90,34 @@ export default class extends Controller {
     gridlines
       .select(".domain")
       .remove()
+  }
+
+  #drawXAxis() {
+    const formattedDateToday = d3.timeFormat("%d %b %Y")(new Date())
+
+    const axisGenerator = d3.axisBottom(this.#d3XScale)
+      .tickValues([ this.#data[0].date, this.#data[this.#data.length - 1].date ])
+      .tickSize(0)
+      .tickFormat((date) => {
+        const formattedDate = d3.timeFormat("%d %b %Y")(date)
+        return formattedDate === formattedDateToday ? "Today" : formattedDate
+      })
+
+    const axis = this.#d3Content
+      .append("g")
+      .attr("transform", `translate(0, ${this.#contentHeight})`)
+      .call(axisGenerator)
+
+    axis
+      .select(".domain")
+      .remove()
+
+    axis
+      .selectAll(".tick text")
+      .style("fill", tailwindColors.gray[500])
+      .style("font-size", "12px")
+      .style("font-weight", "500")
+      .attr("text-anchor", (_, i) => i === 0 ? "start" : "end")
   }
 
   #installTooltip() {
@@ -110,7 +140,7 @@ export default class extends Controller {
           .attr("x", x(d.date) - x.padding() * 2)
           .attr("y", 0)
           .attr("width", x.bandwidth() + x.padding() * 4)
-          .attr("height", this.#contentHeight)
+          .attr("height", this.#contentHeight - this.#margin.bottom)
           .attr("fill", tailwindColors["alpha-black"][50])
 
         this.#d3Tooltip
