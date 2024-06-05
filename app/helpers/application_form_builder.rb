@@ -22,6 +22,21 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
     RUBY_EVAL
   end
 
+  def unit_field(method, options = {})
+    default_options = { class: "form-field__input pl-1" }
+    merged_options = default_options.merge(options)
+
+    return super(method, merged_options) unless options[:label]
+
+    @template.form_field_tag do
+      label(method, *label_args(options)) +
+      @template.tag.div(class: "flex items-center") do
+        @template.tag.span(options[:unit_symbol], class: "pl-3 pb-2 pt-1 text-sm text-gray-500") +
+        number_field(method, merged_options.except(:label))
+      end
+    end
+  end
+
   def submit(value = nil, options = {})
     value, options = nil, value if value.is_a?(Hash)
     default_options = { class: "form-field__submit" }
