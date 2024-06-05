@@ -66,11 +66,30 @@ export default class extends Controller {
         .attr("class", d => this.seriesValue[d.key].fillClass)
       .selectAll("rect")
       .data(D => D.map(d => (d.key = D.key, d)))
-      .join("rect")
-        .attr("x", d => x(d.data.date))
-        .attr("y", d => y(d[1]))
-        .attr("height", d => y(d[0]) - y(d[1]))
-        .attr("width", x.bandwidth())
+      .join("path")
+        .attr("d", (d, i) => {
+          const isTopSeries = Object.keys(this.seriesValue).reverse()[0] === d.key
+
+          return this.#rectPathWithRadius({
+            x: x(d.data.date), 
+            y: y(d[1]), 
+            width: x.bandwidth(), 
+            height: y(d[0]) - y(d[1]), 
+            radius: !isTopSeries ? 0 : Math.min(x.bandwidth() / 4, 10),
+          })
+        });
+  }
+
+  #rectPathWithRadius({x, y, width, height, radius}) {
+    return `
+      M${x},${y + radius}
+      Q${x},${y} ${x + radius},${y}
+      H${x + width - radius}
+      Q${x + width},${y} ${x + width},${y + radius}
+      V${y + height}
+      H${x}
+      Z
+    `;
   }
 
   #drawGridlines() {
@@ -86,9 +105,10 @@ export default class extends Controller {
 
     gridlines
       .selectAll("line")
-      .style("stroke", tailwindColors["alpha-black"][500]) // Set your desired color here
-      .style("stroke-dasharray", "3 9") // This makes the lines dashed
-      .style("stroke-width", "1"); // Optional: adjust the width of the lines
+      .style("stroke", tailwindColors["alpha-black"][500])
+      .style("stroke-dasharray", "1 8")
+      .style("stroke-width", "1")
+      .style("stroke-linecap", "round");
 
     gridlines
       .select(".domain")
@@ -118,8 +138,8 @@ export default class extends Controller {
     axis
       .selectAll(".tick text")
       .style("fill", tailwindColors.gray[500])
-      .style("font-size", "12px")
-      .style("font-weight", "500")
+      .style("font-size", "14px")
+      .style("font-weight", "400")
       .attr("text-anchor", (_, i) => i === 0 ? "start" : "end")
   }
 
@@ -145,9 +165,9 @@ export default class extends Controller {
         .attr("x", 10)
         .attr("y", 10)
         .attr("text-anchor", "start")
-        .style("fill", tailwindColors.gray[500])
-        .style("font-size", "12px")
-        .style("font-weight", "500")
+        .style("fill", tailwindColors.gray[900])
+        .style("font-size", "14px")
+        .style("font-weight", "400")
         .text(series.name)
 
       const itemWidth = item.node().getBBox().width;
@@ -168,18 +188,20 @@ export default class extends Controller {
       .on("mousemove", (event) => {
         const x = this.#d3XScale
         const d = this.#findDatumByPointer(event)
-        console.log(x)
 
         this.#d3Content.selectAll(".guideline").remove()
 
         this.#d3Content
-          .insert("rect", ":first-child")
+          .insert("path", ":first-child")
           .attr("class", "guideline")
-          .attr("x", x(d.date) - x.step() / 8)
-          .attr("y", 0)
-          .attr("width", x.bandwidth() + x.step() / 4)
-          .attr("height", this.#contentHeight - this.#margin.bottom)
           .attr("fill", tailwindColors["alpha-black"][50])
+          .attr("d", this.#rectPathWithRadius({
+            x: x(d.date) - x.step() / 8,
+            y: 0,
+            width: x.bandwidth() + x.step() / 4,
+            height: this.#contentHeight - this.#margin.bottom,
+            radius: Math.min(x.bandwidth() / 4, 10),
+          }))
 
         this.#d3Tooltip
           .html(this.#tooltipTemplate(d))
@@ -208,25 +230,25 @@ export default class extends Controller {
 
   #tooltipTemplate(datum) {
     return(`
-      <div style="margin-bottom: 4px; color: ${tailwindColors.gray[500]};">
+      <div class="mb-1 text-gray-500 font-medium">
         ${d3.timeFormat("%b %d, %Y")(datum.date)}
       </div>
 
       ${
         Object.entries(this.seriesValue).reverse().map(([key, series]) => `
-          <div style="display: flex; align-items: center; gap: 16px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <svg width="10" height="10">
-                <circle
-                  cx="5"
-                  cy="5"
-                  r="4"
-                  class="${series.strokeClass}"
-                  fill="transparent"
-                  stroke-width="1"></circle>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <svg width="4" height="12">
+                <rect
+                  rx="2"
+                  ry="2"
+                  class="${series.fillClass}"
+                  width="4"
+                  height="12"
+                  ></rect>
               </svg>
 
-              <span>
+              <span class="font-medium">
                 ${
                   new Intl.NumberFormat(navigator.language, {
                     style: "currency",
@@ -249,12 +271,7 @@ export default class extends Controller {
 
     return this.#d3TooltipMemo = this.#d3Element
       .append("div")
-      .style("position", "absolute")
-      .style("padding", "8px")
-      .style("font", "14px Inter, sans-serif")
-      .style("background", tailwindColors.white)
-      .style("border", `1px solid ${tailwindColors["alpha-black"][100]}`)
-      .style("border-radius", "10px")
+      .attr("class", "absolute text-sm bg-white border border-alpha-black-100 p-2 rounded-lg")
       .style("pointer-events", "none")
       .style("opacity", 0)
   }
@@ -272,11 +289,19 @@ export default class extends Controller {
   get #d3Svg() {
     if (this.#d3SvgMemo) return this.#d3SvgMemo
 
-    return this.#d3SvgMemo = this.#d3Element
+    this.#d3SvgMemo = this.#d3Element
       .append("svg")
       .attr("width", this.#initialElementWidth)
       .attr("height", this.#initialElementHeight)
       .attr("viewBox", [ 0, 0, this.#initialElementWidth, this.#initialElementHeight ])
+
+    this.#d3SvgMemo.append("defs")
+      .append("clipPath")
+      .attr("id", "rounded-top")
+      .append("path")
+      .attr("d", "M0,10 Q0,0 10,0 H90 Q100,0 100,10 V100 H0 Z")
+
+    return this.#d3SvgMemo
   }
 
   get #d3Element() {
