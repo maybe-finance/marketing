@@ -10,7 +10,6 @@ export default class extends Controller {
 
   calculate(event) {
     event.preventDefault();
-    console.log("Calculating time until broke...");
     const formData = new FormData(event.target);
     let currentSavings = parseFloat(formData.get("current_savings"));
     const monthlyExpenses = parseFloat(formData.get("monthly_expenses"));
@@ -20,7 +19,6 @@ export default class extends Controller {
 
     const firstMonthGrowth = currentSavings * (monthlySavingsGrowthRate / 100);
     if (firstMonthGrowth >= monthlyExpenses) {
-      console.log("You're financially free!");
       this.#renderResults({ months: [], secondsLeft: Infinity });
       return;
     }
