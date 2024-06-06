@@ -44,4 +44,13 @@
   input[type="range"][data-controller*="range-input"]::-moz-range-thumb {
     @apply relative appearance-none h-5 w-5 rounded-full bg-white border border-solid border-alpha-black-100 shadow-sm cursor-pointer top-[-6px];
   }
+
+  .tab-item {
+    @apply w-1/2 text-gray-500 text-sm 
+  }
+
+  .tab-item-active {
+    @apply bg-white text-gray-900 p-2 border border-alpha-black-100 rounded-lg;
+  }
+
 }
