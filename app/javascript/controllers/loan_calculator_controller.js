@@ -41,11 +41,16 @@ export default class extends Controller {
         const payoffDate = new Date(startDate.setMonth(startDate.getMonth() + numberOfPayments));
         const payoffDateString = payoffDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
+
         this.#renderResults({
-            monthlyPayments: monthlyPayments.toFixed(2),
-            totalPrincipalPaid: totalPrincipalPaid.toFixed(2),
-            totalInterestPaid: totalInterestPaid.toFixed(2),
-            totalPaid: totalPaid.toFixed(2),
+            monthlyPayments: formatter.format(monthlyPayments),
+            totalPrincipalPaid: formatter.format(totalPrincipalPaid),
+            totalInterestPaid: formatter.format(totalInterestPaid),
+            totalPaid: formatter.format(totalPaid),
             totalNumberOfPayments: numberOfPayments,
             estimatedPayoffDate: payoffDateString,
         });

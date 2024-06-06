@@ -5,7 +5,7 @@
 
     <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg w-full md:w-1/3 flex flex-col gap-4" , data: { action: "submit->loan-calculator#calculate" }} do |form| %>
       <div class="flex flex-col gap-2">
-        <%= form.unit_field :loan_amount, label: "Loan amount" , value: 0, unit_symbol: "$" %>
+        <%= form.unit_field :loan_amount, label: "Loan amount" , value: 0, unit_symbol: "" %>
       </div>
 
       <div class="flex form-field">
@@ -39,21 +39,21 @@
           <div class="flex flex-col gap-4 p-6 ml-2 rounded-lg">
             <div class="flex flex-col gap-3">
               <h4 class="text-base text-gray-500">Monthly payments</h4>
-              <h1 class="text-4xl font-medium">$<span t-text="monthlyPayments"></span></h1>
+              <h1 class="text-4xl font-medium"><span t-text="monthlyPayments"></span></h1>
             </div>
             <hr class="color-[#0B0B0B14]">
             <div class="grid grid-cols-2 gap-4">
               <div class="flex flex-col gap-1">
                 <h4 class="text-sm text-gray-500">Total principal paid</h4>
-                <h1 class="text-xl font-medium">$<span t-text="totalPrincipalPaid"></span></h1>
+                <h1 class="text-xl font-medium"><span t-text="totalPrincipalPaid"></span></h1>
               </div>
               <div class="flex flex-col gap-1">
                 <h4 class="text-sm text-gray-500">Total interest paid</h4>
-                <h1 class="text-xl font-medium">$<span t-text="totalInterestPaid"></span></h1>
+                <h1 class="text-xl font-medium"><span t-text="totalInterestPaid"></span></h1>
               </div>
               <div class="flex flex-col gap-1">
                 <h4 class="text-sm text-gray-500">Total paid</h4>
-                <h1 class="text-xl font-medium">$<span t-text="totalPaid"></span></h1>
+                <h1 class="text-xl font-medium"><span t-text="totalPaid"></span></h1>
               </div>
               <div class="flex flex-col gap-1">
                 <h4 class="text-sm text-gray-500">Total number of payments</h4>
