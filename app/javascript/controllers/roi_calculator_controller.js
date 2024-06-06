@@ -25,7 +25,7 @@ export default class extends Controller {
 		const annualRoi = roi / investmentLength;
 
 		this.#renderResults({
-			InvestmentGain: investmentGain.toFixed(2),
+			InvestmentGain: new Intl.NumberFormat('en-US').format(investmentGain.toFixed(2)),
 			Roi: this.#formatNumber(roi.toFixed(2)),
 			AnnualizedRoi: this.#formatNumber(annualRoi.toFixed(2)),
 			RoiClass:
@@ -41,7 +41,8 @@ export default class extends Controller {
 
 	#formatNumber(value) {
 		const number = parseFloat(value);
-		return number >= 0 ? `+${value}` : value;
+		const formattedValue = new Intl.NumberFormat('en-US').format(number);
+		return number >= 0 ? `+${formattedValue}` : formattedValue;
 	}
 
 	#renderResults(data) {
