@@ -19,7 +19,7 @@ export default class extends Controller {
         const loanAmount = parseFloat(formData.get("loan_amount"));
         const interestRate = parseFloat(formData.get("interest_rate"));
         const loanTerm = parseFloat(formData.get("loan_term"));
-        const loanPeriod = formData.get("loan_period");
+        const loanPeriod = formData.get("loan_period") || "years"; // Default loanPeriod to "years"
         const date = formData.get("date");
 
         let numberOfPayments;
@@ -28,7 +28,7 @@ export default class extends Controller {
         } else if (loanPeriod === "months") {
             numberOfPayments = loanTerm;
         } else {
-            throw new Error("Invalid investment period");
+            throw new Error("Invalid loan period");
         }
 
         const monthlyInterestRate = interestRate / 100 / 12;
