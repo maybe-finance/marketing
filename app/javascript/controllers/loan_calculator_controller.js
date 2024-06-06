@@ -19,7 +19,7 @@ export default class extends Controller {
         const loanAmount = parseFloat(formData.get("loan_amount"));
         const interestRate = parseFloat(formData.get("interest_rate"));
         const loanTerm = parseFloat(formData.get("loan_term"));
-        const loanPeriod = formData.get("time_period");
+        const loanPeriod = formData.get("loan_period");
         const date = formData.get("date");
 
         let numberOfPayments;

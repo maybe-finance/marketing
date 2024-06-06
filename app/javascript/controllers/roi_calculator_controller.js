@@ -11,7 +11,7 @@ export default class extends Controller {
 		let amountInvested = parseFloat(formData.get("amount_invested"));
 		const amountReturned = parseFloat(formData.get("amount_returned"));
 		let investmentLength = parseFloat(formData.get("investment_length"));
-		const investmentPeriod = formData.get("time_period");
+		const investmentPeriod = formData.get("investment_period");
 
 		// Convert investmentLength to years if needed
 		if (investmentPeriod === "weeks") {
