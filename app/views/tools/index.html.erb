@@ -1,4 +1,16 @@
-<div>
-  <h1 class="font-bold text-4xl">Tools#index</h1>
-  <p>Find me in app/views/tools/index.html.erb</p>
+
+<div class="max-w-[1100px] mx-auto text-center">
+  <div class="flex flex-col gap-y-2 max-w-[500px] mx-auto text-balance">
+    <div class="flex items-center justify-center gap-x-2">
+      <h1 class="text-3xl font-medium tracking-tight">Try our free financial tools and calculators</h1>
+    </div>
+
+    <p class="text-gray-600">All the interactive tools and calculators you need to visualize and navigate your financial journey.</p>
+  </div>
+
+  <div class="grid grid-cols-[repeat(auto-fit,_minmax(min(288px,_100%),_1fr))] gap-4 mt-8">
+    <%= render @tools, min_height: "200px" %>
+  </div>
 </div>
+
+<%= render "shared/cta_waitlist" %>

@@ -47,6 +47,7 @@
       <nav class="hidden text-sm text-center gap-x-1 md:flex">
         <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
         <%= link_to "Financial Terms", terms_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
+        <%= link_to "Tools", tools_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
         <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-gray-800 hover:text-gray-9000 hover:bg-alpha-black-50 rounded-xl">Contribute</a>
       </nav>
       <div class="flex hidden gap-x-2 md:flex">
@@ -60,6 +61,7 @@
         <ul class="flex flex-col lg:flex-row lg:space-x-8">
           <li><%= link_to "Articles", articles_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
           <li><%= link_to "Financial Terms", terms_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
+          <li><%= link_to "Tools", tools_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
           <li><a href="https://github.com/maybe-finance/maybe" class="block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl">Contribute</a></li>
           <div class="flex flex-col gap-y-3">
           <li>
@@ -93,6 +95,9 @@
               </li>
               <li>
                 <%= link_to "Financial Terms", terms_path, class: 'text-[#141414]' %>
+              </li>
+              <li>
+                <%= link_to "Tools", tools_path, class: 'text-[#141414]' %>
               </li>
               <li>
                 <%= link_to "Contribute", "https://github.com/maybe-finance/maybe", class: 'text-[#141414]' %>

@@ -1,0 +1,106 @@
+<div class="bg-white shadow-xs border rounded-xl p-2 flex" data-controller="financial-freedom-calculator">
+  <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg w-1/3 flex flex-col gap-4", data: { action: "submit->financial-freedom-calculator#calculate" }} do |form| %>
+    <div data-controller="synchronized-input" class="flex flex-col gap-2">
+      <%= form.unit_field :current_savings, label: "Current Savings", value: 0, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+      <%= range_input_slider class: "from-blue-500 to-blue-500", min: 0, max: 600000, step: 1000, value: 0 %>
+    </div>
+
+    <div data-controller="synchronized-input" class="flex flex-col gap-2">
+      <%= form.unit_field :monthly_expenses, label: "Monthly Expenses", value: 0, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+      <%= range_input_slider class: "from-pink-500 to-pink-500", min: 0, max: 10000, step: 100, value: 0 %>
+    </div>
+
+    <div data-controller="synchronized-input" class="flex flex-col gap-2">
+      <%= form.unit_field :monthly_savings_growth_rate, label: "Monthly Savings Growth Rate", step: "any", value: 0, unit_symbol: "%", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+      <%= range_input_slider class: "from-violet-500 to-violet-500", min: 0, max: 40, step: 1, value: 0 %>
+    </div>
+
+    <div class="mt-auto">
+      <%= form.submit "Calculate" %>
+    </div>
+  <% end %>
+
+  <div class="flex-1 p-4" data-financial-freedom-calculator-target="resultsContainer">
+    <div class="h-96 grid place-items-center">
+      <div class="text-center text-sm text-gray-500 max-w-72 flex flex-col gap-4">
+        <%= lucide_icon "keyboard", class: "h-6 w-6 mx-auto" %>
+        <p>How long will your savings support you? Enter your details to find out now.</p>
+      </div>
+    </div>
+  </div>
+
+  <template data-financial-freedom-calculator-target="resultsTemplate">
+    <div t-if="secondsLeft !== Infinity">
+      <div data-controller="countdown" t-attr:data-countdown-time-left-value="secondsLeft" class="text-center flex flex-col gap-6">
+        <p class="text-2xl text-balance">You have <span class="font-medium" data-countdown-target="summary"></span> of freedom ahead of you.</p>
+
+        <div class="flex gap-4 items-end justify-center">
+          <div class="flex flex-col gap-2">
+            <p class="text-gray-500 text-sm">Years</p>
+            <p class="text-xl font-medium" data-countdown-target="years">-</p>
+          </div>
+          <span class="text-xl text-gray-500">:</span>
+          <div class="flex flex-col gap-2">
+            <p class="text-gray-500 text-sm">Months</p>
+            <p class="text-xl font-medium" data-countdown-target="months">-</p>
+          </div>
+          <span class="text-xl text-gray-500">:</span>
+          <div class="flex flex-col gap-2">
+            <p class="text-gray-500 text-sm">Days</p>
+            <p class="text-xl font-medium" data-countdown-target="days">-</p>
+          </div>
+          <span class="text-xl text-gray-500">:</span>
+          <div class="flex flex-col gap-2">
+            <p class="text-gray-500 text-sm">Hours</p>
+            <p class="text-xl font-medium" data-countdown-target="hours">-</p>
+          </div>
+          <span class="text-xl text-gray-500">:</span>
+          <div class="flex flex-col gap-2">
+            <p class="text-gray-500 text-sm">Minutes</p>
+            <p class="text-xl font-medium" data-countdown-target="minutes">-</p>
+          </div>
+          <span class="text-xl text-gray-500">:</span>
+          <div class="flex flex-col gap-2">
+            <p class="text-gray-500 text-sm">Seconds</p>
+            <p class="text-xl font-medium" data-countdown-target="seconds">-</p>
+          </div>
+        </div>
+      </div>
+
+      <%=
+        tag.div(
+          "",
+          id: "financial-freedom-calculator-chart",
+          class: "h-96 mt-6",
+          data: {
+            controller: "time-series-bar-chart",
+            time_series_bar_chart_series_value: JSON.generate({
+              savingsRemaining: {
+                name: "Savings remaining",
+                fillClass: "fill-blue-600",
+                strokeClass: "stroke-blue-600"
+              },
+              monthlyExpenditure: {
+                name: "Monthly expenses",
+                fillClass: "fill-pink-500",
+                strokeClass: "stroke-pink-500"
+              }
+            })
+          },
+          "t-attr:data-time-series-bar-chart-data-value": "JSON.stringify(months)"
+        )
+      %>
+    </div>
+
+    <div t-if="secondsLeft == Infinity">
+      <div class="h-96 grid place-items-center">
+        <div class="text-center text-sm text-gray-900 max-w-80 flex flex-col gap-4">
+          <%= lucide_icon "party-popper", class: "h-8 w-8 mx-auto text-blue-600" %>
+
+          <p class="text-gray-900 font-medium">Congratulations!</p>
+          <p class="text-balance">At your current monthly expenses and savings growth rate you will not run out of money.</p>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
