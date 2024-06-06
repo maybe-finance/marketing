@@ -26,4 +26,22 @@
   .form-field__submit {
     @apply w-full p-3 text-center text-white bg-black rounded-lg cursor-pointer hover:bg-gray-700;
   }
+
+  input[type="range"][data-controller*="range-input"] {
+    @apply block relative h-2 my-[9px] appearance-none border-none outline-none bg-gray-100 rounded-full;
+    @apply bg-gray-100 bg-gradient-to-r bg-no-repeat;
+    background-size: var(--range-before-width, 0) 100%;
+  }
+
+  input[type="range"][data-controller*="range-input"]::-webkit-slider-runnable-track {
+    @apply w-full h-full;
+  }
+
+  input[type="range"][data-controller*="range-input"]::-webkit-slider-thumb {
+    @apply relative appearance-none h-5 w-5 rounded-full bg-white border border-solid border-alpha-black-100 shadow-sm cursor-pointer top-[-6px];
+  }
+
+  input[type="range"][data-controller*="range-input"]::-moz-range-thumb {
+    @apply relative appearance-none h-5 w-5 rounded-full bg-white border border-solid border-alpha-black-100 shadow-sm cursor-pointer top-[-6px];
+  }
 }

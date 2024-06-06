@@ -9,6 +9,9 @@ export default class extends Controller {
       if (input === event.target) return
 
       input.value = event.target.value
+
+      const changeEvent = new Event("input-sync")
+      input.dispatchEvent(changeEvent)
     })
   }
 }
