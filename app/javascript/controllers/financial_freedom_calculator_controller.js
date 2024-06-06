@@ -11,11 +11,11 @@ export default class extends Controller {
   calculate(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    let currentSavings = parseFloat(formData.get("current_savings"));
-    const monthlyExpenses = parseFloat(formData.get("monthly_expenses"));
-    const monthlySavingsGrowthRate = parseFloat(
-      formData.get("monthly_savings_growth_rate"),
-    );
+    const parseFormData = key => parseFloat(formData.get(key).replace(/[^0-9.-]+/g, ''));
+
+    let currentSavings = parseFormData("current_savings");
+    const monthlyExpenses = parseFormData("monthly_expenses");
+    const monthlySavingsGrowthRate = parseFormData("monthly_savings_growth_rate");
 
     const firstMonthGrowth = currentSavings * (monthlySavingsGrowthRate / 100);
     if (firstMonthGrowth >= monthlyExpenses) {

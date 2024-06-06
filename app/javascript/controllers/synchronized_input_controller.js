@@ -8,10 +8,29 @@ export default class extends Controller {
     this.inputTargets.forEach(input => {
       if (input === event.target) return
 
-      input.value = event.target.value
+      const value = this.eventTargetValue(event)
+      this.setElementValue(input, value)
 
       const changeEvent = new Event("input-sync")
       input.dispatchEvent(changeEvent)
     })
+  }
+
+  setElementValue(element, value) {
+    const autonumericController = this.application.getControllerForElementAndIdentifier(element, 'autonumeric')
+    if (autonumericController) {
+      autonumericController.anElement.set(value)
+    } else {
+      element.value = value
+    }
+  }
+
+  eventTargetValue(event) {
+    const autonumericController = this.application.getControllerForElementAndIdentifier(event.target, 'autonumeric')
+    if (autonumericController) {
+      return autonumericController.anElement.getNumber()
+    } else {
+      return event.target.value
+    }
   }
 }

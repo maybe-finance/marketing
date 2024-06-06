@@ -32,7 +32,7 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
       label(method, *label_args(options)) +
       @template.tag.div(class: "flex items-center") do
         @template.tag.span(options[:unit_symbol], class: "pl-3 pb-2 pt-1 text-sm text-gray-500") +
-        number_field(method, merged_options.except(:label))
+        text_field(method, merged_options.except(:label))
       end
     end
   end
