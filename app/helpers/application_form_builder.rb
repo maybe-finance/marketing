@@ -26,13 +26,16 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
     default_options = { class: "form-field__input pl-1" }
     merged_options = default_options.merge(options)
 
+    # Prepare options for the outer div
+    outer_div_options = { class: options.delete(:outer_div_class) }
+
     return super(method, merged_options) unless options[:label]
 
-    @template.form_field_tag do
+    @template.form_field_tag(outer_div_options) do
       label(method, *label_args(options)) +
       @template.tag.div(class: "flex items-center") do
         @template.tag.span(options[:unit_symbol], class: "pl-3 pb-2 pt-1 text-sm text-gray-500") +
-        text_field(method, merged_options.except(:label))
+        number_field(method, merged_options.except(:label))
       end
     end
   end
