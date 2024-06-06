@@ -2,8 +2,9 @@ class Tool < ApplicationRecord
   CATEGORIES = {
     retirement: {
       name: "Retirement",
-      icon_class: "text-cyan-500",
-      icon_container_class: "bg-cyan-500/5"
+      text_class: "text-cyan-500",
+      bg_class: "bg-cyan-500/5",
+      solid_bg_class: "bg-cyan-500"
     }
   }
 
