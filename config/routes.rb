@@ -10,7 +10,6 @@ Rails.application.routes.draw do
 
   get "/tools/crypto-index-fund", to: redirect("/tools", status: 302)
   get "/tools/low-hanging-fruit-checklist", to: redirect("/tools", status: 302)
-  get "/tools/compound-interest-calculator", to: redirect("/tools", status: 302)
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]

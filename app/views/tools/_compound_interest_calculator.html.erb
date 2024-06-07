@@ -1,0 +1,69 @@
+<%
+  title "Compound Interest Calculator"
+  description "See how your investments grow over time by earning interest on interest and letting your money work for you."
+%>
+
+<div class="flex p-2 bg-white border shadow-xs rounded-xl" data-controller="compound-interest-calculator">
+  <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg w-1/3 flex flex-col gap-4", data: { action: "submit->compound-interest-calculator#calculate" }} do |form| %>
+    <div data-controller="synchronized-input" class="flex flex-col gap-2">
+      <%= form.unit_field :initial_investment, label: "Initial investment", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+    </div>
+
+    <div data-controller="synchronized-input" class="flex flex-col gap-2 relative">
+      <%= form.unit_field :monthly_expenses, label: "Monthly expenses", value: 0, unit_symbol: "$", right_label: "per month", data: { controller: "autonumeric" } %>
+    </div>
+
+    <div data-controller="synchronized-input" class="flex flex-col gap-2 relative">
+      <%= form.unit_field :years_to_grow, label: "Years to grow", value: 0, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
+    </div>
+
+    <div data-controller="synchronized-input" class="flex flex-col gap-2 relative">
+      <%= form.unit_field :interest_rate, label: "Interest rate", value: 0, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 1 } } %>
+    </div>
+
+    <div class="mt-auto">
+      <%= form.submit "Calculate" %>
+    </div>
+  <% end %>
+
+  <div class="flex-1 p-4" data-compound-interest-calculator-target="resultsContainer">
+    <div class="grid h-96 place-items-center">
+      <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
+        <%= lucide_icon "keyboard", class: "h-6 w-6 mx-auto" %>
+        <p>Enter your details to see how your investments can grow with compound interest!</p>
+      </div>
+    </div>
+  </div>
+
+  <template data-compound-interest-calculator-target="resultsTemplate">
+    <div class="p-4">
+      <span class="text-sm text-gray-500">The total value of investments after <span t-text:="yearsToGrow">-</span> years</span>
+      <br/>
+      <span t-text:="totalValue" class="font-bold text-3xl">-</span>
+
+      <%=
+        tag.div(
+          "",
+          id: "compound-interest-calculator-chart",
+          class: "h-96 mt-6",
+          data: {
+            controller: "time-series-two-lines-chart",
+            time_series_two_lines_chart_series_value: JSON.generate({
+              contributed: {
+                name: "Contributed",
+                fillClass: "fill-blue-600",
+                strokeClass: "stroke-blue-600"
+              },
+              interest: {
+                name: "Interest",
+                fillClass: "fill-pink-500",
+                strokeClass: "stroke-pink-500"
+              }
+            })
+          },
+          "t-attr:data-time-series-two-lines-chart-data-value": "JSON.stringify(years)"
+        )
+      %>
+    </div>
+  </template>
+</div>
