@@ -17,6 +17,7 @@ class PagesController < ApplicationController
   def sitemap
     @terms = Term.all
     @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
+    @tools = Tool.all
   end
 
   private
