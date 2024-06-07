@@ -1,0 +1,22 @@
+<%
+  title "#{@stock.symbol} Stock Price, Information and News (#{@stock.name}) - Stocks"
+  description "#{@stock.symbol} Stock Price, Information and News (#{@stock.name}) - Stocks"
+%>
+
+<div class="flex justify-between text-sm">
+  <div class="text-gray-400"><%= link_to "Home", root_path, class: "text-gray-400 hover:text-gray-600" %> / <%= link_to "Stocks", stocks_path, class: "text-gray-400 hover:text-gray-600" %> / <span class="text-black"><%= @stock.symbol %></span></div>
+</div>
+
+<div class="flex items-center gap-3 mt-8">
+  <img src="https://logo.synthfinance.com/ticker/<%= @stock.symbol %>" alt="<%= @stock.symbol %>" class="w-10 h-10 rounded-full">
+  <h1 class="text-2xl font-medium text-black"><%= @stock.name %> <span class="font-normal text-gray-500"><%= @stock.symbol %></span></h1>
+</div>
+
+<div class="grid items-start grid-cols-3 gap-4 mt-4">
+  <div class="col-span-2">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-xs">
+      <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Chart Placeholder</div>
+    </div>
+  </div>
+  <div class="p-4 bg-blue-200">Column 2</div>
+</div>
