@@ -17,6 +17,12 @@ class Tool < ApplicationRecord
       text_class: "text-pink-500",
       bg_class: "bg-pink-500/5",
       solid_bg_class: "bg-pink-500"
+    },
+    other: {
+      name: "Other",
+      text_class: "text-yellow-500",
+      bg_class: "bg-yellow-500/5",
+      solid_bg_class: "bg-yellow-500"
     }
   }
 
