@@ -28,6 +28,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "redcarpet"
 gem "avo", ">= 3.2"
 gem "revise_auth"
+gem "pagy"
 
 
 group :development, :test do

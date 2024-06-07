@@ -13,7 +13,7 @@
 
       <p class="mt-3 text-sm text-gray-400">The A-Z of every finance, crypto or money related term you can possibly think of.</p>
 
-      <%= form_with method: :get, class: "mt-4 relative", data: { controller: "auto-submit-form", turbo_frame: "terms_list" } do |f| %>
+      <%= form_with method: :get, html: { class: "mt-4 relative" }, data: { controller: "auto-submit-form", turbo_frame: "terms_list" } do |f| %>
         <%= f.text_field:q, value: @query,
           class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-sm",
           placeholder: "Search for any term",
@@ -45,7 +45,7 @@
       <div id="<%= group.delete " " %>" class="py-12 border-b last:border-b-0 scroll-mt-10" data-section-links-target="section">
         <h2 class="px-2 text-2xl font-medium tracking-tight"><%= group %></h2>
 
-        <div class="grid gap-1 mt-6 grid-cols-2 md:grid-cols-4">
+        <div class="grid grid-cols-2 gap-1 mt-6 md:grid-cols-4">
           <% terms.each do |term| %>
             <%= link_to term.name, term_path(term), class: "block p-2 hover:bg-alpha-black-50 rounded-lg" %>
           <% end %>

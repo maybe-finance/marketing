@@ -2,18 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+.pagy {
+  @apply my-6 text-xs text-center;
+  a {
+    @apply px-3 py-1.5 text-gray-500 border border-transparent;
+  }
+  .current {
+    @apply font-semibold text-black bg-white border border-gray-200 rounded-lg shadow-xs;
+  }
+}
+
 @layer components {
   .form-field {
-    @apply relative border border-alpha-black-100 bg-white rounded-md shadow-xs;
+    @apply relative bg-white border rounded-md shadow-xs border-alpha-black-100;
     @apply focus-within:shadow-none focus-within:border-gray-900 focus-within:ring-4 focus-within:ring-gray-100;
   }
 
   .form-field__label {
-    @apply px-3 pt-2 pb-0 block text-xs text-gray-500;
+    @apply block px-3 pt-2 pb-0 text-xs text-gray-500;
   }
 
   .form-field__input {
-    @apply px-3 pb-2 pt-1 text-sm w-full bg-transparent border-none opacity-100;
+    @apply w-full px-3 pt-1 pb-2 text-sm bg-transparent border-none opacity-100;
     @apply focus:outline-none focus:ring-0 focus:opacity-100;
     @apply placeholder-shown:opacity-50;
     @apply disabled:opacity-50;
@@ -29,7 +39,7 @@
 
   input[type="range"][data-controller*="range-input"] {
     @apply block relative h-2 my-[9px] appearance-none border-none outline-none bg-gray-100 rounded-full;
-    @apply bg-gray-100 bg-gradient-to-r bg-no-repeat;
+    @apply bg-gray-100 bg-no-repeat bg-gradient-to-r;
     background-size: var(--range-before-width, 0) 100%;
   }
 
@@ -46,11 +56,10 @@
   }
 
   .tab-item {
-    @apply w-1/2 text-gray-500 text-sm 
+    @apply w-1/2 text-sm text-gray-500;
   }
 
   .tab-item-active {
-    @apply bg-white text-gray-900 p-2 border border-alpha-black-100 rounded-lg;
+    @apply p-2 text-gray-900 bg-white border rounded-lg border-alpha-black-100;
   }
-
 }

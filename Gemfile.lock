@@ -424,6 +424,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   lucide-rails!
+  pagy
   pg (~> 1.5)
   propshaft
   puma (>= 5.0)
