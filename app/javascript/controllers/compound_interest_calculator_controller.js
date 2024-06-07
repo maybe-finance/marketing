@@ -24,7 +24,7 @@ export default class extends Controller {
     const results = [];
 
     const date = new Date();
-    date.setFullYear(date.getFullYear() - 1);
+    date.setFullYear(date.getFullYear());
 
     for (let year = 1; year <= yearsToGrow; year++) {
       let yearlyInterest = 0;
@@ -38,7 +38,7 @@ export default class extends Controller {
         year: year,
         date: new Date(date.setFullYear(date.getFullYear() + 1)),
         contributed: totalContributed,
-        interest: yearlyInterest + yearlyInterest,
+        interest: yearlyInterest,
         currentTotalValue: currentTotalValue
       });
     }

@@ -8,7 +8,7 @@ export default class extends Controller {
     data: { type: Array, default: [] },
     useLabels: { type: Boolean, default: true },
   }
-  
+
   #initialElementWidth = 0
   #initialElementHeight = 0
 
@@ -64,28 +64,71 @@ export default class extends Controller {
       .selectAll()
       .data(this.#d3Series)
       .join("g")
-        .attr("class", d => this.seriesValue[d.key].strokeClass)
+      .attr("class", d => this.seriesValue[d.key].strokeClass)
       .append("path")
-        .attr("fill", "none")
-        .attr("stroke", d => this.seriesValue[d.key].strokeClass)
-        .attr("d", d => {
-          return d3.line()
-            .x(d => x(d.data.date))
-            .y(d => y(d[1]))
-            .curve(d3.curveMonotoneX)(d);
-        });
-  }
+      .attr("fill", "none")
+      .attr("stroke", d => this.seriesValue[d.key].strokeClass)
+      .attr("stroke-width", 3)
+      .attr("stroke-dasharray", (d, i) => i === 0 ? "9" : null)
+      .attr("stroke-linecap", "round")
+      .attr("d", d => {
+        return d3.line()
+          .x(d => x(d.data.date))
+          .y(d => y(d[1]))
+          .curve(d3.curveMonotoneX)(d);
+      });
 
-  #rectPathWithRadius({x, y, width, height, radius}) {
-    return `
-      M${x},${y + radius}
-      Q${x},${y} ${x + radius},${y}
-      H${x + width - radius}
-      Q${x + width},${y} ${x + width},${y + radius}
-      V${y + height}
-      H${x}
-      Z
-    `;
+
+    // TODO: adding stop-color here is hardcoded not re-usable, maybe solve with
+    //       https://tailwindcss.com/docs/configuration#referencing-in-java-script
+
+    const gradient1 = this.#d3Content.append("defs")
+      .append("linearGradient")
+      .attr("id", "line-gradient-1")
+      .attr("x1", 0).attr("y1", 0)
+      .attr("x2", 0).attr("y2", 1);
+
+    gradient1.append("stop")
+      .attr("offset", "25%")
+      .attr("stop-color", "#7839ee")
+      .style("stop-opacity", 0.10);
+
+    gradient1.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", "#7839ee")
+      .style("stop-opacity", 0);
+
+    const gradient2 = this.#d3Content.append("defs")
+      .append("linearGradient")
+      .attr("id", "line-gradient-2")
+      .attr("x1", 0).attr("y1", 0)
+      .attr("x2", 0).attr("y2", 1);
+
+    gradient2.append("stop")
+      .attr("offset", "25%")
+      .attr("stop-color", "#f23e94")
+      .style("stop-opacity", 0.10);
+
+    gradient2.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", "#f23e94")
+      .style("stop-opacity", 0);
+
+    this.#d3Content
+      .append("g")
+      .selectAll()
+      .data(this.#d3Series)
+      .join("g")
+      .attr("class", d => this.seriesValue[d.key].fillClass)
+      .append("path")
+      .attr("fill", (d, i) => i === 0 ? "url(#line-gradient-1)" : "url(#line-gradient-2)")
+      .attr("d", d => {
+        return d3.area()
+          .x(d => x(d.data.date))
+          .y0(y(0))
+          .y1(d => y(d[1]))
+          .curve(d3.curveMonotoneX)(d);
+      });
   }
 
   #drawGridlines() {
@@ -115,7 +158,7 @@ export default class extends Controller {
     const formattedDateToday = d3.timeFormat("%d %b %Y")(new Date())
 
     const axisGenerator = d3.axisBottom(this.#d3XScale)
-      .tickValues([ this.#data[0].date, this.#data[this.#data.length - 1].date ])
+      .tickValues([this.#data[0].date, this.#data[this.#data.length - 1].date])
       .tickSize(0)
       .tickFormat((date) => {
         const formattedDate = d3.timeFormat("%d %b %Y")(date)
@@ -155,8 +198,8 @@ export default class extends Controller {
         .attr("class", series.fillClass)
         .attr("rx", 2)
         .attr("ry", 2)
-        
-      
+
+
       item.append("text")
         .attr("x", 10)
         .attr("y", 10)
@@ -171,73 +214,83 @@ export default class extends Controller {
     })
 
     const legendWidth = legend.node().getBBox().width;
-    legend.attr("transform", `translate(${this.#contentWidth/2 - legendWidth/2}, ${this.#contentHeight})`)
+    legend.attr("transform", `translate(${this.#contentWidth / 2 - legendWidth / 2}, ${this.#contentHeight})`)
   }
 
-#installTooltip() {
-  const dot1 = this.#d3Content.append("g")
-    .attr("class", "focus")
-    .style("display", "none");
-  const dot2 = this.#d3Content.append("g")
-    .attr("class", "focus")
-    .style("display", "none");
+  #installTooltip() {
+    const dot1 = this.#d3Content.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
+    const dot2 = this.#d3Content.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
 
-  dot1.append("circle")
-    .attr("r", 3.5)
-    .attr("class", this.seriesValue.interest.fillClass);
+    dot1.append("circle")
+      .attr("r", 4.5)
+      .attr("class", this.seriesValue.interest.fillClass);
 
-  dot2.append("circle")
-    .attr("r", 3.5)
-    .attr("class", this.seriesValue.contributed.fillClass);
+    dot1.append("circle")
+      .attr("r", 13.5)
+      .attr("class", this.seriesValue.interest.fillClass)
+      .style("opacity", 0.15);
 
-  this.#d3Content
-    .append("rect")
-    .attr("width", this.#contentWidth)
-    .attr("height", this.#contentHeight)
-    .attr("fill", "none")
-    .attr("pointer-events", "all")
-    .on("mouseover", () => {
-      dot1.style("display", null);
-      dot2.style("display", null);
-    })
-    .on("mouseout", (event) => {
-      const hoveringOnGuideline = event.toElement?.classList.contains("guideline");
-      if (!hoveringOnGuideline) {
+    dot2.append("circle")
+      .attr("r", 4.5)
+      .attr("class", this.seriesValue.contributed.fillClass);
+
+    dot2.append("circle")
+      .attr("r", 13.5)
+      .attr("class", this.seriesValue.contributed.fillClass)
+      .style("opacity", 0.15);
+
+    this.#d3Content
+      .append("rect")
+      .attr("width", this.#contentWidth)
+      .attr("height", this.#contentHeight)
+      .attr("fill", "none")
+      .attr("pointer-events", "all")
+      .on("mouseover", () => {
+        dot1.style("display", null);
+        dot2.style("display", null);
+      })
+      .on("mouseout", (event) => {
+        const hoveringOnGuideline = event.toElement?.classList.contains("guideline");
+        if (!hoveringOnGuideline) {
+          this.#d3Content.selectAll(".guideline").remove();
+          this.#d3Tooltip.style("opacity", 0);
+          dot1.style("display", "none");
+          dot2.style("display", "none");
+        }
+      })
+      .on("mousemove", (event) => {
+        const x = this.#d3XScale;
+        const d = this.#findDatumByPointer(event);
+
         this.#d3Content.selectAll(".guideline").remove();
-        this.#d3Tooltip.style("opacity", 0);
-        dot1.style("display", "none");
-        dot2.style("display", "none");
-      }
-    })
-    .on("mousemove", (event) => {
-      const x = this.#d3XScale;
-      const d = this.#findDatumByPointer(event);
 
-      this.#d3Content.selectAll(".guideline").remove();
+        this.#d3Content
+          .insert("line", ":first-child")
+          .attr("class", "guideline")
+          .attr("stroke", tailwindColors["alpha-black"][50])
+          .style("stroke-dasharray", "5")
+          .style("stroke-width", "2")
+          .style("stroke-linecap", "round")          
+          .attr("x1", x(d.date))
+          .attr("y1", 0 + this.#margin.top)
+          .attr("x2", x(d.date))
+          .attr("y2", this.#contentHeight - this.#margin.bottom);
 
-      this.#d3Content
-        .insert("path", ":first-child")
-        .attr("class", "guideline")
-        .attr("fill", tailwindColors["alpha-black"][50])
-        .attr("d", this.#rectPathWithRadius({
-          x: x(d.date) - x.step() / 8,
-          y: 0,
-          width: 3 + x.step() / 4,
-          height: this.#contentHeight - this.#margin.bottom,
-          radius: Math.min(x.bandwidth() / 4, 10),
-        }));
+        dot1.attr("transform", `translate(${x(d.date)}, ${this.#d3YScale(d.contributed + d.interest)})`);
+        dot2.attr("transform", `translate(${x(d.date)}, ${this.#d3YScale(d.contributed)})`);
 
-      dot1.attr("transform", `translate(${x(d.date)}, ${this.#d3YScale(d.contributed + d.interest)})`);
-      dot2.attr("transform", `translate(${x(d.date)}, ${this.#d3YScale(d.contributed)})`);
-
-      this.#d3Tooltip
-        .html(this.#tooltipTemplate(d))
-        .style("opacity", 1)
-        .style("z-index", 999)
-        .style("left", this.#tooltipLeft(event) + "px")
-        .style("top", event.pageY - 10 + "px");
-    });
-}
+        this.#d3Tooltip
+          .html(this.#tooltipTemplate(d))
+          .style("opacity", 1)
+          .style("z-index", 999)
+          .style("left", this.#tooltipLeft(event) + "px")
+          .style("top", event.pageY - 10 + "px");
+      });
+  }
 
   #tooltipLeft(event) {
     const estimatedTooltipWidth = 250
@@ -249,13 +302,12 @@ export default class extends Controller {
   }
 
   #tooltipTemplate(datum) {
-    return(`
+    return (`
       <div class="mb-1 text-gray-500 font-medium">
         ${d3.timeFormat("%b %d, %Y")(datum.date)}
       </div>
 
-      ${
-        Object.entries(this.seriesValue).reverse().map(([key, series]) => `
+      ${Object.entries(this.seriesValue).reverse().map(([key, series]) => `
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
               <svg width="4" height="12">
@@ -269,14 +321,13 @@ export default class extends Controller {
               </svg>
 
               <span class="font-medium">
-                ${
-                  new Intl.NumberFormat(navigator.language, {
-                    style: "currency",
-                    currencyDisplay: "narrowSymbol",
-                    currency: "USD",
-                    maximumFractionDigits: 0,
-                  }).format(datum[key])
-                }
+                ${new Intl.NumberFormat(navigator.language, {
+      style: "currency",
+      currencyDisplay: "narrowSymbol",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(datum[key])
+      }
               </span>
             </div>
           </div>
@@ -289,14 +340,13 @@ export default class extends Controller {
       <div class="flex items-center gap-2">
         <span class="text-gray-500">Total value:</span>
         <span class="font-medium">
-          ${
-            new Intl.NumberFormat(navigator.language, {
-              style: "currency",
-              currencyDisplay: "narrowSymbol",
-              currency: "USD",
-              maximumFractionDigits: 0,
-            }).format(datum.currentTotalValue)
-          }
+          ${new Intl.NumberFormat(navigator.language, {
+        style: "currency",
+        currencyDisplay: "narrowSymbol",
+        currency: "USD",
+        maximumFractionDigits: 0,
+      }).format(datum.currentTotalValue)
+      }
         </span>
       </div>
     </div>
@@ -313,7 +363,7 @@ export default class extends Controller {
       .style("pointer-events", "none")
       .style("opacity", 0)
   }
-  
+
   #d3GroupMemo = null
   get #d3Content() {
     if (this.#d3GroupMemo) return this.#d3GroupMemo
@@ -331,7 +381,7 @@ export default class extends Controller {
       .append("svg")
       .attr("width", this.#initialElementWidth)
       .attr("height", this.#initialElementHeight)
-      .attr("viewBox", [ 0, 0, this.#initialElementWidth, this.#initialElementHeight ])
+      .attr("viewBox", [0, 0, this.#initialElementWidth, this.#initialElementHeight])
 
     this.#d3SvgMemo.append("defs")
       .append("clipPath")
@@ -354,9 +404,9 @@ export default class extends Controller {
   }
 
   get #d3XScale() {
-     return d3.scaleBand()
+    return d3.scaleBand()
       .domain(this.#data.map(d => d.date))
-      .range([ 0, this.#contentWidth ])
+      .range([0, this.#contentWidth])
       .padding(.4);
   }
 
