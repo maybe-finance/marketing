@@ -1,0 +1,22 @@
+<%# locals: (value: 'last_30_days', button_class: '') -%>
+<% options = [["months", "months"], ["years", "years"]] %>
+<div data-controller="select" data-select-active-class="bg-gray-100" class="relative flex self-end" data-select-selected-value="<%= value %>">
+  <%=
+    tag.button(
+      type: "button",
+      data: { "select-target": "button" },
+      class: button_class.presence || "flex items-center gap-1 text-sm p-2 cursor-pointer text-gray-500 text-sm"
+    ) do
+  %>
+    <span data-select-target="buttonText"><%= options.find { |option| option[1] == value }[1] %></span>
+    <%= lucide_icon("chevron-down", class: "w-5 h-5 text-gray-500") %>
+  <% end %>
+  <input type="hidden" name="loan_period" data-select-target="input" data-auto-submit-form-target="auto">
+  <ul data-select-target="list" class="hidden absolute z-10 top-[110%] right-0 border border-alpha-black-25 bg-white rounded shadow-xs p-1">
+    <% options.each do |label, value| %>
+      <li tabindex="0" data-select-target="option" data-action="click->select#selectOption" data-value="<%= value %>" class="px-5 py-1 pr-24 text-sm text-black rounded cursor-pointer hover:bg-alpha-black-50">
+        <%= label %>
+      </li>
+    <% end %>
+  </ul>
+</div>

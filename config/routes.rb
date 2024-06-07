@@ -5,11 +5,19 @@ Rails.application.routes.draw do
     mount Avo::Engine, at: Avo.configuration.root_path
   end
 
+  # Old redirects
+  get "/tools/freedom-calculator", to: redirect("/tools/financial-freedom-calculator", status: 301)
+
+  get "/tools/crypto-index-fund", to: redirect("/tools", status: 302)
+  get "/tools/low-hanging-fruit-checklist", to: redirect("/tools", status: 302)
+  get "/tools/compound-interest-calculator", to: redirect("/tools", status: 302)
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
   resources :stocks, only: [ :index, :show ]
+  resources :tools, only: [ :index, :show ]
 
   get "tos" => "pages#tos"
   get "privacy" => "pages#privacy"

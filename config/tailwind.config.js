@@ -4,6 +4,7 @@ const colors = require("../app/javascript/tailwindColors");
 module.exports = {
   content: [
     './public/*.html',
+    './app/models/**/*.rb',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}'

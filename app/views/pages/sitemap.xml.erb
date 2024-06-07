@@ -25,4 +25,13 @@
     <loc>https://maybe.co/articles/<%= article.slug %></loc>
   </url>
   <% end %>
+  <url>
+    <loc>https://maybe.co/tools</loc>
+  </url>
+  <% @tools.each do |tool| %>
+  <url>
+    <loc>https://maybe.co/tools/<%= tool.slug %></loc>
+  </url>
+  <% end %>
 </urlset>
+
