@@ -14,6 +14,6 @@ class StocksController < ApplicationController
   end
 
   def show
-    @stock = Stock.find_by(symbol: params[:id])
+    @stock = Stock.find_by(symbol: params[:ticker])
   end
 end

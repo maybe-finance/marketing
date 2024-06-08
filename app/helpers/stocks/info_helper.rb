@@ -1,0 +1,2 @@
+module Stocks::InfoHelper
+end

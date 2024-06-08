@@ -1,0 +1,21 @@
+<%= turbo_frame_tag "stock_info" do %>
+  <p class="mt-2 text-sm">
+    <%= @stock_info["description"] %>
+  </p>
+  <dl class="grid grid-cols-2 gap-4 mt-4 text-sm leading-6">
+    <div>
+      <dt class="text-gray-400">Employees</dt>
+      <dd><%= number_with_delimiter @stock_info["total_employees"] %></dd>
+    </div>
+    <div>
+      <dt class="text-gray-400">Headquarters</dt>
+      <dd><%= @stock_info["address"]["city"] %>, <%= @stock_info["address"]["state"] %></dd>
+    </div>
+  </dl>
+  <div class="inline-block">
+    <a href="<%= @stock_info["website"] %>" target="_blank" class="flex items-center px-3 py-1 mt-4 text-sm text-gray-900 border border-gray-200 rounded-full">
+      <%= @stock_info["links"]["homepage_url"].gsub(/https?:\/\/(www\.)?/, "") %>
+      <%= lucide_icon("link-2", class: "w-4 h-4 ml-2") %>
+    </a>
+  </div>
+<% end %>
