@@ -55,81 +55,81 @@ export default class extends Controller {
     }
   }
 
-  #drawTwoLinesChart() {
-    const x = this.#d3XScale;
-    const y = this.#d3YScale;
+   #drawTwoLinesChart() {
+     const x = this.#d3XScale;
+     const y = this.#d3YScale;
 
-    this.#d3Content
-      .append("g")
-      .selectAll()
-      .data(this.#d3Series)
-      .join("g")
-      .attr("class", d => this.seriesValue[d.key].strokeClass)
-      .append("path")
-      .attr("fill", "none")
-      .attr("stroke", d => this.seriesValue[d.key].strokeClass)
-      .attr("stroke-width", 3)
-      .attr("stroke-dasharray", (d, i) => i === 0 ? "9" : null)
-      .attr("stroke-linecap", "round")
-      .attr("d", d => {
-        return d3.line()
-          .x(d => x(d.data.date))
-          .y(d => y(d[1]))
-          .curve(d3.curveMonotoneX)(d);
-      });
+     this.#d3Content
+       .append("g")
+       .selectAll()
+       .data(this.#d3Series)
+       .join("g")
+       .attr("class", d => this.seriesValue[d.key].strokeClass)
+       .append("path")
+       .attr("fill", "none")
+       .attr("stroke", d => this.seriesValue[d.key].strokeClass)
+       .attr("stroke-width", 3)
+       .attr("stroke-dasharray", (d, i) => i === 0 ? "9" : null)
+       .attr("stroke-linecap", "round")
+       .attr("d", d => {
+         return d3.line()
+           .x(d => x(d.data.date))
+           .y(d => y(d[1]))
+           .curve(d3.curveMonotoneX)(d);
+       });
 
 
     // TODO: adding stop-color here is hardcoded not re-usable, maybe solve with
     //       https://tailwindcss.com/docs/configuration#referencing-in-java-script
 
-    const gradient1 = this.#d3Content.append("defs")
-      .append("linearGradient")
-      .attr("id", "line-gradient-1")
-      .attr("x1", 0).attr("y1", 0)
-      .attr("x2", 0).attr("y2", 1);
+     const gradient1 = this.#d3Content.append("defs")
+       .append("linearGradient")
+       .attr("id", "line-gradient-1")
+       .attr("x1", 0).attr("y1", 0)
+       .attr("x2", 0).attr("y2", 1);
 
-    gradient1.append("stop")
-      .attr("offset", "25%")
-      .attr("stop-color", "#7839ee")
-      .style("stop-opacity", 0.10);
+     gradient1.append("stop")
+       .attr("offset", "25%")
+       .attr("stop-color", "#7839ee")
+       .style("stop-opacity", 0.10);
 
-    gradient1.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", "#7839ee")
-      .style("stop-opacity", 0);
+     gradient1.append("stop")
+       .attr("offset", "100%")
+       .attr("stop-color", "#7839ee")
+       .style("stop-opacity", 0);
 
-    const gradient2 = this.#d3Content.append("defs")
-      .append("linearGradient")
-      .attr("id", "line-gradient-2")
-      .attr("x1", 0).attr("y1", 0)
-      .attr("x2", 0).attr("y2", 1);
+     const gradient2 = this.#d3Content.append("defs")
+       .append("linearGradient")
+       .attr("id", "line-gradient-2")
+       .attr("x1", 0).attr("y1", 0)
+       .attr("x2", 0).attr("y2", 1);
 
-    gradient2.append("stop")
-      .attr("offset", "25%")
-      .attr("stop-color", "#f23e94")
-      .style("stop-opacity", 0.10);
+     gradient2.append("stop")
+       .attr("offset", "25%")
+       .attr("stop-color", "#f23e94")
+       .style("stop-opacity", 0.10);
 
-    gradient2.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", "#f23e94")
-      .style("stop-opacity", 0);
+     gradient2.append("stop")
+       .attr("offset", "100%")
+       .attr("stop-color", "#f23e94")
+       .style("stop-opacity", 0);
 
-    this.#d3Content
-      .append("g")
-      .selectAll()
-      .data(this.#d3Series)
-      .join("g")
-      .attr("class", d => this.seriesValue[d.key].fillClass)
-      .append("path")
-      .attr("fill", (d, i) => i === 0 ? "url(#line-gradient-1)" : "url(#line-gradient-2)")
-      .attr("d", d => {
-        return d3.area()
-          .x(d => x(d.data.date))
-          .y0(y(0))
-          .y1(d => y(d[1]))
-          .curve(d3.curveMonotoneX)(d);
-      });
-  }
+     this.#d3Content
+       .append("g")
+       .selectAll()
+       .data(this.#d3Series)
+       .join("g")
+       .attr("class", d => this.seriesValue[d.key].fillClass)
+       .append("path")
+       .attr("fill", (d, i) => i === 0 ? "url(#line-gradient-1)" : "url(#line-gradient-2)")
+       .attr("d", d => {
+         return d3.area()
+           .x(d => x(d.data.date))
+           .y0(y(0))
+           .y1(d => y(d[1]))
+           .curve(d3.curveMonotoneX)(d);
+       });
+   }
 
   #drawGridlines() {
     const axisGenerator = d3.axisRight(this.#d3YScale)
@@ -217,31 +217,27 @@ export default class extends Controller {
     legend.attr("transform", `translate(${this.#contentWidth / 2 - legendWidth / 2}, ${this.#contentHeight})`)
   }
 
+  #createDot(className, fillClass) {
+    const dot = this.#d3Content.append("g")
+      .attr("class", className)
+      .style("display", "none");
+
+    dot.append("circle")
+      .attr("r", 4.5)
+      .attr("class", fillClass);
+
+    dot.append("circle")
+      .attr("r", 13.5)
+      .attr("class", fillClass)
+      .style("opacity", 0.15);
+
+    return dot;
+  };
+
+
   #installTooltip() {
-    const dot1 = this.#d3Content.append("g")
-      .attr("class", "focus")
-      .style("display", "none");
-    const dot2 = this.#d3Content.append("g")
-      .attr("class", "focus")
-      .style("display", "none");
-
-    dot1.append("circle")
-      .attr("r", 4.5)
-      .attr("class", this.seriesValue.interest.fillClass);
-
-    dot1.append("circle")
-      .attr("r", 13.5)
-      .attr("class", this.seriesValue.interest.fillClass)
-      .style("opacity", 0.15);
-
-    dot2.append("circle")
-      .attr("r", 4.5)
-      .attr("class", this.seriesValue.contributed.fillClass);
-
-    dot2.append("circle")
-      .attr("r", 13.5)
-      .attr("class", this.seriesValue.contributed.fillClass)
-      .style("opacity", 0.15);
+    const dot1 = this.#createDot("focus", this.seriesValue.interest.fillClass);
+    const dot2 = this.#createDot("focus", this.seriesValue.contributed.fillClass);
 
     this.#d3Content
       .append("rect")
@@ -266,6 +262,11 @@ export default class extends Controller {
         const x = this.#d3XScale;
         const d = this.#findDatumByPointer(event);
 
+        const dataX = x(d.date);
+
+        dot1.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.contributed + d.interest)})`);
+        dot2.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.contributed)})`);
+
         this.#d3Content.selectAll(".guideline").remove();
 
         this.#d3Content
@@ -274,14 +275,11 @@ export default class extends Controller {
           .attr("stroke", tailwindColors["alpha-black"][50])
           .style("stroke-dasharray", "5")
           .style("stroke-width", "2")
-          .style("stroke-linecap", "round")          
-          .attr("x1", x(d.date))
+          .style("stroke-linecap", "round")
+          .attr("x1", dataX)
           .attr("y1", 0 + this.#margin.top)
-          .attr("x2", x(d.date))
+          .attr("x2", dataX)
           .attr("y2", this.#contentHeight - this.#margin.bottom);
-
-        dot1.attr("transform", `translate(${x(d.date)}, ${this.#d3YScale(d.contributed + d.interest)})`);
-        dot2.attr("transform", `translate(${x(d.date)}, ${this.#d3YScale(d.contributed)})`);
 
         this.#d3Tooltip
           .html(this.#tooltipTemplate(d))
@@ -404,10 +402,10 @@ export default class extends Controller {
   }
 
   get #d3XScale() {
-    return d3.scaleBand()
-      .domain(this.#data.map(d => d.date))
-      .range([0, this.#contentWidth])
-      .padding(.4);
+    const dateExtent = d3.extent(this.#data, d => d.date);
+    return d3.scaleTime()
+      .domain([d3.timeDay.offset(dateExtent[0], -(this.#data.length * 15)), d3.timeDay.offset(dateExtent[1], this.#data.length * 15)])
+      .range([0, this.#contentWidth]);
   }
 
   get #d3YScale() {
@@ -417,13 +415,22 @@ export default class extends Controller {
   }
 
   #findDatumByPointer(event) {
-    const x = this.#d3XScale
-    const [xPos] = d3.pointer(event)
-
-    const index = Math.floor((xPos - x.bandwidth() / 2) / x.step())
-
-    if (index < 0) return this.#data[0]
-    if (index >= this.#data.length) return this.#data[this.#data.length - 1]
-    return this.#data[index]
+    const x = this.#d3XScale;
+    const [xPos] = d3.pointer(event);
+  
+    // Find the closest date to the xPos
+    const bisectDate = d3.bisector(d => d.date).left;
+    const date = x.invert(xPos);
+    const index = bisectDate(this.#data, date, 1);
+  
+    // Boundary checks
+    if (index === 0) return this.#data[0];
+    if (index >= this.#data.length) return this.#data[this.#data.length - 1];
+  
+    const d0 = this.#data[index - 1];
+    const d1 = this.#data[index];
+    const d = date - d0.date > d1.date - date ? d1 : d0;
+  
+    return d;
   }
 }
