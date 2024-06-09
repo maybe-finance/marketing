@@ -9,16 +9,16 @@
       <%= form.unit_field :initial_investment, label: "Initial investment", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
     </div>
 
-    <div data-controller="synchronized-input" class="flex flex-col gap-2 relative">
-      <%= form.unit_field :monthly_expenses, label: "Monthly expenses", value: 0, unit_symbol: "$", right_label: "per month", data: { controller: "autonumeric" } %>
+    <div data-controller="synchronized-input" class="relative flex flex-col gap-2">
+      <%= form.unit_field :monthly_expenses, label: "Monthly contribution", value: 0, unit_symbol: "$", right_label: "per month", data: { controller: "autonumeric" } %>
     </div>
 
-    <div data-controller="synchronized-input" class="flex flex-col gap-2 relative">
+    <div data-controller="synchronized-input" class="relative flex flex-col gap-2">
       <%= form.unit_field :years_to_grow, label: "Years to grow", value: 0, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
     </div>
 
-    <div data-controller="synchronized-input" class="flex flex-col gap-2 relative">
-      <%= form.unit_field :interest_rate, label: "Interest rate", value: 0, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 1 } } %>
+    <div data-controller="synchronized-input" class="relative flex flex-col gap-2">
+      <%= form.unit_field :interest_rate, label: "Annual interest rate", value: 0, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 1 } } %>
     </div>
 
     <div class="mt-auto">
@@ -39,7 +39,7 @@
     <div class="relative p-4">
       <span class="text-sm text-gray-500">The total value of investments after <span t-text:="yearsToGrow">-</span> years</span>
       <br/>
-      <span t-text:="totalValue" class="font-medium text-3xl">-</span>
+      <span t-text:="totalValue" class="text-3xl font-medium">-</span>
 
       <%=
         tag.div(
