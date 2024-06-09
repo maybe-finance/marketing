@@ -281,7 +281,7 @@ export default class extends Controller {
           .attr("y2", this.#contentHeight - this.#margin.bottom);
 
         const tooltipX = dataX;
-        const tooltipY = this.#d3YScale(d.contributed + d.interest);
+        const tooltipY = this.#d3YScale(d.contributed);
         const tooltipMarginX = 50;
 
         this.#d3Tooltip
@@ -289,7 +289,7 @@ export default class extends Controller {
           .style("opacity", 1)
           .style("z-index", 999)
           .style("left", tooltipX + tooltipMarginX + "px")
-          .style("top", tooltipY + 50 + "px")
+          .style("top", tooltipY + "px")
           .style("transform", () => {
             const tooltipElement = this.#d3Tooltip.node();
             const realTooltipWidth = tooltipElement.getBoundingClientRect().width;
