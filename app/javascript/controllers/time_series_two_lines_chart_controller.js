@@ -295,7 +295,7 @@ export default class extends Controller {
 
     return (`
       <div class="mb-1 text-gray-500 font-medium">
-        ${d3.timeFormat("%b %d, %Y")(datum.date)}
+        Year ${datum.year}
       </div>
       ${Object.entries(this.seriesValue).reverse().map(([key, series]) => `
         <div class="flex items-center gap-4">
@@ -310,7 +310,7 @@ export default class extends Controller {
       <hr class="my-2">
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2">
-          <span class="text-gray-500">Total value:</span>
+          <span class="text-gray-500 whitespace-nowrap">Total value:</span>
           <span class="font-medium">${formatCurrency(datum.currentTotalValue)}</span>
         </div>
       </div>
