@@ -36,10 +36,10 @@
   </div>
 
   <template data-compound-interest-calculator-target="resultsTemplate">
-    <div class="p-4">
+    <div class="relative p-4">
       <span class="text-sm text-gray-500">The total value of investments after <span t-text:="yearsToGrow">-</span> years</span>
       <br/>
-      <span t-text:="totalValue" class="font-bold text-3xl">-</span>
+      <span t-text:="totalValue" class="font-medium text-3xl">-</span>
 
       <%=
         tag.div(

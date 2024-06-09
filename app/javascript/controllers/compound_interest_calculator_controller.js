@@ -38,10 +38,18 @@ export default class extends Controller {
         year: year,
         date: new Date(date.setFullYear(date.getFullYear() + 1)),
         contributed: totalContributed,
-        interest: yearlyInterest,
+        interest: currentTotalValue,
         currentTotalValue: currentTotalValue
       });
     }
+
+    results.unshift({
+      year: 0,
+      date: new Date(),
+      contributed: initialInvestments,
+      interest: initialInvestments,
+      currentTotalValue: initialInvestments
+    })
 
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
