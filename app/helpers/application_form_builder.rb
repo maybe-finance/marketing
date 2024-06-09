@@ -36,7 +36,7 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
       label_html = label(method, *label_args(options)) if options[:label]
       content = @template.tag.div(class: "flex items-center") do
         @template.tag.span(options[:unit_symbol], class: "pl-3 pb-2 pt-1 text-sm text-gray-500") +
-        number_field(method, merged_options.except(:label)) +
+        text_field(method, merged_options.except(:label)) +
         (@template.tag.span(options[:label_right], class: "text-gray-500 text-xs mr-2") if options[:label_right]).to_s
       end
       label_html.to_s + content
