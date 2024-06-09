@@ -76,41 +76,8 @@ export default class extends Controller {
           .curve(d3.curveMonotoneX)(d);
       });
 
-
-    // TODO: adding stop-color here is hardcoded not re-usable, maybe solve with
-    //       https://tailwindcss.com/docs/configuration#referencing-in-java-script
-
-    const gradient1 = this.#d3Content.append("defs")
-      .append("linearGradient")
-      .attr("id", "line-gradient-1")
-      .attr("x1", 0).attr("y1", 0)
-      .attr("x2", 0).attr("y2", 1);
-
-    gradient1.append("stop")
-      .attr("offset", "25%")
-      .attr("stop-color", "#7839ee")
-      .style("stop-opacity", 0.10);
-
-    gradient1.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", "#7839ee")
-      .style("stop-opacity", 0);
-
-    const gradient2 = this.#d3Content.append("defs")
-      .append("linearGradient")
-      .attr("id", "line-gradient-2")
-      .attr("x1", 0).attr("y1", 0)
-      .attr("x2", 0).attr("y2", 1);
-
-    gradient2.append("stop")
-      .attr("offset", "25%")
-      .attr("stop-color", "#f23e94")
-      .style("stop-opacity", 0.10);
-
-    gradient2.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", "#f23e94")
-      .style("stop-opacity", 0);
+    this.#createGradient("line-gradient-1", "#7839ee");
+    this.#createGradient("line-gradient-2", "#f23e94");
 
     this.#d3Content
       .append("g")
@@ -120,13 +87,30 @@ export default class extends Controller {
       .attr("class", d => this.seriesValue[d.key].fillClass)
       .append("path")
       .attr("fill", (d, i) => i === 0 ? "url(#line-gradient-1)" : "url(#line-gradient-2)")
-      .attr("d", d => {
-        return d3.area()
-          .x(d => x(d.data.date))
-          .y0(y(0))
-          .y1(d => y(d[1] - d[0]))
-          .curve(d3.curveMonotoneX)(d);
-      });
+      .attr("d", d => d3.area()
+        .x(d => x(d.data.date))
+        .y0(y(0))
+        .y1(d => y(d[1] - d[0]))
+        .curve(d3.curveMonotoneX)(d)
+      );
+  }
+
+  #createGradient(id, color) {
+    const gradient = this.#d3Content.append("defs")
+      .append("linearGradient")
+      .attr("id", id)
+      .attr("x1", 0).attr("y1", 0)
+      .attr("x2", 0).attr("y2", 1);
+
+    gradient.append("stop")
+      .attr("offset", "25%")
+      .attr("stop-color", color)
+      .style("stop-opacity", 0.10);
+
+    gradient.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", color)
+      .style("stop-opacity", 0);
   }
 
   #drawGridlines() {
@@ -302,54 +286,34 @@ export default class extends Controller {
   }
 
   #tooltipTemplate(datum) {
-    return (`
-      <div class="mb-1 text-gray-500 font-medium">
-        ${d3.timeFormat("%b %d, %Y")(datum.date)}
-      </div>
-
-      ${Object.entries(this.seriesValue).reverse().map(([key, series]) => `
-          <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2">
-              <svg width="4" height="12">
-                <rect
-                  rx="2"
-                  ry="2"
-                  class="${series.fillClass}"
-                  width="4"
-                  height="12"
-                  ></rect>
-              </svg>
-
-              <span class="font-medium">
-                ${new Intl.NumberFormat(navigator.language, {
+    const formatCurrency = value => new Intl.NumberFormat(navigator.language, {
       style: "currency",
       currencyDisplay: "narrowSymbol",
       currency: "USD",
       maximumFractionDigits: 0,
-    }).format(datum[key])
-      }
-              </span>
-            </div>
-          </div>
-        `).join("")
-      }
+    }).format(value);
 
-      <hr class="my-2">
-
-    <div class="flex items-center gap-4">
-      <div class="flex items-center gap-2">
-        <span class="text-gray-500">Total value:</span>
-        <span class="font-medium">
-          ${new Intl.NumberFormat(navigator.language, {
-        style: "currency",
-        currencyDisplay: "narrowSymbol",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      }).format(datum.currentTotalValue)
-      }
-        </span>
+    return (`
+      <div class="mb-1 text-gray-500 font-medium">
+        ${d3.timeFormat("%b %d, %Y")(datum.date)}
       </div>
-    </div>
+      ${Object.entries(this.seriesValue).reverse().map(([key, series]) => `
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <svg width="4" height="12">
+              <rect rx="2" ry="2" class="${series.fillClass}" width="4" height="12"></rect>
+            </svg>
+            <span class="font-medium">${formatCurrency(datum[key])}</span>
+          </div>
+        </div>
+      `).join("")}
+      <hr class="my-2">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-gray-500">Total value:</span>
+          <span class="font-medium">${formatCurrency(datum.currentTotalValue)}</span>
+        </div>
+      </div>
     `);
   }
 
@@ -436,3 +400,4 @@ export default class extends Controller {
     return d;
   }
 }
+

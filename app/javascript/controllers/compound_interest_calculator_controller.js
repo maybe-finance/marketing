@@ -1,8 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 import TemplateRenderer from "helpers/template_renderer";
 
-const DAYS_IN_MONTH = 365.25 / 12;
-const SECONDS_IN_A_DAY = 86400;
+const COMPOUNDS_PER_YEAR = 12;
 
 // Connects to data-controller="compound-interest-calculator"
 export default class extends Controller {
@@ -17,8 +16,22 @@ export default class extends Controller {
     const regularContributions = parseFormData("monthly_expenses");
     const yearsToGrow = parseFormData("years_to_grow");
     const interestRate = parseFormData("interest_rate") / 100;
-    const compoundsPerYear = 12; // Assuming monthly compounding
 
+    const results = this.#calculateCompoundInterest(initialInvestments, regularContributions, yearsToGrow, interestRate);
+
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+
+    this.#renderResults({
+      years: results,
+      yearsToGrow: yearsToGrow,
+      totalValue: formatter.format(results[results.length - 1].currentTotalValue.toFixed(2))
+    });
+  }
+
+  #calculateCompoundInterest(initialInvestments, regularContributions, yearsToGrow, interestRate) {
     let currentTotalValue = initialInvestments;
     let totalContributed = initialInvestments;
     const results = [];
@@ -26,11 +39,18 @@ export default class extends Controller {
     const date = new Date();
     date.setFullYear(date.getFullYear());
 
+    // Year 0
+    results.push({
+      year: 0,
+      date: new Date(),
+      contributed: initialInvestments,
+      interest: initialInvestments,
+      currentTotalValue: initialInvestments
+    });
+
     for (let year = 1; year <= yearsToGrow; year++) {
-      let yearlyInterest = 0;
       for (let month = 1; month <= 12; month++) {
-        const interest = currentTotalValue * (interestRate / compoundsPerYear);
-        yearlyInterest += interest;
+        const interest = currentTotalValue * (interestRate / COMPOUNDS_PER_YEAR);
         currentTotalValue += interest + regularContributions;
         totalContributed += regularContributions;
       }
@@ -43,29 +63,7 @@ export default class extends Controller {
       });
     }
 
-    results.unshift({
-      year: 0,
-      date: new Date(),
-      contributed: initialInvestments,
-      interest: initialInvestments,
-      currentTotalValue: initialInvestments
-    })
-
-    const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    });
-
-    this.#renderResults({
-      // contributed: 16000
-      // currentTotalValue: 16784.559305094954
-      // interest: 784.5593050949526
-      // year: 1
-
-      years: results,
-      yearsToGrow: yearsToGrow,
-      totalValue: formatter.format(currentTotalValue.toFixed(2))
-    });
+    return results;
   }
 
   #renderResults(data) {
