@@ -16,10 +16,12 @@ export default class extends Controller {
     calculate(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const loanAmount = parseFloat(formData.get("loan_amount"));
-        const interestRate = parseFloat(formData.get("interest_rate"));
-        const loanTerm = parseFloat(formData.get("loan_term"));
-        const loanPeriod = formData.get("loan_period") || "years"; // Default loanPeriod to "years"
+        const parseFormData = key => parseFloat(formData.get(key).replace(/[^0-9.-]+/g, ''));
+
+        const loanAmount = parseFormData("loan_amount");
+        const interestRate = parseFormData("interest_rate");
+        const loanTerm = parseFormData("loan_term");
+        const loanPeriod = parseFormData("loan_period") || "years"; // Default loanPeriod to "years"
         const date = formData.get("date");
 
         let numberOfPayments;

@@ -8,10 +8,12 @@ export default class extends Controller {
 	calculate(event) {
 		event.preventDefault();
 		const formData = new FormData(event.target);
-		let amountInvested = parseFloat(formData.get("amount_invested"));
-		const amountReturned = parseFloat(formData.get("amount_returned"));
-		let investmentLength = parseFloat(formData.get("investment_length"));
-		const investmentPeriod = formData.get("investment_period");
+		const parseFormData = key => parseFloat(formData.get(key).replace(/[^0-9.-]+/g, ''));
+
+		const amountInvested = parseFormData("amount_invested");
+		const amountReturned = parseFormData("amount_returned");
+		const investmentLength = parseFormData("investment_length");
+		const investmentPeriod = parseFormData("investment_period");
 
 		// Convert investmentLength to years if needed
 		if (investmentPeriod === "weeks") {
