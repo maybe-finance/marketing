@@ -1,4 +1,6 @@
 class Tool < ApplicationRecord
+  include MetaImage
+
   CATEGORIES = {
     retirement: {
       name: "Retirement",
@@ -38,5 +40,11 @@ class Tool < ApplicationRecord
 
   def category
     CATEGORIES[category_slug&.to_sym]
+  end
+
+  private
+
+  def create_meta_image
+    super(name)
   end
 end

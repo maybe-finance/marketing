@@ -1,8 +1,3 @@
-<%
-  title "ROI Calculator"
-  description "See how to calculate the return on your investments and evaluate the gain or loss."
-%>
-
 <div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="roi-calculator">
   <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1", data: { action: "submit->roi-calculator#calculate" }} do |form| %>
     <div class="flex flex-col gap-2">

@@ -1,82 +1,77 @@
-<%
-  title "Inflation Calculator"
-  description "Calculate how inflation is impacting an asset’s future price and your future buying power."
-%>
-
-  <div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="inflation-calculator">
-    <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1" , data: { action: "submit->inflation-calculator#calculate" }} do |form| %>
-      <div class="flex flex-col gap-2">
-        <%= form.unit_field :initial_amount, label: "Initial Amount" , value: 0, unit_symbol: "$" %>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <%= form.unit_field :inflation_percentage, label: "Inflation in %" , label_right: "%", value: 3 %>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <%= form.unit_field :years, label: "Years" , label_right: "years", value: 0 %>
-      </div>
-
-      <div class="mt-auto md:mt-[140px]">
-        <%= form.submit "Calculate" %>
-      </div>
-    <% end %>
-    <div class="col-span-2">
-      <div class="flex-1" data-inflation-calculator-target="resultsContainer">
-        <div class="grid h-96 place-items-center">
-          <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
-            <%= lucide_icon "keyboard" , class: "h-6 w-6 mx-auto" %>
-              <p>Fill in the fields to calculate your investment's ROI.</p>
-          </div>
-        </div>
-      </div>
-
-      <template data-inflation-calculator-target="resultsTemplate">
-
-        <div data-controller="tabs" data-tabs-default-tab-value="one"
-          class="flex flex-col justify-between h-full px-8 py-4">
-          <div class="upper-wrapper">
-            <div class="bg-gray-25 p-1 rounded-[10px] flex flex-row w-full mb-8">
-              <button class="tab-item" type="button" id="one" data-tabs-target="btn" data-action="click->tabs#select">Future price</button>
-              <button class="tab-item" type="button" id="two" data-tabs-target="btn" data-action="click->tabs#select">Future buying power</button>
-            </div>
-            <div data-tabs-target="tab" id="one">
-              <div class="flex flex-col gap-2">
-                <p class="font-normal text-gray-500">Something that costs you <span t-text="initialAmount"></span> today, will cost you</p>
-                <p class="text-4xl font-medium text-gray-900" t-text="futurePrice"></p>
-                <p class="text-gray-500">after <span t-text="years"></span> years at <span t-text="inflationRate"></span>% inflation annually</p>
-              </div>
-              <div class="flex justify-between mt-4">
-                <div class="flex flex-col gap-2">
-                  <p class="text-gray-500">That's an increase of</p>
-                  <p class="text-3xl font-medium text-red-500" t-text="percentageIncrease"></p>
-                </div>
-                <div class="flex flex-col gap-2">
-                  <p class="text-gray-500">Which comes to</p>
-                  <p class="text-3xl font-medium text-red-500" t-text="amountIncrease"></p>
-                </div>
-              </div>
-            </div>
-            <div data-tabs-target="tab" id="two">
-              <div class="flex flex-col gap-2">
-                <p class="font-normal text-gray-500">if you do nothing with that <span t-text="initialAmount"></span> it'll be worth</p>
-                <p class="text-4xl font-medium text-gray-900" t-text="futureValue"></p>
-                <p class="text-gray-500">after <span t-text="years"></span> years at <span t-text="inflationRate"></span>% inflation annually</p>
-              </div>
-              <div class="flex justify-between mt-4">
-                <div class="flex flex-col gap-2">
-                  <p class="text-gray-500">That's an decrease of</p>
-                  <p class="text-3xl font-medium text-red-500" t-text="percentageLoss"></p>
-                </div>
-                <div class="flex flex-col gap-2">
-                  <p class="text-gray-500">Which comes to</p>
-                  <p class="text-3xl font-medium text-red-500" t-text="amountLoss"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="mt-4 text-sm text-gray-500">On average, considering fluctuations, the global inflation rate has hovered around 3% to 3.5% per year over the last decade.</p>
-        </div>
-      </template>
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="inflation-calculator">
+  <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1" , data: { action: "submit->inflation-calculator#calculate" }} do |form| %>
+    <div class="flex flex-col gap-2">
+      <%= form.unit_field :initial_amount, label: "Initial Amount" , value: 0, unit_symbol: "$" %>
     </div>
+
+    <div class="flex flex-col gap-2">
+      <%= form.unit_field :inflation_percentage, label: "Inflation in %" , label_right: "%", value: 3 %>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <%= form.unit_field :years, label: "Years" , label_right: "years", value: 0 %>
+    </div>
+
+    <div class="mt-auto md:mt-[140px]">
+      <%= form.submit "Calculate" %>
+    </div>
+  <% end %>
+  <div class="col-span-2">
+    <div class="flex-1" data-inflation-calculator-target="resultsContainer">
+      <div class="grid h-96 place-items-center">
+        <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
+          <%= lucide_icon "keyboard" , class: "h-6 w-6 mx-auto" %>
+            <p>Fill in the fields to calculate your investment's ROI.</p>
+        </div>
+      </div>
+    </div>
+
+    <template data-inflation-calculator-target="resultsTemplate">
+
+      <div data-controller="tabs" data-tabs-default-tab-value="one"
+        class="flex flex-col justify-between h-full px-8 py-4">
+        <div class="upper-wrapper">
+          <div class="bg-gray-25 p-1 rounded-[10px] flex flex-row w-full mb-8">
+            <button class="tab-item" type="button" id="one" data-tabs-target="btn" data-action="click->tabs#select">Future price</button>
+            <button class="tab-item" type="button" id="two" data-tabs-target="btn" data-action="click->tabs#select">Future buying power</button>
+          </div>
+          <div data-tabs-target="tab" id="one">
+            <div class="flex flex-col gap-2">
+              <p class="font-normal text-gray-500">Something that costs you <span t-text="initialAmount"></span> today, will cost you</p>
+              <p class="text-4xl font-medium text-gray-900" t-text="futurePrice"></p>
+              <p class="text-gray-500">after <span t-text="years"></span> years at <span t-text="inflationRate"></span>% inflation annually</p>
+            </div>
+            <div class="flex justify-between mt-4">
+              <div class="flex flex-col gap-2">
+                <p class="text-gray-500">That's an increase of</p>
+                <p class="text-3xl font-medium text-red-500" t-text="percentageIncrease"></p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <p class="text-gray-500">Which comes to</p>
+                <p class="text-3xl font-medium text-red-500" t-text="amountIncrease"></p>
+              </div>
+            </div>
+          </div>
+          <div data-tabs-target="tab" id="two">
+            <div class="flex flex-col gap-2">
+              <p class="font-normal text-gray-500">if you do nothing with that <span t-text="initialAmount"></span> it'll be worth</p>
+              <p class="text-4xl font-medium text-gray-900" t-text="futureValue"></p>
+              <p class="text-gray-500">after <span t-text="years"></span> years at <span t-text="inflationRate"></span>% inflation annually</p>
+            </div>
+            <div class="flex justify-between mt-4">
+              <div class="flex flex-col gap-2">
+                <p class="text-gray-500">That's an decrease of</p>
+                <p class="text-3xl font-medium text-red-500" t-text="percentageLoss"></p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <p class="text-gray-500">Which comes to</p>
+                <p class="text-3xl font-medium text-red-500" t-text="amountLoss"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-gray-500">On average, considering fluctuations, the global inflation rate has hovered around 3% to 3.5% per year over the last decade.</p>
+      </div>
+    </template>
   </div>
+</div>

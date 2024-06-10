@@ -127,6 +127,8 @@ GEM
       turbo_power (>= 0.6.0)
       view_component (>= 3.7.0)
       zeitwerk (>= 2.6.12)
+    bannerbear (0.1.4)
+      httparty
     base64 (0.2.0)
     bcrypt (3.1.20)
     better_html (2.1.1)
@@ -413,6 +415,7 @@ PLATFORMS
 
 DEPENDENCIES
   avo (>= 3.2)
+  bannerbear
   bootsnap
   brakeman
   capybara

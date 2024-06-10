@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_06_06_084019) do
+ActiveRecord::Schema[8.0].define(version: 2024_06_10_173601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_06_084019) do
     t.string "author_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "meta_image_url"
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -32,6 +33,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_06_084019) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "meta_image_url"
   end
 
   create_table "terms", force: :cascade do |t|
@@ -47,6 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_06_084019) do
     t.string "video_thumbnail_url"
     t.date "video_upload_date"
     t.string "video_duration"
+    t.string "meta_image_url"
   end
 
   create_table "tools", force: :cascade do |t|
@@ -59,6 +62,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_06_084019) do
     t.datetime "updated_at", null: false
     t.string "category_slug"
     t.string "icon"
+    t.string "meta_image_url"
   end
 
   create_table "users", force: :cascade do |t|

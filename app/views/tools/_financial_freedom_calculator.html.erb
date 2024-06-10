@@ -1,8 +1,3 @@
-<%
-  title "Financial Freedom Calculator"
-  description "Want to know how many years of financial freedom you have ahead of you based on your savings and expenses? Take a look at Maybe's Financial Freedom Calculator and see how long your savings will last!"
-%>
-
 <div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="financial-freedom-calculator">
   <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1", data: { action: "submit->financial-freedom-calculator#calculate" }} do |form| %>
     <div data-controller="synchronized-input" class="flex flex-col gap-2">

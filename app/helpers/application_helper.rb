@@ -7,6 +7,10 @@ module ApplicationHelper
     content_for(:description) { page_description }
   end
 
+  def meta_image(meta_image)
+    content_for(:meta_image) { meta_image }
+  end
+
   def markdown(text)
     options = {
       filter_html:     true,
