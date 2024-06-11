@@ -1,6 +1,7 @@
 <%
   title "#{@term.title} - Financial Terms"
   description "#{markdown(@term.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
+  meta_image @term.meta_image_url if @term.meta_image_url.present?
 %>
 
 <%= link_to terms_path, class: "w-9 h-9 rounded-full grid place-items-center mx-auto text-gray-500 hover:bg-gray-200/50 bg-transparent border border-gray-300 hover:border-gray-300 " do %>

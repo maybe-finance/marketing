@@ -15,8 +15,9 @@ export default class extends Controller {
 
     let currentSavings = parseFormData("current_savings");
     const monthlyExpenses = parseFormData("monthly_expenses");
-    const monthlySavingsGrowthRate = parseFormData("monthly_savings_growth_rate");
+    const annualSavingsGrowthRate = parseFormData("annual_savings_growth_rate");
 
+    const monthlySavingsGrowthRate = annualSavingsGrowthRate / 12; // Convert annual rate to monthly rate
     const firstMonthGrowth = currentSavings * (monthlySavingsGrowthRate / 100);
     if (firstMonthGrowth >= monthlyExpenses) {
       this.#renderResults({ months: [], secondsLeft: Infinity });

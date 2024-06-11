@@ -9,6 +9,10 @@ module ApplicationHelper
     content_for(:description) { page_description }
   end
 
+  def meta_image(meta_image)
+    content_for(:meta_image) { meta_image }
+  end
+
   def markdown(text)
     options = {
       filter_html:     true,
@@ -28,6 +32,6 @@ module ApplicationHelper
     renderer = Redcarpet::Render::HTML.new(options)
     markdown = Redcarpet::Markdown.new(renderer, extensions)
 
-    markdown.render(text).html_safe
+    text.present? ? markdown.render(text).html_safe : ""
   end
 end

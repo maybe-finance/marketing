@@ -31,6 +31,14 @@ tools = [
     "description": "See how inflation is impacting an asset’s future price and your future buying power.",
     "category_slug": "other",
     "icon": "infinity"
+  },
+  {
+    "name": "Compound Interest Calculator",
+    "slug": "compound-interest-calculator",
+    "intro": "See how your investments grow over time by earning interest on interest and letting your money work for you.",
+    "description": "See how your investments grow over time by earning interest on interest and letting your money work for you.",
+    "category_slug": "savings",
+    "icon": "line-chart"
   }
 ]
 

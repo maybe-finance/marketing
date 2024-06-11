@@ -13,7 +13,7 @@
 
       <p class="mt-3 text-sm text-gray-400">The A-Z of every finance, crypto or money related term you can possibly think of.</p>
 
-      <%= form_with method: :get, html: { class: "mt-4 relative" }, data: { controller: "auto-submit-form", turbo_frame: "terms_list" } do |f| %>
+      <%= form_with method: :get, html: {class: "mt-4 relative"}, data: { controller: "auto-submit-form", turbo_frame: "terms_list" } do |f| %>
         <%= f.text_field:q, value: @query,
           class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-sm",
           placeholder: "Search for any term",

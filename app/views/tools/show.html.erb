@@ -1,10 +1,15 @@
+<%
+  title @tool.name
+  description @tool.intro
+  meta_image @tool.meta_image_url if @tool.meta_image_url.present?
+%>
 <div class="max-w-[520px] mt-4 mb-10 mx-auto">
-  <p class="text-sm text-center mb-6">
+  <p class="mb-6 text-sm text-center">
   <span class="text-gray-500"><%= link_to "Tools", tools_path %> / </span> <%= @tool.name %>
   </p>
   <h1 class="text-3xl font-medium tracking-tight text-center"><%= @tool.name %></h1>
 
-  <div class="text-center prose">
+  <div class="prose text-center">
     <%= markdown @tool.intro %>
   </div>
 </div>

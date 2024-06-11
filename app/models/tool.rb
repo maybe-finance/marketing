@@ -1,4 +1,6 @@
 class Tool < ApplicationRecord
+  include MetaImage
+
   CATEGORIES = {
     retirement: {
       name: "Retirement",
@@ -18,6 +20,12 @@ class Tool < ApplicationRecord
       bg_class: "bg-pink-500/5",
       solid_bg_class: "bg-pink-500"
     },
+    savings: {
+      name: "Savings",
+      text_class: "text-green-500",
+      bg_class: "bg-green-500/5",
+      solid_bg_class: "bg-green-500"
+    },
     other: {
       name: "Other",
       text_class: "text-yellow-500",
@@ -32,5 +40,11 @@ class Tool < ApplicationRecord
 
   def category
     CATEGORIES[category_slug&.to_sym]
+  end
+
+  private
+
+  def create_meta_image
+    super(name)
   end
 end
