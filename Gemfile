@@ -29,7 +29,7 @@ gem "redcarpet"
 gem "avo", ">= 3.2"
 gem "revise_auth"
 gem "pagy"
-
+gem "bannerbear"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
