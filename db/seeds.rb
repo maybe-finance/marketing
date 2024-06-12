@@ -47,7 +47,7 @@ tools = [
     "description": "See how much your 401k balance and payout amount in retirement will work for you.",
     "category_slug": "retirement",
     "icon": "bar-chart-4"
-  },
+  }
 ]
 
 tools.each do |tool|
