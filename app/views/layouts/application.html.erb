@@ -24,6 +24,7 @@
     <meta property="og:title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe" %>">
     <meta property="og:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe: The OS for your personal finances" %>">
     <meta property="og:image" content="<%= image_url(content_for?(:meta_image) ? yield(:meta_image) : "meta.png") %>">
+    <meta property="og:url" content="<%= request.original_url %>">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
