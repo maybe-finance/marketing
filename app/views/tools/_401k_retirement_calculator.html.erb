@@ -13,11 +13,11 @@
     <div data-controller="synchronized-input" class="flex flex-col lg:flex-row gap-2 relative">
       <%= form.unit_field :current_age, label: "Current age", value: 0, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
 
-      <%= form.unit_field :retirement_age, label: "Retirement age", value: 0, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
+      <%= form.unit_field :retirement_age, label: "Retirement age", value: 65, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
     </div>
 
     <div data-controller="synchronized-input" class="flex flex-col gap-2 relative">
-      <%= form.unit_field :annual_rate_of_return, label: "Annual rate of return", value: 0, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
+      <%= form.unit_field :annual_rate_of_return, label: "Annual rate of return", value: 5, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
     </div>
 
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
