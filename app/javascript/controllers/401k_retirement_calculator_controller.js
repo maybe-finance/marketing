@@ -80,17 +80,6 @@ export default class extends Controller {
 		const date = new Date();
 		date.setFullYear(date.getFullYear());
 
-		// Year 0
-		results.push({
-			year: 0,
-			date: new Date(),
-			contributed: current401kBalance,
-			interest: current401kBalance,
-			currentTotalValue: current401kBalance,
-			totalEmployeeContributions: totalEmployeeContributions,
-			totalEmployerContributions: totalEmployerContributions,
-		});
-
 		for (let year = 0; year < yearsToRetirement; year++) {
 			const annualSalaryWithIncrease =
 				annualSalary * Math.pow(1 + annualSalaryIncrease, year);

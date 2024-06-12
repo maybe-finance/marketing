@@ -144,7 +144,7 @@ export default class extends Controller {
       .tickValues([year1, yearN.date])
       .tickSize(0)
       .tickFormat((date, i) => {
-        if (i === 0) return "Year 0";
+        if (i === 0) return "Year 1";
         if (i === 1) return `Year ${yearN.year}`;
       });
 
