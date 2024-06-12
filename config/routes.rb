@@ -7,9 +7,13 @@ Rails.application.routes.draw do
 
   # Old redirects
   get "/tools/freedom-calculator", to: redirect("/tools/financial-freedom-calculator", status: 301)
-
   get "/tools/crypto-index-fund", to: redirect("/tools", status: 302)
   get "/tools/low-hanging-fruit-checklist", to: redirect("/tools", status: 302)
+  get "/ask", to: redirect("/", status: 301)
+  get "/now-subscribe", to: redirect("/", status: 301)
+  get "/community", to: redirect("https://link.maybe.co/discord", status: 301)
+  get "/early-access", to: redirect("/", status: 301)
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]
