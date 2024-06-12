@@ -1,3 +1,88 @@
 <%= turbo_frame_tag "stock_statistics" do %>
-  Loaded
+  <dl class="grid grid-cols-2 gap-4 mt-4 text-sm leading-6">
+    <% if @stock_statistics["market_cap"] %>
+      <div>
+        <dt class="text-gray-400">Market Cap</dt>
+        <dd>$<%= number_to_human(@stock_statistics["market_cap"], units: { billion: 'B', trillion: 'T' }, precision: 3, format: "%n%u") %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["revenue_ttm"] %>
+      <div>
+        <dt class="text-gray-400">Revenue (TTM)</dt>
+        <dd><%= number_to_currency(@stock_statistics["revenue_ttm"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["average_volume"] %>
+      <div>
+        <dt class="text-gray-400">Average volume</dt>
+        <dd><%= number_with_delimiter(@stock_statistics["average_volume"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["todays_volume"] %>
+      <div>
+        <dt class="text-gray-400">Today's volume</dt>
+        <dd><%= number_with_delimiter(@stock_statistics["todays_volume"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["pe_ratio"] %>
+      <div>
+        <dt class="text-gray-400">PE Ratio</dt>
+        <dd><%= @stock_statistics["pe_ratio"] %>x</dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["ebitda_ttm"] %>
+      <div>
+        <dt class="text-gray-400">EBITDA (TTM)</dt>
+        <dd><%= @stock_statistics["ebitda_ttm"] %>%</dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["high_today"] %>
+      <div>
+        <dt class="text-gray-400">High today</dt>
+        <dd><%= number_to_currency(@stock_statistics["high_today"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["low_today"] %>
+      <div>
+        <dt class="text-gray-400">Low today</dt>
+        <dd><%= number_to_currency(@stock_statistics["low_today"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["open_price"] %>
+      <div>
+        <dt class="text-gray-400">Open price</dt>
+        <dd><%= number_to_currency(@stock_statistics["open_price"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["volume"] %>
+      <div>
+        <dt class="text-gray-400">Volume</dt>
+        <dd><%= number_with_delimiter(@stock_statistics["volume"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["52_week_high"] %>
+      <div>
+        <dt class="text-gray-400">52 Week High</dt>
+        <dd><%= number_to_currency(@stock_statistics["52_week_high"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["52_week_low"] %>
+      <div>
+        <dt class="text-gray-400">52 Week Low</dt>
+        <dd><%= number_to_currency(@stock_statistics["52_week_low"]) %></dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["dividend_yield"] %>
+      <div>
+        <dt class="text-gray-400">Dividend Yield</dt>
+        <dd><%= @stock_statistics["dividend_yield"] %>%</dd>
+      </div>
+    <% end %>
+    <% if @stock_statistics["beta"] %>
+      <div>
+        <dt class="text-gray-400">Beta</dt>
+        <dd><%= @stock_statistics["beta"] %>x</dd>
+      </div>
+    <% end %>
+  </dl>
 <% end %>
