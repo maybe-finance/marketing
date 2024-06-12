@@ -9,7 +9,7 @@
   }
 
   .form-field__label {
-    @apply px-3 pt-2 pb-0 block text-xs text-gray-500;
+    @apply px-3 pt-2 pb-0 block text-xs text-gray-500 text-nowrap;
   }
 
   .form-field__input {
@@ -46,7 +46,7 @@
   }
 
   .tab-item {
-    @apply w-1/2 text-gray-500 text-sm 
+    @apply w-1/2 text-gray-500 text-sm;
   }
 
   .tab-item-active {
