@@ -39,7 +39,15 @@ tools = [
     "description": "See how your investments grow over time by earning interest on interest and letting your money work for you.",
     "category_slug": "savings",
     "icon": "line-chart"
-  }
+  },
+  {
+    "name": "401k Retirement Calculator",
+    "slug": "401k-retirement-calculator",
+    "intro": "Calculate how much you need to save for retirement and how much you can expect to have saved by the time you retire.",
+    "description": "See how much your 401k balance and payout amount in retirement will work for you.",
+    "category_slug": "retirement",
+    "icon": "line-chart"
+  },
 ]
 
 tools.each do |tool|
