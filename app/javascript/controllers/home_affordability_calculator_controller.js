@@ -29,19 +29,6 @@ export default class extends Controller {
 		const annualPropertyInsurance = targetHomePrice * 0.0065;
 		const annualPropertyTaxes = targetHomePrice * 0.009;
 		const otherMonthlyCosts = parseFormData("hoa_plus_pmi");
-		console.log(
-			{
-				targetHomePrice,
-				annualIncome,
-				otherMonthlyDebtPayments,
-				downPayment,
-				loanTermYears,
-				loanInterestRate,
-				annualPropertyInsurance,
-				annualPropertyTaxes,
-				otherMonthlyCosts,
-			});
-
 		// Base DTI values
 		const baseDTI = [0.2, 0.28, 0.36, 0.44];
 
