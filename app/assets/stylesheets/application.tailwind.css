@@ -53,4 +53,12 @@
     @apply bg-white text-gray-900 p-2 border border-alpha-black-100 rounded-lg;
   }
 
+  path.domain {
+    @apply hidden;
+  }
+
+  text {
+    @apply text-[#737373] text-sm;
+  }
+
 }

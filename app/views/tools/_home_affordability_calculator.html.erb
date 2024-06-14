@@ -1,0 +1,90 @@
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="home-affordability-calculator">
+  <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1" , data: { action: "submit->home-affordability-calculator#calculate" }} do |form| %>
+    <div class="flex flex-col gap-2">
+      <div data-controller="synchronized-input">
+        <%= form.unit_field :desired_home_price, label: "Desired home price" , value: 380000, unit_symbol: "$" , data: { controller: "autonumeric" } %>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <div data-controller="synchronized-input">
+        <%= form.unit_field :down_payment, label: "Down payment" , value: 25000, unit_symbol: "$" , data: { controller: "autonumeric" } %>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <div data-controller="synchronized-input">
+        <%= form.unit_field :annual_pre_tax_income, label: "Annual pre-tax income" , value: 80000, unit_symbol: "$" , data: { controller: "autonumeric" } %>
+      </div>
+    </div>
+
+    <div class="flex flex-row gap-2">
+      <div class="flex form-field w-1/2">
+        <%= render 'shared/loan_period_select' , options: [["15 years", "15" ], ["30 years", "30" ]], value: '30' ,button_class: '' , label: 'Loan duration' %>
+      </div>
+      <div data-controller="synchronized-input" class="w-1/2">
+        <%= form.unit_field :loan_interest_rate, label: "Loan interest rate" , value: @loan_interest_rate, label_right: "%" , data: { controller: "autonumeric" , autonumeric_options_value: { decimalPlaces: 2 } } %>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <div data-controller="synchronized-input">
+        <%= form.unit_field :monthly_debt_payments, label: "Monthly debt payments" , unit_symbol: "$" , value: 800, data: { controller: "autonumeric" } %>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <div data-controller="synchronized-input">
+        <%= form.unit_field :hoa_plus_pmi, label: "HOA + PMI" , value: 100, unit_symbol: "$" , data: { controller: "autonumeric" }, required: false %>
+      </div>
+    </div>
+
+    <div class="mt-auto md:mt-[44px]">
+      <%= form.submit "Calculate" %>
+    </div>
+    <% end %>
+
+    <div class="col-span-2">
+      <div class="flex-1 h-full p-4" data-home-affordability-calculator-target="resultsContainer">
+        <div class="grid h-full place-items-center">
+          <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
+            <%= lucide_icon "keyboard", class: "h-6 w-6 mx-auto" %>
+            <p>Enter your details to see how your investments can grow with compound interest!</p>
+          </div>
+        </div>
+      </div>
+        <template data-home-affordability-calculator-target="resultsTemplate">
+          <div class="flex flex-col justify-between py-4 h-full">
+            <div class="flex">
+              <div class="flex flex-col gap-2">
+                <p class="text-sm text-gray-500">Your affordable house is up to</p>
+                <p class="text-3xl font-medium text-gray-900" t-text:="affordableAmount"></p>
+              </div>
+            </div>
+
+            <div class="h-full mt-6" data-controller="stack-bar-chart" t-attr:data-stack-bar-chart-data-value="chartData">
+            </div>
+            
+            <div class="flex flex-wrap justify-between items-center">
+              <div class="flex items-center gap-3 w-1/2 md:w-auto">
+                <span class="w-[4px] h-[12px] bg-green-600 rounded-full"></span>
+                <span class="text-sm text-gray-900">You're good</span>
+              </div>
+              <div class="flex items-center gap-3 w-1/2 md:w-auto">
+                <span class="w-[4px] h-[12px] bg-[#FFC405] rounded-full"></span>
+                <span class="text-sm text-gray-900">Okay but use caution</span>
+              </div>
+              <div class="flex items-center gap-3 w-1/2 md:w-auto">
+                <span class="w-[4px] h-[12px] bg-[#FF8329] rounded-full"></span>
+                <span class="text-sm text-gray-900">Risky don't do it</span>
+              </div>
+              <div class="flex items-center gap-3 w-1/2 md:w-auto">
+                <span class="w-[4px] h-[12px] bg-[#DD2333] rounded-full"></span>
+                <span class="text-sm text-gray-900">Good luck with that</span>
+              </div>
+            </div>
+          </div>
+      </div>
+    </template>
+</div>
+</div>
