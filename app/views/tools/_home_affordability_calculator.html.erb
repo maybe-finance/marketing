@@ -2,19 +2,19 @@
   <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1" , data: { action: "submit->home-affordability-calculator#calculate" }} do |form| %>
     <div class="flex flex-col gap-2">
       <div data-controller="synchronized-input">
-        <%= form.unit_field :desired_home_price, label: "Desired home price" , value: 380000, unit_symbol: "$" , data: { controller: "autonumeric" } %>
+        <%= form.unit_field :desired_home_price, label: "Desired home price" , value: 0, unit_symbol: "$" , data: { controller: "autonumeric" } %>
       </div>
     </div>
 
     <div class="flex flex-col gap-2">
       <div data-controller="synchronized-input">
-        <%= form.unit_field :down_payment, label: "Down payment" , value: 25000, unit_symbol: "$" , data: { controller: "autonumeric" } %>
+        <%= form.unit_field :down_payment, label: "Down payment" , value: 0, unit_symbol: "$" , data: { controller: "autonumeric" } %>
       </div>
     </div>
 
     <div class="flex flex-col gap-2">
       <div data-controller="synchronized-input">
-        <%= form.unit_field :annual_pre_tax_income, label: "Annual pre-tax income" , value: 80000, unit_symbol: "$" , data: { controller: "autonumeric" } %>
+        <%= form.unit_field :annual_pre_tax_income, label: "Annual pre-tax income" , value: 0, unit_symbol: "$" , data: { controller: "autonumeric" } %>
       </div>
     </div>
 
@@ -29,13 +29,13 @@
 
     <div class="flex flex-col gap-2">
       <div data-controller="synchronized-input">
-        <%= form.unit_field :monthly_debt_payments, label: "Monthly debt payments" , unit_symbol: "$" , value: 800, data: { controller: "autonumeric" } %>
+        <%= form.unit_field :monthly_debt_payments, label: "Monthly debt payments" , unit_symbol: "$" , value: 0, data: { controller: "autonumeric" } %>
       </div>
     </div>
 
     <div class="flex flex-col gap-2">
       <div data-controller="synchronized-input">
-        <%= form.unit_field :hoa_plus_pmi, label: "HOA + PMI" , value: 100, unit_symbol: "$" , data: { controller: "autonumeric" }, required: false %>
+        <%= form.unit_field :hoa_plus_pmi, label: "HOA + PMI" , value: 0, unit_symbol: "$" , data: { controller: "autonumeric" }, required: false %>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
 
             <div class="h-full mt-6" data-controller="stack-bar-chart" t-attr:data-stack-bar-chart-data-value="chartData">
             </div>
-            
+
             <div class="flex flex-wrap justify-between items-center">
               <div class="flex items-center gap-3 w-1/2 md:w-auto">
                 <span class="w-[4px] h-[12px] bg-green-600 rounded-full"></span>
