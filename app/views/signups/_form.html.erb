@@ -1,6 +1,6 @@
 <%= form_with( url: signups_path ) do |f| %>
   <div class="flex flex-row w-full p-1 mb-4 bg-white border shadow-xs rounded-xl">
-    <%= f.email_field :email, placeholder: "Enter your email address", class: "flex-1 border-0 px-2 focus:ring-0 text-sm" %>
+    <%= f.email_field :email, placeholder: "Enter your email address", class: "flex-1 border-0 px-2 focus:ring-0 text-sm", required: true %>
     <%= f.submit "Join waitlist", class: "py-2 px-3 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 border border-gray-900 text-sm" %>
   </div>
 
