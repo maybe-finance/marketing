@@ -47,6 +47,14 @@ tools = [
     "description": "See how much your 401k balance and payout amount in retirement will work for you.",
     "category_slug": "retirement",
     "icon": "bar-chart-4"
+  },
+  {
+    "name": "Boggleheads Growth Calculator",
+    "slug": "boggleheads-growth-calculator",
+    "intro": "Calculate how much you could make on future investments in the Boggleheads three-fund portfolio.",
+    "description": "See the performance of a Boggleheads three-fund portfolio based on the past 25 years.",
+    "category_slug": "investing",
+    "icon": "bar-chart-4"
   }
 ]
 

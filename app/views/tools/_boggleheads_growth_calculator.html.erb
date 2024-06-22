@@ -1,0 +1,60 @@
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="boggleheads-growth-calculator">
+  <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1", data: { action: "submit->boggleheads-growth-calculator#calculate" }} do |form| %>
+    <div data-controller="synchronized-input" class="flex flex-col gap-2">
+      <%= form.unit_field :invested_amount, label: "Invested Amount", value: 0, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+      <%= range_input_slider class: "from-blue-500 to-blue-500", min: 0, max: 600000, step: 1000, value: 0 %>
+    </div>
+
+    <div data-controller="synchronized-input" class="flex flex-col gap-2">
+      <%= render partial: "shared/select", locals: { label: "Total Stock Market", value: 'VTI', button_class: '', options: [['VTI (Vanguard)', 'VTI'], ['SCHB (Schwab)', 'SCHB'], ['SPTM (SPDR)', 'SPTM']] } %>
+      <%= render partial: 'shared/lock_toggle', locals: { name: "stock_market_percentage", id: "stock_market_percentage" }  %>
+    </div>
+
+    <div data-controller="synchronized-input" class="flex flex-col gap-2">
+      <%= render partial: "shared/select", locals: { label: "Total International Stock Market", value: 'VXUS', button_class: '', options: [['VXUS (Vanguard)', 'VXUS'], ['SCHF (Schwab)', 'SCHF'], ['SPDW (SPDR)', 'SPDW'], ['IXUS (iShares)', 'IXUS']] } %>
+      <%= render partial: 'shared/lock_toggle', locals: { name: "international_stock_market_percentage", id: "international_stock_market_percentage" }  %>
+    </div>
+
+    <div data-controller="synchronized-input" class="flex flex-col gap-2">
+      <%= render partial: "shared/select", locals: { label: "Total Bond Market", value: 'BND', button_class: '', options: [['BND (Vanguard)', 'BND'], ['SCHZ (Schwab)', 'SCHZ'], ['SPAB (SPDR)', 'SPDR'], ['AGG (iShares)', 'AGG']] } %>
+      <%= render partial: 'shared/lock_toggle', locals: { name: "bond_market_percentage", id: "bond_market_percentage" }  %>
+    </div>
+
+    <div class="mt-auto">
+      <%= form.submit "Calculate" %>
+    </div>
+  <% end %>
+  <div class="col-span-2">
+    <div class="flex-1 p-4" data-boggleheads-growth-calculator-target="resultsContainer">
+      <div class="grid h-96 place-items-center">
+        <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
+          <%= lucide_icon "keyboard", class: "h-6 w-6 mx-auto" %>
+          <p>Enter your details to see how your three-fund portfolio performed the last 25 years!</p>
+        </div>
+      </div>
+    </div>
+
+    <template data-boggleheads-growth-calculator-target="resultsTemplate">
+        <div class="flex flex-col gap-6 text-center">
+            <div class="flex items-center justify-between gap-12">
+                <div class="flex flex-col align-start justify-center gap-2 text-left">
+                    <span class="text-sm text-gray-500">Invested</span>
+                    <span t-text:="invested" class="text-xl font-medium">-</span>
+                </div>
+                <div class="flex flex-col align-start justify-center gap-2 text-left">
+                    <span class="text-sm text-gray-500">Returns</span>
+                    <span t-text:="returns" class="text-xl font-medium">-</span>
+                </div>
+                <div class="flex flex-col align-start justify-center gap-2 text-left">
+                    <span class="text-sm text-gray-500">Risk Level</span>
+                    <span t-text:="riskLevel" class="text-xl font-medium">-</span>
+                </div>
+                <div class="flex flex-col align-start justify-center gap-2 text-left">
+                    <span class="text-sm text-gray-500">Final Value</span>
+                    <span t-text:="finalValue" class="text-xl font-medium">-</span>
+                </div>
+            </div>
+        </div>
+    </template>
+  </div>
+</div>

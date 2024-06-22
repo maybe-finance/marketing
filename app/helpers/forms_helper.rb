@@ -10,7 +10,8 @@ module FormsHelper
       data: {
         controller: "range-input",
         synchronized_input_target: "input",
-        action: "synchronized-input#syncValue range-input#update input-sync->range-input#update"
+        action: "synchronized-input#syncValue range-input#update input-sync->range-input#update",
+        lock_toggle_target: "slider"
       },
       **options
     )
