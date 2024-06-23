@@ -71,8 +71,28 @@ export default class extends Controller {
       .attr("height", d => y(d[0]) - y(d[1]))
       .attr("width", x.bandwidth());
 
-    this.#addTooltip(svg, data);
+    this.#addVerticalLine(svg, width, height);
+    this.#addTooltip(svg, data, width, height);
+    this.#addCustomLabels(svg, data, height);
+  }
 
+  #getColor(category) {
+    const colorMap = {
+      "Affordable": "#10A861",
+      "Good": "#FFCC19",
+      "Caution": "#FF8329",
+      "Risky": "#EC2222"
+    };
+    return colorMap[category];
+  }
+
+  /**
+   * Adds custom labels to the chart
+   * @param {d3.Selection<SVGGElement, any, null, undefined>} svg
+   * @param {Array} data
+   * @param {number} height
+   */
+  #addCustomLabels(svg, data, height) {
     const maxValue = d3.max(data, d => d.value);
     const increment = 100000;
     const customLabels = d3.range(0, maxValue + increment, increment).map(value => ({
@@ -89,16 +109,6 @@ export default class extends Controller {
       .attr("dy", "0.35em")
       .attr("text-anchor", "end")
       .text(d => d.label);
-  }
-
-  #getColor(category) {
-    const colorMap = {
-      "Affordable": "#10A861",
-      "Good": "#FFCC19",
-      "Caution": "#FF8329",
-      "Risky": "#EC2222"
-    };
-    return colorMap[category];
   }
 
   /**
@@ -123,68 +133,93 @@ export default class extends Controller {
   }
 
   /**
+   * Adds vertical grid lines
+   * @param {d3.Selection<SVGGElement, any, null, undefined>} svg
+   * @param {number} width
+   * @param {number} height
+   */
+  #addVerticalLine(svg, width, height) {
+    const verticalLine = svg.append("line")
+      .attr("class", "vertical-line")
+      .attr("x1", width /2)
+      .attr("x2", width /2)
+      .attr("y1", 0)
+      .attr("y2", height)
+      .style("stroke-dasharray", "4,4")
+      .style("stroke", "#D6D6D6")
+      .style("stroke-width", 1.5);
+  }
+
+  /**
    * Adds tooltip
    * @param {d3.Selection<SVGGElement, any, null, undefined>} svg
    * @param {Array} data
+   * @param {number} width
+   * @param {number} height
    */
-  #addTooltip(svg, data) {
+  #addTooltip(svg, data, width, height) {
+    // Add indicator dot
+    const indicatorGroup = svg.append("g")
+      .attr("class", "indicator-dot")
+      .attr("transform", `translate(${width / 2}, 0)`);
+
+    indicatorGroup.append("circle")
+      .attr("r", 10)
+      .attr("fill", "rgba(97, 114, 243, 0.1)");
+
+    indicatorGroup.append("circle")
+      .attr("r", 6)
+      .attr("fill", "white");
+
+    indicatorGroup.append("circle")
+      .attr("r", 5)
+      .attr("fill", "#6172F3");
+
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+      notation: "compact",
+      compactDisplay: "short"
+    });
+    const categoryAmounts = data.map((item, index) => {
+      const min = index === 0 ? 0 : data[index - 1].value;
+      const max = item.value;
+      let range;
+      if (index === data.length - 1) {
+        range = `Over ${formatter.format(min)}`;
+      } else {
+        range = index === 0 ? `Up to ${formatter.format(max)}` : `${formatter.format(min)}-${formatter.format(max)}`;
+      }
+      return `<div class="flex items-center gap-3 py-1 w-40">
+           <span class="w-[4px] h-[12px] rounded-full" style="background: ${this.#getColor(item.category)}"></span>
+           <span class="text-sm text-gray-900"> ${range}</span>
+          </div>`;
+    }).reverse().join("");
+
     const tooltip = d3.select(this.element)
       .append("div")
       .attr("class", "chart-tip")
       .style("position", "absolute")
-      .style("opacity", 0)
+      .style("opacity", 1)
       .style("background", "white")
       .style("border", "1px solid #ccc")
       .style("padding", "10px")
       .style("pointer-events", "none")
       .style("border-radius", "5px")
-      .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.1)");
+      .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.1)")
+      .html(categoryAmounts)
+      .style('left', (width <= 768 ? width / 1.5 : width * 1.8) + 'px')
+      .style('border-radius', '10px')
+      .style('top', (height + 35) + 'px');
 
-    svg.on('mouseover', (event) => {
-      d3.select(".chart-tip")
-        .style('opacity', '1')
-        .html('Amount: <strong>$' + d3.format(",")(d.data[d.key]) + '</strong>')
-        .style("left", (event.pageX + 5) + "px")
-        .style("top", (event.pageY - 28) + "px");
-    }).on('mouseout', function () {
-      d3.select(".chart-tip")
-        .style('opacity', '0');
+    svg.on('mousemove', (event) => {
+      const [_x, y] = d3.pointer(event);
+      indicatorGroup.attr("transform", `translate(${width / 2}, ${y})`);
+      tooltip.style('top', (event.pageY - 65) + 'px')
     });
 
-    svg.on('mouseover', (event) => {
-      const formatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-        notation: "compact",
-        compactDisplay: "short"
-      });
-      const categoryAmounts = data.map((item, index) => {
-        const min = index === 0 ? 0 : data[index - 1].value;
-        const max = item.value;
-        let range;
-        if (index === data.length - 1) {
-          range = `Over ${formatter.format(min)}`;
-        } else {
-          range = index === 0 ? `Up to ${formatter.format(max)}` : `${formatter.format(min)}-${formatter.format(max)}`;
-        }
-        return `<div class="flex items-center gap-3 py-1 w-40">
-             <span class="w-[4px] h-[12px] rounded-full" style="background: ${this.#getColor(item.category)}"></span>
-             <span class="text-sm text-gray-900"> ${range}</span>
-            </div>`;
-      }).reverse().join("");
-
-      tooltip
-        .style('opacity', 1)
-        .html(categoryAmounts)
-        .style('left', (event.pageX + 10) + 'px')
-        .style('border-radius', '10px')
-        .style('top', (event.pageY - 28) + 'px');
-    })
-      .on('mouseout', function () {
-        tooltip.style('opacity', 0);
-      });
   }
 
 }
