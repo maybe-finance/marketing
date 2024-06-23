@@ -4,9 +4,9 @@
     <%= lucide_icon "lock-keyhole-open", class: "h-auto w-auto mx-auto", data: { lock_toggle_target: "unlockedIcon" } %>
     <%= lucide_icon "lock-keyhole", class: "h-auto w-auto mx-auto hidden", data: { lock_toggle_target: "lockedIcon" } %>
   </button>
-  <span class="border-none " style="size: 14px; line-height: 20px; font-weight: 400;" value="0">
+  <span class="border-none font-normal text-sm" value="0">
     <input class="border-none mx-0 px-0 w-10 bg-gray-25" value="0" data-controller="autonumeric" data-synchronized-input-target="input" disabled data-action="synchronized-input#syncValue" type="text" name="<%= name %>" id="<%= id %>"/>
   </span>
   <span>%</span>
-  <%= range_input_slider class: "from-violet-500 to-violet-500 grow", min: 0, max: 100, step: 1, value: 0 %>
+  <%= range_input_slider class: sliderClass, min: 0, max: 100, step: 1, value: 0 %>
 </div>
