@@ -50,7 +50,7 @@
                     <span>Risk Level</span>
                     <%= lucide_icon "circle-help", class: "mx-auto text-base p-1" %>
                     </span>
-                  <span t-text:="riskLevel" class="text-xl font-medium text-pink-500">-</span>
+                  <span data-controller="risk-level-text-color" data-risk-level-text-color-target="text" t-text:="riskLevel" class="text-xl font-medium text-pink-500">-</span>
               </div>
               <div class="flex flex-col align-start justify-center gap-2 text-left">
                   <span class="text-sm text-gray-500">Final Value</span>

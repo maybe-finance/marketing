@@ -25,6 +25,7 @@ export default class extends Controller {
 
     const chartData = this.#calculateBoggleHeadsGrowthData()
 
+    // TODO: Pass this down.
     const legendData = {
       value: {
         name: "Portfolio Value",
@@ -48,10 +49,13 @@ export default class extends Controller {
       }
     }
 
+    const riskLevels = ["High", "Medium", "Low"];
+    const riskLevel = riskLevels[Math.floor(Math.random() * riskLevels.length)];
+
     this.#renderResults({
       invested,
       totalStockMarket,
-      riskLevel: "High",
+      riskLevel,
       finalValue: "$50,000.00",
       returns: "40%",
       chartData,
