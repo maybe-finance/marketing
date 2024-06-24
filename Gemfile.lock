@@ -177,7 +177,7 @@ GEM
       rubocop
       smart_properties
     erubi (1.13.0)
-    faraday (2.9.1)
+    faraday (2.9.2)
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
       net-http
