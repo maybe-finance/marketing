@@ -6,17 +6,17 @@
     </div>
 
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
-      <%= render partial: "shared/select", locals: { label: "Total Stock Market", value: 'VTI', button_class: '', options: [['VTI (Vanguard)', 'VTI'], ['SCHB (Schwab)', 'SCHB'], ['SPTM (SPDR)', 'SPTM']] } %>
+      <%= render partial: "shared/select", locals: { name: "stock_market_ticker", label: "Total Stock Market", value: 'VTI', button_class: '', options: [['VTI (Vanguard)', 'VTI'], ['SCHB (Schwab)', 'SCHB'], ['SPTM (SPDR)', 'SPTM']] } %>
       <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-blue-500 to-blue-500 grow", name: "stock_market_percentage", id: "stock_market_percentage" }  %>
     </div>
 
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
-      <%= render partial: "shared/select", locals: { label: "Total International Stock Market", value: 'VXUS', button_class: '', options: [['VXUS (Vanguard)', 'VXUS'], ['SCHF (Schwab)', 'SCHF'], ['SPDW (SPDR)', 'SPDW'], ['IXUS (iShares)', 'IXUS']] } %>
+      <%= render partial: "shared/select", locals: { name: "international_stock_market_ticker", label: "Total International Stock Market", value: 'VXUS', button_class: '', options: [['VXUS (Vanguard)', 'VXUS'], ['SCHF (Schwab)', 'SCHF'], ['SPDW (SPDR)', 'SPDW'], ['IXUS (iShares)', 'IXUS']] } %>
       <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-cyan-400 to-cyan-400 grow", name: "international_stock_market_percentage", id: "international_stock_market_percentage" }  %>
     </div>
 
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
-      <%= render partial: "shared/select", locals: { label: "Total Bond Market", value: 'BND', button_class: '', options: [['BND (Vanguard)', 'BND'], ['SCHZ (Schwab)', 'SCHZ'], ['SPAB (SPDR)', 'SPDR'], ['AGG (iShares)', 'AGG']] } %>
+      <%= render partial: "shared/select", locals: { name: "bond_market_ticker", label: "Total Bond Market", value: 'BND', button_class: '', options: [['BND (Vanguard)', 'BND'], ['SCHZ (Schwab)', 'SCHZ'], ['SPAB (SPDR)', 'SPDR'], ['AGG (iShares)', 'AGG']] } %>
       <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-violet-500 to-violet-500 grow", name: "bond_market_percentage", id: "bond_market_percentage" }  %>
     </div>
 
@@ -46,10 +46,31 @@
                   <span t-text:="returns" class="text-xl font-medium">-</span>
               </div>
               <div class="flex flex-col align-start justify-center gap-2 text-left">
-                  <span class="flex text-sm text-gray-500 gap-1 items-center">
+                  <span class="flex text-sm text-gray-500 gap-1 items-center has-tooltip">
+                    <div class='tooltip shadow-xs p-2 border rounded mt-36 ml-14 bg-white text-sm' style="z-index: 50000000000">
+                      <p>
+                        We use downside risk to determine the riskiness of a
+                        portfolio strategy.
+                      </p>
+                      <dl class="mt-3 pt-3 border-t border-gray-700">
+                        <div class="flex justify-between">
+                          <dt class="mr-1">Downside Deviation</dt>
+                          <dd class="text-right whitespace-nowrap">
+                            0.00%
+                          </dd>
+                        </div>
+                        <div className="mt-1 flex justify-between">
+                          <dt className="mr-1">Maximum Drawdown</dt>
+                          <dd class="text-right whitespace-nowrap">
+                            $0,0
+                            (0%)
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
                     <span>Risk Level</span>
                     <%= lucide_icon "circle-help", class: "mx-auto text-base p-1" %>
-                    </span>
+                  </span>
                   <span data-controller="risk-level-text-color" data-risk-level-text-color-target="text" t-text:="riskLevel" class="text-xl font-medium text-pink-500">-</span>
               </div>
               <div class="flex flex-col align-start justify-center gap-2 text-left">

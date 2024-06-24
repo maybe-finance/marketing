@@ -1,4 +1,4 @@
-<%# locals: (label: 'Shopping List', value: 'last_30_days', button_class: '', options: []) -%>
+<%# locals: (label: 'Shopping List', value: 'last_30_days', button_class: '', options: [], name: '') -%>
 <div class="form-field">
   <label class="form-field__label" for="attribute_name"><%= label %></label>
   <div class="flex items-center">
@@ -13,7 +13,7 @@
       <span data-select-target="buttonText" class="pl-1 text-black"><%= options.find { |option| option[1] == value }[1] %></span>
       <%= lucide_icon("chevron-down", class: "w-5 h-5 inline-block") %>
       <% end %>
-      <input type="hidden" name="loan_period" data-select-target="input" data-auto-submit-form-target="auto">
+      <input type="hidden" name="<%= name %>" value="<%= value %>" data-select-target="input" data-auto-submit-form-target="auto">
       <ul data-select-target="list" class="hidden absolute z-10 top-[110%] right-0 border border-alpha-black-25 bg-white rounded shadow-xs p-1">
         <% options.each do |label, value| %>
         <li tabindex="0" data-select-target="option" data-action="click->select#selectOption" data-value="<%= value %>" class="px-5 py-1 pr-24 text-sm text-black rounded cursor-pointer hover:bg-alpha-black-50">
