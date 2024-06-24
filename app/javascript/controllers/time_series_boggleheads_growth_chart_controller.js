@@ -303,7 +303,7 @@ export default class extends Controller {
           .attr("y2", this.#contentHeight - this.#margin.bottom);
 
         const tooltipX = dataX;
-        const tooltipY = this.#d3YScale(d.value);
+        const tooltipY = this.#d3YScale(d.bondMarketFunds);
         const tooltipMarginX = 50;
 
         // TODO: fix tooltip location
@@ -312,7 +312,7 @@ export default class extends Controller {
           .style("opacity", 1)
           .style("z-index", 999)
           .style("margin-left", tooltipX + "px")
-          .style("top", tooltipY + 100 + "px")
+          .style("top", tooltipY + "px")
           .style("transform", () => {
             const tooltipElement = this.#d3Tooltip.node();
             const realTooltipWidth = tooltipElement.getBoundingClientRect().width;
