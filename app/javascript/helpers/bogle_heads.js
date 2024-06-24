@@ -71,10 +71,30 @@ export default class BoggleHeads {
     this.fundManagers = fundManagers;
   }
 
+  getEarliestDateForAllFunds() {
+    // this is the earliest date for all funds
+    // we have earliest date for A, B, C
+    // do we want the highest or the least?
+    let earliest = null;
+    for (const fundManager of this.fundManagers) {
+      if (!earliest) {
+        earliest = fundManager.earliestDate
+      } else {
+        if (fundManager.earliestDate > earliest) {
+          earliest = fundManager.earliestDate
+        }
+      }
+    }
+    return earliest
+  }
+
   makeChartData() {
+    const earliestDate = this.getEarliestDateForAllFunds()
+    // not all stocks have data going back 20 years so we have to only 
+    // use stock data starting from a particular threshold
     const chartRows = []
     const currentYear = new Date().getFullYear();
-    let year = currentYear - 20;
+    let year = new Date(earliestDate).getFullYear();
 
     while(year <= currentYear) {
       let totalReturnsForYear = 0
@@ -130,6 +150,8 @@ class FundManager {
   */
   fundCategory
 
+  earliestDate = null
+
    /**
    * @param {number} investmentAmount - The amount to be invested.
    * @param {[]AssetRowDto} stockData - Historical stock data.
@@ -151,8 +173,10 @@ class FundManager {
     if (this.startingInvestment === 0 || this.stockData.length === 0) { return }
 
     // the first stock data is assumed to be the time you bought the shares
+    // this was sorted in descending order - sorting just for sanity
+    this.stockData.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+    
     const pricePerShare = this.stockData[0].close;
-
     // number of shares is fixed at the beginning based on our first stock data
     const shares = this.startingInvestment / pricePerShare;
     // TODO: account for when the first stock is not valid?
@@ -160,6 +184,7 @@ class FundManager {
     for (const stockInformation of this.stockData) {
       const valueOfShares = Math.floor(shares * parseFloat(stockInformation.close));
       const year = new Date(stockInformation.datetime).getFullYear()
+      this.updateEarliestDate(stockInformation.datetime)
       this.updateStockReturns(year, valueOfShares)
     }
 
@@ -181,6 +206,14 @@ class FundManager {
 
   getReturnsForYear(year) {
     return this.annualReturns[year]
+  }
+
+  updateEarliestDate(date) {
+    if (!this.earliestDate) {
+      this.earliestDate = date
+    } else if (date < this.earliestDate) {
+      this.earliestDate = date
+    }
   }
 
   updateStockReturns(year, investmentReturns) {

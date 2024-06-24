@@ -1,8 +1,10 @@
 import { Controller } from "@hotwired/stimulus";
+import { formatMoney } from "helpers/utilities"
 
 import BoggleHeads from "helpers/bogle_heads"
 import SEED_STOCK_DATA from "helpers/seed_stock_data";
 import TemplateRenderer from "helpers/template_renderer";
+
 
 // Connects to data-controller="boggleheads-growth-calculator"
 export default class extends Controller {
@@ -56,6 +58,7 @@ export default class extends Controller {
 
     const finalValue = chartData[chartData.length - 1].value
     const profitOrLoss = finalValue - invested
+
     const returnsOnInvestment = Math.floor((profitOrLoss/invested) * 100)
 
     const legendData = {
@@ -86,9 +89,9 @@ export default class extends Controller {
     const riskLevel = riskLevels[Math.floor(Math.random() * riskLevels.length)];
 
     this.#renderResults({
-      invested: `$${invested}`,
-      finalValue: `$${finalValue}`,
-      returns: `${returnsOnInvestment}%`,
+      invested: `$${formatMoney(invested)}`,
+      finalValue: `$${formatMoney(finalValue)}`,
+      returns: `${returnsOnInvestment.toFixed(2)}%`,
       totalStockMarket: totalStockMarketAllocation,
       riskLevel,
       chartData,
