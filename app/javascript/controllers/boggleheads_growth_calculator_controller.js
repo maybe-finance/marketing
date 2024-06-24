@@ -84,9 +84,7 @@ export default class extends Controller {
       }
     }
 
-    // TODO: compute risk level from boglehead instance.
-    const riskLevels = ["High", "Medium", "Low"];
-    const riskLevel = riskLevels[Math.floor(Math.random() * riskLevels.length)];
+    const { downsideDeviation, riskLevel } = boglehead.calculateDownSideDeviationAndRiskLevelFromChartData(chartData)
 
     this.#renderResults({
       invested: `$${formatMoney(invested)}`,
@@ -95,6 +93,7 @@ export default class extends Controller {
       totalStockMarket: totalStockMarketAllocation,
       riskLevel,
       chartData,
+      downsideDeviation: downsideDeviation.toFixed(2),
       legendData
     });
   }

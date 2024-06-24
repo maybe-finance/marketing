@@ -11,6 +11,32 @@
  * @typedef {Object.<string, AssetRowDto>} RawStockData
  */
 
+const DOWNSIDE_DEVIATION_TARGET = 0;
+
+const RiskLevel = {
+  LOW: "Low",
+  MODERATE: "Moderate",
+  HIGH: "High",
+}
+
+const riskLevelConfig = {
+  [RiskLevel.LOW]: {
+    label: "Low",
+    color: "text-green",
+    maxDownsideDeviation: 1.23,
+  },
+  [RiskLevel.MODERATE]: {
+    label: "Moderate",
+    color: "text-yellow",
+    maxDownsideDeviation: 2.31,
+  },
+  [RiskLevel.HIGH]: {
+    label: "High",
+    color: "text-orange",
+    maxDownsideDeviation: null,
+  },
+};
+
 /**
  * This is handles the computations for the
  * bogle heads growth calculator. The calculation of the
@@ -120,6 +146,55 @@ export default class BoggleHeads {
     }
     return chartRows;
   }
+
+  getPercentageReturn (value, previousValue) {
+    if (previousValue - 1 === 0) { return 0 }
+    return (value / previousValue - 1) * 100;
+  };
+
+  calculateDownSideDeviationAndRiskLevelFromChartData(chartData) {
+    const percentageReturns = chartData.map((row, rowIndex, chartData) => {
+      const previousValue = chartData[rowIndex - 1]?.value ?? this.investmentAmount;
+      return this.getPercentageReturn(row.value, previousValue);
+    });
+  
+    const squaredPercentageReturnsBelowTarget = percentageReturns.map(
+      (percentageReturn) => {
+        if (percentageReturn < DOWNSIDE_DEVIATION_TARGET) {
+          return Math.pow(percentageReturn, 2);
+        }
+        return 0;
+      }
+    );
+  
+    const sumOfSquaredPercentageReturnsBelowTarget =
+      squaredPercentageReturnsBelowTarget.reduce(
+        (sum, squaredPercentageReturnBelowTarget) =>
+          sum + squaredPercentageReturnBelowTarget,
+        0
+      );
+  
+    const downsideDeviation = Math.sqrt(
+      sumOfSquaredPercentageReturnsBelowTarget / chartData.length
+    );
+  
+    const riskLevel = this.getRiskLevel(downsideDeviation);
+    return { downsideDeviation, riskLevel }
+  }
+
+  getRiskLevel(downsideDeviation) {
+    for (const riskLevel of Object.values(RiskLevel)) {
+      const maxDownsideDeviation =
+        riskLevelConfig[riskLevel].maxDownsideDeviation;
+      if (
+        maxDownsideDeviation === null ||
+        downsideDeviation <= maxDownsideDeviation
+      ) {
+        return riskLevel;
+      }
+    }
+    return RiskLevel.HIGH;
+  };
 }
 
 
