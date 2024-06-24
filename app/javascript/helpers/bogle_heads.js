@@ -182,6 +182,22 @@ export default class BoggleHeads {
     return { downsideDeviation, riskLevel }
   }
 
+  calculateDrawDown(chartData) {
+    let lastPeakValue = 0;
+    let maximumDrawdownValue = 0;
+    let maximumDrawdownPercentage = 0;
+    chartData.forEach((row) => {
+      if (row.value > lastPeakValue) {
+        lastPeakValue = row.value;
+      }
+      if (lastPeakValue - row.value > maximumDrawdownValue) {
+        maximumDrawdownValue = lastPeakValue - row.value;
+        maximumDrawdownPercentage = (maximumDrawdownValue / lastPeakValue) * 100;
+      }
+    });
+    return { maximumDrawdownValue, maximumDrawdownPercentage }
+  }
+
   getRiskLevel(downsideDeviation) {
     for (const riskLevel of Object.values(RiskLevel)) {
       const maxDownsideDeviation =

@@ -85,6 +85,7 @@ export default class extends Controller {
     }
 
     const { downsideDeviation, riskLevel } = boglehead.calculateDownSideDeviationAndRiskLevelFromChartData(chartData)
+    const { maximumDrawdownValue, maximumDrawdownPercentage } = boglehead.calculateDrawDown(chartData)
 
     this.#renderResults({
       invested: `$${formatMoney(invested)}`,
@@ -94,7 +95,8 @@ export default class extends Controller {
       riskLevel,
       chartData,
       downsideDeviation: downsideDeviation.toFixed(2),
-      legendData
+      legendData,
+      drawDownText: `$${formatMoney(maximumDrawdownValue)} (${maximumDrawdownPercentage.toFixed(2)}%)`
     });
   }
 
