@@ -7,6 +7,9 @@ class StocksController < ApplicationController
     end
 
     stock_data = fetch_stock_data(tickers)
+    if stock_data.nil?
+      render json: { error: "Error fetching stock data" }, status: :internal_server_error
+    end
     render json: stock_data
   end
 
@@ -17,11 +20,11 @@ class StocksController < ApplicationController
 
   def make_stock_data_cache_key(query)
     query_string = URI.encode_www_form(query)
-    "stock_data__#{query_string}"
+    "stock_data_#{query_string}"
   end
 
   def cache_stock_data(cache_key, data, redis)
-    redis.set(cache_key, data)
+    redis.set(cache_key, data.to_json)
     redis.expire(cache_key, 24.hours.to_i)
   end
 
@@ -42,28 +45,30 @@ class StocksController < ApplicationController
       end_date: end_date.to_s
     }
 
-    tickers.each do |ticker|
-      query[:symbol] = ticker
-      cache_key = make_stock_data_cache_key(query)
+    begin
+      tickers.each do |ticker|
+        query[:symbol] = ticker
+        cache_key = make_stock_data_cache_key(query)
 
-      cached_response = redis.get(cache_key)
-      puts "cached_response: #{cached_response}"
-      if cached_response
-        stock_data << { ticker: ticker, data: JSON.parse(cached_response) }
-        next
+        cached_response = redis.get(cache_key)
+        if cached_response
+          stock_data << { ticker: ticker, data: JSON.parse(cached_response) }
+          next
+        end
+
+        response = HTTParty.get(base_url, query: query)
+
+        if response.success?
+          values = response.parsed_response["values"]
+          cache_stock_data(cache_key, values, redis)
+          stock_data << { ticker: ticker, data: values }
+        else
+          raise StandardError, "Failed to fetch data for #{ticker}"
+        end
       end
-
-      response = HTTParty.get(base_url, query: query)
-
-      if response.success?
-        # cache the response
-        values = response.parsed_response["values"]
-        cache_stock_data(cache_key, values, redis)
-        stock_data << { ticker: ticker, data: values }
-      else
-        # RETHINK THIS AND POTENTIALLY handle errors better
-        stock_data << { ticker: ticker, error: response.message }
-      end
+    rescue StandardError => e
+      puts "Error occurred: #{e.message}"
+      return nil
     end
 
     stock_data

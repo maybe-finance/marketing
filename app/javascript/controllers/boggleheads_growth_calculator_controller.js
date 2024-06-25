@@ -34,6 +34,11 @@ export default class extends Controller {
 
     const stockData = await this.#fetchStockData(tickers);
 
+    if (!stockData) {
+      alert("Error fetching stock data")
+      return
+    }
+
     const totalStockMarketAllocation = getInvestmentPercentage("stock_market_percentage");
     const totalInternationalStockAllocation = getInvestmentPercentage("international_stock_market_percentage");
     const totalBondMarketAllocation = getInvestmentPercentage("bond_market_percentage");
@@ -121,6 +126,7 @@ export default class extends Controller {
     });
     if (!response.ok) {
       console.log("Error fetching stock data", response);
+      return null
     }
 
     return await response.json()
