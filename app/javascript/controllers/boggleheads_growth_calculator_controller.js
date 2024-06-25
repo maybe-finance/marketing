@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { formatMoney } from "helpers/utilities"
+import { formatMoney, getTickerName } from "helpers/utilities"
 
 import BoggleHeads from "helpers/bogle_heads"
 import SEED_STOCK_DATA from "helpers/seed_stock_data";
@@ -61,28 +61,28 @@ export default class extends Controller {
 
     const returnsOnInvestment = Math.floor((profitOrLoss/invested) * 100)
 
-    const legendData = {
+    const legendData = JSON.stringify({
       value: {
-        name: "Portfolio Value",
-        fillClass: "fill-violet-600",
-        strokeClass: "stroke-violet-600"
-      },
-      internationalStockFunds: {
-        label: internationalStockMarketTicker,
-        fillClass: "fill-violet-600",
-        strokeClass: "stroke-violet-600"
+        name: "Portfolio value",
+        fillClass: "fill-pink-500",
+        strokeClass: "stroke-pink-500"
       },
       bondMarketFunds: {
-        label: bondMarketTicker,
-        fillClass: "fill-violet-600",
-        strokeClass: "stroke-violet-600"
+        name: getTickerName(bondMarketTicker),
+        fillClass: "fill-violet-500",
+        strokeClass: "stroke-violet-500"
+      },
+      internationalStockFunds: {
+        name: getTickerName(internationalStockMarketTicker),
+        fillClass: "fill-cyan-400",
+        strokeClass: "stroke-cyan-400"
       },
       stockMarketFunds: {
-        label: stockMarketTicker,
-        fillClass: "fill-violet-600",
-        strokeClass: "stroke-violet-600"
+        name: getTickerName(stockMarketTicker),
+        fillClass: "fill-blue-500",
+        strokeClass: "stroke-blue-500"
       }
-    }
+    })
 
     const { downsideDeviation, riskLevel } = boglehead.calculateDownSideDeviationAndRiskLevelFromChartData(chartData)
     const { maximumDrawdownValue, maximumDrawdownPercentage } = boglehead.calculateDrawDown(chartData)
@@ -90,12 +90,15 @@ export default class extends Controller {
     this.#renderResults({
       invested: `$${formatMoney(invested)}`,
       finalValue: `$${formatMoney(finalValue)}`,
-      returns: `${returnsOnInvestment.toFixed(2)}%`,
+      returns: `${returnsOnInvestment.toFixed(0)}%`,
       totalStockMarket: totalStockMarketAllocation,
       riskLevel,
       chartData,
       downsideDeviation: downsideDeviation.toFixed(2),
       legendData,
+      internationalStockMarketTicker,
+      bondMarketTicker,
+      stockMarketTicker,
       drawDownText: `$${formatMoney(maximumDrawdownValue)} (${maximumDrawdownPercentage.toFixed(2)}%)`
     });
   }

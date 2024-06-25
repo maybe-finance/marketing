@@ -83,29 +83,8 @@
               style: "height: 432px",
               data: {
                 controller: "time-series-boggleheads-growth-chart",
-                time_series_boggleheads_growth_chart_series_value: JSON.generate({
-                  value: {
-                    name: "Portfolio value",
-                    fillClass: "fill-pink-500",
-                    strokeClass: "stroke-pink-500"
-                  },
-                  bondMarketFunds: {
-                    name: "VBLTX (Vanguard funds)",
-                    fillClass: "fill-violet-500",
-                    strokeClass: "stroke-violet-500"
-                  },
-                  internationalStockFunds: {
-                    name: "VBLTX (Vanguard funds)",
-                    fillClass: "fill-cyan-400",
-                    strokeClass: "stroke-cyan-400"
-                  },
-                  stockMarketFunds: {
-                    name: "VBLTX (Vanguard funds)",
-                    fillClass: "fill-blue-500",
-                    strokeClass: "stroke-blue-500"
-                  }
-                })
               },
+              "t-attr:data-time-series-boggleheads-growth-chart-series-value": "legendData",
               "t-attr:data-time-series-boggleheads-growth-chart-data-value": "JSON.stringify(chartData)"
             )
           %>
