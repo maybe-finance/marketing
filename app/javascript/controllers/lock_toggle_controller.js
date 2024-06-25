@@ -12,9 +12,16 @@ export default class extends Controller {
     if (this.lockedIconTarget.classList.contains("hidden")) {
       this.lockedIconTarget.classList.remove("hidden");
       this.unlockedIconTarget.classList.add("hidden");
+
+      this.lockedIconTarget.classList.add("text-gray-400");
+      this.lockedIconTarget.classList.remove("text-gray-100");
     } else {
       this.lockedIconTarget.classList.add("hidden");
       this.unlockedIconTarget.classList.remove("hidden");
+
+      this.lockedIconTarget.classList.add("text-gray-100");
+      this.lockedIconTarget.classList.remove("text-gray-400");
+
     }
   }
 
