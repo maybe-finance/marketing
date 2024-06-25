@@ -146,19 +146,22 @@ export default class extends Controller {
   }
 
   #drawLegend() {
+    //Note: the legends could actually fit the same line. but for the sake of UI fidelity we are putting them on multiple lines
     const legend = this.#d3Content
       .append("g")
   
-    let offsetX = 40;
+    let offsetX = 30;
     let offsetY = 40;
-    const maxLegendWidth = this.#contentWidth - 30;
-    let rows = [[]]; // Store items in rows
+    const maxLegendWidth = 500;
+    let rows = [[]];
+
+    console.log("maxLegendWidth", maxLegendWidth)
   
     Object.values(this.seriesValue).forEach((series, i) => {
       const item = legend.append("g");
   
       item.append("rect")
-        .attr("height", 24)
+        .attr("height", 12)
         .attr("width", 4)
         .attr("class", series.fillClass)
         .attr("rx", 2)
@@ -166,10 +169,11 @@ export default class extends Controller {
   
       item.append("text")
         .attr("x", 10)
-        .attr("y", 17) // Adjusted to vertically center the text with the rect
+        .attr("y", 12)
         .attr("text-anchor", "start")
         .style("fill", tailwindColors.gray[900])
         .style("font-size", "14px")
+        .style("line-height", "20px")
         .style("font-weight", "400")
         .text(series.name);
   
@@ -183,7 +187,7 @@ export default class extends Controller {
       }
   
       rows[rows.length - 1].push({ item, offsetX });
-      offsetX += itemWidth + 12;
+      offsetX += itemWidth + 40;
     });
   
     // Center align each row
@@ -192,7 +196,7 @@ export default class extends Controller {
       const startX = (this.#contentWidth - rowWidth) / 2;
   
       rowItems.forEach(({ item, offsetX }) => {
-        let offsetXUpdate = index === 1 ? startX / 3 : offsetX;
+        let offsetXUpdate = index === 1 ? startX / 5 : offsetX;
         item.attr("transform", `translate(${startX + offsetXUpdate}, ${offsetY})`);
       });
   

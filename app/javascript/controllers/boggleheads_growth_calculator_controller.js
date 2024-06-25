@@ -91,14 +91,11 @@ export default class extends Controller {
       invested: `$${formatMoney(invested)}`,
       finalValue: `$${formatMoney(finalValue)}`,
       returns: `${returnsOnInvestment.toFixed(0)}%`,
-      totalStockMarket: totalStockMarketAllocation,
       riskLevel,
       chartData,
       downsideDeviation: downsideDeviation.toFixed(2),
       legendData,
       internationalStockMarketTicker,
-      bondMarketTicker,
-      stockMarketTicker,
       drawDownText: `$${formatMoney(maximumDrawdownValue)} (${maximumDrawdownPercentage.toFixed(2)}%)`
     });
   }
