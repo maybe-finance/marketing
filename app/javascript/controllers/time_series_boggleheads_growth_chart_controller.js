@@ -47,7 +47,7 @@ export default class extends Controller {
 
   get #margin() {
     if (this.useLabelsValue) {
-      return { top: 0, right: 0, bottom: 20, left: 0 };
+      return { top: 0, right: 0, bottom: 60, left: 0 };
     } else {
       return { top: 0, right: 0, bottom: 0, left: 0 };
     }
@@ -145,56 +145,17 @@ export default class extends Controller {
       .attr("text-anchor", (_, i) => i === 0 ? "start" : "end");
   }
 
-  #drawLegendOLD() {
-    const legend = this.#d3Content
-      .append("g")
-      .style("padding", "10px;");
-
-    let offsetX = 0;
-    Object.values(this.seriesValue).forEach((series, i) => {
-      const item = legend
-        .append("g")
-        .attr("transform", `translate(${offsetX}, 0)`)
-        
-
-      item.append("rect")
-        .attr("height", 12)
-        .attr("width", 4)
-        .attr("class", series.fillClass)
-        .attr("rx", 2)
-        .attr("ry", 2);
-
-
-      item.append("text")
-        .attr("x", 10)
-        .attr("y", 10)
-        .attr("text-anchor", "start")
-        .style("fill", tailwindColors.gray[900])
-        .style("font-size", "14px")
-        .style("font-weight", "400")
-        .text(series.name);
-
-      const itemWidth = item.node().getBBox().width;
-      offsetX += itemWidth + 12;
-    });
-
-    const legendWidth = legend.node().getBBox().width;
-    legend.attr("transform", `translate(${this.#contentWidth / 2 - legendWidth / 2}, ${this.#contentHeight})`);
-  }
-
   #drawLegend() {
     const legend = this.#d3Content
       .append("g")
-      .style("padding", "10px;");
   
-    let offsetX = 0;
-    let offsetY = 0;
-    const maxLegendWidth = this.#contentWidth - 50; // Adjust this value as needed
+    let offsetX = 40;
+    let offsetY = 40;
+    const maxLegendWidth = this.#contentWidth - 30;
+    let rows = [[]]; // Store items in rows
   
     Object.values(this.seriesValue).forEach((series, i) => {
-      const item = legend
-        .append("g")
-        .attr("transform", `translate(${offsetX}, ${offsetY})`);
+      const item = legend.append("g");
   
       item.append("rect")
         .attr("height", 24)
@@ -205,7 +166,7 @@ export default class extends Controller {
   
       item.append("text")
         .attr("x", 10)
-        .attr("y", 10)
+        .attr("y", 17) // Adjusted to vertically center the text with the rect
         .attr("text-anchor", "start")
         .style("fill", tailwindColors.gray[900])
         .style("font-size", "14px")
@@ -213,18 +174,38 @@ export default class extends Controller {
         .text(series.name);
   
       const itemWidth = item.node().getBBox().width;
+  
       if (offsetX + itemWidth > maxLegendWidth) {
+        // Start a new row
         offsetX = 0;
-        offsetY += 20; // Adjust the vertical spacing between lines as needed
-        item.attr("transform", `translate(${offsetX}, ${offsetY})`);
+        offsetY += 30; // Adjust the vertical spacing between lines as needed
+        rows.push([]);
       }
   
+      rows[rows.length - 1].push({ item, offsetX });
       offsetX += itemWidth + 12;
     });
   
-    const legendWidth = legend.node().getBBox().width;
-    legend.attr("transform", `translate(${this.#contentWidth / 2 - legendWidth / 2}, ${this.#contentHeight})`);
-  }  
+    // Center align each row
+    rows.forEach((rowItems, index) => {
+      const rowWidth = rowItems.reduce((sum, { item }) => sum + item.node().getBBox().width + 12, -12);
+      const startX = (this.#contentWidth - rowWidth) / 2;
+  
+      rowItems.forEach(({ item, offsetX }) => {
+        let offsetXUpdate = index === 1 ? startX / 3 : offsetX;
+        item.attr("transform", `translate(${startX + offsetXUpdate}, ${offsetY})`);
+      });
+  
+      offsetY += 30
+    });
+  
+    const legendBBox = legend.node().getBBox();
+    const legendWidth = legendBBox.width;
+    const legendHeight = legendBBox.height;
+  
+    // Center the legend horizontally and position it above the bottom of the chart
+    legend.attr("transform", `translate(${this.#contentWidth / 3 - legendWidth / 2}, ${this.#contentHeight - (legendHeight) - 10})`);
+  }
 
   #createDot(className, fillClass) {
     const dot = this.#d3Content.append("g")
