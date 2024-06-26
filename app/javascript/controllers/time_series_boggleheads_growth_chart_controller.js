@@ -47,7 +47,7 @@ export default class extends Controller {
 
   get #margin() {
     if (this.useLabelsValue) {
-      return { top: 0, right: 0, bottom: 60, left: 0 };
+      return { top: 0, right: 0, bottom: 38, left: 0 };
     } else {
       return { top: 0, right: 0, bottom: 0, left: 0 };
     }
@@ -151,7 +151,7 @@ export default class extends Controller {
       .append("g")
   
     let offsetX = 30;
-    let offsetY = 40;
+    let offsetY = 20;
     const maxLegendWidth = 500;
     let rows = [[]];
 
@@ -200,7 +200,7 @@ export default class extends Controller {
         item.attr("transform", `translate(${startX + offsetXUpdate}, ${offsetY})`);
       });
   
-      offsetY += 30
+      offsetY += 25
     });
   
     const legendBBox = legend.node().getBBox();
