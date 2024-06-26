@@ -16,7 +16,7 @@
     </div>
 
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
-      <%= render partial: "shared/select", locals: { name: "bond_market_ticker", label: "Total Bond Market", value: 'BND', button_class: '', options: [['BND (Vanguard)', 'BND'], ['SCHZ (Schwab)', 'SCHZ'], ['SPAB (SPDR)', 'SPDR'], ['AGG (iShares)', 'AGG']] } %>
+      <%= render partial: "shared/select", locals: { name: "bond_market_ticker", label: "Total Bond Market", value: 'BND', button_class: '', options: [['BND (Vanguard)', 'BND'], ['SCHZ (Schwab)', 'SCHZ'], ['SPAB (SPDR)', 'SPAB'], ['AGG (iShares)', 'AGG']] } %>
       <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-violet-500 to-violet-500 grow", name: "bond_market_percentage", id: "bond_market_percentage", value: "30" }  %>
     </div>
 

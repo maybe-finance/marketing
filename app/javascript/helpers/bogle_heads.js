@@ -38,12 +38,12 @@ const riskLevelConfig = {
 };
 
 /**
- * This is handles the computations for the
+ * This handles the computations for the
  * bogle heads growth calculator. The calculation of the
  * following are of particular note
  * - Generation of chart data.
  *   - computes final value of a porfiolio at the end of 
- *   - each year for the past 25 years.
+ *   - each year for the past 20 years.
  * - Calculating Percentage Returns Total
  * - Calculating final value of investment
  * - computing risk level and associated values for 
@@ -272,10 +272,17 @@ class FundManager {
     const shares = this.startingInvestment / pricePerShare;
     // TODO: account for when the first stock is not valid?
 
+    const datesProcessed = new Set()
+
     for (const stockInformation of this.stockData) {
+      const date = stockInformation.datetime
+      if (datesProcessed.has(date)) { continue }
+
       const valueOfShares = Math.floor(shares * parseFloat(stockInformation.close));
-      const year = new Date(stockInformation.datetime).getFullYear()
-      this.updateEarliestDate(stockInformation.datetime)
+      const year = new Date(date).getFullYear()
+
+      datesProcessed.add(date)
+      this.updateEarliestDate(date)
       this.updateStockReturns(year, valueOfShares)
     }
 
@@ -292,6 +299,7 @@ class FundManager {
       annualReturns[year] = returns[returns.length - 1]
     }
     this.annualReturns = annualReturns
+    console.log("annualReturns", annualReturns, this.stockReturnsGroupedByYear)
     return annualReturns
   }
 
