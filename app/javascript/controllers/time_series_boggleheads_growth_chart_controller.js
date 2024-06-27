@@ -288,7 +288,7 @@ export default class extends Controller {
           .attr("y2", this.#contentHeight - this.#margin.bottom);
 
         const tooltipX = dataX;
-        const tooltipY = this.#d3YScale(d.bondMarketFunds);
+        const tooltipY = event.clientY + window.scrollY
         const tooltipMarginX = 50;
 
         // TODO: fix tooltip location
