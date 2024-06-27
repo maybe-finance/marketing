@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 import { formatMoney, getTickerName } from "helpers/utilities"
 
-import BoggleHeads from "helpers/bogle_heads"
+import InvestmentManager from "helpers/investment_manager"
 import SEED_STOCK_DATA from "helpers/seed_stock_data";
 import TemplateRenderer from "helpers/template_renderer";
 
@@ -20,6 +20,9 @@ export default class extends Controller {
       return target ? target.value : "";
     }
 
+    const rawStockData = getTicker("stock_data")
+    const parsedStockData = JSON.parse(rawStockData)
+
     const getInvestmentPercentage = (key) => {
       const target = document.getElementById(key)
       return parseFloat(target.value.replace(/[^0-9.-]+/g, ''));
@@ -31,13 +34,6 @@ export default class extends Controller {
     const bondMarketTicker = getTicker("bond_market_ticker")
     const internationalStockMarketTicker = getTicker("international_stock_market_ticker")
     const tickers = [stockMarketTicker, bondMarketTicker, internationalStockMarketTicker]
-
-    const stockData = await this.#fetchStockData(tickers);
-
-    if (!stockData) {
-      alert("Error fetching stock data")
-      return
-    }
 
     const totalStockMarketAllocation = getInvestmentPercentage("stock_market_percentage");
     const totalInternationalStockAllocation = getInvestmentPercentage("international_stock_market_percentage");
@@ -56,13 +52,16 @@ export default class extends Controller {
       [internationalStockMarketTicker]: "internationalStockFunds",
     }
 
-    const processedStockData = stockData.reduce((prev, curr) => ({ ...prev, [curr.ticker]: curr.data }), {})
+    const processedStockData = {
+      [bondMarketTicker]: parsedStockData[bondMarketTicker],
+      [stockMarketTicker]: parsedStockData[stockMarketTicker],
+      [internationalStockMarketTicker]: parsedStockData[internationalStockMarketTicker],
+    }
 
-    const boglehead = new BoggleHeads(invested, fundAllocations, processedStockData, tickerFundCategories)
-    const chartData = boglehead.makeChartData()
-
-    const finalValue = chartData[chartData.length - 1].value
-    const profitOrLoss = finalValue - invested
+    const investmentManager = new InvestmentManager(invested, fundAllocations, processedStockData, tickerFundCategories)
+    const chartData = investmentManager.makeChartData()
+    const finalValue = investmentManager.getFinalValue(chartData)
+    const profitOrLoss = investmentManager.getProfitOrLoss(chartData)
 
     const returnsOnInvestment = Math.floor((profitOrLoss/invested) * 100)
 
@@ -89,8 +88,8 @@ export default class extends Controller {
       }
     })
 
-    const { downsideDeviation, riskLevel } = boglehead.calculateDownSideDeviationAndRiskLevelFromChartData(chartData)
-    const { maximumDrawdownValue, maximumDrawdownPercentage } = boglehead.calculateDrawDown(chartData)
+    const { downsideDeviation, riskLevel } = investmentManager.calculateDownSideDeviationAndRiskLevelFromChartData(chartData)
+    const { maximumDrawdownValue, maximumDrawdownPercentage } = investmentManager.calculateDrawDown(chartData)
 
     this.#renderResults({
       invested: `$${formatMoney(invested)}`,

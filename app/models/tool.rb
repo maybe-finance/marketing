@@ -42,6 +42,10 @@ class Tool < ApplicationRecord
     CATEGORIES[category_slug&.to_sym]
   end
 
+  def needs_stock_data?
+    self.slug === "boggleheads-growth-calculator"
+  end
+
   private
 
   def create_meta_image

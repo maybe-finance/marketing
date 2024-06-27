@@ -20,6 +20,8 @@
       <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-violet-500 to-violet-500 grow", name: "bond_market_percentage", id: "bond_market_percentage", value: "30" }  %>
     </div>
 
+    <input type="hidden" name="stock_data" id="stock_data" value="<%= @stock_prices.to_json %>" />
+
     <div class="mt-auto">
       <%= form.submit "Calculate" %>
     </div>

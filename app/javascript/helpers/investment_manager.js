@@ -1,10 +1,7 @@
 /**
  * @typedef {Object} AssetRowDto
- * @property {string} date
- * @property {number} open
- * @property {number} high
- * @property {number} low
- * @property {number} close
+ * @property {string} year
+ * @property {number} price
  */
 
 /**
@@ -52,7 +49,7 @@ const riskLevelConfig = {
  * 
  * - Type declarations here are supposed to be documentary and to help us reason about the computations
  */
-export default class BoggleHeads {
+export default class InvestmentManager {
   /**
    * @type {number}
    */
@@ -89,7 +86,7 @@ export default class BoggleHeads {
   computeStockReturns() {
     const fundManagers = []
     for (const [fund, allocation] of Object.entries(this.fundAllocation)) {
-      const investmentAmount = this.investmentAmount * (allocation/100)
+      const investmentAmount = Math.floor(this.investmentAmount * (allocation/100))
       if (investmentAmount < 1) { continue }
       fundManagers.push(new FundManager(investmentAmount, this.rawStockData[fund], this.tickerFundCategories[fund]))
     }
@@ -97,17 +94,17 @@ export default class BoggleHeads {
     this.fundManagers = fundManagers;
   }
 
-  getEarliestDateForAllFunds() {
+  getEarliestYearForAllFunds() {
     // this is the earliest date for all funds
     // we have earliest date for A, B, C
     // do we want the highest or the least?
     let earliest = null;
     for (const fundManager of this.fundManagers) {
       if (!earliest) {
-        earliest = fundManager.earliestDate
+        earliest = fundManager.earliestYear
       } else {
-        if (fundManager.earliestDate > earliest) {
-          earliest = fundManager.earliestDate
+        if (fundManager.earliestYear > earliest) {
+          earliest = fundManager.earliestYear
         }
       }
     }
@@ -115,12 +112,12 @@ export default class BoggleHeads {
   }
 
   makeChartData() {
-    const earliestDate = this.getEarliestDateForAllFunds()
+    const earliestYear = this.getEarliestYearForAllFunds()
     // not all stocks have data going back 20 years so we have to only 
     // use stock data starting from a particular threshold
     const chartRows = []
     const currentYear = new Date().getFullYear();
-    let year = new Date(earliestDate).getFullYear();
+    let year = +earliestYear
 
     while(year <= currentYear) {
       let totalReturnsForYear = 0
@@ -145,6 +142,14 @@ export default class BoggleHeads {
       year += 1;
     }
     return chartRows;
+  }
+
+  getFinalValue(chartData) {
+    return chartData[chartData.length - 1].value
+  }
+
+  getProfitOrLoss(chartData) {
+    return this.getFinalValue(chartData) - this.investmentAmount
   }
 
   getPercentageReturn (value, previousValue) {
@@ -229,19 +234,14 @@ class FundManager {
   /**
   * @type {Object.<number, []number>}
   */
-  stockReturnsGroupedByYear = {};
-
-  /**
-  * @type {Object.<string, number>}
-  */
-  annualReturns = {}
+  annualReturns = {};
 
   /**
   * @type {string}
   */
   fundCategory
 
-  earliestDate = null
+  earliestYear = null
 
    /**
    * @param {number} investmentAmount - The amount to be invested.
@@ -265,61 +265,30 @@ class FundManager {
 
     // the first stock data is assumed to be the time you bought the shares
     // this was sorted in descending order - sorting just for sanity
-    this.stockData.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
-    
-    const pricePerShare = this.stockData[0].close;
+    this.stockData.sort((a, b) => a.year - b.year);
+    const pricePerShare = this.stockData[0].price;
     // number of shares is fixed at the beginning based on our first stock data
     const shares = this.startingInvestment / pricePerShare;
-    // TODO: account for when the first stock is not valid?
-
-    const datesProcessed = new Set()
 
     for (const stockInformation of this.stockData) {
-      const date = stockInformation.datetime
-      if (datesProcessed.has(date)) { continue }
+      const year = stockInformation.year
+      const valueOfShares = Math.floor(shares * parseFloat(stockInformation.price));
 
-      const valueOfShares = Math.floor(shares * parseFloat(stockInformation.close));
-      const year = new Date(date).getFullYear()
-
-      datesProcessed.add(date)
-      this.updateEarliestDate(date)
-      this.updateStockReturns(year, valueOfShares)
+      this.updateEarliestYear(year)
+      this.annualReturns[year] = valueOfShares
     }
 
-    this.summarizeInvestmentByYear()
-  }
-
-  summarizeInvestmentByYear() {
-    const years = Object.keys(this.stockReturnsGroupedByYear).sort()
-
-    const annualReturns = {}
-    for (const year of years) {
-      const returns = this.stockReturnsGroupedByYear[year]
-      if (!returns || !returns.length) { continue }
-      annualReturns[year] = returns[returns.length - 1]
-    }
-    this.annualReturns = annualReturns
-    console.log("annualReturns", annualReturns, this.stockReturnsGroupedByYear)
-    return annualReturns
   }
 
   getReturnsForYear(year) {
     return this.annualReturns[year]
   }
 
-  updateEarliestDate(date) {
-    if (!this.earliestDate) {
-      this.earliestDate = date
-    } else if (date < this.earliestDate) {
-      this.earliestDate = date
-    }
-  }
-
-  updateStockReturns(year, investmentReturns) {
-    if (this.stockReturnsGroupedByYear[year]) {
-      this.stockReturnsGroupedByYear[year].push(investmentReturns)
-    } else {
-      this.stockReturnsGroupedByYear[year] = [investmentReturns]
+  updateEarliestYear(year) {
+    if (!this.earliestYear) {
+      this.earliestYear = year
+    } else if (year < this.earliestYear) {
+      this.earliestYear = year
     }
   }
 }
