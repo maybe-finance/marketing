@@ -94,7 +94,7 @@ export default class extends Controller {
 
   #drawGridlines() {
     const axisGenerator = d3.axisRight(this.#d3YScale)
-      .ticks(10)
+      .ticks(8)
       .tickSize(this.#contentWidth)
       .tickFormat("");
 
@@ -124,7 +124,7 @@ export default class extends Controller {
       .tickSize(0)
       .tickFormat((date, i) => {
         if (i === 0) return `${first.yearMonth}`;
-        if (i === 1) return `${yearN.yearMonth}`;
+        if (i === 1) return `Today`;
       });
 
     const axis = this.#d3Content

@@ -11,6 +11,21 @@
  * @typedef {Object.<string, AssetRowDto>} RawStockData
  */
 
+const MONTH_NAMES = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 const DOWNSIDE_DEVIATION_TARGET = 0;
 
 const RiskLevel = {
@@ -153,7 +168,7 @@ export default class BoggleHeads {
         // compute earnings for that month
         // const date = new Date(year, tickerDate.getMonth() + 1, 1);
         const chartData = {
-          yearMonth: `${year}-${month}`,
+          yearMonth: `${MONTH_NAMES[month - 1]}, ${year}`,
           year,
           month,
           bondMarketFunds: 0,
