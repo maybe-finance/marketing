@@ -2,7 +2,6 @@ import { Controller } from "@hotwired/stimulus";
 import { formatMoney, getTickerName } from "helpers/utilities"
 
 import InvestmentManager from "helpers/investment_manager"
-import SEED_STOCK_DATA from "helpers/seed_stock_data";
 import TemplateRenderer from "helpers/template_renderer";
 
 
@@ -15,12 +14,12 @@ export default class extends Controller {
     const formData = new FormData(event.target);
     const parseFormData = key => parseFloat(formData.get(key).replace(/[^0-9.-]+/g, ''));
 
-    const getTicker = (key) => {
+    const getInputValue = (key) => {
       const target = document.querySelector(`input[name='${key}']`);
       return target ? target.value : "";
     }
 
-    const rawStockData = getTicker("stock_data")
+    const rawStockData = getInputValue("stock_data")
     const parsedStockData = JSON.parse(rawStockData)
 
     const getInvestmentPercentage = (key) => {
@@ -30,14 +29,25 @@ export default class extends Controller {
 
     const invested = parseFormData("invested_amount");
 
-    const stockMarketTicker = getTicker("stock_market_ticker")
-    const bondMarketTicker = getTicker("bond_market_ticker")
-    const internationalStockMarketTicker = getTicker("international_stock_market_ticker")
-    const tickers = [stockMarketTicker, bondMarketTicker, internationalStockMarketTicker]
+    if (!invested) {
+      alert("Please specify an investment amount")
+      return
+    }
+
+    const stockMarketTicker = getInputValue("stock_market_ticker")
+    const bondMarketTicker = getInputValue("bond_market_ticker")
+    const internationalStockMarketTicker = getInputValue("international_stock_market_ticker")
 
     const totalStockMarketAllocation = getInvestmentPercentage("stock_market_percentage");
     const totalInternationalStockAllocation = getInvestmentPercentage("international_stock_market_percentage");
     const totalBondMarketAllocation = getInvestmentPercentage("bond_market_percentage");
+
+    const totalInvestmentAllocation = totalStockMarketAllocation + totalInternationalStockAllocation + totalBondMarketAllocation
+
+    if (Math.floor(totalInvestmentAllocation) !== 100) {
+      alert(`Your investment allocations of (${totalInvestmentAllocation}%) should equal 100%`)
+      return
+    }
 
     const fundAllocations = {
       [bondMarketTicker]: totalBondMarketAllocation,
@@ -92,43 +102,15 @@ export default class extends Controller {
     const { maximumDrawdownValue, maximumDrawdownPercentage } = investmentManager.calculateDrawDown(chartData)
 
     this.#renderResults({
+      riskLevel,
+      chartData,
+      legendData,
       invested: `$${formatMoney(invested)}`,
       finalValue: `$${formatMoney(finalValue)}`,
       returns: `${returnsOnInvestment.toFixed(0)}%`,
-      riskLevel,
-      chartData,
       downsideDeviation: downsideDeviation.toFixed(2),
-      legendData,
-      internationalStockMarketTicker,
       drawDownText: `$${formatMoney(maximumDrawdownValue)} (${maximumDrawdownPercentage.toFixed(2)}%)`
     });
-  }
-
-  async #fetchStockData(tickers) {
-    // TODO: this is for development purposes only - remove when done
-    if (SEED_STOCK_DATA) {
-      console.log("returning seed data", SEED_STOCK_DATA)
-      return SEED_STOCK_DATA
-    }
-
-    const params = new URLSearchParams({})
-    tickers.forEach(ticker => params.append("tickers[]", ticker))
-    
-    const url = `/stocks?${params.toString()}`
-
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-      }
-    });
-    if (!response.ok) {
-      console.log("Error fetching stock data", response);
-      return null
-    }
-
-    return await response.json()
   }
 
   #renderResults(data) {

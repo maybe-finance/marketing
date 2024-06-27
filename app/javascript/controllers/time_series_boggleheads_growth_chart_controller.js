@@ -155,8 +155,6 @@ export default class extends Controller {
     const maxLegendWidth = 500;
     let rows = [[]];
 
-    console.log("maxLegendWidth", maxLegendWidth)
-  
     Object.values(this.seriesValue).forEach((series, i) => {
       const item = legend.append("g");
   
@@ -262,11 +260,6 @@ export default class extends Controller {
         const d = this.#findDatumByPointer(event);
 
         const dataX = x(d.date);
-
-        console.log("dataX", dataX);
-        console.log("d.value", d.value);
-        console.log("d.bondMarketFunds", d.bondMarketFunds);
-        console.log("d.bondMarketFunds", this.#d3YScale(d.bondMarketFunds));
 
         dot1.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.value)})`);
         dot2.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.bondMarketFunds)})`);

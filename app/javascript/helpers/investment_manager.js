@@ -1,11 +1,11 @@
 /**
- * @typedef {Object} AssetRowDto
+ * @typedef {Object} StockData
  * @property {string} year
  * @property {number} price
  */
 
 /**
- * @typedef {Object.<string, AssetRowDto>} RawStockData
+ * @typedef {Object.<string, StockData>} RawStockData
  */
 
 const DOWNSIDE_DEVIATION_TARGET = 0;
@@ -95,9 +95,7 @@ export default class InvestmentManager {
   }
 
   getEarliestYearForAllFunds() {
-    // this is the earliest date for all funds
-    // we have earliest date for A, B, C
-    // do we want the highest or the least?
+    // this is the earliest year
     let earliest = null;
     for (const fundManager of this.fundManagers) {
       if (!earliest) {
@@ -114,7 +112,7 @@ export default class InvestmentManager {
   makeChartData() {
     const earliestYear = this.getEarliestYearForAllFunds()
     // not all stocks have data going back 20 years so we have to only 
-    // use stock data starting from a particular threshold
+    // use stock data starting from a particular threshold - year
     const chartRows = []
     const currentYear = new Date().getFullYear();
     let year = +earliestYear
@@ -222,14 +220,14 @@ export default class InvestmentManager {
 class FundManager {
 
   /**
-  * @type {[]AssetRowDto}
+  * @type {[]StockData}
   */
   stockData;
 
   /**
   * @type {number}
   */
-   investmentAmount;
+   startingInvestment;
 
   /**
   * @type {Object.<number, []number>}
@@ -241,11 +239,14 @@ class FundManager {
   */
   fundCategory
 
+  /**
+  * @type {number}
+  */
   earliestYear = null
 
    /**
-   * @param {number} investmentAmount - The amount to be invested.
-   * @param {[]AssetRowDto} stockData - Historical stock data.
+   * @param {number} startingInvestment - The amount to be invested.
+   * @param {[]StockData} stockData - Historical stock data.
    * @param {string} fundCategory - Type of fund - bond, stock, int'l bond?
    */
    constructor(startingInvestment, stockData, fundCategory) {
@@ -260,13 +261,16 @@ class FundManager {
     return this.fundCategory
   }
 
+  getReturnsForYear(year) {
+    return this.annualReturns[year]
+  }
+
   computeInvestmentReturns() {
     if (this.startingInvestment === 0 || this.stockData.length === 0) { return }
 
-    // the first stock data is assumed to be the time you bought the shares
-    // this was sorted in descending order - sorting just for sanity
     this.stockData.sort((a, b) => a.year - b.year);
     const pricePerShare = this.stockData[0].price;
+
     // number of shares is fixed at the beginning based on our first stock data
     const shares = this.startingInvestment / pricePerShare;
 
@@ -277,11 +281,6 @@ class FundManager {
       this.updateEarliestYear(year)
       this.annualReturns[year] = valueOfShares
     }
-
-  }
-
-  getReturnsForYear(year) {
-    return this.annualReturns[year]
   }
 
   updateEarliestYear(year) {
