@@ -67,7 +67,7 @@ const riskLevelConfig = {
  *
  * - Type declarations here are supposed to be documentary and to help us reason about the computations
  */
-export default class BoggleHeads {
+export default class InvestmentManager {
   /**
    * @type {number}
    */
@@ -168,7 +168,7 @@ export default class BoggleHeads {
         // compute earnings for that month
         // const date = new Date(year, tickerDate.getMonth() + 1, 1);
         const chartData = {
-          yearMonth: `${MONTH_NAMES[month - 1]}, ${year}`,
+          yearMonth: `${MONTH_NAMES[month - 1]} ${year}`,
           year,
           month,
           bondMarketFunds: 0,
