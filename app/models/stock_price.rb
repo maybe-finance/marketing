@@ -33,8 +33,8 @@ class StockPrice < ApplicationRecord
             price_data = prices.first
 
             if price_data && price_data.has_key?("close")
-              stock_data = StockPrice.find_or_create_by(ticker: ticker, year: stock_date.year)
-              stock_data.update(price: price_data["close"])
+              stock_data = StockPrice.find_or_create_by(ticker: ticker, year: stock_date.year, month: stock_date.month)
+              stock_data.update(price: price_data["close"], date: price_data["date"])
             else
               puts "No closing price data found for ticker: #{ticker}"
             end
@@ -61,11 +61,11 @@ class StockPrice < ApplicationRecord
       output = {}
 
       grouped_data.each do |ticker, year_prices|
-        annual_stock_prices = year_prices.map do |record|
-          { year: record.year, price: record.price }
+        monthly_stock_prices = year_prices.map do |record|
+          { year: record.year, price: record.price, month: record.month, date: record.date }
         end
 
-        output[ticker] = annual_stock_prices
+        output[ticker] = monthly_stock_prices
       end
 
       redis.set(cache_key, JSON.generate(output))

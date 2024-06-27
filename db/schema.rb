@@ -28,7 +28,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_26_190512) do
   create_table "stock_prices", force: :cascade do |t|
     t.string "ticker"
     t.float "price"
+    t.integer "month"
     t.integer "year"
+    t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

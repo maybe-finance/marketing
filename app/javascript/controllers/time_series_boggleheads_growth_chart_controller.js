@@ -116,15 +116,15 @@ export default class extends Controller {
   }
 
   #drawXAxis() {
-    const year1 = this.#data[0].date;
+    const first = this.#data[0];
     const yearN = this.#data[this.#data.length - 1];
 
     const axisGenerator = d3.axisBottom(this.#d3XScale)
-      .tickValues([year1, yearN.date])
+      .tickValues([first, yearN.date])
       .tickSize(0)
       .tickFormat((date, i) => {
-        if (i === 0) return `Year ${year1.getFullYear()}`;
-        if (i === 1) return `Year ${yearN.year}`;
+        if (i === 0) return `${first.yearMonth}`;
+        if (i === 1) return `${yearN.yearMonth}`;
       });
 
     const axis = this.#d3Content
@@ -312,7 +312,7 @@ export default class extends Controller {
 
     return (`
       <div class="mb-1 text-gray-500 font-medium">
-        Year ${datum.year}
+        ${datum.yearMonth}
       </div>
       ${Object.entries(this.seriesValue).map(([key, series]) => `
         <div class="flex items-center gap-4">
@@ -380,7 +380,7 @@ export default class extends Controller {
   get #d3XScale() {
     const dateExtent = d3.extent(this.#data, d => d.date);
     return d3.scaleTime()
-      .domain([d3.timeDay.offset(dateExtent[0], -(this.#data.length * 15)), d3.timeDay.offset(dateExtent[1], this.#data.length * 15)])
+      .domain([d3.timeDay.offset(dateExtent[0], - (this.#data.length)), d3.timeDay.offset(dateExtent[1], this.#data.length)])
       .range([0, this.#contentWidth]);
   }
 

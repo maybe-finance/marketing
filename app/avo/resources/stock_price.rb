@@ -9,6 +9,8 @@ class Avo::Resources::StockPrice < Avo::BaseResource
     field :ticker, as: :text
     field :price, as: :number
     field :year, as: :number
+    field :month, as: :number
+    field :date, as: :text
     field :created_at, as: :date_time
     field :updated_at, as: :date_time
   end

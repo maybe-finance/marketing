@@ -1,7 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 import { formatMoney, getTickerName } from "helpers/utilities"
 
-import InvestmentManager from "helpers/investment_manager"
+// import InvestmentManager from "helpers/investment_manager"
+import BogleHead from "helpers/bogle_heads"
 import TemplateRenderer from "helpers/template_renderer";
 
 
@@ -68,10 +69,14 @@ export default class extends Controller {
       [internationalStockMarketTicker]: parsedStockData[internationalStockMarketTicker],
     }
 
-    const investmentManager = new InvestmentManager(invested, fundAllocations, processedStockData, tickerFundCategories)
+    const investmentManager = new BogleHead(invested, fundAllocations, processedStockData, tickerFundCategories)
     const chartData = investmentManager.makeChartData()
+    console.log("chartData", chartData)
     const finalValue = investmentManager.getFinalValue(chartData)
     const profitOrLoss = investmentManager.getProfitOrLoss(chartData)
+
+    // BogleHead
+    // const bogleHead = new BoggleHead(invested, fundAllocations, processedStockData, tickerFundCategories)
 
     const returnsOnInvestment = Math.floor((profitOrLoss/invested) * 100)
 
