@@ -7,6 +7,8 @@ export default class extends Controller {
   };
 
   #data = [];
+  #isMobile = window.innerWidth <= 768;
+
   dataValueChanged(value) {
     this.#data = value;
     this.#drawChart();
@@ -19,9 +21,8 @@ export default class extends Controller {
   #drawChart() {
     const data = this.#data;
 
-    const isMobile = window.innerWidth <= 768;
-    const margin = isMobile ? { top: 20, right: 10, bottom: 40, left: 10 } : { top: 20, right: 30, bottom: 40, left: 50 };
-    const width = (isMobile ? 350 : 600) - margin.left - margin.right;
+    const margin = this.#isMobile ? { top: 20, right: 10, bottom: 40, left: 10 } : { top: 20, right: 30, bottom: 40, left: 50 };
+    const width = (this.#isMobile ? 350 : 600) - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
     const svg = d3.select(this.element)
@@ -161,7 +162,7 @@ export default class extends Controller {
     // Add indicator dot
     const indicatorGroup = svg.append("g")
       .attr("class", "indicator-dot")
-      .attr("transform", `translate(${width / 2}, 0)`);
+      .attr("transform", `translate(${width / 2}, 25)`);
 
     indicatorGroup.append("circle")
       .attr("r", 10)
@@ -210,14 +211,14 @@ export default class extends Controller {
       .style("border-radius", "5px")
       .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.1)")
       .html(categoryAmounts)
-      .style('left', (width <= 768 ? width / 1.5 : width * 1.8) + 'px')
+      .style('left', (this.#isMobile ? (width / 1.7) : (width  / 1.5)) + 'px')
       .style('border-radius', '10px')
-      .style('top', (height + 35) + 'px');
+      .style('top', (this.#isMobile ? (-25) : (-25)) + 'px')
 
     svg.on('mousemove', (event) => {
       const [_x, y] = d3.pointer(event);
       indicatorGroup.attr("transform", `translate(${width / 2}, ${y})`);
-      tooltip.style('top', (event.pageY - 65) + 'px')
+      tooltip.style('top', y - 45 + 'px')
     });
 
   }
