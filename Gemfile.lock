@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: de4d8744744acab2dd9db0683ccf784ea45810b2
+  revision: 6045f257fbbff039edb2542c9859488cec0dcaa9
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -76,7 +76,7 @@ GIT
       connection_pool (>= 2.2.5)
       drb
       i18n (>= 1.6, < 2)
-      logger
+      logger (>= 1.4.2)
       minitest (>= 5.1)
       tzinfo (~> 2.0, >= 2.0.5)
     rails (8.0.0.alpha)
