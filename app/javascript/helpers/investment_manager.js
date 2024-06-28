@@ -1,10 +1,10 @@
 /**
  * @typedef {Object} AssetRowDto
  * @property {string} date
- * @property {number} open
- * @property {number} high
- * @property {number} low
- * @property {number} close
+ * @property {string} ticker
+ * @property {number} year
+ * @property {number} month
+ * @property {number} price
  */
 
 /**
@@ -75,6 +75,8 @@ export default class InvestmentManager {
 
   /**
    * @type {Object.<string, number>}
+   * mapping of fund ticker to percentage allocation
+   * the percentage is yet to be applied.
    */
   fundAllocation;
 
@@ -83,15 +85,22 @@ export default class InvestmentManager {
    */
   rawStockData;
 
+  
   tickerFundCategories;
 
+  /**
+   * @type {[]FundManager}
+   * These are used to manage funds
+   * - compute their earnings
+   * - store number of shares purchased
+   */
   fundManagers = [];
 
   /**
-   * @param {number} investmentAmount - The amount to be invested.
-   * @param {Object.<string, number>} fundAllocation - A mapping of fund to the percentage allocated to the fund.
-   * @param {RawStockData} rawStockData - Historical stock data.
+   * @type {string}
    */
+  portfolioStartDate
+
   constructor(
     investmentAmount,
     fundAllocation,
@@ -102,6 +111,8 @@ export default class InvestmentManager {
     this.fundAllocation = fundAllocation;
     this.rawStockData = rawStockData;
     this.tickerFundCategories = tickerFundCategories;
+
+    this.getPortfolioStartDate();
 
     this.allocateFundsToFundManagers();
   }
@@ -117,7 +128,8 @@ export default class InvestmentManager {
         new FundManager(
           investmentAmount,
           this.rawStockData[fund],
-          this.tickerFundCategories[fund]
+          this.tickerFundCategories[fund],
+          this.portfolioStartDate
         )
       );
     }
@@ -125,48 +137,45 @@ export default class InvestmentManager {
     this.fundManagers = fundManagers;
   }
 
-  getEarliestDateForAllFunds() {
-    // this is the earliest date for all funds
-    // we have earliest date for A, B, C
-    // do we want the highest or the least?
-    let earliest = null;
-    for (const fundManager of this.fundManagers) {
-      const fundEarliestStockDate = fundManager.computeEarliestStockDate();
-      if (!earliest) {
-        earliest = fundEarliestStockDate;
-      } else {
-        if (fundEarliestStockDate > earliest) {
-          earliest = fundEarliestStockDate;
-        }
+  getPortfolioStartDate() {
+    const earliestDates = Object.values(this.rawStockData).map(this.getEarliestStockDataForFund)
+    let earliest = earliestDates[0];
+    
+    for (const earliestDate of earliestDates) {
+      if (earliestDate > earliest) {
+        earliest = earliestDate;
       }
     }
-    return earliest;
+    this.portfolioStartDate = earliest;
+  }
+
+  getEarliestStockDataForFund(stockDataForFund) {
+    let earliestDate = null;
+    for (const stockInformation of stockDataForFund) {
+      const date = stockInformation.date;
+      if (!earliestDate) {
+        earliestDate = date;
+      } else if (date < earliestDate) {
+        earliestDate = date;
+      }
+    }
+    return earliestDate;
   }
 
   makeChartData() {
-    const earliestDate = new Date(this.getEarliestDateForAllFunds());
+    const earliestDate = new Date(this.portfolioStartDate);
     const earliestYear = earliestDate.getFullYear();
     const earliestMonth = earliestDate.getMonth() + 1;
-    // get earliest date.
-    // use it to compute earnings on that date for each.
 
 
-    // not all stocks have data going back 20 years so we have to only
-    // use stock data starting from a particular threshold
     const chartRows = [];
     const currentYear = new Date().getFullYear();
     let year = earliestYear;
 
-    console.log("getEarliestDateForAllFunds", this.getEarliestDateForAllFunds())
-
     while (year <= currentYear) {
-      // we need to iterate over stock data for that year as well
-      // and compute the total returns for that year
       const targetMonth = year === currentYear ? new Date().getMonth() + 1 : 12;
       let month = earliestMonth
       while (month <= targetMonth) {
-        // compute earnings for that month
-        // const date = new Date(year, tickerDate.getMonth() + 1, 1);
         const chartData = {
           yearMonth: `${MONTH_NAMES[month - 1]} ${year}`,
           year,
@@ -179,8 +188,6 @@ export default class InvestmentManager {
         for (const fundManager of this.fundManagers) {
           const [date, earnings] = fundManager.computeEarningsFor(year, month);
           const fundCategory = fundManager.getFundCategory();
-
-          console.log("fundCategory", fundCategory, date, earnings)
 
           chartData[fundCategory] = earnings;
           totalEarnings += earnings;
@@ -195,12 +202,12 @@ export default class InvestmentManager {
     return chartRows;
   }
 
-  getFinalValue(chartData) {
+  getCurrentMarketValue(chartData) {
     return chartData[chartData.length - 1].value
   }
 
   getProfitOrLoss(chartData) {
-    return this.getFinalValue(chartData) - this.investmentAmount
+    return this.getCurrentMarketValue(chartData) - this.investmentAmount
   }
 
   getPercentageReturn(value, previousValue) {
@@ -282,12 +289,7 @@ class FundManager {
   /**
    * @type {number}
    */
-  investmentAmount;
-
-  /**
-   * @type {Object.<number, []number>}
-   */
-  stockReturnsGroupedByYear = {};
+  startingInvestment;
 
   /**
    * @type {Object.<string, number>}
@@ -296,32 +298,37 @@ class FundManager {
 
   /**
    * @type {string}
-   */
+  */
   fundCategory;
 
+  /**
+   * @type float
+   * actual number of shares bought
+   * We chose not to round this because of the slight differences in the computed portfolio value
+   * This reflects the domain where the actual investment amount may not fit into exact number
+   * of shares across a portfolio so in real life even if you allocate $150, 000 for investment in
+   * funds A, B, C - you may only end up with shares worth 149,831 based on the price per share.
+  */
   numberOfSharesBought
 
-  earliestDate = null;
-
   /**
-   * @param {number} investmentAmount - The amount to be invested.
-   * @param {[]AssetRowDto} stockData - Historical stock data.
-   * @param {string} fundCategory - Type of fund - bond, stock, int'l bond?
-   */
-  constructor(startingInvestment, stockData, fundCategory) {
+   * @type string
+   * starting date to buy shares
+  */
+  portfolioStartDate = null;
+
+  constructor(startingInvestment, stockData, fundCategory, portfolioStartDate) {
     this.startingInvestment = startingInvestment;
     this.stockData = stockData;
     this.fundCategory = fundCategory;
+    this.portfolioStartDate = portfolioStartDate;
 
-    // fund manager computes number of shares bought
-    // sets earliest date along the line
     this.buyShares()
   }
 
   buyShares() {
-    const earliestStockDate = this.computeEarliestStockDate()
-    const sharePriceOnEarliestStockDate = this.getSharePriceOn(earliestStockDate)
-    this.numberOfSharesBought = Math.floor(this.startingInvestment / sharePriceOnEarliestStockDate)
+    const sharePriceOnEarliestStockDate = this.getSharePriceOn(this.portfolioStartDate)
+    this.numberOfSharesBought = this.startingInvestment / sharePriceOnEarliestStockDate
   }
 
   getFundCategory() {
@@ -342,51 +349,20 @@ class FundManager {
   }
 
   getStockDataFor(year, month) {
-    console.log("STOCK", this.stockData[0], year, month)
     const stockInformation = this.stockData.find(
       (stockInformation) => stockInformation.year === year && stockInformation.month === month
     );
     if (stockInformation) {
         return stockInformation
     }
-    
     // we guarantee this does not happen
     // as long as our computation for earliest common date is valid
     return 0
   }
 
-  computeEarliestStockDate() {
-    if (this.earliestDate) { return this.earliestDate }
-    for (const stockInformation of this.stockData) {
-      this.updateEarliestDate(stockInformation.date);
-    }
-    return this.earliestDate;
-  }
-
   computeEarningsFor(year, month) {
     const stockData = this.getStockDataFor(year, month);
-    console.log("this.numberOfSharesBought", this.numberOfSharesBought, stockData)
     const earnings = stockData.price * this.numberOfSharesBought;
     return [stockData.date, earnings];
-  }
-
-  getReturnsForYear(year) {
-    return this.annualReturns[year];
-  }
-
-  updateEarliestDate(date) {
-    if (!this.earliestDate) {
-      this.earliestDate = date;
-    } else if (date < this.earliestDate) {
-      this.earliestDate = date;
-    }
-  }
-
-  updateStockReturns(year, investmentReturns) {
-    if (this.stockReturnsGroupedByYear[year]) {
-      this.stockReturnsGroupedByYear[year].push(investmentReturns);
-    } else {
-      this.stockReturnsGroupedByYear[year] = [investmentReturns];
-    }
   }
 }

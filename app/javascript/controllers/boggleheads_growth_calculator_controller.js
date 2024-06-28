@@ -70,7 +70,7 @@ export default class extends Controller {
 
     const investmentManager = new InvestmentManager(invested, fundAllocations, processedStockData, tickerFundCategories)
     const chartData = investmentManager.makeChartData()
-    const finalValue = investmentManager.getFinalValue(chartData)
+    const finalValue = investmentManager.getCurrentMarketValue(chartData)
     const profitOrLoss = investmentManager.getProfitOrLoss(chartData)
 
     const returnsOnInvestment = Math.floor((profitOrLoss/invested) * 100)
