@@ -15,6 +15,7 @@ export default class extends Controller {
         this.textTarget.style.color = "#F23E94";
         break;
       case "MEDIUM":
+      case "MODERATE":
         // colors from reference implementation
         this.textTarget.style.color = "#FDB022";
         break;

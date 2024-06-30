@@ -55,7 +55,8 @@ export default class extends Controller {
     const share = adjustment / otherSliders.length;
     otherSliders.forEach(slider => this.adjustSlider(slider, share));
 
-    // This will kick in when the total exceeds and the locked 
-    this.updateSliders() // This is for the special case where we still don't achieve
+    // This will kick in when the total exceeds and the locked/disabled slider will be ignored
+    this.updateSliders()
+    // This is for the special case where we still don't achieve
   }
 }
