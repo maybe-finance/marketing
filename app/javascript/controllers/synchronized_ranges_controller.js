@@ -18,7 +18,6 @@ export default class extends Controller {
       firstSlider.value = parseInt(firstSlider.value) + diff;
       firstSlider.dispatchEvent(new Event("input"));
     }
-    this.sliderTargets.forEach(slider => slider.addEventListener("input", this.syncSliders.bind(this)));
   }
 
   syncSliders(event) {
@@ -57,6 +56,5 @@ export default class extends Controller {
 
     // This will kick in when the total exceeds and the locked/disabled slider will be ignored
     this.updateSliders()
-    // This is for the special case where we still don't achieve
   }
 }
