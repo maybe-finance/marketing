@@ -5,7 +5,7 @@
       <%= range_input_slider class: "from-pink-500 to-pink-500", min: 0, max: 600000, step: 1000, value: 0 %>
     </div>
 
-    <div data-controller="synchronized-ranges">
+    <div data-controller="synchronized-ranges" class="flex flex-col gap-4">
       <div data-controller="synchronized-input" class="flex flex-col gap-2">
         <%= render partial: "shared/select", locals: { name: "stock_market_ticker", label: "Total Stock Market", value: 'VTI', button_class: '', options: [['VTI (Vanguard)', 'VTI'], ['SCHB (Schwab)', 'SCHB'], ['SPTM (SPDR)', 'SPTM']] } %>
         <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-blue-500 to-blue-500 grow", name: "stock_market_percentage", id: "stock_market_percentage", value: "40" }  %>
@@ -84,7 +84,7 @@
               "",
               id: "boggleheads-growth-chart",
               class: "",
-              style: "height: 432px",
+              style: "height: 422px",
               data: {
                 controller: "time-series-boggleheads-growth-chart",
               },
