@@ -3,7 +3,7 @@ import * as d3 from "d3"
 
 export default class extends Controller {
   static values = {
-    data: { type: Array, default: [] },
+    data: { type: Object, default: {} },
   };
 
   #data = [];
@@ -19,7 +19,8 @@ export default class extends Controller {
   }
 
   #drawChart() {
-    const data = this.#data;
+    const data = this.#data.segments;
+    const desiredHomePrice = this.#data.desiredHomePrice;
 
     const margin = this.#isMobile ? { top: 20, right: 10, bottom: 40, left: 10 } : { top: 20, right: 30, bottom: 40, left: 50 };
     const width = (this.#isMobile ? 350 : 600) - margin.left - margin.right;
@@ -49,8 +50,8 @@ export default class extends Controller {
       .call(d3.axisBottom(x).tickSize(0))
       .selectAll("text").remove();
 
-    const y = d3.scaleLinear()
-      .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1]))])
+      const y = d3.scaleLinear()
+      .domain([0, Math.max(desiredHomePrice, d3.max(stackedData, d => d3.max(d, d => d[1])))])
       .range([height, 0]);
 
     const color = d3.scaleOrdinal()
@@ -74,7 +75,7 @@ export default class extends Controller {
 
     this.#addVerticalLine(svg, width, height);
     this.#addTooltip(svg, data, width, height);
-    this.#addCustomLabels(svg, data, height);
+    this.#addCustomLabels(svg, data, height, desiredHomePrice);
   }
 
   #getColor(category) {
@@ -93,8 +94,8 @@ export default class extends Controller {
    * @param {Array} data
    * @param {number} height
    */
-  #addCustomLabels(svg, data, height) {
-    const maxValue = d3.max(data, d => d.value);
+  #addCustomLabels(svg, data, height, desiredHomePrice) {
+    const maxValue = Math.max(desiredHomePrice, d3.max(data, d => d.value));
     const increment = 100000;
     const customLabels = d3.range(0, maxValue + increment, increment).map(value => ({
       value: (value / maxValue) * height,
@@ -214,13 +215,6 @@ export default class extends Controller {
       .style('left', (this.#isMobile ? (width / 1.7) : (width  / 1.5)) + 'px')
       .style('border-radius', '10px')
       .style('top', (this.#isMobile ? (-25) : (-25)) + 'px')
-
-    svg.on('mousemove', (event) => {
-      const [_x, y] = d3.pointer(event);
-      indicatorGroup.attr("transform", `translate(${width / 2}, ${y})`);
-      tooltip.style('top', y - 45 + 'px')
-    });
-
   }
 
 }

@@ -67,12 +67,15 @@ export default class extends Controller {
 		// Step 11 - Add Down Payment to Calculated PV
 		const adjustedPVWithDownPayment = adjustedPV.map(pv => pv + downPayment);
 
-		const chartData = [
-			{ category: "Affordable", value: adjustedPVWithDownPayment[0] },
-			{ category: "Good", value: adjustedPVWithDownPayment[1] },
-			{ category: "Caution", value: adjustedPVWithDownPayment[2] },
-			{ category: "Risky", value: adjustedPVWithDownPayment[3] }
-		];
+		const chartData = {
+			segments: [
+				{ category: "Affordable", value: adjustedPVWithDownPayment[0] },
+				{ category: "Good", value: adjustedPVWithDownPayment[1] },
+				{ category: "Caution", value: adjustedPVWithDownPayment[2] },
+				{ category: "Risky", value: adjustedPVWithDownPayment[3] }
+			],
+			desiredHomePrice: targetHomePrice,
+		};
 
 		const formatter = new Intl.NumberFormat("en-US", {
 			style: "currency",
