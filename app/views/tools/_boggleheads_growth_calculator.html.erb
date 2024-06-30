@@ -5,19 +5,21 @@
       <%= range_input_slider class: "from-pink-500 to-pink-500", min: 0, max: 600000, step: 1000, value: 0 %>
     </div>
 
-    <div data-controller="synchronized-input" class="flex flex-col gap-2">
-      <%= render partial: "shared/select", locals: { name: "stock_market_ticker", label: "Total Stock Market", value: 'VTI', button_class: '', options: [['VTI (Vanguard)', 'VTI'], ['SCHB (Schwab)', 'SCHB'], ['SPTM (SPDR)', 'SPTM']] } %>
-      <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-blue-500 to-blue-500 grow", name: "stock_market_percentage", id: "stock_market_percentage", value: "40" }  %>
-    </div>
+    <div data-controller="synchronized-ranges">
+      <div data-controller="synchronized-input" class="flex flex-col gap-2">
+        <%= render partial: "shared/select", locals: { name: "stock_market_ticker", label: "Total Stock Market", value: 'VTI', button_class: '', options: [['VTI (Vanguard)', 'VTI'], ['SCHB (Schwab)', 'SCHB'], ['SPTM (SPDR)', 'SPTM']] } %>
+        <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-blue-500 to-blue-500 grow", name: "stock_market_percentage", id: "stock_market_percentage", value: "40" }  %>
+      </div>
 
-    <div data-controller="synchronized-input" class="flex flex-col gap-2">
-      <%= render partial: "shared/select", locals: { name: "international_stock_market_ticker", label: "Total International Stock Market", value: 'VXUS', button_class: '', options: [['VXUS (Vanguard)', 'VXUS'], ['SCHF (Schwab)', 'SCHF'], ['SPDW (SPDR)', 'SPDW'], ['IXUS (iShares)', 'IXUS']] } %>
-      <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-cyan-400 to-cyan-400 grow", name: "international_stock_market_percentage", id: "international_stock_market_percentage", value: "30" }  %>
-    </div>
+      <div data-controller="synchronized-input" class="flex flex-col gap-2">
+        <%= render partial: "shared/select", locals: { name: "international_stock_market_ticker", label: "Total International Stock Market", value: 'VXUS', button_class: '', options: [['VXUS (Vanguard)', 'VXUS'], ['SCHF (Schwab)', 'SCHF'], ['SPDW (SPDR)', 'SPDW'], ['IXUS (iShares)', 'IXUS']] } %>
+        <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-cyan-400 to-cyan-400 grow", name: "international_stock_market_percentage", id: "international_stock_market_percentage", value: "30" }  %>
+      </div>
 
-    <div data-controller="synchronized-input" class="flex flex-col gap-2">
-      <%= render partial: "shared/select", locals: { name: "bond_market_ticker", label: "Total Bond Market", value: 'BND', button_class: '', options: [['BND (Vanguard)', 'BND'], ['SCHZ (Schwab)', 'SCHZ'], ['SPAB (SPDR)', 'SPAB'], ['AGG (iShares)', 'AGG']] } %>
-      <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-violet-500 to-violet-500 grow", name: "bond_market_percentage", id: "bond_market_percentage", value: "30" }  %>
+      <div data-controller="synchronized-input" class="flex flex-col gap-2">
+        <%= render partial: "shared/select", locals: { name: "bond_market_ticker", label: "Total Bond Market", value: 'BND', button_class: '', options: [['BND (Vanguard)', 'BND'], ['SCHZ (Schwab)', 'SCHZ'], ['SPAB (SPDR)', 'SPAB'], ['AGG (iShares)', 'AGG']] } %>
+        <%= render partial: 'shared/lock_toggle', locals: { sliderClass:"from-violet-500 to-violet-500 grow", name: "bond_market_percentage", id: "bond_market_percentage", value: "30" }  %>
+      </div>
     </div>
 
     <input type="hidden" name="stock_data" id="stock_data" value="<%= @stock_prices.to_json %>" />
