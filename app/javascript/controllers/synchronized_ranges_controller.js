@@ -46,14 +46,16 @@ export default class extends Controller {
   }
 
   adjustSliders(excludeSlider, adjustment) {
-    const sliderTargets = Array.from(this.element.querySelectorAll('[data-lock-toggle-target="slider"]'));
-    const otherSliders = sliderTargets.filter(slider => slider !== excludeSlider && slider.disabled === false);
+    const otherSliders = this.sliderTargets.filter(slider => slider !== excludeSlider && !slider.disabled);
 
-    if (Math.abs(adjustment) == 1) {
+    if (Math.abs(adjustment) === 1) {
         this.adjustSlider(otherSliders[0], adjustment)
         return
     }
     const share = adjustment / otherSliders.length;
     otherSliders.forEach(slider => this.adjustSlider(slider, share));
+
+    // This will kick in when the total exceeds and the locked 
+    this.updateSliders() // This is for the special case where we still don't achieve
   }
 }
