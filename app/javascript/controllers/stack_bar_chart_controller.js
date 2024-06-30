@@ -93,6 +93,7 @@ export default class extends Controller {
    * @param {d3.Selection<SVGGElement, any, null, undefined>} svg
    * @param {Array} data
    * @param {number} height
+   * @param {number} desiredHomePrice
    */
   #addCustomLabels(svg, data, height, desiredHomePrice) {
     const maxValue = Math.max(desiredHomePrice, d3.max(data, d => d.value));
