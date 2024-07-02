@@ -49,10 +49,10 @@ tools = [
     "icon": "bar-chart-4"
   },
   {
-    "name": "Boggleheads Growth Calculator",
-    "slug": "boggleheads-growth-calculator",
-    "intro": "Calculate how much you could make on future investments in the Boggleheads three-fund portfolio.",
-    "description": "See the performance of a Boggleheads three-fund portfolio based on the past 20 years.",
+    "name": "Bogleheads Growth Calculator",
+    "slug": "bogleheads-growth-calculator",
+    "intro": "Calculate how much you could make on future investments in the Bogleheads three-fund portfolio.",
+    "description": "See the performance of a Bogleheads three-fund portfolio based on the past 20 years.",
     "category_slug": "investing",
     "icon": "bar-chart-4"
   }
