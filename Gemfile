@@ -29,6 +29,8 @@ gem "redcarpet"
 gem "avo", ">= 3.2"
 gem "revise_auth"
 gem "bannerbear"
+gem "sentry-ruby"
+gem "sentry-rails"
 
 
 group :development, :test do

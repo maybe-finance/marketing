@@ -1,8 +1,8 @@
 <div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="bogleheads-growth-calculator">
   <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1", data: { action: "submit->bogleheads-growth-calculator#calculate" }} do |form| %>
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
-      <%= form.unit_field :invested_amount, label: "Invested Amount", value: 0, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
-      <%= range_input_slider class: "from-pink-500 to-pink-500", min: 0, max: 600000, step: 1000, value: 0 %>
+      <%= form.unit_field :invested_amount, label: "Invested Amount", value: 10000, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+      <%= range_input_slider class: "from-pink-500 to-pink-500", min: 1000, max: 1000000, step: 1000, value: 10000 %>
     </div>
 
     <div data-controller="synchronized-ranges" class="flex flex-col gap-4">
