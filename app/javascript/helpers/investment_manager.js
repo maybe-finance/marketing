@@ -193,8 +193,10 @@ export default class InvestmentManager {
           totalEarnings += earnings;
           chartData.date = date
         }
-        chartData.value = totalEarnings
-        chartRows.push(chartData);
+        if (!isNaN(totalEarnings)) {
+          chartData.value = totalEarnings
+          chartRows.push(chartData);
+        }
         month += 1
       }
       year += 1;
