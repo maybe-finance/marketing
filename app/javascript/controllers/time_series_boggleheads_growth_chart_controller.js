@@ -15,7 +15,7 @@ export default class extends Controller {
   connect() {
     this.#rememberInitialElementSize();
     this.#drawGridlines();
-    this.#drawBoggleheadsGrowthChart();
+    this.#drawBogleheadsGrowthChart();
     if (this.useLabelsValue) {
       this.#drawXAxis();
       this.#drawLegend();
@@ -53,7 +53,7 @@ export default class extends Controller {
     }
   }
 
-  #drawBoggleheadsGrowthChart() {
+  #drawBogleheadsGrowthChart() {
     const x = this.#d3XScale;
     const y = this.#d3YScale;
 
@@ -149,7 +149,7 @@ export default class extends Controller {
     //Note: the legends could actually fit the same line. but for the sake of UI fidelity we are putting them on multiple lines
     const legend = this.#d3Content
       .append("g")
-  
+
     let offsetX = 30;
     let offsetY = 20;
     const maxLegendWidth = 500;
@@ -157,14 +157,14 @@ export default class extends Controller {
 
     Object.values(this.seriesValue).forEach((series, i) => {
       const item = legend.append("g");
-  
+
       item.append("rect")
         .attr("height", 12)
         .attr("width", 4)
         .attr("class", series.fillClass)
         .attr("rx", 2)
         .attr("ry", 2);
-  
+
       item.append("text")
         .attr("x", 10)
         .attr("y", 12)
@@ -174,37 +174,37 @@ export default class extends Controller {
         .style("line-height", "20px")
         .style("font-weight", "400")
         .text(series.name);
-  
+
       const itemWidth = item.node().getBBox().width;
-  
+
       if (offsetX + itemWidth > maxLegendWidth) {
         // Start a new row
         offsetX = 0;
         offsetY += 30; // Adjust the vertical spacing between lines as needed
         rows.push([]);
       }
-  
+
       rows[rows.length - 1].push({ item, offsetX });
       offsetX += itemWidth + 40;
     });
-  
+
     // Center align each row
     rows.forEach((rowItems, index) => {
       const rowWidth = rowItems.reduce((sum, { item }) => sum + item.node().getBBox().width + 12, -12);
       const startX = (this.#contentWidth - rowWidth) / 2;
-  
+
       rowItems.forEach(({ item, offsetX }) => {
         let offsetXUpdate = index === 1 ? startX / 5 : offsetX;
         item.attr("transform", `translate(${startX + offsetXUpdate}, ${offsetY})`);
       });
-  
+
       offsetY += 25
     });
-  
+
     const legendBBox = legend.node().getBBox();
     const legendWidth = legendBBox.width;
     const legendHeight = legendBBox.height;
-  
+
     // Center the legend horizontally and position it above the bottom of the chart
     legend.attr("transform", `translate(${this.#contentWidth / 3 - legendWidth / 2}, ${this.#contentHeight - (legendHeight) - 10})`);
   }

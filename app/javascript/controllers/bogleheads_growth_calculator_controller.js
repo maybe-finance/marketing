@@ -5,7 +5,7 @@ import InvestmentManager from "helpers/investment_manager"
 import TemplateRenderer from "helpers/template_renderer";
 
 
-// Connects to data-controller="boggleheads-growth-calculator"
+// Connects to data-controller="bogleheads-growth-calculator"
 export default class extends Controller {
   static targets = ["resultsTemplate", "resultsContainer"];
 

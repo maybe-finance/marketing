@@ -43,7 +43,7 @@ class Tool < ApplicationRecord
   end
 
   def needs_stock_data?
-    self.slug === "boggleheads-growth-calculator"
+    self.slug === "bogleheads-growth-calculator"
   end
 
   private

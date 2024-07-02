@@ -1,5 +1,5 @@
-<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="boggleheads-growth-calculator">
-  <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1", data: { action: "submit->boggleheads-growth-calculator#calculate" }} do |form| %>
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="bogleheads-growth-calculator">
+  <%= form_with html: { class: "bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1", data: { action: "submit->bogleheads-growth-calculator#calculate" }} do |form| %>
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
       <%= form.unit_field :invested_amount, label: "Invested Amount", value: 0, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
       <%= range_input_slider class: "from-pink-500 to-pink-500", min: 0, max: 600000, step: 1000, value: 0 %>
@@ -29,7 +29,7 @@
     </div>
   <% end %>
   <div class="col-span-2">
-    <div class="flex-1" data-boggleheads-growth-calculator-target="resultsContainer">
+    <div class="flex-1" data-bogleheads-growth-calculator-target="resultsContainer">
       <div class="grid h-96 place-items-center">
         <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
           <%= lucide_icon "keyboard", class: "h-6 w-6 mx-auto" %>
@@ -38,25 +38,25 @@
       </div>
     </div>
 
-    <template data-boggleheads-growth-calculator-target="resultsTemplate">
-        <div class="flex flex-col gap-8 py-4 px-8">
+    <template data-bogleheads-growth-calculator-target="resultsTemplate">
+        <div class="flex flex-col gap-8 px-8 py-4">
           <div class="flex items-center justify-between gap-12">
-              <div class="flex flex-col align-start justify-center gap-2 text-left">
+              <div class="flex flex-col justify-center gap-2 text-left align-start">
                   <span class="text-sm text-gray-500">Invested</span>
                   <span t-text:="invested" class="text-xl font-medium">-</span>
               </div>
-              <div class="flex flex-col align-start justify-center gap-2 text-left">
+              <div class="flex flex-col justify-center gap-2 text-left align-start">
                   <span class="text-sm text-gray-500">Returns</span>
                   <span t-text:="returns" class="text-xl font-medium">-</span>
               </div>
-              <div class="flex flex-col align-start justify-center gap-2 text-left">
-                  <span class="flex text-sm text-gray-500 gap-1 items-center has-tooltip">
-                    <div class='tooltip shadow-xs p-2 border rounded mt-36 ml-14 bg-white text-sm max-w-xs' style="z-index: 50000000000">
+              <div class="flex flex-col justify-center gap-2 text-left align-start">
+                  <span class="flex items-center gap-1 text-sm text-gray-500 has-tooltip">
+                    <div class='max-w-xs p-2 text-sm bg-white border rounded shadow-xs tooltip mt-36 ml-14' style="z-index: 50000000000">
                       <p>
                         We use downside risk to determine the riskiness of a
                         portfolio strategy.
                       </p>
-                      <dl class="mt-3 pt-3 border-t border-gray-700">
+                      <dl class="pt-3 mt-3 border-t border-gray-700">
                         <div class="flex justify-between">
                           <dt class="mr-1">Downside Deviation</dt>
                           <dd class="text-right whitespace-nowrap" t-text:="downsideDeviation">-</dd>
@@ -72,7 +72,7 @@
                   </span>
                   <span data-controller="risk-level-text-color" data-risk-level-text-color-target="text" t-text:="riskLevel" class="text-xl font-medium text-pink-500">-</span>
               </div>
-              <div class="flex flex-col align-start justify-center gap-2 text-left">
+              <div class="flex flex-col justify-center gap-2 text-left align-start">
                 <span class="text-sm text-gray-500">Final Value</span>
                 <span t-text:="finalValue" class="text-xl font-medium">-</span>
               </div>
@@ -82,13 +82,13 @@
           <%=
             tag.div(
               "",
-              id: "boggleheads-growth-chart",
+              id: "bogleheads-growth-chart",
               style: "height: 432px",
               data: {
-                controller: "time-series-boggleheads-growth-chart",
+                controller: "time-series-bogleheads-growth-chart",
               },
-              "t-attr:data-time-series-boggleheads-growth-chart-series-value": "legendData",
-              "t-attr:data-time-series-boggleheads-growth-chart-data-value": "JSON.stringify(chartData)"
+              "t-attr:data-time-series-bogleheads-growth-chart-series-value": "legendData",
+              "t-attr:data-time-series-bogleheads-growth-chart-data-value": "JSON.stringify(chartData)"
             )
           %>
         </div>
