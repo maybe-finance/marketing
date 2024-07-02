@@ -101,11 +101,6 @@ export default class InvestmentManager {
    */
   portfolioStartDate
 
-    /**
-   * @type {string}
-   */
-    portfolioEndDate
-
   constructor(
     investmentAmount,
     fundAllocation,
@@ -154,19 +149,6 @@ export default class InvestmentManager {
     this.portfolioStartDate = earliest;
   }
 
-  getPortfolioEndDate() {
-    const latestDates = Object.values(this.rawStockData).map(this.getLatestStockDataForFund)
-    let latest = latestDates[0];
-    
-    for (const latestDate of latestDates) {
-      if (latestDate > latest) {
-        latest = latestDate;
-      }
-    }
-    this.portfolioEndDate = latest;
-    return latest;
-  }
-
   getEarliestStockDataForFund(stockDataForFund) {
     let earliestDate = null;
     for (const stockInformation of stockDataForFund) {
@@ -180,34 +162,20 @@ export default class InvestmentManager {
     return earliestDate;
   }
 
-  getLatestStockDataForFund(stockDataForFund) {
-    let latestDate = null;
-    for (const stockInformation of stockDataForFund) {
-      const date = stockInformation.date;
-      if (!latestDate) {
-        latestDate = date;
-      } else if (date > latestDate) {
-        latestDate = date;
-      }
-    }
-    return latestDate;
-  }
-
   makeChartData() {
     const earliestDate = new Date(this.portfolioStartDate);
     const earliestYear = earliestDate.getFullYear();
     const earliestMonth = earliestDate.getMonth() + 1;
 
-    const latestDate = new Date(this.getPortfolioEndDate())
-    const latestYear = latestDate.getFullYear();
-    const latestMonth = earliestDate.getMonth() + 1;
 
     const chartRows = [];
+    const currentYear = new Date().getFullYear();
     let year = earliestYear;
 
-    while (year <= latestYear) {
+    while (year <= currentYear) {
+      const targetMonth = year === currentYear ? new Date().getMonth() + 1 : 12;
       let month = earliestMonth
-      while (month <= latestMonth) {
+      while (month <= targetMonth) {
         const chartData = {
           yearMonth: `${MONTH_NAMES[month - 1]} ${year}`,
           year,
@@ -225,8 +193,10 @@ export default class InvestmentManager {
           totalEarnings += earnings;
           chartData.date = date
         }
-        chartData.value = totalEarnings
-        chartRows.push(chartData);
+        if (!isNaN(totalEarnings)) {
+          chartData.value = totalEarnings
+          chartRows.push(chartData);
+        }
         month += 1
       }
       year += 1;
