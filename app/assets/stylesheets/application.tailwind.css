@@ -53,4 +53,12 @@
     @apply bg-white text-gray-900 p-2 border border-alpha-black-100 rounded-lg;
   }
 
+  .tooltip {
+    @apply invisible absolute;
+  }
+  
+  .has-tooltip:hover .tooltip {
+    @apply visible z-50;
+  }
+
 }
