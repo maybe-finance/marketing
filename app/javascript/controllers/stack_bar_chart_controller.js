@@ -34,11 +34,16 @@ export default class extends Controller {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const subgroups = data.map(d => d.category).reverse();
+    const subgroups = data.map(d => d.category)
     const stackedData = d3.stack().keys(subgroups)([data.reduce((acc, d) => {
       acc[d.category] = d.value;
       return acc;
     }, {})]);
+
+    const totalValue = data.reduce((sum, d) => sum + d.value, 0);
+    if (desiredHomePrice > totalValue) {
+      stackedData[stackedData.length - 1][0][1] = desiredHomePrice;
+    }
 
     const x = d3.scaleBand()
       .domain(["Total"])
@@ -50,8 +55,8 @@ export default class extends Controller {
       .call(d3.axisBottom(x).tickSize(0))
       .selectAll("text").remove();
 
-      const y = d3.scaleLinear()
-      .domain([0, Math.max(desiredHomePrice, d3.max(stackedData, d => d3.max(d, d => d[1])))])
+    const y = d3.scaleLinear()
+      .domain([0, Math.max(d3.max(stackedData, d => d3.max(d, d => d[1])), desiredHomePrice)])
       .range([height, 0]);
 
     const color = d3.scaleOrdinal()
@@ -75,7 +80,25 @@ export default class extends Controller {
 
     this.#addVerticalLine(svg, width, height);
     this.#addTooltip(svg, data, width, height);
-    this.#addCustomLabels(svg, data, height, desiredHomePrice);
+    this.#addLabels(svg, y);
+  }
+
+  /**
+   * @param {d3.Selection<SVGGElement, unknown, null, undefined>} svg
+   * @param {d3.ScaleLinear<number, number>} y
+   */
+  #addLabels(svg, y) {
+    svg.append("g")
+      .call(d3.axisLeft(y)
+        .tickFormat(d => `$${d / 1000}K`)
+        .ticks(6)
+      )
+      .call(g => g.selectAll(".tick line").remove())
+      .selectAll("text")
+      .attr("fill", "#737373")
+      .attr("x", -8)
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "end");
   }
 
   #getColor(category) {
@@ -86,32 +109,6 @@ export default class extends Controller {
       "Risky": "#EC2222"
     };
     return colorMap[category];
-  }
-
-  /**
-   * Adds custom labels to the chart
-   * @param {d3.Selection<SVGGElement, any, null, undefined>} svg
-   * @param {Array} data
-   * @param {number} height
-   * @param {number} desiredHomePrice
-   */
-  #addCustomLabels(svg, data, height, desiredHomePrice) {
-    const maxValue = Math.max(desiredHomePrice, d3.max(data, d => d.value));
-    const increment = 100000;
-    const customLabels = d3.range(0, maxValue + increment, increment).map(value => ({
-      value: (value / maxValue) * height,
-      label: `$${(value / 1000).toFixed(0)}k`
-    }));
-
-    svg.selectAll(".custom-label")
-      .data(customLabels)
-      .enter().append("text")
-      .attr("fill", "#737373")
-      .attr("x", -8)
-      .attr("y", d => height - d.value)
-      .attr("dy", "0.35em")
-      .attr("text-anchor", "end")
-      .text(d => d.label);
   }
 
   /**
@@ -144,8 +141,8 @@ export default class extends Controller {
   #addVerticalLine(svg, width, height) {
     const verticalLine = svg.append("line")
       .attr("class", "vertical-line")
-      .attr("x1", width /2)
-      .attr("x2", width /2)
+      .attr("x1", width / 2)
+      .attr("x2", width / 2)
       .attr("y1", 0)
       .attr("y2", height)
       .style("stroke-dasharray", "4,4")
@@ -186,9 +183,15 @@ export default class extends Controller {
       notation: "compact",
       compactDisplay: "short"
     });
+
+    const originalValues = data.reduce((acc, item) => {
+      acc.push((acc[acc.length - 1] || 0) + item.value);
+      return acc;
+    }, []);
+
     const categoryAmounts = data.map((item, index) => {
-      const min = index === 0 ? 0 : data[index - 1].value;
-      const max = item.value;
+      const min = index === 0 ? 0 : originalValues[index - 1];
+      const max = originalValues[index];
       let range;
       if (index === data.length - 1) {
         range = `Over ${formatter.format(min)}`;
@@ -213,7 +216,7 @@ export default class extends Controller {
       .style("border-radius", "5px")
       .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.1)")
       .html(categoryAmounts)
-      .style('left', (this.#isMobile ? (width / 1.7) : (width  / 1.5)) + 'px')
+      .style('left', (this.#isMobile ? (width / 1.7) : (width / 1.5)) + 'px')
       .style('border-radius', '10px')
       .style('top', (this.#isMobile ? (-25) : (-25)) + 'px')
   }
