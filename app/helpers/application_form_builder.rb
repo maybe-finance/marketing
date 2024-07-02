@@ -23,25 +23,32 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def unit_field(method, options = {})
-    default_options = { class: "form-field__input pl-1" }
-    default_options[:class] = "form-field__input pl-0" if options[:label_right]
-    merged_options = default_options.merge(options)
+  default_options = { class: "form-field__input pl-1" }
+  default_options[:class] = "form-field__input pl-0" if options[:label_right]
+  merged_options = default_options.merge(options)
 
-    # Prepare options for the outer div
-    outer_div_options = { class: options.delete(:outer_div_class) }
+  # Prepare options for the outer div
+  outer_div_options = { class: options.delete(:outer_div_class) }
 
-    return super(method, merged_options) unless options[:label] || options[:label_right]
+  return super(method, merged_options) unless options[:label] || options[:label_right]
 
-    @template.form_field_tag(outer_div_options) do
-      label_html = label(method, *label_args(options)) if options[:label]
-      content = @template.tag.div(class: "flex items-center") do
-        @template.tag.span(options[:unit_symbol], class: "pl-3 pb-2 pt-1 text-sm text-gray-500") +
-        text_field(method, merged_options.except(:label)) +
-        (@template.tag.span(options[:label_right], class: "text-gray-500 text-xs mr-2") if options[:label_right]).to_s
-      end
-      label_html.to_s + content
+  @template.form_field_tag(outer_div_options) do
+    label_html = if options[:label]
+                   label_content = label(method, *label_args(options))
+                   if options[:required] == false
+                     label_content += @template.tag.span("Optional", class: "form-field__label")
+                   end
+                   @template.tag.div(class: "flex items-center justify-between") { label_content }
     end
+
+    content = @template.tag.div(class: "flex items-center") do
+      @template.tag.span(options[:unit_symbol], class: "pl-3 pb-2 pt-1 text-sm text-gray-500") +
+      text_field(method, merged_options.except(:label)) +
+      (@template.tag.span(options[:label_right], class: "text-gray-500 text-xs mr-2") if options[:label_right]).to_s
+    end
+    label_html.to_s + content
   end
+end
 
   def submit(value = nil, options = {})
     value, options = nil, value if value.is_a?(Hash)
