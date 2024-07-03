@@ -6,9 +6,11 @@ class ToolsController < ApplicationController
   def show
     @tool = Tool.find_by(slug: params[:id])
     @loan_interest_rate = fetch_mortgage_rate("MORTGAGE30US")
-  end
 
-  private
+    if @tool.needs_stock_data?
+      @stock_prices = StockPrice.fetch_stock_data
+    end
+  end
 
   def fetch_mortgage_rate(mortgage_duration)
     redis = Redis.new
