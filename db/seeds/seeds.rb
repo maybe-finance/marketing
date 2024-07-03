@@ -55,6 +55,14 @@ tools = [
     "description": "See the performance of a Bogleheads three-fund portfolio based on the past 20 years.",
     "category_slug": "investing",
     "icon": "bar-chart-4"
+  },
+  {
+    "name": "Home Affordability Calculator",
+    "slug": "home-affordability-calculator",
+    "intro": "Calculate how much house you can afford based on your income, loan details, debt and more!",
+    "description": "See how much house you can afford based on your income, loan details, debt and more!",
+    "category_slug": "investing",
+    "icon": "home"
   }
 ]
 

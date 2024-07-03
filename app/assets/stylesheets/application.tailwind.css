@@ -60,5 +60,13 @@
   .has-tooltip:hover .tooltip {
     @apply visible z-50;
   }
+  
+  path.domain {
+    @apply hidden;
+  }
+
+  text {
+    @apply text-[#737373] text-sm;
+  }
 
 }
