@@ -7,7 +7,8 @@ class ToolsController < ApplicationController
     @tool = Tool.find_by(slug: params[:id])
 
     if @tool.slug == "home-affordability-calculator"
-      @loan_interest_rate = fetch_mortgage_rate("MORTGAGE30US")
+      @loan_interest_rate_30 = fetch_mortgage_rate("MORTGAGE30US")
+      @loan_interest_rate_15 = fetch_mortgage_rate("MORTGAGE15US")
     end
 
     if @tool.needs_stock_data?

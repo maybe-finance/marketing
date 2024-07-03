@@ -3,8 +3,24 @@ import TemplateRenderer from "helpers/template_renderer";
 
 // Connects to data-controller="home-affordability-calculator"
 export default class extends Controller {
-	static targets = ["resultsTemplate", "resultsContainer"];
+	static targets = ["resultsTemplate", "resultsContainer", "loanInterestRate"];
 
+	connect() {
+		console.log(this.loanInterestRateTarget.dataset);
+		this.rate30 = this.loanInterestRateTarget.dataset['homeAffordabilityCalculatorRate-30'];
+		this.rate15 = this.loanInterestRateTarget.dataset['homeAffordabilityCalculatorRate-15'];
+
+		const loanDuration = document.querySelector('[data-home-affordability-calculator-target="loanDuration"]');
+		if (loanDuration) {
+			loanDuration.addEventListener('input', this.updateInterestRate.bind(this));
+		}
+	}
+
+	updateInterestRate(event) {
+		const duration = parseInt(event.target.value);
+		const newRate = duration <= 15 ? this.rate15 : this.rate30;
+		this.loanInterestRateTarget.value = newRate;
+	}
 
 	#calculatePresentValue(payment, interestRate, periods) {
 		if (interestRate === 0) {
