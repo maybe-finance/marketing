@@ -7,26 +7,38 @@ class ToolsController < ApplicationController
     @tool = Tool.find_by(slug: params[:id])
     @loan_interest_rate = fetch_mortgage_rate("MORTGAGE30US")
 
+    if @tool.slug == "home-affordability-calculator"
+      @loan_interest_rate = fetch_mortgage_rate("MORTGAGE30US")
+    end
+
     if @tool.needs_stock_data?
       @stock_prices = StockPrice.fetch_stock_data
     end
   end
 
   def fetch_mortgage_rate(mortgage_duration)
-    redis = Redis.new
     cache_key = "mortgage_rate_#{mortgage_duration}"
 
-    cached_response = redis.get(cache_key)
-    return cached_response if cached_response
+    Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+      response = HTTParty.get("https://api.stlouisfed.org/fred/series/observations",
+        query: {
+          series_id: mortgage_duration,
+          api_key: ENV["FRED_API_KEY"],
+          file_type: "json",
+          limit: 1,
+          sort_order: "desc",
+          frequency: "w"
+        }
+      )
 
-    response = HTTParty.get("https://api.stlouisfed.org/fred/series/observations?series_id=#{mortgage_duration}&api_key=#{ENV['FRED_API_KEY']}&file_type=json&limit=1&sort_order=desc&frequency=w")
-    if response.success?
-      observations_value = JSON.parse(response.body)["observations"].first["value"]
-      redis.set(cache_key, observations_value)
-      redis.expire(cache_key, 24.hours.to_i)
-      observations_value
-    else
-      nil
+      if response.success?
+        JSON.parse(response.body)["observations"].first["value"]
+      else
+        raise "Failed to fetch mortgage rate: #{response.code} #{response.message}"
+      end
     end
+  rescue StandardError => e
+    Rails.logger.error("Error fetching mortgage rate: #{e.message}")
+    nil
   end
 end
