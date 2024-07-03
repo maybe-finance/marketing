@@ -5,7 +5,6 @@ class ToolsController < ApplicationController
 
   def show
     @tool = Tool.find_by(slug: params[:id])
-    @loan_interest_rate = fetch_mortgage_rate("MORTGAGE30US")
 
     if @tool.slug == "home-affordability-calculator"
       @loan_interest_rate = fetch_mortgage_rate("MORTGAGE30US")
