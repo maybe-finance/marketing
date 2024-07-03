@@ -159,9 +159,25 @@ export default class extends Controller {
    */
   #addTooltip(svg, data, width, height) {
     // Add indicator dot
+    const totalValue = d3.sum(data, d => d.value);
+    const y = d3.scaleLinear()
+      .domain([0, totalValue])
+      .range([height, 0]);
+
+    let cumulativeValue = 0;
+    const segment = data.find(d => {
+      cumulativeValue += d.value;
+      return cumulativeValue >= this.#data.desiredHomePrice;
+    }) || data[data.length - 1];
+
+    const segmentStart = cumulativeValue - segment.value;
+    const segmentCenter = segmentStart + segment.value / 2;
+    const indicatorY = y(segmentCenter);
+
+    // Add indicator dot
     const indicatorGroup = svg.append("g")
       .attr("class", "indicator-dot")
-      .attr("transform", `translate(${width / 2}, 25)`);
+      .attr("transform", `translate(${width / 2}, ${indicatorY})`);
 
     indicatorGroup.append("circle")
       .attr("r", 10)
@@ -215,10 +231,10 @@ export default class extends Controller {
       .style("pointer-events", "none")
       .style("border-radius", "5px")
       .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.1)")
-      .html(categoryAmounts)
-      .style('left', (this.#isMobile ? (width / 1.7) : (width / 1.5)) + 'px')
       .style('border-radius', '10px')
-      .style('top', (this.#isMobile ? (-25) : (-25)) + 'px')
+      .style('left', (this.#isMobile ? (width / 1.7) : (width / 1.5)) + 'px')
+      .style('top', `${indicatorY / 1.2}px`)
+      .html(categoryAmounts)
   }
 
 }
