@@ -3,7 +3,7 @@
   <% if label.present? %>
     <label class="form-field__label"><%= label %></label>
   <% end %>
-  <div data-controller="select home-affordability-calculator" data-select-active-class="relative flex self-end w-full bg-gray-100" class="relative w-full flex self-end" data-select-selected-value="<%= value %>">
+  <div data-controller="select home-affordability-calculator" data-select-active-class="relative flex self-end w-full bg-gray-100" class="relative flex self-end w-full" data-select-selected-value="<%= value %>">
     <%=
       tag.button(
         type: "button",
@@ -18,7 +18,7 @@
     <ul data-select-target="list" class="hidden absolute z-10 top-[110%] right-0 border border-alpha-black-25 bg-white rounded shadow-xs w-full p-1">
       <% options.each do |option| %>
         <% label, val = option.is_a?(Array) ? option : [option, option] %>
-        <li tabindex="0" data-select-target="option" data-action="click->select#selectOption" data-value="<%= val %>" class="px-5 py-2 pr-24 text-sm text-black rounded cursor-pointer hover:bg-alpha-black-50">
+        <li tabindex="0" data-select-target="option" data-action="click->select#selectOption" data-value="<%= val %>" class="px-4 py-2 text-sm text-black rounded cursor-pointer hover:bg-alpha-black-50">
           <%= label %>
         </li>
       <% end %>
