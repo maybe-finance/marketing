@@ -23,7 +23,7 @@
         <%= render 'shared/loan_period_select' , options: [["15 years", "15" ], ["30 years", "30" ]], value: '30' ,button_class: '' , label: 'Loan duration' %>
       </div>
       <div data-controller="synchronized-input" class="w-1/2">
-        <%= form.unit_field :loan_interest_rate, label: "Loan interest rate" , value: @loan_interest_rate, label_right: "%" , data: { controller: "autonumeric" , autonumeric_options_value: { decimalPlaces: 2 } } %>
+        <%= form.unit_field :loan_interest_rate, label: "Loan interest rate" , value: @loan_interest_rate_30, label_right: "%" , data: { controller: "autonumeric" , autonumeric_options_value: { decimalPlaces: 2 }, home_affordability_calculator_target: "loanInterestRate", home_affordability_calculator_rate_30: @loan_interest_rate_30, home_affordability_calculator_rate_15: @loan_interest_rate_15 } %>
       </div>
     </div>
 
