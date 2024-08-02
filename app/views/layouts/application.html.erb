@@ -41,6 +41,7 @@
     <%= javascript_importmap_tags %>
     <%= hotwire_livereload_tags if Rails.env.development? %>
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+    <%= render "shared/ga" if Rails.env.production? %>
   </head>
 
   <body class="min-h-screen bg-gradient-to-b from-gray-25 to-gray-50">
