@@ -40,3 +40,4 @@
 
 # Ignore Cursor AI rules
 .cursorrules
+.vscode/settings.json
