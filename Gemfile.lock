@@ -111,16 +111,15 @@ GEM
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.2)
-    avo (3.9.2)
+    avo (3.10.10)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
       activesupport (>= 6.1)
       addressable
       docile
-      dry-initializer
-      httparty
       inline_svg
+      literal (~> 0.2)
       meta-tags
       pagy (>= 7.0.0)
       turbo-rails (>= 2.0.0)
@@ -162,13 +161,12 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    docile (1.4.0)
+    docile (1.4.1)
     dotenv (3.1.2)
     dotenv-rails (3.1.2)
       dotenv (= 3.1.2)
       railties (>= 6.1)
     drb (2.2.1)
-    dry-initializer (3.1.1)
     erb_lint (0.5.0)
       activesupport
       better_html (>= 2.0.1)
@@ -218,6 +216,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    literal (0.2.1)
     logger (1.6.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
@@ -229,8 +228,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
-    meta-tags (2.2.0)
-      actionpack (>= 3.2.0)
+    meta-tags (2.22.0)
+      actionpack (>= 6.0.0, < 8.1)
     method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.24.1)
@@ -261,7 +260,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
-    pagy (8.4.5)
+    pagy (9.0.3)
     parallel (1.24.0)
     parser (3.3.2.0)
       ast (~> 2.4.1)
@@ -275,7 +274,7 @@ GEM
       railties (>= 7.0.0)
     psych (5.1.2)
       stringio
-    public_suffix (6.0.0)
+    public_suffix (6.0.1)
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.8.0)
@@ -397,7 +396,7 @@ GEM
     unicode-display_width (2.5.0)
     uri (0.13.0)
     useragent (0.16.10)
-    view_component (3.12.1)
+    view_component (3.13.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
