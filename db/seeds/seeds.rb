@@ -27,8 +27,8 @@ tools = [
   {
     "name": "Inflation Calculator",
     "slug": "inflation-calculator",
-    "intro": "Calculate how inflation is impacting an asset’s future price and your future buying power.",
-    "description": "See how inflation is impacting an asset’s future price and your future buying power.",
+    "intro": "Calculate how inflation is impacting an asset's future price and your future buying power.",
+    "description": "See how inflation is impacting an asset's future price and your future buying power.",
     "category_slug": "other",
     "icon": "infinity"
   },
@@ -62,6 +62,14 @@ tools = [
     "intro": "Calculate how much house you can afford based on your income, loan details, debt and more!",
     "description": "See how much house you can afford based on your income, loan details, debt and more!",
     "category_slug": "investing",
+    "icon": "home"
+  },
+  {
+    "name": "Early Mortgage Payoff Calculator",
+    "slug": "early-mortgage-payoff-calculator",
+    "intro": "See the impact of making extra payments on your mortgage",
+    "description": "Calculate how much time and interest you can save by making additional payments on your mortgage or investing the difference.",
+    "category_slug": "debt",
     "icon": "home"
   }
 ]
