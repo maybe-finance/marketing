@@ -1,16 +1,16 @@
 import { Controller } from "@hotwired/stimulus";
 import TemplateRenderer from "helpers/template_renderer";
 
-// Connects to data-controller="early-mortgage-payoff-calculator"
 export default class extends Controller {
-  static targets = ["resultsTemplate", "resultsContainer", "netDifferenceValue", "netDifferenceComment"];
+  static targets = ["resultsTemplate", "resultsContainer", "netDifferenceValue", "netDifferenceComment", "form"];
 
   connect() {
-    this.calculate();
+    this.loadFormData();
   }
 
-  calculate() {
-    const formData = new FormData(this.element.querySelector('form'));
+  calculate(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
     const parseFormData = key => parseFloat(formData.get(key).replace(/[^0-9.-]+/g, ''));
 
     const loanAmount = parseFormData("loan_amount");
@@ -18,11 +18,32 @@ export default class extends Controller {
     const yearsLeft = parseFormData("years_left");
     const interestRate = parseFormData("interest_rate") / 100;
     const extraPayment = parseFormData("extra_payment");
-    const savingsRate = parseFormData("savings_rate") / 100; // Annual rate
+    const savingsRate = parseFormData("savings_rate") / 100;
+
+    this.saveFormData();
 
     const results = this.#calculatePayoff(loanAmount, originalTerm, yearsLeft, interestRate, extraPayment, savingsRate);
 
     this.#renderResults(results);
+  }
+
+  loadFormData() {
+    const savedData = JSON.parse(localStorage.getItem('earlyMortgagePayoffCalculator')) || {};
+    Object.keys(savedData).forEach(key => {
+      const input = this.formTarget.elements[key];
+      if (input) {
+        input.value = savedData[key];
+      }
+    });
+  }
+
+  saveFormData() {
+    const formData = new FormData(event.target);
+    const dataToSave = {};
+    for (let [key, value] of formData.entries()) {
+      dataToSave[key] = value;
+    }
+    localStorage.setItem('earlyMortgagePayoffCalculator', JSON.stringify(dataToSave));
   }
 
   #calculatePayoff(loanAmount, originalTerm, yearsLeft, interestRate, extraPayment, savingsRate) {
@@ -78,7 +99,12 @@ export default class extends Controller {
 
     const netDifference = savingsBalance - interestSavings;
 
+    const chartData = this.#generateChartData(loanAmount, yearsLeft, interestRate, regularPayment, extraPayment);
+
     return {
+      loanAmount,
+      yearsLeft,
+      interestRate,
       timeSaved,
       totalInterest,
       totalInterestWithExtra,
@@ -88,42 +114,95 @@ export default class extends Controller {
       totalPrincipalAndInterest,
       totalPrincipalAndInterestWithExtra,
       savingsBalance,
-      netDifference
+      netDifference,
+      monthlyPayment: regularPayment,
+      monthlyPaymentWithExtra: regularPayment + extraPayment,
+      chartData,
     };
+  }
+
+  #generateChartData(principal, years, annualRate, monthlyPayment, extraPayment) {
+    const monthlyRate = annualRate / 12;
+    const totalPayments = years * 12;
+    let originalBalance = principal;
+    let earlyPayoffBalance = principal;
+    const data = [];
+
+    const date = new Date();
+    date.setFullYear(date.getFullYear());
+
+    for (let year = 0; year <= years; year++) {
+      data.push({
+        year,
+        date: new Date(date.setFullYear(date.getFullYear() + (year === 0 ? 0 : 1))),
+        originalMortgage: originalBalance,
+        earlyPayoff: earlyPayoffBalance,
+      });
+
+      for (let month = 1; month <= 12; month++) {
+        if (originalBalance > 0) {
+          const originalInterest = originalBalance * monthlyRate;
+          originalBalance -= (monthlyPayment - originalInterest);
+        }
+
+        if (earlyPayoffBalance > 0) {
+          const earlyPayoffInterest = earlyPayoffBalance * monthlyRate;
+          earlyPayoffBalance -= (monthlyPayment + extraPayment - earlyPayoffInterest);
+        }
+      }
+
+      originalBalance = Math.max(originalBalance, 0);
+      earlyPayoffBalance = Math.max(earlyPayoffBalance, 0);
+    }
+
+    return data;
   }
 
   #renderResults(results) {
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
+      maximumFractionDigits: 0,
     });
 
     const formattedResults = {
       timeSaved: `${Math.floor(results.timeSaved / 12)} years, ${results.timeSaved % 12} months`,
-      totalInterest: formatter.format(results.totalInterest),
-      totalInterestWithExtra: formatter.format(results.totalInterestWithExtra),
       interestSavings: formatter.format(results.interestSavings),
-      originalPayoffDate: results.originalPayoffDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' }),
-      newPayoffDate: results.newPayoffDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' }),
-      totalPrincipalAndInterest: formatter.format(results.totalPrincipalAndInterest),
-      totalPrincipalAndInterestWithExtra: formatter.format(results.totalPrincipalAndInterestWithExtra),
       savingsAccountBalance: formatter.format(results.savingsBalance),
-      netDifference: formatter.format(results.netDifference)
+      netDifference: formatter.format(Math.abs(results.netDifference)),
+      yearsToGrow: results.yearsLeft,
+      years: results.chartData.map(d => ({
+        ...d,
+        contributed: d.originalMortgage,
+        interest: d.earlyPayoff
+      }))
     };
 
     const resultsElement = this.resultsRenderer.render(formattedResults);
     this.resultsContainerTarget.innerHTML = "";
     this.resultsContainerTarget.appendChild(resultsElement);
 
-    // Color the net difference and add commentary
+    this.#updateNetDifference(results.netDifference);
+
+    // Update chart data
+    const chartElement = this.element.querySelector('#early-mortgage-payoff-calculator-chart');
+    if (chartElement) {
+      chartElement.setAttribute('data-time-series-two-lines-chart-data-value', JSON.stringify(formattedResults.years));
+    }
+  }
+
+  #updateNetDifference(netDifference) {
     const netDifferenceValue = this.netDifferenceValueTarget;
     const netDifferenceComment = this.netDifferenceCommentTarget;
 
-    if (results.netDifference > 0) {
+    netDifferenceValue.classList.remove('text-green-600', 'text-red-600', 'text-gray-600');
+    netDifferenceComment.classList.remove('text-green-600', 'text-red-600', 'text-gray-600');
+
+    if (netDifference > 0) {
       netDifferenceValue.classList.add('text-green-600');
       netDifferenceComment.textContent = "Investing the extra payments could potentially yield better returns than paying off the mortgage early.";
       netDifferenceComment.classList.add('text-green-600');
-    } else if (results.netDifference < 0) {
+    } else if (netDifference < 0) {
       netDifferenceValue.classList.add('text-red-600');
       netDifferenceComment.textContent = "Paying off the mortgage early could potentially save you more money than investing the extra payments.";
       netDifferenceComment.classList.add('text-red-600');
