@@ -137,6 +137,7 @@ export default class extends Controller {
         date: new Date(date.setFullYear(date.getFullYear() + (year === 0 ? 0 : 1))),
         originalMortgage: originalBalance,
         earlyPayoff: earlyPayoffBalance,
+        currentTotalValue: originalBalance
       });
 
       for (let month = 1; month <= 12; month++) {
@@ -174,7 +175,8 @@ export default class extends Controller {
       years: results.chartData.map(d => ({
         ...d,
         contributed: d.originalMortgage,
-        interest: d.earlyPayoff
+        interest: d.earlyPayoff,
+        currentTotalValue: d.originalMortgage
       }))
     };
 
