@@ -22,7 +22,9 @@ export default class extends Controller {
 
     const results = this.#calculatePayoff(loanAmount, originalTerm, yearsLeft, interestRate, extraPayment, savingsRate);
 
-    this.#renderResults(results);
+    if(loanAmount && originalTerm && yearsLeft && interestRate && extraPayment && savingsRate) {
+      this.#renderResults(results);
+    }
   }
 
   #calculatePayoff(loanAmount, originalTerm, yearsLeft, interestRate, extraPayment, savingsRate) {
@@ -80,6 +82,7 @@ export default class extends Controller {
 
     return {
       timeSaved,
+      extraPayment,
       totalInterest,
       totalInterestWithExtra,
       interestSavings,
@@ -100,6 +103,9 @@ export default class extends Controller {
 
     const formattedResults = {
       timeSaved: `${Math.floor(results.timeSaved / 12)} years, ${results.timeSaved % 12} months`,
+      extraPayment: `${formatter.format(results.extraPayment)}`,
+      timeRemaining: `${Math.floor(results.timeSaved / 12)} years, ${results.timeSaved % 12} months`,
+      
       totalInterest: formatter.format(results.totalInterest),
       totalInterestWithExtra: formatter.format(results.totalInterestWithExtra),
       interestSavings: formatter.format(results.interestSavings),
@@ -120,16 +126,16 @@ export default class extends Controller {
     const netDifferenceComment = this.netDifferenceCommentTarget;
 
     if (results.netDifference > 0) {
-      netDifferenceValue.classList.add('text-green-600');
+    //   netDifferenceValue.classList.add('text-green-600');
       netDifferenceComment.textContent = "Investing the extra payments could potentially yield better returns than paying off the mortgage early.";
-      netDifferenceComment.classList.add('text-green-600');
+    //   netDifferenceComment.classList.add('text-green-600');
     } else if (results.netDifference < 0) {
-      netDifferenceValue.classList.add('text-red-600');
+    //   netDifferenceValue.classList.add('text-red-600');
       netDifferenceComment.textContent = "Paying off the mortgage early could potentially save you more money than investing the extra payments.";
-      netDifferenceComment.classList.add('text-red-600');
+    //   netDifferenceComment.classList.add('text-red-600');
     } else {
       netDifferenceComment.textContent = "The financial outcome is roughly the same whether you pay off the mortgage early or invest the extra payments.";
-      netDifferenceComment.classList.add('text-gray-600');
+    //   netDifferenceComment.classList.add('text-gray-600');
     }
   }
 

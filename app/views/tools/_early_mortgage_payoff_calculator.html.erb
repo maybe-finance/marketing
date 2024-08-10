@@ -41,61 +41,67 @@
         </div>
       </div>
     </div>
-
+<%# early_mortgage_tool_redesign %>
     <template data-early-mortgage-payoff-calculator-target="resultsTemplate">
-      <div class="flex flex-col gap-4 p-6 ml-2 rounded-lg">
-        <div class="flex flex-col gap-3 bg-green-50 p-4 rounded-lg">
-          <h4 class="text-base text-gray-700">Interest savings</h4>
-          <h1 class="text-4xl font-medium text-green-600"><span t-text="interestSavings"></span></h1>
+      <div class="relative p-4 px-5">
+        <div class="flex flex-row gap-10 pb-5">
+          <div class="flex flex-col gap-2">
+            <span class="text-sm text-gray-500">Interest Savings</span>
+            <span t-text:="interestSavings" class="text-xl font-medium text-green-500">-</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm text-gray-500">Time Savings</span>
+            <span t-text:="timeSaved" class="text-xl font-medium">-</span>
+          </div>
         </div>
         <div class="flex flex-col gap-3">
-          <h4 class="text-base text-gray-500">Time saved on mortgage</h4>
-          <h1 class="text-4xl font-medium"><span t-text="timeSaved"></span></h1>
-        </div>
-        <hr class="color-[#0B0B0B14]">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="flex flex-col gap-1">
-            <h4 class="text-sm text-gray-500">Total interest (original)</h4>
-            <h1 class="text-xl font-medium"><span t-text="totalInterest"></span></h1>
-          </div>
-          <div class="flex flex-col gap-1">
-            <h4 class="text-sm text-gray-500">Total interest (with extra payments)</h4>
-            <h1 class="text-xl font-medium"><span t-text="totalInterestWithExtra"></span></h1>
-          </div>
-        </div>
-        <hr class="color-[#0B0B0B14]">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="flex flex-col gap-1">
-            <h4 class="text-sm text-gray-500">Principal + Interest (original)</h4>
-            <h1 class="text-xl font-medium"><span t-text="totalPrincipalAndInterest"></span></h1>
-          </div>
-          <div class="flex flex-col gap-1">
-            <h4 class="text-sm text-gray-500">Principal + Interest (with extra payments)</h4>
-            <h1 class="text-xl font-medium"><span t-text="totalPrincipalAndInterestWithExtra"></span></h1>
-          </div>
-        </div>
-        <hr class="color-[#0B0B0B14]">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="flex flex-col gap-1">
-            <h4 class="text-sm text-gray-500">Original payoff date</h4>
-            <h1 class="text-xl font-medium"><span t-text="originalPayoffDate"></span></h1>
-          </div>
-          <div class="flex flex-col gap-1">
-            <h4 class="text-sm text-gray-500">New payoff date</h4>
-            <h1 class="text-xl font-medium"><span t-text="newPayoffDate"></span></h1>
-          </div>
-        </div>
-        <hr class="color-[#0B0B0B14]">
-        <div class="flex flex-col gap-3 bg-blue-50 p-4 rounded-lg">
-          <h4 class="text-base text-gray-700">Investment account balance</h4>
-          <h1 class="text-4xl font-medium text-blue-600"><span t-text="savingsAccountBalance"></span></h1>
-        </div>
-        <div class="flex flex-col gap-1">
-          <h4 class="text-sm text-gray-500">Net difference <code>(Investment Value - Interest Savings)</code></h4>
-          <h1 class="text-xl font-medium">
-            <span t-text="netDifference" data-early-mortgage-payoff-calculator-target="netDifferenceValue"></span>
+          <h1 class="text-gray-500 text-md">
+            Adding an extra <span class="p-1 text-pink-500 rounded-md bg-pink-50" t-text:="extraPayment">-</span> to your monthly payments starting now will allow you to pay off the loan in <span t-text:="timeRemaining">20 years and 7 months</span>. You would be
+            <span t-text:="timeSaved">-</span> ahead of schedule. This early payoff will save you <span class="p-1 text-green-600 rounded-md bg-green-50" t-text:="interestSavings">-</span> in interest.
           </h1>
-          <p class="text-sm" data-early-mortgage-payoff-calculator-target="netDifferenceComment"></p>
+        </div>
+        <div class="flex flex-col gap-4 p-4 rounded-lg">
+          <hr class="color-[#0B0B0B14]" />
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col gap-1">
+              <h4 class="text-sm text-gray-500">Total interest (original)</h4>
+              <h1 class="text-xl font-medium"><span t-text="totalInterest"></span></h1>
+            </div>
+            <div class="flex flex-col gap-1">
+              <h4 class="text-sm text-gray-500">Total interest (with extra payments)</h4>
+              <h1 class="text-xl font-medium"><span t-text="totalInterestWithExtra"></span></h1>
+            </div>
+          </div>
+          <hr class="color-[#0B0B0B14]" />
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col gap-1">
+              <h4 class="text-sm text-gray-500">Principal + Interest (original)</h4>
+              <h1 class="text-xl font-medium"><span t-text="totalPrincipalAndInterest"></span></h1>
+            </div>
+            <div class="flex flex-col gap-1">
+              <h4 class="text-sm text-gray-500">Principal + Interest (with extra payments)</h4>
+              <h1 class="text-xl font-medium"><span t-text="totalPrincipalAndInterestWithExtra"></span></h1>
+            </div>
+          </div>
+          <hr class="color-[#0B0B0B14]" />
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col gap-1">
+              <h4 class="text-sm text-gray-500">Original payoff date</h4>
+              <h1 class="text-xl font-medium"><span t-text="originalPayoffDate"></span></h1>
+            </div>
+            <div class="flex flex-col gap-1">
+              <h4 class="text-sm text-gray-500">New payoff date</h4>
+              <h1 class="text-xl font-medium"><span t-text="newPayoffDate"></span></h1>
+            </div>
+          </div>
+        </div>
+        <hr class="color-[#0B0B0B14]" />
+        <div class="flex flex-col gap-3 pt-5">
+          <h2 class="text-gray-500 text-md">
+            Investing the extra payment could grow to <span class="p-1 text-green-600 rounded-md bg-green-50" t-text="savingsAccountBalance"></span> in 20 years and 7 months, a difference of
+            <span class="p-1 text-blue-600 rounded-md" t-text="netDifference" data-early-mortgage-payoff-calculator-target="netDifferenceValue"></span> compared to early mortgage payoff.
+          </h2>
+          <p class="p-4 mt-2 mb-0 text-sm text-gray-500 rounded-md bg-gray-25 border" data-early-mortgage-payoff-calculator-target="netDifferenceComment"></p>
         </div>
       </div>
     </template>
