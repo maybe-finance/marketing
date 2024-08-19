@@ -7,6 +7,6 @@ class Stocks::StatisticsController < ApplicationController
       "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}"
     }
     @stock_statistics = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}", nil, headers)
-    @stock_statistics = JSON.parse(@stock_statistics.body)["data"]
+    @stock_statistics = JSON.parse(@stock_statistics.body)["data"]["market_data"]
   end
 end
