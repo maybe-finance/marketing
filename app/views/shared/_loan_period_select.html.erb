@@ -1,0 +1,27 @@
+<%# locals: (options: [], value: '', button_class: '', label: '') -%>
+<div class="flex flex-col w-full">
+  <% if label.present? %>
+    <label class="form-field__label"><%= label %></label>
+  <% end %>
+  <div data-controller="select home-affordability-calculator" data-select-active-class="relative flex self-end w-full bg-gray-100" class="relative flex self-end w-full" data-select-selected-value="<%= value %>">
+    <%=
+      tag.button(
+        type: "button",
+        data: { "select-target": "button" },
+        class: "flex items-center text-sm px-3 py-[6px] cursor-pointer text-gray-900 text-sm w-full flex justify-between"
+      ) do
+    %>
+      <span data-select-target="buttonText"><%= options.find { |option| option.is_a?(Array) ? option[1] == value : option == value }[0] %></span>
+      <%= lucide_icon("chevron-down", class: "w-5 h-5 text-gray-500") %>
+    <% end %>
+    <input type="hidden" data-home-affordability-calculator-target="loanDuration" name="loan_duration" data-select-target="input" data-auto-submit-form-target="auto" value="<%= value.presence || 'default_value' %>">
+    <ul data-select-target="list" class="hidden absolute z-10 top-[110%] right-0 border border-alpha-black-25 bg-white rounded shadow-xs w-full p-1">
+      <% options.each do |option| %>
+        <% label, val = option.is_a?(Array) ? option : [option, option] %>
+        <li tabindex="0" data-select-target="option" data-action="click->select#selectOption" data-value="<%= val %>" class="px-4 py-2 text-sm text-black rounded cursor-pointer hover:bg-alpha-black-50">
+          <%= label %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

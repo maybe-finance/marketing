@@ -15,7 +15,7 @@ export default class extends Controller {
   connect() {
     this.#rememberInitialElementSize();
     this.#drawGridlines();
-    this.#drawTwoLinesChart();
+    this.#drawBogleheadsGrowthChart();
     if (this.useLabelsValue) {
       this.#drawXAxis();
       this.#drawLegend();
@@ -47,13 +47,13 @@ export default class extends Controller {
 
   get #margin() {
     if (this.useLabelsValue) {
-      return { top: 10, right: 0, bottom: 40, left: 0 };
+      return { top: 10, right: 0, bottom: 38, left: 0 };
     } else {
       return { top: 0, right: 0, bottom: 0, left: 0 };
     }
   }
 
-  #drawTwoLinesChart() {
+  #drawBogleheadsGrowthChart() {
     const x = this.#d3XScale;
     const y = this.#d3YScale;
 
@@ -67,7 +67,7 @@ export default class extends Controller {
       .attr("fill", "none")
       .attr("stroke", d => this.seriesValue[d.key].strokeClass)
       .attr("stroke-width", 3)
-      .attr("stroke-dasharray", (d, i) => i === 0 ? "9" : null)
+      .attr("stroke-dasharray", (d, i) => i !== 0 ? "9" : null)
       .attr("stroke-linecap", "round")
       .attr("d", d => {
         return d3.line()
@@ -75,9 +75,6 @@ export default class extends Controller {
           .y(d => y(d[1] - d[0]))
           .curve(d3.curveMonotoneX)(d);
       });
-
-    this.#createGradient("line-gradient-1", "#7839ee");
-    this.#createGradient("line-gradient-2", "#f23e94");
 
     this.#d3Content
       .append("g")
@@ -93,24 +90,6 @@ export default class extends Controller {
         .y1(d => y(d[1] - d[0]))
         .curve(d3.curveMonotoneX)(d)
       );
-  }
-
-  #createGradient(id, color) {
-    const gradient = this.#d3Content.append("defs")
-      .append("linearGradient")
-      .attr("id", id)
-      .attr("x1", 0).attr("y1", 0)
-      .attr("x2", 0).attr("y2", 1);
-
-    gradient.append("stop")
-      .attr("offset", "25%")
-      .attr("stop-color", color)
-      .style("stop-opacity", 0.10);
-
-    gradient.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", color)
-      .style("stop-opacity", 0);
   }
 
   #drawGridlines() {
@@ -137,15 +116,15 @@ export default class extends Controller {
   }
 
   #drawXAxis() {
-    const year1 = this.#data[0].date;
+    const first = this.#data[0];
     const yearN = this.#data[this.#data.length - 1];
 
     const axisGenerator = d3.axisBottom(this.#d3XScale)
-      .tickValues([year1, yearN.date])
+      .tickValues([first.date, yearN.date])
       .tickSize(0)
       .tickFormat((date, i) => {
-        if (i === 0) return "Year 1";
-        if (i === 1) return `Year ${yearN.year}`;
+        if (i === 0) return `${first.yearMonth}`;
+        if (i === 1) return `Today`;
       });
 
     const axis = this.#d3Content
@@ -162,18 +141,22 @@ export default class extends Controller {
       .style("fill", tailwindColors.gray[500])
       .style("font-size", "14px")
       .style("font-weight", "400")
+      .style("background-color", "red")
       .attr("text-anchor", (_, i) => i === 0 ? "start" : "end");
   }
 
   #drawLegend() {
+    //Note: the legends could actually fit the same line. but for the sake of UI fidelity we are putting them on multiple lines
     const legend = this.#d3Content
-      .append("g");
+      .append("g")
 
-    let offsetX = 0;
+    let offsetX = 30;
+    let offsetY = 20;
+    const maxLegendWidth = 500;
+    let rows = [[]];
+
     Object.values(this.seriesValue).forEach((series, i) => {
-      const item = legend
-        .append("g")
-        .attr("transform", `translate(${offsetX}, 0)`);
+      const item = legend.append("g");
 
       item.append("rect")
         .attr("height", 12)
@@ -182,22 +165,48 @@ export default class extends Controller {
         .attr("rx", 2)
         .attr("ry", 2);
 
-
       item.append("text")
         .attr("x", 10)
-        .attr("y", 10)
+        .attr("y", 12)
         .attr("text-anchor", "start")
         .style("fill", tailwindColors.gray[900])
         .style("font-size", "14px")
+        .style("line-height", "20px")
         .style("font-weight", "400")
         .text(series.name);
 
       const itemWidth = item.node().getBBox().width;
-      offsetX += itemWidth + 12;
+
+      if (offsetX + itemWidth > maxLegendWidth) {
+        // Start a new row
+        offsetX = 0;
+        offsetY += 30; // Adjust the vertical spacing between lines as needed
+        rows.push([]);
+      }
+
+      rows[rows.length - 1].push({ item, offsetX });
+      offsetX += itemWidth + 40;
     });
 
-    const legendWidth = legend.node().getBBox().width;
-    legend.attr("transform", `translate(${this.#contentWidth / 2 - legendWidth / 2}, ${this.#contentHeight})`);
+    // Center align each row
+    rows.forEach((rowItems, index) => {
+      const rowWidth = rowItems.reduce((sum, { item }) => sum + item.node().getBBox().width + 12, -12);
+      const startX = (this.#contentWidth - rowWidth) / 2;
+
+      rowItems.forEach(({ item, offsetX }) => {
+        let offsetXUpdate = index === 1 ? startX / 5 : offsetX;
+        item.attr("transform", `translate(${startX + offsetXUpdate}, ${offsetY})`);
+      });
+
+      offsetY += 25
+    });
+
+    const legendBBox = legend.node().getBBox();
+    const legendWidth = legendBBox.width;
+    const legendHeight = legendBBox.height;
+
+    // Center the legend horizontally and position it above the bottom of the chart
+    legend.attr("transform", `translate(${this.#contentWidth / 3 - legendWidth / 2}, ${this.#contentHeight - (legendHeight) - 10})`);
   }
 
   #createDot(className, fillClass) {
@@ -217,10 +226,11 @@ export default class extends Controller {
     return dot;
   };
 
-
   #installTooltip() {
-    const dot1 = this.#createDot("focus", this.seriesValue.interest.fillClass);
-    const dot2 = this.#createDot("focus", this.seriesValue.contributed.fillClass);
+    const dot1 = this.#createDot("focus", this.seriesValue.value.fillClass);
+    const dot2 = this.#createDot("focus", this.seriesValue.bondMarketFunds.fillClass);
+    const dot3 = this.#createDot("focus", this.seriesValue.internationalStockFunds.fillClass);
+    const dot4 = this.#createDot("focus", this.seriesValue.stockMarketFunds.fillClass);
 
     this.#d3Content
       .append("rect")
@@ -231,6 +241,8 @@ export default class extends Controller {
       .on("mouseover", () => {
         dot1.style("display", null);
         dot2.style("display", null);
+        dot3.style("display", null);
+        dot4.style("display", null);
       })
       .on("mouseout", (event) => {
         const hoveringOnGuideline = event.toElement?.classList.contains("guideline");
@@ -239,6 +251,8 @@ export default class extends Controller {
           this.#d3Tooltip.style("opacity", 0);
           dot1.style("display", "none");
           dot2.style("display", "none");
+          dot3.style("display", "none");
+          dot4.style("display", "none");
         }
       })
       .on("mousemove", (event) => {
@@ -247,8 +261,10 @@ export default class extends Controller {
 
         const dataX = x(d.date);
 
-        dot1.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.interest)})`);
-        dot2.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.contributed)})`);
+        dot1.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.value)})`);
+        dot2.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.bondMarketFunds)})`);
+        dot3.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.internationalStockFunds)})`);
+        dot4.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.stockMarketFunds)})`);
 
         this.#d3Content.selectAll(".guideline").remove();
 
@@ -265,14 +281,15 @@ export default class extends Controller {
           .attr("y2", this.#contentHeight - this.#margin.bottom);
 
         const tooltipX = dataX;
-        const tooltipY = this.#d3YScale(d.contributed);
+        const tooltipY = event.clientY + window.scrollY
         const tooltipMarginX = 50;
 
+        // TODO: fix tooltip location
         this.#d3Tooltip
           .html(this.#tooltipTemplate(d))
           .style("opacity", 1)
           .style("z-index", 999)
-          .style("left", tooltipX + tooltipMarginX + "px")
+          .style("margin-left", tooltipX + "px")
           .style("top", tooltipY + "px")
           .style("transform", () => {
             const tooltipElement = this.#d3Tooltip.node();
@@ -295,9 +312,9 @@ export default class extends Controller {
 
     return (`
       <div class="mb-1 text-gray-500 font-medium">
-        Year ${datum.year}
+        ${datum.yearMonth}
       </div>
-      ${Object.entries(this.seriesValue).reverse().map(([key, series]) => `
+      ${Object.entries(this.seriesValue).map(([key, series]) => `
         <div class="flex items-center gap-4">
           <div class="flex items-center gap-2">
             <svg width="4" height="12">
@@ -307,13 +324,6 @@ export default class extends Controller {
           </div>
         </div>
       `).join("")}
-      <hr class="my-2">
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-          <span class="text-gray-500 whitespace-nowrap">Total value:</span>
-          <span class="font-medium">${formatCurrency(datum.currentTotalValue)}</span>
-        </div>
-      </div>
     `);
   }
 
@@ -370,7 +380,7 @@ export default class extends Controller {
   get #d3XScale() {
     const dateExtent = d3.extent(this.#data, d => d.date);
     return d3.scaleTime()
-      .domain([d3.timeDay.offset(dateExtent[0], -(this.#data.length * 15)), d3.timeDay.offset(dateExtent[1], this.#data.length * 15)])
+      .domain([d3.timeDay.offset(dateExtent[0], - (this.#data.length)), d3.timeDay.offset(dateExtent[1], this.#data.length)])
       .range([0, this.#contentWidth]);
   }
 

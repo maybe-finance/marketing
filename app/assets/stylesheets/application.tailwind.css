@@ -19,7 +19,7 @@
   }
 
   .form-field__label {
-    @apply block px-3 pt-2 pb-0 text-xs text-gray-500;
+    @apply px-3 pt-2 pb-0 block text-xs text-gray-500 text-nowrap;
   }
 
   .form-field__input {
@@ -56,10 +56,27 @@
   }
 
   .tab-item {
-    @apply w-1/2 text-sm text-gray-500;
+    @apply w-1/2 text-gray-500 text-sm;
   }
 
   .tab-item-active {
     @apply p-2 text-gray-900 bg-white border rounded-lg border-alpha-black-100;
   }
+
+  .tooltip {
+    @apply invisible absolute;
+  }
+  
+  .has-tooltip:hover .tooltip {
+    @apply visible z-50;
+  }
+  
+  path.domain {
+    @apply hidden;
+  }
+
+  text {
+    @apply text-[#737373] text-sm;
+  }
+
 }
