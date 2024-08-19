@@ -1,3 +1,30 @@
 <%= turbo_frame_tag "stock_chart" do %>
-  Test
+  <% if @stock_chart[:error] %>
+    <div class="text-red-500"><%= @stock_chart[:error] %></div>
+  <% else %>
+    <div data-controller="stock-chart" data-stock-chart-data-value="<%= @stock_chart.to_json %>" data-stock-chart-symbol-value="<%= @stock.symbol %>">
+      <div class="flex flex-col mb-4 p-4">
+        <h2 class="text-3xl font-medium" data-stock-chart-target="priceDisplay">$<%= number_with_precision(@stock_chart[:latest_price], precision: 2) %></h2>
+        <div data-stock-chart-target="changeDisplay" class="text-sm">
+          <%= number_with_precision(@stock_chart[:price_change], precision: 2) %> (<%= number_with_precision(@stock_chart[:price_change_percentage], precision: 2) %>%) today
+        </div>
+      </div>
+
+      <div id="stock-chart"></div>
+
+      <div data-stock-chart-target="loadingSpinner" class="hidden">
+        <div class="flex items-center justify-center h-40">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-500"></div>
+        </div>
+      </div>
+
+      <div class="flex space-x-2 mt-4 p-4">
+        <button class="px-3 py-1 text-sm font-normal text-gray-700 bg-gray-50 rounded-md" data-action="click->stock-chart#updateTimeRange" data-time-range="1M">1M</button>
+        <button class="px-3 py-1 text-sm font-normal bg-transparent text-gray-500 rounded-full" data-action="click->stock-chart#updateTimeRange" data-time-range="3M">3M</button>
+        <button class="px-3 py-1 text-sm font-normal bg-transparent text-gray-500 rounded-full" data-action="click->stock-chart#updateTimeRange" data-time-range="6M">6M</button>
+        <button class="px-3 py-1 text-sm font-normal bg-transparent text-gray-500 rounded-full" data-action="click->stock-chart#updateTimeRange" data-time-range="1Y">1Y</button>
+        <button class="px-3 py-1 text-sm font-normal bg-transparent text-gray-500 rounded-full" data-action="click->stock-chart#updateTimeRange" data-time-range="5Y">5Y</button>
+      </div>
+    </div>
+  <% end %>
 <% end %>
