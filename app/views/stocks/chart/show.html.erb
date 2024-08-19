@@ -2,7 +2,7 @@
   <% if @stock_chart[:error] %>
     <div class="text-red-500"><%= @stock_chart[:error] %></div>
   <% else %>
-    <div data-controller="stock-chart" data-stock-chart-data-value="<%= @stock_chart.to_json %>" data-stock-chart-symbol-value="<%= @stock.symbol %>">
+    <div data-controller="stock-chart" data-stock-chart-data-value="<%= @stock_chart.to_json %>" data-stock-chart-symbol-value="<%= @stock.symbol %>" data-stock-price="<%= @stock_chart[:latest_price] %>">
       <div class="flex flex-col mb-4 p-4">
         <h2 class="text-3xl font-medium" data-stock-chart-target="priceDisplay">$<%= number_with_precision(@stock_chart[:latest_price], precision: 2) %></h2>
         <div data-stock-chart-target="changeDisplay" class="text-sm">

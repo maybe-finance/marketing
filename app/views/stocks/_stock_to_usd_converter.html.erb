@@ -1,0 +1,39 @@
+<h3 class="text-lg font-medium text-black"><%= @stock.symbol %> to USD converter</h3>
+<div class="" data-controller="stock-converter" data-stock-converter-symbol-value="<%= @stock.symbol %>">
+  <div class="flex items-center rounded-lg shadow-xs">
+    <div class="flex-1">
+      <div class="relative flex items-center">
+        <div class="absolute left-0 flex items-center pl-3 pointer-events-none">
+          <img src="https://logo.synthfinance.com/ticker/<%= @stock.symbol %>" alt="<%= @stock.symbol %>" class="w-5 h-5 rounded-full">
+          <span class="ml-2 text-sm text-gray-500"><%= @stock.symbol %></span>
+        </div>
+        <input type="number" 
+               id="share_amount"
+               name="share_amount" 
+               value="1"
+               class="w-full pl-20 pr-3 py-2 border border-gray-300 rounded-l-md text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none focus:border-gray-500 focus:outline-none focus:ring-0"
+               data-stock-converter-target="shareInput"
+               data-action="input->stock-converter#convertFromShares"
+               step="0.01"
+               min="0">
+      </div>
+    </div>
+    <div class="flex-1">
+      <div class="relative flex items-center">
+        <div class="absolute left-0 flex items-center pl-3 pointer-events-none">
+          <img src="https://hatscripts.github.io/circle-flags/flags/us.svg" alt="USD" class="w-5 h-5 rounded-full">
+          <span class="ml-2 text-sm text-gray-500">USD</span>
+        </div>
+        <input type="number" 
+               id="dollar_amount"
+               name="dollar_amount" 
+               value="0"
+               class="w-full pl-20 pr-3 py-2 border border-gray-300 border-l-0 rounded-r-md text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none focus:border-gray-500 focus:outline-none focus:ring-0"
+               data-stock-converter-target="dollarInput"
+               data-action="input->stock-converter#convertFromDollars"
+               step="0.01"
+               min="0">
+      </div>
+    </div>
+  </div>
+</div>
