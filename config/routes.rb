@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resource :info, only: :show, controller: "info"
       resource :statistics, only: :show
       resource :news, only: :show
+      resource :chart, only: :show, controller: "chart"
     end
   end
 

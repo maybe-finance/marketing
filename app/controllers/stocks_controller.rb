@@ -10,7 +10,7 @@ class StocksController < ApplicationController
     scope = scope.where("symbol ILIKE :query OR name ILIKE :query", query: "%#{@query}%") if @query.present?
 
     # Adding pagy size configuration
-    @pagy, @stocks = pagy(scope, items: 27, size: [ 1, 3, 3, 1 ])
+    @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
   end
 
   def show
