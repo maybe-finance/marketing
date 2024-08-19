@@ -1,23 +1,23 @@
 class Stocks::ChartController < ApplicationController
   def show
-    Rails.logger.info "Chart#show called with params: #{params.inspect}"
     @stock = Stock.find_by(symbol: params[:stock_ticker])
     
-    Rails.logger.info "Received request for stock: #{@stock&.symbol}, time_range: #{params[:time_range]}"
-
     headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}"
     }
 
     end_date = Date.today
-    start_date = calculate_start_date(params[:time_range])
+    start_date, interval = calculate_start_date_and_interval(params[:time_range])
     
-    Rails.logger.info "Calculated date range: #{start_date} to #{end_date}"
-
     response = Faraday.get(
       "https://api.synthfinance.com/tickers/#{@stock.symbol}/open-close",
-      { start_date: start_date.iso8601, end_date: end_date.iso8601 },
+      {
+        start_date: start_date.iso8601,
+        end_date: end_date.iso8601,
+        interval: interval,
+        limit: 500
+      },
       headers
     )
 
@@ -46,25 +46,26 @@ class Stocks::ChartController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { 
-        Rails.logger.info "Responding with JSON: #{@stock_chart.to_json}"
-        render json: @stock_chart 
-      }
+      format.json { render json: @stock_chart }
     end
   end
 
   private
 
-  def calculate_start_date(time_range)
+  def calculate_start_date_and_interval(time_range)
     case time_range
-    when "1D" then Date.today - 1.day
-    when "1W" then Date.today - 1.week
-    when "1M" then Date.today - 1.month
-    when "3M" then Date.today - 3.months
-    when "6M" then Date.today - 6.months
-    when "1Y" then Date.today - 1.year
-    when "5Y" then Date.today - 5.years
-    else Date.today - 30.days  # Default to 30 days
+    when "1M"
+      [Date.today - 1.month, "day"]
+    when "3M"
+      [Date.today - 3.months, "week"]
+    when "6M"
+      [Date.today - 6.months, "week"]
+    when "1Y"
+      [Date.today - 1.year, "month"]
+    when "5Y"
+      [Date.today - 5.years, "month"]
+    else
+      [Date.today - 1.month, "day"]  # Default to 1 month with daily interval
     end
   end
 end
