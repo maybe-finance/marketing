@@ -44,5 +44,9 @@
   
   <div class="flex flex-col gap-4">
     <%= render partial: 'stock_to_usd_converter' %>
+
+    <%= turbo_frame_tag "stock_price_performance", src: stock_price_performance_path(@stock), loading: :lazy do %>
+      <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading price performance...</div>
+    <% end %>
   </div>
 </div>

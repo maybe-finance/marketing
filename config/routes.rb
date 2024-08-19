@@ -32,11 +32,11 @@ Rails.application.routes.draw do
   resources :stocks, only: [ :index ]
   resources :stocks, only: :show, param: :ticker do
     scope module: :stocks do
-      # 1 Day cache
       resource :info, only: :show, controller: "info"
       resource :statistics, only: :show
       resource :news, only: :show
       resource :chart, only: :show, controller: "chart"
+      resource :price_performance, only: :show, controller: "price_performance"
     end
   end
 
