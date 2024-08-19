@@ -42,10 +42,12 @@
       </div>
     <% end %>
   </dl>
-  <div class="inline-block">
-    <a href="<%= @stock_info["website"] %>" target="_blank" class="flex items-center px-3 py-1 mt-4 text-sm text-gray-900 border border-gray-200 rounded-full">
-      <%= @stock_info["links"]["homepage_url"].gsub(/https?:\/\/(www\.)?/, "") %>
-      <%= lucide_icon("link-2", class: "w-4 h-4 ml-2") %>
-    </a>
-  </div>
+  <% if @stock_info["website"].present? %>
+    <div class="inline-block">
+      <a href="<%= @stock_info["website"] %>" target="_blank" class="flex items-center px-3 py-1 mt-4 text-sm text-gray-900 border border-gray-200 rounded-full">
+        <%= @stock_info["website"].gsub(/\Ahttps?:\/\/(www\.)?/, "") %>
+        <%= lucide_icon("link-2", class: "w-4 h-4 ml-2") %>
+      </a>
+    </div>
+  <% end %>
 <% end %>

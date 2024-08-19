@@ -33,7 +33,7 @@
         <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading info...</div>
       <% end %>
     </div>
-
+    
     <div class="p-4 bg-white border border-gray-100 rounded-lg shadow-xs">
       <h3 class="text-lg font-medium text-black">News</h3>
       <%= turbo_frame_tag "stock_news", src: stock_news_path(@stock), loading: :lazy do %>
