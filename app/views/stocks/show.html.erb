@@ -1,0 +1,61 @@
+<%
+  title "#{@stock.symbol} Stock Price, Information and News (#{@stock.name}) - Stocks"
+  description "#{@stock.symbol} Stock Price, Information and News (#{@stock.name}) - Stocks"
+%>
+
+<div class="flex justify-between text-sm">
+  <div class="text-gray-400"><%= link_to "Home", root_path, class: "text-gray-400 hover:text-gray-600" %> / <%= link_to "Stocks", stocks_path, class: "text-gray-400 hover:text-gray-600" %> / <span class="text-black"><%= @stock.symbol %></span></div>
+</div>
+
+<div class="flex items-center justify-between mt-8">
+  <div class="flex items-center gap-3">
+    <img src="https://logo.synthfinance.com/ticker/<%= @stock.symbol %>" alt="<%= @stock.symbol %>" class="w-10 h-10 rounded-full">
+    <h1 class="text-2xl font-medium text-black"><%= @stock.name %> <span class="font-normal text-gray-500"><%= @stock.symbol %></span></h1>
+  </div>
+  <%= link_to "https://synthfinance.com", target: "_blank", class: "flex items-center gap-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg px-3 py-1" do %>
+    Powered by <%= image_tag "logo-synth.svg", alt: "Synth Logo", class: "inline-block h-4" %>
+  <% end %>
+</div>
+
+<div class="grid items-start grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+  <div class="flex flex-col col-span-1 md:col-span-2 gap-4">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-xs">
+      <%= turbo_frame_tag "stock_chart", src: stock_chart_path(@stock), loading: :lazy do %>
+        <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading chart...</div>
+      <% end %>
+    </div>
+
+    <div class="p-4 bg-white border border-gray-100 rounded-lg shadow-xs">
+      <h3 class="text-lg font-medium text-black">About <%= @stock.name %> (<%= @stock.symbol %>)</h3>
+      <%= turbo_frame_tag "stock_info", src: stock_info_path(@stock), loading: :lazy do %>
+        <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading info...</div>
+      <% end %>
+    </div>
+
+    <div class="p-4 bg-white border border-gray-100 rounded-lg shadow-xs">
+      <h3 class="text-lg font-medium text-black">Key Statistics</h3>
+      <%= turbo_frame_tag "stock_statistics", src: stock_statistics_path(@stock), loading: :lazy do %>
+        <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading info...</div>
+      <% end %>
+    </div>
+    
+    <div class="p-4 bg-white border border-gray-100 rounded-lg shadow-xs">
+      <h3 class="text-lg font-medium text-black">News</h3>
+      <%= turbo_frame_tag "stock_news", src: stock_news_path(@stock), loading: :lazy do %>
+        <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading info...</div>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="flex flex-col gap-4">
+    <%= render partial: 'stock_to_usd_converter' %>
+
+    <%= turbo_frame_tag "stock_price_performance", src: stock_price_performance_path(@stock), loading: :lazy do %>
+      <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading price performance...</div>
+    <% end %>
+
+    <%= turbo_frame_tag "stock_similar_stocks", src: stock_similar_stocks_path(@stock), loading: :lazy do %>
+      <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading similar stocks...</div>
+    <% end %>
+  </div>
+</div>

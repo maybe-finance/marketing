@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :stocks do
+    get "news/show"
+    get "info/show"
+  end
   revise_auth
 
   authenticated -> { _1.admin? } do
@@ -23,8 +27,19 @@ Rails.application.routes.draw do
   resources :signups, only: [ :new, :create ]
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
-  resources :stocks, only: [ :index, :show ]
   resources :tools, only: [ :index, :show ]
+
+  resources :stocks, only: [ :index ]
+  resources :stocks, only: :show, param: :ticker do
+    scope module: :stocks do
+      resource :info, only: :show, controller: "info"
+      resource :statistics, only: :show
+      resource :news, only: :show
+      resource :chart, only: :show, controller: "chart"
+      resource :price_performance, only: :show, controller: "price_performance"
+      resource :similar_stocks, only: :show, controller: "similar_stocks"
+    end
+  end
 
   get "tos" => "pages#tos"
   get "privacy" => "pages#privacy"

@@ -33,5 +33,10 @@
     <loc>https://maybe.co/tools/<%= tool.slug %></loc>
   </url>
   <% end %>
+  <% @stocks.each do |stock| %>
+  <url>
+    <loc>https://maybe.co/stocks/<%= stock.symbol %></loc>
+  </url>
+  <% end %>
 </urlset>
 

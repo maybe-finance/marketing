@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "stock_news" do %>
+  <% if @stock_news.present? %>
+    <% @stock_news.each_with_index do |news, index| %>
+      <%= link_to news["url"], target: "_blank", rel: "noopener noreferrer", class: "flex items-center justify-between space-x-4 py-4 #{'border-b' unless index == @stock_news.length - 1}" do %>
+        <div>
+          <span class="text-sm font-normal text-gray-900"><%= news["title"] %></span>
+          <p class="mt-1 text-xs text-gray-400">
+            <%= news["publisher_name"] %> &bull; <%= time_ago_in_words(news["published_at"]).gsub(/about |less than |almost |over /, '').gsub(' ', '').gsub('hours', 'h').gsub('days', 'd').gsub('weeks', 'w').gsub('months', 'm').gsub('years', 'y').gsub('hour', 'h').gsub('day', 'd').gsub('week', 'w').gsub('month', 'm').gsub('year', 'y') %>
+          </p>
+        </div>
+        <%= image_tag news["image_url"], alt: news["title"], class: "w-10 h-10 object-cover rounded-md" %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p class="py-4 text-sm text-gray-500">No news available for this stock at the moment.</p>
+  <% end %>
+<% end %>

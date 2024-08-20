@@ -1,0 +1,30 @@
+<%= turbo_frame_tag "stock_price_performance" do %>
+  <% unless @price_performance[:error] %>
+    <div data-controller="price-performance" data-price-performance-symbol-value="<%= @stock.symbol %>">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-base text-gray-800">Price performance</span>
+        <select class="text-sm bg-gray-100 border-none rounded-md" data-price-performance-target="timeframeSelect" data-action="change->price-performance#updateTimeframe">
+          <option value="24h">24h</option>
+          <option value="7d">7d</option>
+          <option value="30d">30d</option>
+          <option value="1y">1y</option>
+        </select>
+      </div>
+
+      <div class="flex justify-between mb-2">
+        <div>
+          <div class="text-sm text-gray-500">Low</div>
+          <div class="text-sm font-medium" data-price-performance-target="low">$<%= number_with_precision(@price_performance[:low], precision: 2) %></div>
+        </div>
+        <div class="text-right">
+          <div class="text-sm text-gray-500">High</div>
+          <div class="text-sm font-medium" data-price-performance-target="high">$<%= number_with_precision(@price_performance[:high], precision: 2) %></div>
+        </div>
+      </div>
+
+      <div class="relative h-2 bg-gray-200 rounded-full">
+        <div class="absolute w-1 h-4 -mt-1 bg-gray-400 rounded-full" data-price-performance-target="currentPriceTick"></div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

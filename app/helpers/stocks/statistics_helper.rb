@@ -1,0 +1,2 @@
+module Stocks::StatisticsHelper
+end
