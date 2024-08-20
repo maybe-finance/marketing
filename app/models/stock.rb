@@ -8,6 +8,6 @@ class Stock < ApplicationRecord
   private
 
   def create_meta_image
-    super("#{symbol} Stock")
+    super("#{symbol} Stock Price, Information and News")
   end
 end
