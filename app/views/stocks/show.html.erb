@@ -1,6 +1,7 @@
 <%
   title "#{@stock.symbol} Stock Price, Information and News (#{@stock.name}) - Stocks"
   description "#{@stock.symbol} Stock Price, Information and News (#{@stock.name}) - Stocks"
+  meta_image @stock.meta_image_url if @stock.meta_image_url.present?
 %>
 
 <div class="flex justify-between text-sm">

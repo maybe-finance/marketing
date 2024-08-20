@@ -10,5 +10,8 @@ namespace :maintenance do
     Tool.all.each do |tool|
       tool.touch
     end
+    Stock.all.each do |stock|
+      stock.touch
+    end
   end
 end
