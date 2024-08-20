@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "stock_news" do %>
   <% if @stock_news.present? %>
     <% @stock_news.each_with_index do |news, index| %>
-      <%= link_to news["url"], class: "flex items-center justify-between py-4 #{'border-b' unless index == @stock_news.length - 1}" do %>
+      <%= link_to news["url"], target: "_blank", rel: "noopener noreferrer", class: "flex items-center justify-between space-x-4 py-4 #{'border-b' unless index == @stock_news.length - 1}" do %>
         <div>
           <span class="text-sm font-normal text-gray-900"><%= news["title"] %></span>
           <p class="mt-1 text-xs text-gray-400">

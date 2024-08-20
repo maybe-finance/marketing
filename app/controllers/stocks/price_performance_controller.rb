@@ -11,7 +11,9 @@ class Stocks::PricePerformanceController < ApplicationController
     # Fetch real-time data
     @real_time_data = fetch_real_time_data(@stock.symbol, headers)
 
-    if timeframe == '24h'
+    if @real_time_data.nil?
+      @price_performance = { error: "Unable to fetch real-time data" }
+    elsif timeframe == '24h'
       @price_performance = {
         low: @real_time_data["low"],
         high: @real_time_data["high"],
@@ -20,11 +22,16 @@ class Stocks::PricePerformanceController < ApplicationController
     else
       # Fetch historical data based on timeframe
       @historical_data = fetch_historical_data(@stock.symbol, timeframe, headers)
-      @price_performance = {
-        low: @historical_data[:low],
-        high: @historical_data[:high],
-        current: @real_time_data["fair_market_value"]
-      }
+      
+      if @historical_data.nil?
+        @price_performance = { error: "Unable to fetch historical data" }
+      else
+        @price_performance = {
+          low: @historical_data[:low],
+          high: @historical_data[:high],
+          current: @real_time_data["fair_market_value"]
+        }
+      end
     end
 
     respond_to do |format|
@@ -37,7 +44,11 @@ class Stocks::PricePerformanceController < ApplicationController
 
   def fetch_real_time_data(symbol, headers)
     response = Faraday.get("https://api.synthfinance.com/tickers/#{symbol}/real-time", nil, headers)
+    return nil unless response.success?
     JSON.parse(response.body)["data"]
+  rescue Faraday::Error, JSON::ParserError => e
+    Rails.logger.error("Error fetching real-time data: #{e.message}")
+    nil
   end
 
   def fetch_historical_data(symbol, timeframe, headers)
@@ -54,13 +65,20 @@ class Stocks::PricePerformanceController < ApplicationController
       headers
     )
 
+    return nil unless response.success?
+
     data = JSON.parse(response.body)
     prices = data["prices"].map { |p| p["close"].to_f }
     
+    return nil if prices.empty?
+
     {
       low: prices.min,
       high: prices.max
     }
+  rescue Faraday::Error, JSON::ParserError => e
+    Rails.logger.error("Error fetching historical data: #{e.message}")
+    nil
   end
 
   def calculate_start_date(timeframe)

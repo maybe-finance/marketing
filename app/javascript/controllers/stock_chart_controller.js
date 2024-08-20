@@ -10,6 +10,24 @@ export default class extends Controller {
 
   connect() {
     this.drawChart()
+    this.setupResizeListener()
+  }
+
+  setupResizeListener() {
+    this.resizeObserver = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        if (entry.contentBoxSize) {
+          this.drawChart()
+        }
+      }
+    })
+    this.resizeObserver.observe(this.element)
+  }
+
+  disconnect() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect()
+    }
   }
 
   drawChart() {
@@ -126,7 +144,7 @@ export default class extends Controller {
       .on("mousemove", mousemove)
 
     function mousemove(event) {
-      const [mouseX, mouseY] = d3.pointer(event);
+      const [mouseX, mouseY] = d3.pointer(event, svg.node());
       const bisect = d3.bisector(d => new Date(d.date)).left
       const x0 = x.invert(mouseX)
       const i = bisect(prices, x0, 1)

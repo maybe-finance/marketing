@@ -18,6 +18,7 @@ class PagesController < ApplicationController
     @terms = Term.all
     @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
     @tools = Tool.all
+    @stocks = Stock.order(name: :asc)
   end
 
   private

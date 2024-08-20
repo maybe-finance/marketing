@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       resource :news, only: :show
       resource :chart, only: :show, controller: "chart"
       resource :price_performance, only: :show, controller: "price_performance"
+      resource :similar_stocks, only: :show, controller: "similar_stocks"
     end
   end
 
