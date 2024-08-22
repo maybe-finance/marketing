@@ -18,6 +18,8 @@ namespace :data do
     loop do
       response = Faraday.get("https://api.synthfinance.com/tickers?page=#{page}") do |req|
         req.headers["Authorization"] = "Bearer #{ENV['SYNTH_API_KEY']}"
+        req.headers["X-Source"] = "maybe_marketing"
+        req.headers["X-Source-Type"] = "api"
       end
 
       stocks = JSON.parse(response.body)

@@ -5,7 +5,9 @@ class Stocks::PricePerformanceController < ApplicationController
     
     headers = {
       "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}"
+      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
+      "X-Source" => "maybe_marketing",
+      "X-Source-Type" => "api"
     }
 
     # Fetch real-time data

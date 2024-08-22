@@ -23,7 +23,9 @@ class StockPrice < ApplicationRecord
             get_ticker_url(ticker),
             query: query,
             headers: {
-              "Authorization" => "Bearer #{token}"
+              "Authorization" => "Bearer #{token}",
+              "X-Source" => "maybe_marketing",
+              "X-Source-Type" => "api"
             }
           )
 
