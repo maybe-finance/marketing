@@ -71,6 +71,14 @@ tools = [
     "description": "Calculate how much time and interest you can save by making additional payments on your mortgage or investing the difference.",
     "category_slug": "debt",
     "icon": "home"
+  },
+  {
+    "name": "Stock Portfolio Backtest",
+    "slug": "stock-portfolio-backtest",
+    "intro": "See how a portfolio would have performed, just remember that past performance isn’t indicative of future returns.",
+    "description": "See how a portfolio would have performed, just remember that past performance isn’t indicative of future returns.",
+    "category_slug": "investing",
+    "icon": "bar-chart-4"
   }
 ]
 

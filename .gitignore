@@ -41,3 +41,5 @@
 # Ignore Cursor AI rules
 .cursorrules
 .vscode/settings.json
+node_modules
+.DS_Store

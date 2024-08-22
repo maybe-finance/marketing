@@ -1,0 +1,14 @@
+<div data-controller="search-select" data-search-select-active-class="bg-gray-100" class="relative flex self-end gap-2 w-full" data-search-select-selected-value="" data-search-select-list-value="<%= list %>">
+  <div class="relative w-full">
+    <% if local_assigns[:label].present? %>
+      <label class="absolute top-2 left-3 text-xs text-gray-500 z-10"><%= label %></label>
+    <% end %>
+    <input type="text" data-search-select-target="input" class="form-field flex rounded-[10px] <%= local_assigns[:label].present? ? 'h-14 pt-7' : 'h-9' %> shadow-xs w-full text-sm justify-start items-center px-3 pr-7 text-ellipsis" placeholder="Search for a stock">
+    <%= lucide_icon("search", class: "h-4 w-4 text-gray-500 absolute right-3 #{local_assigns[:label].present? ? 'top-[67%]' : 'top-1/2'} transform -translate-y-1/2") %>
+  </div>
+
+  <input type="hidden" name="<%= name %>" data-search-select-target="hiddenInput" data-auto-submit-form-target="auto">
+
+  <ul data-search-select-target="list" class="hidden absolute z-10 top-[110%] right-0 w-full border border-black/10 bg-white rounded shadow-xs p-1"></ul>
+
+</div>
