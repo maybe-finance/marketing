@@ -1,7 +1,7 @@
 class Stocks::ChartController < ApplicationController
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
-    
+
     headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
@@ -11,7 +11,7 @@ class Stocks::ChartController < ApplicationController
 
     end_date = Date.today
     start_date, interval = calculate_start_date_and_interval(params[:time_range])
-    
+
     response = Faraday.get(
       "https://api.synthfinance.com/tickers/#{@stock.symbol}/open-close",
       {
@@ -26,7 +26,7 @@ class Stocks::ChartController < ApplicationController
     if response.success?
       data = JSON.parse(response.body)
       valid_prices = data["prices"].reject { |p| p["no_data"] || p["close"].nil? || p["open"].nil? }
-      
+
       if valid_prices.any?
         latest_price = valid_prices.last["close"].to_f
         first_price = valid_prices.first["open"].to_f
@@ -57,17 +57,17 @@ class Stocks::ChartController < ApplicationController
   def calculate_start_date_and_interval(time_range)
     case time_range
     when "1M"
-      [Date.today - 1.month, "day"]
+      [ Date.today - 1.month, "day" ]
     when "3M"
-      [Date.today - 3.months, "week"]
+      [ Date.today - 3.months, "week" ]
     when "6M"
-      [Date.today - 6.months, "week"]
+      [ Date.today - 6.months, "week" ]
     when "1Y"
-      [Date.today - 1.year, "month"]
+      [ Date.today - 1.year, "month" ]
     when "5Y"
-      [Date.today - 5.years, "month"]
+      [ Date.today - 5.years, "month" ]
     else
-      [Date.today - 1.month, "day"]  # Default to 1 month with daily interval
+      [ Date.today - 1.month, "day" ]  # Default to 1 month with daily interval
     end
   end
 end

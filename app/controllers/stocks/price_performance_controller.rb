@@ -2,7 +2,7 @@ class Stocks::PricePerformanceController < ApplicationController
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
     timeframe = params[:timeframe] || '24h'
-    
+
     headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
@@ -24,7 +24,7 @@ class Stocks::PricePerformanceController < ApplicationController
     else
       # Fetch historical data based on timeframe
       @historical_data = fetch_historical_data(@stock.symbol, timeframe, headers)
-      
+
       if @historical_data.nil?
         @price_performance = { error: "Unable to fetch historical data" }
       else
@@ -56,7 +56,7 @@ class Stocks::PricePerformanceController < ApplicationController
   def fetch_historical_data(symbol, timeframe, headers)
     end_date = Date.today
     start_date = calculate_start_date(timeframe)
-    
+
     response = Faraday.get(
       "https://api.synthfinance.com/tickers/#{symbol}/open-close",
       {
@@ -71,7 +71,7 @@ class Stocks::PricePerformanceController < ApplicationController
 
     data = JSON.parse(response.body)
     prices = data["prices"].map { |p| p["close"].to_f }
-    
+
     return nil if prices.empty?
 
     {
