@@ -1,7 +1,7 @@
 class Stocks::PricePerformanceController < ApplicationController
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
-    timeframe = params[:timeframe] || '24h'
+    timeframe = params[:timeframe] || "24h"
 
     headers = {
       "Content-Type" => "application/json",
@@ -15,7 +15,7 @@ class Stocks::PricePerformanceController < ApplicationController
 
     if @real_time_data.nil?
       @price_performance = { error: "Unable to fetch real-time data" }
-    elsif timeframe == '24h'
+    elsif timeframe == "24h"
       @price_performance = {
         low: @real_time_data["low"],
         high: @real_time_data["high"],
@@ -62,7 +62,7 @@ class Stocks::PricePerformanceController < ApplicationController
       {
         start_date: start_date.iso8601,
         end_date: end_date.iso8601,
-        interval: 'day'
+        interval: "day"
       },
       headers
     )
@@ -85,13 +85,13 @@ class Stocks::PricePerformanceController < ApplicationController
 
   def calculate_start_date(timeframe)
     case timeframe
-    when '24h'
+    when "24h"
       1.day.ago
-    when '7d'
+    when "7d"
       7.days.ago
-    when '30d'
+    when "30d"
       30.days.ago
-    when '1y'
+    when "1y"
       1.year.ago
     else
       1.day.ago
