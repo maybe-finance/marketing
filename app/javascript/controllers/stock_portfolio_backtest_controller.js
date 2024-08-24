@@ -62,7 +62,10 @@ export default class extends Controller {
   async calculate(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    this.#renderLoading({ isLoading: true });
+    const benchmarkStock = formData.get('benchmarkStock');
+    const investmentAmount = parseFloat(formData.get('investment_amount').replace(/[^0-9.-]+/g, ''));
+    const startDate = formData.get('start_date') || '2000-01-01';
+    const endDate = formData.get('end_date')
 
     /** @type {Array<{ticker: string, allocation: number}>} */
     const stocks = [];
@@ -78,15 +81,22 @@ export default class extends Controller {
       }
     });
 
+    if (!stocks.some(stock => stock.allocation > 0)) {
+      alert("Please add at least one stock with an allocation to your portfolio.");
+      return;
+    }
+
+    if (!benchmarkStock) {
+      alert("Please select a benchmark stock.");
+      return;
+    }
+
     if (totalAllocation > 100) {
       alert("Total allocation percentage exceeds 100%. Please adjust your allocations.");
       return;
     }
 
-    const benchmarkStock = formData.get('benchmarkStock');
-    const investmentAmount = parseFloat(formData.get('investment_amount').replace(/[^0-9.-]+/g, ''));
-    const startDate = formData.get('start_date') || '2000-01-01';
-    const endDate = formData.get('end_date')
+    this.#renderLoading({ isLoading: true });
 
     const tickers = [...stocks.map(s => s.ticker), benchmarkStock];
     const ohclvData = await this.getOHCLVs({ tickers, start_date: startDate, end_date: endDate });
