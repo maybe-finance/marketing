@@ -4,20 +4,20 @@
     <%= render partial: 'shared/section_divider', locals: { section_name: 'Portfolio' } %>
 
     <% 10.times do |i| %>
-      <%= render partial: "shared/stocks_allocator", locals: { list: "stocksData", index: i } %>
+      <%= render partial: "shared/stocks_allocator", locals: { list: "stocksData", index: i, required: i == 0 } %>
     <% end %>
 
     <div class="flex items-center justify-end gap-2">
       <span class="text-gray-700 text-xs">Total allocation</span>
       <div class="flex items-center gap-[6px] px-[14px] py-2 h-9 bg-green-400/5 border border-gray-200 rounded-md">
         <span class="text-black text-sm" data-stock-portfolio-backtest-target="totalAllocation">0%</span>
-        <%= lucide_icon("align-vertical-distribute-center", class: "h-4 w-4 text-gray-500") %>
+        <%= lucide_icon("align-vertical-distribute-center", class: "h-4 w-4 text-gray-500 cursor-pointer", 'data-action': "click->stock-portfolio-backtest#distributeEvenly") %>
       </div>
     </div>
 
     <%= render partial: 'shared/section_divider', locals: { section_name: 'Settings' } %>
 
-    <%= render partial: "shared/search_select", locals: { list: "stocksData", label: "Benchmark", name: "benchmarkStock" } %>
+    <%= render partial: "shared/search_select", locals: { list: "stocksData", label: "Benchmark", name: "benchmarkStock", required: true, placeholder: "Search for a stock" } %>
 
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
       <%= form.unit_field :investment_amount, label: "Investment amount", value: 10000, unit_symbol: "$", data: { controller: "autonumeric", action: "input->stock-portfolio-backtest#calculate" } %>
@@ -37,9 +37,9 @@
   <% end %>
 
   <div class="col-span-2">
-    <div class="flex-1" data-stock-portfolio-backtest-target="resultsContainer">
-      <div class="grid h-96 place-items-center">
-        <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
+    <div class="flex-1 h-full" data-stock-portfolio-backtest-target="resultsContainer">
+      <div class="grid h-full place-items-center">
+        <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-80">
           <%= lucide_icon "keyboard", class: "h-6 w-6 mx-auto" %>
           <p>Add stocks on the left to start benchmarking and backtesting your portfolio!</p>
         </div>
@@ -93,6 +93,8 @@
                controller: "time-series-bogleheads-growth-chart",
              },
              "t-attr:data-time-series-bogleheads-growth-chart-series-value": "legendData",
+             "t-attr:data-time-series-bogleheads-growth-chart-series-value": "legendData",
+             "t-attr:data-time-series-bogleheads-growth-chart-show-legend-value": "false",
              "t-attr:data-time-series-bogleheads-growth-chart-data-value": "JSON.stringify(chartData)"
            )
         %>

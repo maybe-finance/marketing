@@ -56,13 +56,31 @@ export default class extends Controller {
     return data;
   }
 
+  distributeEvenly() {
+    const allocatorControllers = this.application.controllers.filter(
+      controller => controller.identifier === 'stocks-allocator' && !controller.element.classList.contains('hidden')
+    );
+    const count = allocatorControllers.length;
+    if (count > 0) {
+      const evenAllocation = Math.floor(100 / count);
+      allocatorControllers.forEach((controller, index) => {
+        const newAllocation = index === count - 1 ? 100 - (evenAllocation * (count - 1)) : evenAllocation;
+        controller.allocationTarget.value = newAllocation;
+        controller.updateAllocation();
+      });
+    }
+  }
+
   /**
    * @param {Event} event 
    */
   async calculate(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    this.#renderLoading({ isLoading: true });
+    const benchmarkStock = formData.get('benchmarkStock');
+    const investmentAmount = parseFloat(formData.get('investment_amount').replace(/[^0-9.-]+/g, ''));
+    const startDate = formData.get('start_date') || '2000-01-01';
+    const endDate = formData.get('end_date')
 
     /** @type {Array<{ticker: string, allocation: number}>} */
     const stocks = [];
@@ -83,10 +101,7 @@ export default class extends Controller {
       return;
     }
 
-    const benchmarkStock = formData.get('benchmarkStock');
-    const investmentAmount = parseFloat(formData.get('investment_amount').replace(/[^0-9.-]+/g, ''));
-    const startDate = formData.get('start_date') || '2000-01-01';
-    const endDate = formData.get('end_date')
+    this.#renderLoading({ isLoading: true });
 
     const tickers = [...stocks.map(s => s.ticker), benchmarkStock];
     const ohclvData = await this.getOHCLVs({ tickers, start_date: startDate, end_date: endDate });
