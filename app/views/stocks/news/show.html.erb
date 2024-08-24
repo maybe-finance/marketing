@@ -8,7 +8,7 @@
             <%= news["publisher_name"] %> &bull; <%= time_ago_in_words(news["published_at"]).gsub(/about |less than |almost |over /, '').gsub(' ', '').gsub('hours', 'h').gsub('days', 'd').gsub('weeks', 'w').gsub('months', 'm').gsub('years', 'y').gsub('hour', 'h').gsub('day', 'd').gsub('week', 'w').gsub('month', 'm').gsub('year', 'y') %>
           </p>
         </div>
-        <%= image_tag news["image_url"], alt: news["title"], class: "w-10 h-10 object-cover rounded-md" %>
+        <%= image_tag news["image_url"], class: "w-10 h-10 object-cover rounded-md" %>
       <% end %>
     <% end %>
   <% else %>

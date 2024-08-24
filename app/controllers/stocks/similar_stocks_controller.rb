@@ -4,7 +4,9 @@ class Stocks::SimilarStocksController < ApplicationController
 
     headers = {
       "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}"
+      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
+      "X-Source" => "maybe_marketing",
+      "X-Source-Type" => "api"
     }
 
     response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}/related", nil, headers)

@@ -4,7 +4,9 @@ class Stocks::ChartController < ApplicationController
     
     headers = {
       "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}"
+      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
+      "X-Source" => "maybe_marketing",
+      "X-Source-Type" => "api"
     }
 
     end_date = Date.today
