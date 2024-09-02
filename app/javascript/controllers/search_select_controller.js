@@ -21,14 +21,14 @@ export default class extends Controller {
   connect() {
     this.syncInputWithSelected();
     this.element.addEventListener("keydown", this.handleKeydown);
-    document.addEventListener("click", this.handleOutsideClick);
+    document.addEventListener("click", this.handleOutsideClick, true); // Use capture phase
     this.element.addEventListener("turbo:load", this.handleTurboLoad);
     this.inputTarget.addEventListener("input", this.filterOptions.bind(this));
   }
 
   disconnect() {
     this.element.removeEventListener("keydown", this.handleKeydown);
-    document.removeEventListener("click", this.handleOutsideClick);
+    document.removeEventListener("click", this.handleOutsideClick, true); // Use capture phase
     this.element.removeEventListener("turbo:load", this.handleTurboLoad);
   }
 
@@ -43,8 +43,8 @@ export default class extends Controller {
   }
 
   handleOutsideClick = (event) => {
-    if (!this.element.contains(event.target)) {
-      this.close();
+    if (this.show && !this.element.contains(event.target) && !this.listTarget.contains(event.target)) {
+      this.resetInput();
     }
   };
 
@@ -119,6 +119,7 @@ export default class extends Controller {
     this.inputTarget.value = selectedOption.textContent.trim();
     this.hiddenInputTarget.value = selectedOption.getAttribute("data-value");
     this.close();
+    event.stopPropagation();
   }
 
   updateAriaAttributesAndClasses(selectedOption) {

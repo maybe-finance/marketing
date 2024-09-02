@@ -16,7 +16,7 @@ import TemplateRenderer from "helpers/template_renderer";
  */
 
 export default class extends Controller {
-  static targets = ["resultsTemplate", "loadingTemplate", "resultsContainer", "totalAllocation"]
+  static targets = ["resultsTemplate", "loadingTemplate", "resultsContainer", "totalAllocation", "totalAllocationWarning"]
 
   connect() {
     this.totalAllocation = 0;
@@ -96,10 +96,20 @@ export default class extends Controller {
       }
     });
 
-    if (totalAllocation > 100) {
-      alert("Total allocation percentage exceeds 100%. Please adjust your allocations.");
+    if (totalAllocation < 100) {
+      this.totalAllocationWarningTarget.textContent = "The total allocation is below 100%. Please review and adjust your allocations.";
+      this.totalAllocationWarningTarget.classList.remove("hidden");
       return;
     }
+
+    if (totalAllocation > 100) {
+      this.totalAllocationWarningTarget.textContent = "The total allocation exceeds 100%. Please review and adjust your allocations.";
+      this.totalAllocationWarningTarget.classList.remove("hidden");
+      return;
+    }
+
+    this.totalAllocationWarningTarget.textContent = "";
+    this.totalAllocationWarningTarget.classList.add("hidden");
 
     this.#renderLoading({ isLoading: true });
 
