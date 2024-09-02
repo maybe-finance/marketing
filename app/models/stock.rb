@@ -1,6 +1,6 @@
 class Stock < ApplicationRecord
   include MetaImage
-  
+
   def to_param
     symbol
   end

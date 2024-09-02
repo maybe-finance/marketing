@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get "/now-subscribe", to: redirect("/", status: 301)
   get "/community", to: redirect("https://link.maybe.co/discord", status: 301)
   get "/early-access", to: redirect("/", status: 301)
+  get "tickers/open_close", to: "tickers#open_close"
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

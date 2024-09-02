@@ -7,17 +7,21 @@ export default class extends Controller {
     series: { type: Object, default: {} },
     data: { type: Array, default: [] },
     useLabels: { type: Boolean, default: true },
+    showLegend: { type: Boolean, default: true },
   };
 
   #initialElementWidth = 0;
   #initialElementHeight = 0;
 
   connect() {
+    console.log(this.showLegendValue, this.values);
     this.#rememberInitialElementSize();
     this.#drawGridlines();
     this.#drawBogleheadsGrowthChart();
     if (this.useLabelsValue) {
       this.#drawXAxis();
+    }
+    if (this.showLegendValue) {
       this.#drawLegend();
     }
     this.#installTooltip();
@@ -83,7 +87,7 @@ export default class extends Controller {
       .join("g")
       .attr("class", d => this.seriesValue[d.key].fillClass)
       .append("path")
-      .attr("fill", (d, i) => i === 0 ? "url(#line-gradient-1)" : "url(#line-gradient-2)")
+      .attr("fill", (d, i) => `url(#line-gradient-${i + 1})`)
       .attr("d", d => d3.area()
         .x(d => x(d.data.date))
         .y0(y(0))
@@ -227,10 +231,10 @@ export default class extends Controller {
   };
 
   #installTooltip() {
-    const dot1 = this.#createDot("focus", this.seriesValue.value.fillClass);
-    const dot2 = this.#createDot("focus", this.seriesValue.bondMarketFunds.fillClass);
-    const dot3 = this.#createDot("focus", this.seriesValue.internationalStockFunds.fillClass);
-    const dot4 = this.#createDot("focus", this.seriesValue.stockMarketFunds.fillClass);
+    const dots = Object.keys(this.seriesValue).map(key => 
+      this.#createDot("focus", this.seriesValue[key].fillClass)
+    );
+
 
     this.#d3Content
       .append("rect")
@@ -239,32 +243,25 @@ export default class extends Controller {
       .attr("fill", "none")
       .attr("pointer-events", "all")
       .on("mouseover", () => {
-        dot1.style("display", null);
-        dot2.style("display", null);
-        dot3.style("display", null);
-        dot4.style("display", null);
+        dots.forEach(dot => dot.style("display", null));
       })
       .on("mouseout", (event) => {
         const hoveringOnGuideline = event.toElement?.classList.contains("guideline");
         if (!hoveringOnGuideline) {
           this.#d3Content.selectAll(".guideline").remove();
           this.#d3Tooltip.style("opacity", 0);
-          dot1.style("display", "none");
-          dot2.style("display", "none");
-          dot3.style("display", "none");
-          dot4.style("display", "none");
+          dots.forEach(dot => dot.style("display", "none"));
         }
       })
       .on("mousemove", (event) => {
         const x = this.#d3XScale;
         const d = this.#findDatumByPointer(event);
-
+  
         const dataX = x(d.date);
-
-        dot1.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.value)})`);
-        dot2.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.bondMarketFunds)})`);
-        dot3.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.internationalStockFunds)})`);
-        dot4.attr("transform", `translate(${dataX}, ${this.#d3YScale(d.stockMarketFunds)})`);
+  
+        Object.keys(this.seriesValue).forEach((key, index) => {
+          dots[index].attr("transform", `translate(${dataX}, ${this.#d3YScale(d[key])})`);
+        });
 
         this.#d3Content.selectAll(".guideline").remove();
 

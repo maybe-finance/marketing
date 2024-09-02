@@ -11,7 +11,7 @@ class Stocks::SimilarStocksController < ApplicationController
 
     response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}/related", nil, headers)
     data = JSON.parse(response.body)["data"]
-    
+
     @similar_stocks_data = []
     data["related_tickers"].each do |related_stock|
       break if @similar_stocks_data.size == 6

@@ -1,7 +1,7 @@
 class Stocks::StatisticsController < ApplicationController
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
-    
+
     headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",

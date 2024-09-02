@@ -55,6 +55,10 @@
     @apply relative appearance-none h-5 w-5 rounded-full bg-white border border-solid border-alpha-black-100 shadow-sm cursor-pointer top-[-6px];
   }
 
+  input[type="number"] {
+    @apply [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none
+  }
+
   .tab-item {
     @apply w-1/2 text-gray-500 text-sm;
   }
