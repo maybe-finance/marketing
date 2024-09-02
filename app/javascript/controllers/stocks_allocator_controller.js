@@ -32,6 +32,8 @@ export default class extends Controller {
     const nextAllocator = document.querySelector(`[data-controller='stocks-allocator'][data-index='${currentIndex + 1}']`);
     if (nextAllocator && this.countVisibleAllocators() < 10) {
       nextAllocator.classList.remove("hidden");
+      nextAllocator.querySelector('input[type="number"]').setAttribute('required', '');
+      nextAllocator.querySelector('input[type="text"]').setAttribute('required', '');
     }
   }
 
@@ -39,6 +41,8 @@ export default class extends Controller {
     const currentAllocator = event.target.closest("[data-controller='stocks-allocator']");
     if (this.countVisibleAllocators() > 1) {
       currentAllocator.classList.add("hidden");
+      currentAllocator.querySelector('input[type="number"]').removeAttribute('required');
+      currentAllocator.querySelector('input[type="text"]').removeAttribute('required');
 
       const searchSelectController = this.getControllerByIdentifier("search-select", currentAllocator);
       if (searchSelectController) {

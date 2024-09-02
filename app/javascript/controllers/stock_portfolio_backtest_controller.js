@@ -56,6 +56,21 @@ export default class extends Controller {
     return data;
   }
 
+  distributeEvenly() {
+    const allocatorControllers = this.application.controllers.filter(
+      controller => controller.identifier === 'stocks-allocator' && !controller.element.classList.contains('hidden')
+    );
+    const count = allocatorControllers.length;
+    if (count > 0) {
+      const evenAllocation = Math.floor(100 / count);
+      allocatorControllers.forEach((controller, index) => {
+        const newAllocation = index === count - 1 ? 100 - (evenAllocation * (count - 1)) : evenAllocation;
+        controller.allocationTarget.value = newAllocation;
+        controller.updateAllocation();
+      });
+    }
+  }
+
   /**
    * @param {Event} event 
    */

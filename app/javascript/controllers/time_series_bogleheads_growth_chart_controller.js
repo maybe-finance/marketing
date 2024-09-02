@@ -7,17 +7,21 @@ export default class extends Controller {
     series: { type: Object, default: {} },
     data: { type: Array, default: [] },
     useLabels: { type: Boolean, default: true },
+    showLegend: { type: Boolean, default: true },
   };
 
   #initialElementWidth = 0;
   #initialElementHeight = 0;
 
   connect() {
+    console.log(this.showLegendValue, this.values);
     this.#rememberInitialElementSize();
     this.#drawGridlines();
     this.#drawBogleheadsGrowthChart();
     if (this.useLabelsValue) {
       this.#drawXAxis();
+    }
+    if (this.showLegendValue) {
       this.#drawLegend();
     }
     this.#installTooltip();

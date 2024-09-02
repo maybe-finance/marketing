@@ -1,12 +1,14 @@
-<div data-controller="stocks-allocator" data-index="<%= local_assigns[:index] %>" class="flex items-center gap-2 <%= local_assigns[:index] == 0 ? "" : "hidden" %>">
+<div data-controller="stocks-allocator" data-index="<%= local_assigns[:index] %>" class="flex items-center gap-2 <%= local_assigns[:index] == 0 ? "" : "hidden" %>" data-search-select-custom-filter-value="prioritizeTickerFilter">
   <%= render partial: "shared/search_select", locals: { 
     list: local_assigns[:list], 
     label: local_assigns[:label],
-    name: "stock_#{local_assigns[:index]}"
+    name: "stock_#{local_assigns[:index]}",
+    required: local_assigns[:required],
+    placeholder: "Search for a stock"
   } %>
   
   <div class="relative w-16">
-    <input type="number" min="0" max="100" step="1" name="stock_allocation_<%= local_assigns[:index] %>" data-stocks-allocator-target="allocation" data-action="input->stocks-allocator#updateAllocation" class="form-field w-[68px] text-left rounded-[10px] h-9 shadow-xs text-sm !appearance-none" placeholder="0">
+    <input type="number" min="0" max="100" step="1" name="stock_allocation_<%= local_assigns[:index] %>" data-stocks-allocator-target="allocation" data-action="input->stocks-allocator#updateAllocation" class="form-field w-[68px] text-left rounded-[10px] h-9 shadow-xs text-sm !appearance-none" placeholder="0" <%= "required" if local_assigns[:required] %>>
     <span class="absolute inset-y-0 right-2 flex items-center pointer-events-none text-gray-500 text-xs">%</span>
   </div>
 
@@ -19,3 +21,24 @@
     </button>
   </div>
 </div>
+
+
+<script>
+window.prioritizeTickerFilter = function(dataList, filterValue) {
+  return dataList
+    .filter(item => {
+      const ticker = item.name.match(/\((.*?)\)/)?.[1] || '';
+      return ticker.toLowerCase().includes(filterValue) || 
+             item.name.toLowerCase().includes(filterValue);
+    })
+    .sort((a, b) => {
+      const tickerA = a.name.match(/\((.*?)\)/)?.[1] || '';
+      const tickerB = b.name.match(/\((.*?)\)/)?.[1] || '';
+      const aStartsWithFilter = tickerA.toLowerCase().startsWith(filterValue);
+      const bStartsWithFilter = tickerB.toLowerCase().startsWith(filterValue);
+      if (aStartsWithFilter && !bStartsWithFilter) return -1;
+      if (!aStartsWithFilter && bStartsWithFilter) return 1;
+      return 0;
+    });
+};
+</script>
