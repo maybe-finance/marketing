@@ -12,7 +12,7 @@ class TickersController < ApplicationController
   # @example
   #   GET /tickers/open_close?tickers=AAPL,TSLA&start_date=2023-01-01&end_date=2023-12-31
   def open_close
-    tickers = params[:tickers].split(',')
+    tickers = params[:tickers].split(",")
     start_date = params[:start_date]
     end_date = params[:end_date]
 

@@ -16,7 +16,7 @@ class StocksController < ApplicationController
     @total_stocks = Stock.count
     scope = Stock.order(:name)
     scope = scope.where("symbol ILIKE :query OR name ILIKE :query", query: "%#{@query}%") if @query.present?
-    @pagy, @stocks = pagy(scope, limit: 27, size: [1, 3, 3, 1])
+    @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
   end
 
   # GET /stocks/:ticker

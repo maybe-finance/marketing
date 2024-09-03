@@ -15,10 +15,10 @@ class Stocks::NewsController < ApplicationController
       "X-Source" => "maybe_marketing",
       "X-Source-Type" => "api"
     }
-    
+
     # Fetch news articles from the Synth Finance API
     @stock_news = Faraday.get("https://api.synthfinance.com/news/#{@stock.symbol}", nil, headers)
-    
+
     # Parse the response and limit to the first 4 articles
     @stock_news = JSON.parse(@stock_news.body)["data"].first(4)
   end

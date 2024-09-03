@@ -15,7 +15,7 @@ class Stocks::InfoController < ApplicationController
       "X-Source" => "maybe_marketing",
       "X-Source-Type" => "api"
     }
-    
+
     # Fetch stock information from Synth Finance API
     @stock_info = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}", nil, headers)
     @stock_info = JSON.parse(@stock_info.body)["data"]
