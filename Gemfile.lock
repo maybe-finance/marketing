@@ -110,6 +110,9 @@ GEM
       addressable
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     ast (2.4.2)
     avo (3.10.10)
       actionview (>= 6.1)
@@ -425,6 +428,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  annotate
   avo (>= 3.2)
   bannerbear
   bootsnap

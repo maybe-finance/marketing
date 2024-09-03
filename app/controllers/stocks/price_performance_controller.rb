@@ -1,4 +1,13 @@
+# This controller handles requests for stock price performance data.
+# It fetches real-time and historical data from an external API (Synth Finance)
+# and returns the price performance information for a given stock.
 class Stocks::PricePerformanceController < ApplicationController
+  # GET /stocks/:stock_ticker/price_performance
+  # Retrieves and returns the price performance data for a specific stock.
+  #
+  # @param stock_ticker [String] The ticker symbol of the stock
+  # @param timeframe [String] The timeframe for historical data (default: "24h")
+  # @return [JSON] Price performance data including low, high, and current prices
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
     timeframe = params[:timeframe] || "24h"
@@ -44,6 +53,11 @@ class Stocks::PricePerformanceController < ApplicationController
 
   private
 
+  # Fetches real-time stock data from the Synth Finance API
+  #
+  # @param symbol [String] The stock symbol
+  # @param headers [Hash] HTTP headers for the API request
+  # @return [Hash, nil] Real-time stock data or nil if the request fails
   def fetch_real_time_data(symbol, headers)
     response = Faraday.get("https://api.synthfinance.com/tickers/#{symbol}/real-time", nil, headers)
     return nil unless response.success?
@@ -53,6 +67,12 @@ class Stocks::PricePerformanceController < ApplicationController
     nil
   end
 
+  # Fetches historical stock data from the Synth Finance API
+  #
+  # @param symbol [String] The stock symbol
+  # @param timeframe [String] The timeframe for historical data
+  # @param headers [Hash] HTTP headers for the API request
+  # @return [Hash, nil] Historical stock data or nil if the request fails
   def fetch_historical_data(symbol, timeframe, headers)
     end_date = Date.today
     start_date = calculate_start_date(timeframe)
@@ -83,6 +103,10 @@ class Stocks::PricePerformanceController < ApplicationController
     nil
   end
 
+  # Calculates the start date based on the given timeframe
+  #
+  # @param timeframe [String] The timeframe for historical data
+  # @return [Date] The calculated start date
   def calculate_start_date(timeframe)
     case timeframe
     when "24h"

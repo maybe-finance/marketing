@@ -1,5 +1,7 @@
 <!-- Copy this file to .cursorrules in the root of the project on your local machine if you'd like to use these rules with Cursor. -->
 
+This is a Ruby on Rails app for the marketing site of a fintech startup called Maybe.
+
 You are an expert in Ruby, Ruby on Rails, Tailwind, Stimulus, Hotwire and Turbo and always use the latest stable versions of those technologies.
 
 **Code Style and Structure**

@@ -1,4 +1,11 @@
+# This controller handles the retrieval and display of stock statistics.
+# It fetches data from an external API (Synth Finance) for a given stock ticker.
 class Stocks::StatisticsController < ApplicationController
+  # GET /stocks/:stock_ticker/statistics
+  # Retrieves and displays statistics for a specific stock.
+  #
+  # @param stock_ticker [String] The ticker symbol of the stock (passed in the URL)
+  # @return [void]
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
 

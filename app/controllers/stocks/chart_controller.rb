@@ -1,4 +1,14 @@
+# This controller handles the generation of stock charts for the Maybe Finance application.
+# It fetches stock data from the Synth Finance API and processes it to create a chart
+# with price information for a given stock over a specified time range.
+
 class Stocks::ChartController < ApplicationController
+  # GET /stocks/:stock_ticker/chart
+  # Retrieves and processes stock data to generate a chart
+  #
+  # @param stock_ticker [String] The ticker symbol of the stock
+  # @param time_range [String] The time range for the chart (e.g., "1M", "3M", "6M", "1Y", "5Y")
+  # @return [JSON] A JSON object containing chart data or an error message
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
 
@@ -54,6 +64,10 @@ class Stocks::ChartController < ApplicationController
 
   private
 
+  # Calculates the start date and interval based on the given time range
+  #
+  # @param time_range [String] The time range for the chart (e.g., "1M", "3M", "6M", "1Y", "5Y")
+  # @return [Array<Date, String>] An array containing the start date and interval
   def calculate_start_date_and_interval(time_range)
     case time_range
     when "1M"

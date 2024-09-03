@@ -1,4 +1,11 @@
+# This controller handles the retrieval and processing of similar stocks for a given stock ticker.
+# It interacts with an external API (Synth Finance) to fetch related stock data and formats it for display.
 class Stocks::SimilarStocksController < ApplicationController
+  # GET /stocks/:stock_ticker/similar
+  # Fetches and processes similar stocks data for the specified stock ticker.
+  #
+  # @param stock_ticker [String] The ticker symbol of the stock to find similar stocks for.
+  # @return [void]
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
 

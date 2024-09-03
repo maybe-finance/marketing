@@ -1,4 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: articles
+#
+#  id             :bigint           not null, primary key
+#  author_name    :string
+#  content        :text
+#  meta_image_url :string
+#  publish_at     :datetime
+#  slug           :string
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 
 one:
   title: MyString

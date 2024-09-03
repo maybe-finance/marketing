@@ -1,3 +1,15 @@
+/**
+ * AutoSubmitFormController
+ * 
+ * This Stimulus controller handles automatic form submission based on user input.
+ * It allows for configurable trigger events and debounces the submission to prevent
+ * excessive requests.
+ * 
+ * @example
+ * <form data-controller="auto-submit-form">
+ *   <input data-auto-submit-form-target="auto" type="text" name="search">
+ * </form>
+ */
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -8,6 +20,9 @@ export default class extends Controller {
     triggerEvent: { type: String, default: "input" },
   };
 
+  /**
+   * Connects the controller and sets up event listeners for auto-submit targets.
+   */
   connect() {
     this.autoTargets.forEach((element) => {
       const event =
@@ -16,6 +31,9 @@ export default class extends Controller {
     });
   }
 
+  /**
+   * Disconnects the controller and removes event listeners.
+   */
   disconnect() {
     this.autoTargets.forEach((element) => {
       const event =
@@ -24,6 +42,10 @@ export default class extends Controller {
     });
   }
 
+  /**
+   * Handles input events and debounces form submission.
+   * @param {Event} event - The input event that triggered the handler.
+   */
   handleInput = () => {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {

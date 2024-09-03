@@ -1,8 +1,20 @@
+# This controller handles the logic for displaying and interacting with financial tools.
+# It provides functionality for listing all tools and showing individual tool details.
 class ToolsController < ApplicationController
+  # GET /tools
+  # Retrieves all tools from the database.
+  #
+  # @return [Array<Tool>] An array of all Tool objects.
   def index
     @tools = Tool.all
   end
 
+  # GET /tools/:id
+  # Retrieves and displays a specific tool based on its slug.
+  # Also fetches additional data required for certain tools.
+  #
+  # @param id [String] The slug of the tool to be displayed.
+  # @return [Tool] The requested Tool object.
   def show
     @tool = Tool.find_by(slug: params[:id])
 
@@ -22,6 +34,12 @@ class ToolsController < ApplicationController
     end
   end
 
+  private
+
+  # Fetches the current mortgage rate for a given mortgage duration.
+  #
+  # @param mortgage_duration [String] The mortgage duration code (e.g., "MORTGAGE30US").
+  # @return [String, nil] The current mortgage rate as a string, or nil if the fetch fails.
   def fetch_mortgage_rate(mortgage_duration)
     cache_key = "mortgage_rate_#{mortgage_duration}"
 
