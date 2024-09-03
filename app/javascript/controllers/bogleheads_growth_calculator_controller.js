@@ -73,7 +73,7 @@ export default class extends Controller {
     const finalValue = investmentManager.getCurrentMarketValue(chartData)
     const profitOrLoss = investmentManager.getProfitOrLoss(chartData)
 
-    const returnsOnInvestment = Math.floor((profitOrLoss/invested) * 100)
+    const returnsOnInvestment = Math.floor((profitOrLoss / invested) * 100)
 
     const legendData = JSON.stringify({
       value: {
