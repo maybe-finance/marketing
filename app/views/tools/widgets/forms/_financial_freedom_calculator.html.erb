@@ -1,0 +1,20 @@
+<%= form_with method: :get, data: { turbo_frame: :financial_freedom_results } do |form| %>
+  <div data-controller="synchronized-input" class="flex flex-col gap-2">
+    <%= form.unit_field :current_savings, label: "Current Savings", value: 0, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+    <%= range_input_slider class: "from-blue-500 to-blue-500", min: 0, max: 600000, step: 1000, value: 0 %>
+  </div>
+
+  <div data-controller="synchronized-input" class="flex flex-col gap-2">
+    <%= form.unit_field :monthly_expenses, label: "Monthly Expenses", value: 0, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+    <%= range_input_slider class: "from-pink-500 to-pink-500", min: 0, max: 10000, step: 100, value: 0 %>
+  </div>
+
+  <div data-controller="synchronized-input" class="flex flex-col gap-2">
+    <%= form.unit_field :annual_savings_growth_rate, label: "Annual Savings Growth Rate", step: "any", value: 0, unit_symbol: "%", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+    <%= range_input_slider class: "from-violet-500 to-violet-500", min: 0, max: 20, step: 1, value: 0 %>
+  </div>
+
+  <div class="mt-auto">
+    <%= form.submit "Calculate" %>
+  </div>
+<% end %>

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :signups, only: [ :new, :create ]
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
-  resources :tools, only: [ :index, :show ]
+  resources :tools, only: [ :index, :show ], param: :slug
 
   resources :stocks, only: [ :index ]
   resources :stocks, only: :show, param: :ticker do

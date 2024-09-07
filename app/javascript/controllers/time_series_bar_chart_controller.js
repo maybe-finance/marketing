@@ -3,12 +3,8 @@ import tailwindColors from "@maybe/tailwindcolors"
 import * as d3 from "d3"
 
 export default class extends Controller {
-  static values = {
-    series: { type: Object, default: {} },
-    data: { type: Array, default: [] },
-    useLabels: { type: Boolean, default: true },
-  }
-  
+  static values = { series: Object, data: Array, useLabels: { type: Boolean, default: true } }
+
   #initialElementWidth = 0
   #initialElementHeight = 0
 
@@ -71,10 +67,10 @@ export default class extends Controller {
           const isTopSeries = Object.keys(this.seriesValue).reverse()[0] === d.key
 
           return this.#rectPathWithRadius({
-            x: x(d.data.date), 
-            y: y(d[1]), 
-            width: x.bandwidth(), 
-            height: y(d[0]) - y(d[1]), 
+            x: x(d.data.date),
+            y: y(d[1]),
+            width: x.bandwidth(),
+            height: y(d[0]) - y(d[1]),
             radius: !isTopSeries ? 0 : Math.min(x.bandwidth() / 4, 10),
           })
         });
@@ -159,8 +155,7 @@ export default class extends Controller {
         .attr("class", series.fillClass)
         .attr("rx", 2)
         .attr("ry", 2)
-        
-      
+
       item.append("text")
         .attr("x", 10)
         .attr("y", 10)
@@ -275,7 +270,7 @@ export default class extends Controller {
       .style("pointer-events", "none")
       .style("opacity", 0)
   }
-  
+
   #d3GroupMemo = null
   get #d3Content() {
     if (this.#d3GroupMemo) return this.#d3GroupMemo

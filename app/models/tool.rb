@@ -50,6 +50,13 @@ class Tool < ApplicationRecord
     }
   }
 
+  class << self
+    def for(slug:, **options)
+      tool = find_by! slug: slug
+      "Tool::#{tool.slug.tr("-", "_").classify}".constantize.new tool, **options
+    end
+  end
+
   def to_param
     slug
   end

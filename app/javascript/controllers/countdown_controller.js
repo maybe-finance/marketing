@@ -8,7 +8,7 @@ const SECONDS_IN_A_YEAR = 31556926; // Average seconds in a year (365.24 days)
 
 // Connects to data-controller="countdown"
 export default class extends Controller {
-  static values = { timeLeft: Number };
+  static values = { secondsLeft: Number };
   static targets = [
     "summary",
     "ticker",
@@ -31,7 +31,7 @@ export default class extends Controller {
 
   #startTicker() {
     this.tickerInterval = setInterval(() => {
-      this.timeLeftValue -= 1;
+      this.secondsLeftValue -= 1;
       this.#update();
     }, 1000);
   }
@@ -72,23 +72,23 @@ export default class extends Controller {
   }
 
   get duration() {
-    let timeLeft = this.timeLeftValue;
+    let secondsLeft = this.secondsLeftValue;
 
-    const years = Math.floor(timeLeft / SECONDS_IN_A_YEAR);
-    timeLeft %= SECONDS_IN_A_YEAR;
+    const years = Math.floor(secondsLeft / SECONDS_IN_A_YEAR);
+    secondsLeft %= SECONDS_IN_A_YEAR;
 
-    const months = Math.floor(timeLeft / SECONDS_IN_A_MONTH);
-    timeLeft %= SECONDS_IN_A_MONTH;
+    const months = Math.floor(secondsLeft / SECONDS_IN_A_MONTH);
+    secondsLeft %= SECONDS_IN_A_MONTH;
 
-    const days = Math.floor(timeLeft / SECONDS_IN_A_DAY);
-    timeLeft %= SECONDS_IN_A_DAY;
+    const days = Math.floor(secondsLeft / SECONDS_IN_A_DAY);
+    secondsLeft %= SECONDS_IN_A_DAY;
 
-    const hours = Math.floor(timeLeft / SECONDS_IN_AN_HOUR);
-    timeLeft %= SECONDS_IN_AN_HOUR;
+    const hours = Math.floor(secondsLeft / SECONDS_IN_AN_HOUR);
+    secondsLeft %= SECONDS_IN_AN_HOUR;
 
-    const minutes = Math.floor(timeLeft / SECONDS_IN_A_MINUTE);
+    const minutes = Math.floor(secondsLeft / SECONDS_IN_A_MINUTE);
 
-    const seconds = Math.floor(timeLeft % SECONDS_IN_A_MINUTE);
+    const seconds = Math.floor(secondsLeft % SECONDS_IN_A_MINUTE);
 
     return { years, months, days, hours, minutes, seconds };
   }
