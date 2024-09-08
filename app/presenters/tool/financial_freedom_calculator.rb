@@ -31,7 +31,7 @@ class Tool::FinancialFreedomCalculator < Tool::Presenter
   end
 
   def plot_data
-    savings_by_month.map.with_index do |savings, i|
+    monthly_savings.map.with_index do |savings, i|
       {
         date: Date.today + i.months,
         savingsRemaining: [ savings, 0 ].max,
@@ -54,8 +54,8 @@ class Tool::FinancialFreedomCalculator < Tool::Presenter
       annual_savings_growth_rate / 12
     end
 
-    def savings_by_month
-      @savings_by_month ||= begin
+    def monthly_savings
+      @monthly_savings ||= begin
         result = [ current_savings ]
         savings = current_savings
 
@@ -70,12 +70,12 @@ class Tool::FinancialFreedomCalculator < Tool::Presenter
     end
 
     def days_left
-      savings_by_month.size * DAYS_IN_A_MONTH - days_overdrawn
+      monthly_savings.size * DAYS_IN_A_MONTH - days_overdrawn
     end
 
     def days_overdrawn
-      if savings_by_month.last.to_i < 0
-        (savings_by_month.last / daily_expenses).abs
+      if monthly_savings.last.to_i < 0
+        (monthly_savings.last / daily_expenses).abs
       else
         0
       end
