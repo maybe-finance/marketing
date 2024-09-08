@@ -7,13 +7,7 @@
     <%= turbo_frame_tag :roi_results do %>
       <div class="flex-1">
         <% if tool.blank? %>
-          <div class="grid h-96 place-items-center">
-            <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
-              <%= lucide_icon "keyboard", class: "h-6 w-6 mx-auto" %>
-
-              <p>Fill in the fields to calculate your investment’s ROI.</p>
-            </div>
-          </div>
+          <%= render "tools/shared/blank_slate", text: "Fill in the fields to calculate your investment’s ROI." %>
         <% else %>
           <%= render "tools/widgets/content/roi_calculator", tool: tool %>
         <% end %>
