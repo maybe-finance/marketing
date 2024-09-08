@@ -1,5 +1,5 @@
 class Tool::FinancialFreedomCalculator < Tool::Presenter
-  def initialize(source, **options)
+  def initialize(_, **options)
     super
 
     @current_savings = (options[:current_savings].presence || 0).to_d

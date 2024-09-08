@@ -1,5 +1,5 @@
 class Tool::RoiCalculator < Tool::Presenter
-  def initialize(source, **options)
+  def initialize(_, **options)
     super
 
     @amount_invested = (options[:amount_invested].presence || 0).to_d
