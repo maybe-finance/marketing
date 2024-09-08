@@ -7,7 +7,7 @@
     <%= turbo_frame_tag :financial_freedom_results do %>
       <div class="flex-1 p-4">
         <% if tool.blank? %>
-          <%= render "tools/shared/blank_slate", text: "How long will your savings support you? Enter your details to find out now." %>
+          <%= render "tools/widgets/shared/blank_slate", text: "How long will your savings support you? Enter your details to find out now." %>
         <% elsif tool.free_forever? %>
           <div class="grid h-96 place-items-center">
             <div class="flex flex-col gap-4 text-sm text-center text-gray-900 max-w-80">

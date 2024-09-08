@@ -7,7 +7,7 @@
     <%= turbo_frame_tag :roi_results do %>
       <div class="flex-1">
         <% if tool.blank? %>
-          <%= render "tools/shared/blank_slate", text: "Fill in the fields to calculate your investment’s ROI." %>
+          <%= render "tools/widgets/shared/blank_slate", text: "Fill in the fields to calculate your investment’s ROI." %>
         <% else %>
           <%= render "tools/widgets/content/roi_calculator", tool: tool %>
         <% end %>

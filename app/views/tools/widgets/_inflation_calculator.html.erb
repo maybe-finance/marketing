@@ -7,7 +7,7 @@
     <%= turbo_frame_tag :inflation_results do %>
       <div class="flex-1">
         <% if tool.blank? %>
-          <%= render "tools/shared/blank_slate", text: "Fill in the fields to calculate how inflation impacts your asset’s price." %>
+          <%= render "tools/widgets/shared/blank_slate", text: "Fill in the fields to calculate how inflation impacts your asset’s price." %>
         <% else %>
           <%= render "tools/widgets/content/inflation_calculator", tool: tool %>
         <% end %>
