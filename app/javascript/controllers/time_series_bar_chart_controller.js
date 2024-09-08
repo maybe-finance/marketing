@@ -7,8 +7,35 @@ export default class extends Controller {
 
   #initialElementWidth = 0
   #initialElementHeight = 0
+  #d3TooltipMemo = null
+  #d3GroupMemo = null
+  #d3SvgMemo = null
+  #data = []
 
   connect() {
+    this.#install()
+    document.addEventListener("turbo:load", this.#reinstall)
+  }
+
+  disconnect() {
+    this.#teardown()
+    document.removeEventListener("turbo:load", this.#reinstall)
+  }
+
+  #reinstall = () => {
+    this.#teardown()
+    this.#install()
+  }
+
+  #teardown() {
+    this.#d3TooltipMemo = null
+    this.#d3GroupMemo = null
+    this.#d3SvgMemo = null
+
+    this.#d3Element.selectAll("*").remove()
+  }
+
+  #install() {
     this.#rememberInitialElementSize()
     this.#drawGridlines()
     this.#drawBarChart()
@@ -20,7 +47,6 @@ export default class extends Controller {
   }
 
   // Normalize data when it is set
-  #data = []
   dataValueChanged(value) {
     this.#data = value.map(d => ({
       ...d,
@@ -260,7 +286,6 @@ export default class extends Controller {
     `)
   }
 
-  #d3TooltipMemo = null
   get #d3Tooltip() {
     if (this.#d3TooltipMemo) return this.#d3TooltipMemo
 
@@ -271,7 +296,6 @@ export default class extends Controller {
       .style("opacity", 0)
   }
 
-  #d3GroupMemo = null
   get #d3Content() {
     if (this.#d3GroupMemo) return this.#d3GroupMemo
 
@@ -280,7 +304,6 @@ export default class extends Controller {
       .attr("transform", `translate(${this.#margin.left},${this.#margin.top})`)
   }
 
-  #d3SvgMemo = null
   get #d3Svg() {
     if (this.#d3SvgMemo) return this.#d3SvgMemo
 
