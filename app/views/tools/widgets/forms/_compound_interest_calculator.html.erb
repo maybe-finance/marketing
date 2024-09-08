@@ -1,0 +1,21 @@
+<%= form_with method: :get, data: { turbo_frame: :compound_interest_results } do |form| %>
+  <div data-controller="synchronized-input" class="flex flex-col gap-2">
+    <%= form.unit_field :initial_investment, label: "Initial investment", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+  </div>
+
+  <div data-controller="synchronized-input" class="relative flex flex-col gap-2">
+    <%= form.unit_field :monthly_contribution, label: "Monthly contribution", value: 0, unit_symbol: "$", right_label: "per month", data: { controller: "autonumeric" } %>
+  </div>
+
+  <div data-controller="synchronized-input" class="relative flex flex-col gap-2">
+    <%= form.unit_field :years_to_grow, label: "Years to grow", value: 0, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
+  </div>
+
+  <div data-controller="synchronized-input" class="relative flex flex-col gap-2">
+    <%= form.unit_field :annual_interest_rate, label: "Annual interest rate", value: 0, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 1 } } %>
+  </div>
+
+  <div class="mt-auto">
+    <%= form.submit "Calculate" %>
+  </div>
+<% end %>
