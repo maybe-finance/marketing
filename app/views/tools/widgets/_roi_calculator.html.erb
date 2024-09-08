@@ -1,0 +1,23 @@
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl" data-controller="roi-calculator">
+  <aside class="bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1">
+    <%= render "tools/widgets/forms/roi_calculator", tool: tool %>
+  </aside>
+
+  <section class="col-span-2">
+    <%= turbo_frame_tag :roi_results do %>
+      <div class="flex-1">
+        <% if tool.blank? %>
+          <div class="grid h-96 place-items-center">
+            <div class="flex flex-col gap-4 text-sm text-center text-gray-500 max-w-72">
+              <%= lucide_icon "keyboard", class: "h-6 w-6 mx-auto" %>
+
+              <p>Fill in the fields to calculate your investment’s ROI.</p>
+            </div>
+          </div>
+        <% else %>
+          <%= render "tools/widgets/charts/roi_calculator", tool: tool %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,8 +1,7 @@
-class Tool::FinancialFreedomCalculator
-  delegate_missing_to :source
-
+class Tool::FinancialFreedomCalculator < Tool::Presenter
   def initialize(source, **options)
-    @source = source
+    super
+
     @current_savings = (options[:current_savings].presence || 0).to_d
     @monthly_expenses = (options[:monthly_expenses].presence || 0).to_d
     @annual_savings_growth_rate = (options[:annual_savings_growth_rate].presence || 0).to_d / 100

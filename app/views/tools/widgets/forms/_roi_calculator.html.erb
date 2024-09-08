@@ -1,0 +1,18 @@
+<%= form_with method: :get, data: { turbo_frame: :roi_results } do |form| %>
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :amount_invested, label: "Amount Invested", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :amount_returned, label: "Amount Returned", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+  </div>
+
+  <div class="flex form-field">
+    <%= form.unit_field :investment_length, label: "Investment Length", value: 0, data: { controller: "autonumeric" }, outer_div_class: "border-0 shadow-none focus-within:border-transparent focus-within:ring-0 focus-within:ring-transparent" %>
+    <%= render partial: "shared/period_select", locals: { value: "years" } %>
+  </div>
+
+  <div class="mt-auto">
+    <%= form.submit "Calculate" %>
+  </div>
+<% end %>

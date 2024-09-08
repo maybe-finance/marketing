@@ -17,9 +17,9 @@ class ToolsController < ApplicationController
       end
     end
 
-    if @tool.needs_stock_data?
-      @stock_prices = StockPrice.fetch_stock_data
-    end
+    # if @tool.needs_stock_data?
+    #   @stock_prices = StockPrice.fetch_stock_data
+    # end
   end
 
   private
