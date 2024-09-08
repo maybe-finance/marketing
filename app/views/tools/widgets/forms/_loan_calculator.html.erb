@@ -1,0 +1,22 @@
+<%= form_with method: :get, data: { turbo_frame: :loan_calculator_results } do |form| %>
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :loan_amount, label: "Loan amount", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+  </div>
+
+  <div class="flex form-field">
+    <%= form.unit_field :loan_term, label: "Loan term" , value: 0, outer_div_class: "border-0 shadow-none focus-within:border-transparent focus-within:ring-0 focus-within:ring-transparent" %>
+    <%= render partial: "shared/period_select_loan" , locals: { value: "years" } %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :interest_rate, label: "Interest rate", value: 0, unit_symbol: "%", step: "any" %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.date_field :date, as: :date,label: "Start date" , value: form.object.try(:strftime,"%m/%d/%Y"), required: true, max: Date.today %>
+  </div>
+
+  <div class="mt-auto">
+    <%= form.submit "Calculate" %>
+  </div>
+<% end %>
