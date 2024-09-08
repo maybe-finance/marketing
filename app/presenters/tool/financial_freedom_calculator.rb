@@ -2,9 +2,9 @@ class Tool::FinancialFreedomCalculator < Tool::Presenter
   def initialize(_, **options)
     super
 
-    @current_savings = (options[:current_savings].presence || 0).to_d
-    @monthly_expenses = (options[:monthly_expenses].presence || 0).to_d
-    @annual_savings_growth_rate = (options[:annual_savings_growth_rate].presence || 0).to_d / 100
+    @current_savings = extract_decimal_option(options, :current_savings)
+    @monthly_expenses = extract_decimal_option(options, :monthly_expenses)
+    @annual_savings_growth_rate = extract_percentage_option(options, :annual_savings_growth_rate)
   end
 
   def blank?

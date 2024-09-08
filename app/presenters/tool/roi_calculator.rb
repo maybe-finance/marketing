@@ -2,9 +2,9 @@ class Tool::RoiCalculator < Tool::Presenter
   def initialize(_, **options)
     super
 
-    @amount_invested = (options[:amount_invested].presence || 0).to_d
-    @amount_returned = (options[:amount_returned].presence || 0).to_d
-    @investment_length = (options[:investment_length].presence || 0).to_d
+    @amount_invested = extract_decimal_option(options, :amount_invested)
+    @amount_returned = extract_decimal_option(options, :amount_returned)
+    @investment_length = extract_decimal_option(options, :investment_length)
     @investment_period = options[:investment_period].presence_in(%w[ years weeks days ]) || "years"
   end
 

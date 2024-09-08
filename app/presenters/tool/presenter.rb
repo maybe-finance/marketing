@@ -7,4 +7,12 @@ class Tool::Presenter
 
   private
     attr_reader :active_record
+
+    def extract_decimal_option(options, key)
+      (options[key].presence || 0).to_d
+    end
+
+    def extract_percentage_option(options, key)
+      extract_decimal_option(options, key) / 100
+    end
 end

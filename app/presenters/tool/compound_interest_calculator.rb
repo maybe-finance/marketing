@@ -4,10 +4,10 @@ class Tool::CompoundInterestCalculator < Tool::Presenter
   def initialize(_, **options)
     super
 
-    @initial_investment = (options[:initial_investment].presence || 0).to_d
-    @monthly_contribution = (options[:monthly_contribution].presence || 0).to_d
-    @years_to_grow = (options[:years_to_grow].presence || 0).to_d.clamp(0, 150) # guard against malicious input
-    @annual_interest_rate = (options[:annual_interest_rate].presence || 0).to_d / 100
+    @initial_investment = extract_decimal_option(options, :initial_investment)
+    @monthly_contribution = extract_decimal_option(options, :monthly_contribution)
+    @years_to_grow = extract_decimal_option(options, :years_to_grow).clamp(0, 150) # guard against malicious input
+    @annual_interest_rate = extract_percentage_option(options, :annual_interest_rate)
   end
 
   def blank?

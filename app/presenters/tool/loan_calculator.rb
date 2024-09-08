@@ -2,9 +2,9 @@ class Tool::LoanCalculator < Tool::Presenter
   def initialize(_, **options)
     super
 
-    @loan_amount = (options[:loan_amount].presence || 0).to_d
-    @interest_rate = (options[:interest_rate].presence || 0).to_d
-    @loan_term = (options[:loan_term].presence || 0).to_i
+    @loan_amount = extract_decimal_option(options, :loan_amount)
+    @interest_rate = extract_decimal_option(options, :interest_rate)
+    @loan_term = extract_decimal_option(options, :loan_term).to_i
     @loan_period = options[:loan_period].presence_in(%w[ years months ]) || "years"
     @date = Date.parse(options[:date].presence || Date.current.to_s)
   end

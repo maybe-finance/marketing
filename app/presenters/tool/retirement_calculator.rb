@@ -2,15 +2,16 @@ class Tool::RetirementCalculator < Tool::Presenter
   def initialize(_, **options)
     super
 
-    @annual_salary = (options[:annual_salary].presence || 0).to_d
-    @monthly_contribution = (options[:monthly_contribution].presence || 0).to_d / 100
-    @annual_salary_increase = (options[:annual_salary_increase].presence || 0).to_d / 100
-    @current_age = (options[:current_age].presence || 0).to_d
-    @retirement_age = (options[:retirement_age].presence || 0).to_d
-    @annual_rate_of_return = (options[:annual_rate_of_return].presence || 0).to_d / 100
-    @current_401k_balance = (options[:current_401k_balance].presence || 0).to_d
-    @employer_match = (options[:employer_match].presence || 0).to_d / 100
-    @salary_limit_match = (options[:salary_limit_match].presence || 0).to_d / 100
+    @annual_salary = extract_decimal_option(options, :annual_salary)
+    @current_age = extract_decimal_option(options, :current_age)
+    @retirement_age = extract_decimal_option(options, :retirement_age)
+    @current_401k_balance = extract_decimal_option(options, :current_401k_balance)
+
+    @monthly_contribution = extract_percentage_option(options, :monthly_contribution)
+    @annual_salary_increase = extract_percentage_option(options, :annual_salary_increase)
+    @annual_rate_of_return = extract_percentage_option(options, :annual_rate_of_return)
+    @employer_match = extract_percentage_option(options, :employer_match)
+    @salary_limit_match = extract_percentage_option(options, :salary_limit_match)
   end
 
   def blank?

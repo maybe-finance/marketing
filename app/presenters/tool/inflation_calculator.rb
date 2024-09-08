@@ -4,9 +4,9 @@ class Tool::InflationCalculator < Tool::Presenter
   def initialize(_, **options)
     super
 
-    @initial_amount = (options[:initial_amount].presence || 0).to_d
-    @inflation_percentage = (options[:inflation_percentage].presence || 0).to_d / 100
-    @years = (options[:years].presence || 0).to_d
+    @initial_amount = extract_decimal_option(options, :initial_amount)
+    @inflation_percentage = extract_percentage_option(options, :inflation_percentage)
+    @years = extract_decimal_option(options, :years)
   end
 
   def blank?
