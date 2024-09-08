@@ -1,0 +1,48 @@
+<section class="flex flex-col justify-between h-full px-8 py-4" data-controller="tabs" data-tabs-default-tab-value="one">
+  <div class="upper-wrapper">
+    <div class="bg-gray-25 p-1 rounded-[10px] flex flex-row w-full mb-8">
+      <button class="tab-item" type="button" id="one" data-tabs-target="btn" data-action="click->tabs#select">Future price</button>
+      <button class="tab-item" type="button" id="two" data-tabs-target="btn" data-action="click->tabs#select">Future buying power</button>
+    </div>
+
+    <div data-tabs-target="tab" id="one">
+      <div class="flex flex-col gap-2">
+        <p class="font-normal text-gray-500">Something that costs you <%= number_to_currency(tool.initial_amount) %> today, will cost you</p>
+        <p class="text-4xl font-medium text-gray-900"><%= number_to_currency(tool.future_value) %></p>
+        <p class="text-gray-500">after <%= tool.years %> years at <%= tool.inflation_rate %>% inflation annually</p>
+      </div>
+      <div class="flex justify-between mt-4">
+        <div class="flex flex-col gap-2">
+          <p class="text-gray-500">That's an increase of</p>
+          <p class="text-3xl font-medium text-red-500">+<%= tool.percentage_increase %>%</p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-gray-500">Which comes to</p>
+          <p class="text-3xl font-medium text-red-500">+<%= number_to_currency(tool.amount_increase) %></p>
+        </div>
+      </div>
+    </div>
+
+    <div data-tabs-target="tab" id="two">
+      <div class="flex flex-col gap-2">
+        <p class="font-normal text-gray-500">If you do nothing with that <%= number_to_currency(tool.initial_amount) %> it'll be worth</p>
+        <p class="text-4xl font-medium text-gray-900"><%= number_to_currency(tool.present_value) %></p>
+        <p class="text-gray-500">after <%= tool.years %> years at <%= tool.inflation_rate %>% inflation annually</p>
+      </div>
+      <div class="flex justify-between mt-4">
+        <div class="flex flex-col gap-2">
+          <p class="text-gray-500">That's an decrease of</p>
+          <p class="text-3xl font-medium text-red-500">-<%= tool.percentage_loss %>%</p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-gray-500">Which comes to</p>
+          <p class="text-3xl font-medium text-red-500">-<%= number_to_currency(tool.amount_loss) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="mt-4 text-sm text-gray-500">
+    On average, considering fluctuations, the global inflation rate has hovered around 3% to 3.5% per year over the last decade.
+  </p>
+</section>

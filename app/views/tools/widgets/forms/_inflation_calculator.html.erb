@@ -1,0 +1,17 @@
+<%= form_with method: :get, data: { turbo_frame: :inflation_results } do |form| %>
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :initial_amount, label: "Initial Amount" , value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :inflation_percentage, label: "Inflation in %" , label_right: "%", value: 3, data: { controller: "autonumeric" } %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :years, label: "Years" , label_right: "years", value: 0, data: { controller: "autonumeric" } %>
+  </div>
+
+  <div class="mt-auto md:mt-[140px]">
+    <%= form.submit "Calculate" %>
+  </div>
+<% end %>
