@@ -1,11 +1,17 @@
-<%# app/views/shared/_lock_toggle.html.erb %>
 <div data-controller="lock-toggle" class="flex items-center justify-between gap-2">
   <button class="grow-0 bg-gray-50 text-gray-500 p-2 rounded-lg" type="button" data-action="click->lock-toggle#toggle" data-lock-toggle-target="icon">
     <%= lucide_icon "lock-keyhole-open", class: "h-auto w-auto mx-auto", data: { lock_toggle_target: "unlockedIcon" } %>
     <%= lucide_icon "lock-keyhole", class: "h-auto w-auto mx-auto hidden", data: { lock_toggle_target: "lockedIcon" } %>
   </button>
+
   <span class="border-none font-normal text-sm" value="0">
-    <input class="border-none mx-0 px-0 w-8 bg-gray-25 font-normal text-sm" value="<%= value %>" data-controller="autonumeric" data-autonumeric-options-value='{"decimalPlaces": 0, "minimumValue": 0, "maximumValue": 100, "suffixText": "%"}' data-synchronized-input-target="input" disabled data-action="synchronized-input#syncValue" type="text" name="<%= name %>" id="<%= id %>"/>
+    <input id="<%= id %>" type="text" name="<%= name %>" value="<%= value %>"
+      class="border-none mx-0 px-0 w-8 bg-gray-25 font-normal text-sm"
+      data-controller="autonumeric"
+      data-action="synchronized-input#syncValue"
+      data-autonumeric-options-value='{"decimalPlaces": 0, "minimumValue": 0, "maximumValue": 100, "suffixText": "%"}'
+      data-synchronized-input-target="input" />
   </span>
-  <%= range_input_slider class: sliderClass, min: 0, max: 100, step: 1, value: value %>
+
+  <%= range_input_slider class: slider_class, min: 0, max: 100, step: 1, value: value %>
 </div>
