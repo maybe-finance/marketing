@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 08ee615d9fbcf0e2b1adacf0684125e6a5c914eb
+  revision: 7ebd5f6eaf2f0b91453cf38a0d22dc3ac4df93bd
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -79,6 +79,7 @@ GIT
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
+      uri (>= 0.13.1)
     rails (8.0.0.alpha)
       actioncable (= 8.0.0.alpha)
       actionmailbox (= 8.0.0.alpha)
@@ -242,7 +243,7 @@ GEM
       bigdecimal (~> 3.1)
     net-http (0.4.1)
       uri
-    net-imap (0.4.15)
+    net-imap (0.4.16)
       date
       net-protocol
     net-pop (0.1.2)
