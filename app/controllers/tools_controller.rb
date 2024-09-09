@@ -26,29 +26,29 @@ class ToolsController < ApplicationController
         .symbolize_keys
     end
 
-    def fetch_mortgage_rate(mortgage_duration)
-      cache_key = "mortgage_rate_#{mortgage_duration}"
+  # def fetch_mortgage_rate(mortgage_duration)
+  #   cache_key = "mortgage_rate_#{mortgage_duration}"
 
-      Rails.cache.fetch(cache_key, expires_in: 24.hours) do
-        response = HTTParty.get("https://api.stlouisfed.org/fred/series/observations",
-          query: {
-            series_id: mortgage_duration,
-            api_key: ENV["FRED_API_KEY"],
-            file_type: "json",
-            limit: 1,
-            sort_order: "desc",
-            frequency: "w"
-          }
-        )
+  #   Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+  #     response = HTTParty.get("https://api.stlouisfed.org/fred/series/observations",
+  #       query: {
+  #         series_id: mortgage_duration,
+  #         api_key: ENV["FRED_API_KEY"],
+  #         file_type: "json",
+  #         limit: 1,
+  #         sort_order: "desc",
+  #         frequency: "w"
+  #       }
+  #     )
 
-        if response.success?
-          JSON.parse(response.body)["observations"].first["value"]
-        else
-          raise "Failed to fetch mortgage rate: #{response.code} #{response.message}"
-        end
-      end
-    rescue StandardError => e
-      Rails.logger.error("Error fetching mortgage rate: #{e.message}")
-      nil
-    end
+  #     if response.success?
+  #       JSON.parse(response.body)["observations"].first["value"]
+  #     else
+  #       raise "Failed to fetch mortgage rate: #{response.code} #{response.message}"
+  #     end
+  #   end
+  # rescue StandardError => e
+  #   Rails.logger.error("Error fetching mortgage rate: #{e.message}")
+  #   nil
+  # end
 end
