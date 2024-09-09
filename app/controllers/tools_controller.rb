@@ -21,7 +21,7 @@ class ToolsController < ApplicationController
   private
     def tool_params
       params.to_unsafe_h
-        .transform_values { |value| value.gsub(/[^\d.]/, "") }
+        .transform_values { |value| value.gsub(/[^\d.]/, "") } # Remove non-numeric characters added by autonumeric
         .merge(slug: params[:slug])
         .symbolize_keys
     end
