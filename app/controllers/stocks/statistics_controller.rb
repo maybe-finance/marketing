@@ -16,6 +16,7 @@ class Stocks::StatisticsController < ApplicationController
       "X-Source-Type" => "api"
     }
     @stock_statistics = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}", nil, headers)
-    @stock_statistics = JSON.parse(@stock_statistics.body)["data"]["market_data"]
+    parsed_data = JSON.parse(@stock_statistics.body)["data"]
+    @stock_statistics = parsed_data && parsed_data["market_data"] ? parsed_data["market_data"] : nil
   end
 end
