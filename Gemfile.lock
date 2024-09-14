@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 08ee615d9fbcf0e2b1adacf0684125e6a5c914eb
+  revision: 7ebd5f6eaf2f0b91453cf38a0d22dc3ac4df93bd
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -79,6 +79,7 @@ GIT
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
+      uri (>= 0.13.1)
     rails (8.0.0.alpha)
       actioncable (= 8.0.0.alpha)
       actionmailbox (= 8.0.0.alpha)
@@ -114,7 +115,7 @@ GEM
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
-    avo (3.10.10)
+    avo (3.12.0)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -191,7 +192,7 @@ GEM
     ffi (1.17.0-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    hotwire-livereload (1.4.0)
+    hotwire-livereload (1.4.1)
       actioncable (>= 6.0.0)
       listen (>= 3.0.0)
       railties (>= 6.0.0)
@@ -205,7 +206,7 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    inline_svg (1.9.0)
+    inline_svg (1.10.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     io-console (0.7.2)
@@ -242,7 +243,7 @@ GEM
       bigdecimal (~> 3.1)
     net-http (0.4.1)
       uri
-    net-imap (0.4.15)
+    net-imap (0.4.16)
       date
       net-protocol
     net-pop (0.1.2)
@@ -264,12 +265,12 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
-    pagy (9.0.8)
+    pagy (9.0.9)
     parallel (1.24.0)
     parser (3.3.2.0)
       ast (~> 2.4.1)
       racc
-    pg (1.5.7)
+    pg (1.5.8)
     prism (0.30.0)
     propshaft (0.9.0)
       actionpack (>= 7.0.0)
@@ -312,7 +313,7 @@ GEM
     redis-client (0.22.2)
       connection_pool
     regexp_parser (2.9.2)
-    reline (0.5.9)
+    reline (0.5.10)
       io-console (~> 0.5)
     revise_auth (0.7.1)
       bcrypt (~> 3.1)
@@ -401,7 +402,7 @@ GEM
     unicode-display_width (2.5.0)
     uri (0.13.1)
     useragent (0.16.10)
-    view_component (3.13.0)
+    view_component (3.14.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)

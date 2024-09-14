@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   resources :tools, only: [ :index, :show ], param: :slug
 
   resources :stocks, only: [ :index ]
-  resources :stocks, only: :show, param: :ticker do
+  resources :stocks, only: :show, param: :ticker, constraints: { ticker: /[a-zA-Z0-9\-\.\/]+/ } do
     scope module: :stocks do
       resource :info, only: :show, controller: "info"
       resource :statistics, only: :show
