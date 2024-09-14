@@ -1,6 +1,6 @@
 class Tool::LoanCalculator < Tool::Presenter
-  def initialize(_, **options)
-    super
+  def initialize(**options)
+    @active_record = Tool.find_by! slug: "loan-calculator"
 
     @loan_amount = extract_decimal_option(options, :loan_amount)
     @interest_rate = extract_decimal_option(options, :interest_rate)
@@ -39,7 +39,7 @@ class Tool::LoanCalculator < Tool::Presenter
       loan_term * 12
     when "months"
       loan_term
-    end
+    end.clamp(1, 500) # guard against malicious input
   end
 
   def estimated_payoff_date

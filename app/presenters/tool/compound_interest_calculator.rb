@@ -1,8 +1,8 @@
 class Tool::CompoundInterestCalculator < Tool::Presenter
   attr_reader :years_to_grow
 
-  def initialize(_, **options)
-    super
+  def initialize(**options)
+    @active_record = Tool.find_by! slug: "compound-interest-calculator"
 
     @initial_investment = extract_decimal_option(options, :initial_investment)
     @monthly_contribution = extract_decimal_option(options, :monthly_contribution)

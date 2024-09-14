@@ -53,7 +53,7 @@ class Tool < ApplicationRecord
   class << self
     def for(slug:, **options)
       tool = find_by! slug: slug
-      "Tool::#{tool.slug.tr("-", "_").tr("401k-", "").classify}".constantize.new tool, **options
+      "Tool::#{tool.slug.tr("-", "_").tr("401k-", "").classify}".constantize.new(**options)
     end
   end
 

@@ -1,6 +1,6 @@
 class Tool::FinancialFreedomCalculator < Tool::Presenter
-  def initialize(_, **options)
-    super
+  def initialize(**options)
+    @active_record = Tool.find_by! slug: "financial-freedom-calculator"
 
     @current_savings = extract_decimal_option(options, :current_savings)
     @monthly_expenses = extract_decimal_option(options, :monthly_expenses)

@@ -1,6 +1,6 @@
 class Tool::RoiCalculator < Tool::Presenter
-  def initialize(_, **options)
-    super
+  def initialize(**options)
+    @active_record = Tool.find_by! slug: "roi-calculator"
 
     @amount_invested = extract_decimal_option(options, :amount_invested)
     @amount_returned = extract_decimal_option(options, :amount_returned)

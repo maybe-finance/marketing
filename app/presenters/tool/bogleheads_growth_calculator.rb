@@ -1,8 +1,8 @@
 class Tool::BogleheadsGrowthCalculator < Tool::Presenter
   attr_reader :invested_amount
 
-  def initialize(_, **options)
-    super
+  def initialize(**options)
+    @active_record = Tool.find_by! slug: "bogleheads-growth-calculator"
 
     @invested_amount = extract_decimal_option(options, :invested_amount)
 
