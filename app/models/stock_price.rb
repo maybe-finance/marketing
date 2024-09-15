@@ -11,6 +11,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_stock_prices_on_ticker  (ticker)
+#
 class StockPrice < ApplicationRecord
   TICKER_FULL_NAMES = {
     BND: "BND (Vanguard)",
