@@ -17,16 +17,14 @@ class Provider::Synth
   end
 
   private
+    BASE_URL = "https://api.synthfinance.com".freeze
+
     attr_reader :api_key
 
     StockPriceResponse = Struct.new :ticker, :date, :close, :success?, :raw_response, keyword_init: true
 
-    def base_url
-      "https://api.synthfinance.com"
-    end
-
     def fetch_raw_stock_prices(ticker:, start_date:, end_date:)
-      HTTParty.get "#{base_url}/tickers/#{ticker}/open-close",
+      HTTParty.get "#{BASE_URL}/tickers/#{ticker}/open-close",
         query: { start_date: start_date.to_s, end_date: end_date.to_s },
         headers: { "Authorization" => "Bearer #{api_key}", "X-Source" => "maybe_marketing", "X-Source-Type" => "api" }
     end
