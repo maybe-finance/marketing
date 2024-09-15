@@ -1,4 +1,4 @@
-<%= form_with method: :get, data: { turbo_frame: :bogleheads_results } do |form| %>
+<%= form_with method: :get, data: { turbo_frame: frame_id } do |form| %>
   <div data-controller="synchronized-input" class="flex flex-col gap-2">
     <%= form.unit_field :invested_amount, label: "Invested Amount", value: 10000, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
     <%= range_input_slider class: "from-pink-500 to-pink-500", min: 1000, max: 1000000, step: 1000, value: 10000 %>

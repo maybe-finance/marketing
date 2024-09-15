@@ -1,4 +1,4 @@
-<%= form_with method: :get, data: { turbo_frame: :mortgage_payoff_results, controller: "auto-submit-form", auto_submit_form_submit_on_connect_value: true } do |form| %>
+<%= form_with method: :get, data: { turbo_frame: frame_id, controller: "auto-submit-form", auto_submit_form_submit_on_connect_value: true } do |form| %>
   <div class="flex flex-col gap-2">
     <%= form.unit_field :loan_amount, label: "Loan amount", value: 500000, unit_symbol: "$", data: { controller: "autonumeric", auto_submit_form_target: "auto" } %>
   </div>
