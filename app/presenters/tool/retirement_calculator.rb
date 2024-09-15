@@ -1,6 +1,6 @@
 class Tool::RetirementCalculator < Tool::Presenter
   def initialize(**options)
-    @active_record = Tool.find_by! slug: "retirement-calculator"
+    @active_record = Tool.find_by! slug: "401k-retirement-calculator"
 
     @annual_salary = extract_decimal_option(options, :annual_salary)
     @current_age = extract_decimal_option(options, :current_age)
