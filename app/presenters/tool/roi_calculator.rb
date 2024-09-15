@@ -1,10 +1,9 @@
 class Tool::RoiCalculator < Tool::Presenter
-  def initialize(**options)
-    @amount_invested = extract_float_option(options, :amount_invested)
-    @amount_returned = extract_float_option(options, :amount_returned)
-    @investment_length = extract_float_option(options, :investment_length)
-    @investment_period = options[:investment_period].presence_in(%w[ years weeks days ]) || "years"
-  end
+  attribute :amount_invested, :tool_float, default: 0.0
+  attribute :amount_returned, :tool_float, default: 0.0
+  attribute :investment_length, :tool_float, default: 0.0
+
+  attribute :investment_period, :tool_enum, enum: %w[ years weeks days ], default: "years"
 
   def blank?
     [ amount_invested, amount_returned, investment_length ].all?(&:zero?)
@@ -19,7 +18,7 @@ class Tool::RoiCalculator < Tool::Presenter
   end
 
   def annualized_roi
-    (roi / investment_length).round(2)
+    (roi / investment_length_in_years).round(2)
   end
 
   def roi_sign
@@ -46,20 +45,18 @@ class Tool::RoiCalculator < Tool::Presenter
     WEEKS_IN_YEAR = 52.1775
     DAYS_IN_YEAR = 365.25
 
-    attr_reader :amount_invested, :amount_returned, :investment_period
-
     def active_record
       @active_record ||= Tool.find_by! slug: "roi-calculator"
     end
 
-    def investment_length
+    def investment_length_in_years
       case investment_period
       when "years"
-        @investment_length
+        investment_length
       when "weeks"
-        @investment_length / WEEKS_IN_YEAR
+        investment_length / WEEKS_IN_YEAR
       when "days"
-        @investment_length / DAYS_IN_YEAR
+        investment_length / DAYS_IN_YEAR
       end
     end
 end

@@ -1,17 +1,13 @@
 class Tool::BogleheadsGrowthCalculator < Tool::Presenter
-  attr_reader :invested_amount
+  attribute :invested_amount, :tool_float, default: 10_000.0
 
-  def initialize(**options)
-    @invested_amount = extract_float_option(options, :invested_amount)
+  attribute :stock_market_percentage, :tool_percentage, default: 40.0
+  attribute :international_stock_market_percentage, :tool_percentage, default: 30.0
+  attribute :bond_market_percentage, :tool_percentage, default: 30.0
 
-    @stock_market_ticker = options[:stock_market_ticker].presence || "VTI"
-    @international_stock_market_ticker = options[:international_stock_market_ticker].presence || "VXUS"
-    @bond_market_ticker = options[:bond_market_ticker].presence || "BND"
-
-    @stock_market_percentage = extract_percentage_option(options, :stock_market_percentage)
-    @international_stock_market_percentage = extract_percentage_option(options, :international_stock_market_percentage)
-    @bond_market_percentage = extract_percentage_option(options, :bond_market_percentage)
-  end
+  attribute :stock_market_ticker, :tool_enum, enum: StockPrice.known_tickers, default: "VTI"
+  attribute :international_stock_market_ticker, :tool_enum, enum: StockPrice.known_tickers, default: "VXUS"
+  attribute :bond_market_ticker, :tool_enum, enum: StockPrice.known_tickers, default: "BND"
 
   def blank?
     invested_amount.zero?
@@ -69,9 +65,6 @@ class Tool::BogleheadsGrowthCalculator < Tool::Presenter
 
   private
     delegate :number_to_currency, to: "ApplicationController.helpers"
-
-    attr_reader :stock_market_ticker, :international_stock_market_ticker, :bond_market_ticker,
-      :stock_market_percentage, :international_stock_market_percentage, :bond_market_percentage
 
     def active_record
       @active_record ||= Tool.find_by! slug: "bogleheads-growth-calculator"

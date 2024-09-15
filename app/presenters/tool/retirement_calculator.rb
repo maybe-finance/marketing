@@ -1,21 +1,19 @@
 class Tool::RetirementCalculator < Tool::Presenter
-  def initialize(**options)
-    @annual_salary = extract_float_option(options, :annual_salary)
-    @current_age = extract_float_option(options, :current_age)
-    @retirement_age = extract_float_option(options, :retirement_age)
-    @current_401k_balance = extract_float_option(options, :current_401k_balance)
+  attribute :retirement_age, :tool_integer, default: 65
 
-    @monthly_contribution = extract_percentage_option(options, :monthly_contribution)
-    @annual_salary_increase = extract_percentage_option(options, :annual_salary_increase)
-    @annual_rate_of_return = extract_percentage_option(options, :annual_rate_of_return)
-    @employer_match = extract_percentage_option(options, :employer_match)
-    @salary_limit_match = extract_percentage_option(options, :salary_limit_match)
-  end
+  attribute :annual_salary, :tool_float, default: 0.0
+  attribute :current_age, :tool_float, default: 0.0
+  attribute :current_401k_balance, :tool_float, default: 0.0
+
+  attribute :annual_rate_of_return, :tool_percentage, default: 5.0
+  attribute :monthly_contribution, :tool_percentage, default: 0.0
+  attribute :annual_salary_increase, :tool_percentage, default: 0.0
+  attribute :employer_match, :tool_percentage, default: 0.0
+  attribute :salary_limit_match, :tool_percentage, default: 0.0
 
   def blank?
     [ annual_salary, monthly_contribution, annual_salary_increase,
-      current_age, retirement_age, annual_rate_of_return,
-      current_401k_balance, employer_match, salary_limit_match ].all?(&:zero?)
+      current_age, current_401k_balance, employer_match, salary_limit_match ].all?(&:zero?)
   end
 
   def current_total_value
@@ -52,9 +50,6 @@ class Tool::RetirementCalculator < Tool::Presenter
   private
     COMPOUNDS_PER_YEAR = 12
 
-    attr_reader :annual_salary, :monthly_contribution, :annual_salary_increase, :current_age,
-      :retirement_age, :annual_rate_of_return, :current_401k_balance, :employer_match, :salary_limit_match
-
     def active_record
       @active_record ||= Tool.find_by! slug: "401k-retirement-calculator"
     end
@@ -64,7 +59,7 @@ class Tool::RetirementCalculator < Tool::Presenter
     end
 
     def monthly_rate_of_return
-      annual_rate_of_return / 12
+      annual_rate_of_return / 12.0
     end
 
     def yearly_data_points

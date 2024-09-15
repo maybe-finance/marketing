@@ -1,16 +1,13 @@
 class Tool::HomeAffordabilityCalculator < Tool::Presenter
-  attr_reader :desired_home_price, :down_payment, :annual_pre_tax_income,
-      :loan_duration, :loan_interest_rate, :monthly_debt_payments, :hoa_plus_pmi
+  attribute :loan_duration, :tool_integer, default: 0.0
 
-  def initialize(**options)
-    @loan_duration = extract_integer_option(options, :loan_duration)
-    @loan_interest_rate = extract_percentage_option(options, :loan_interest_rate)
-    @desired_home_price = extract_float_option(options, :desired_home_price)
-    @down_payment = extract_float_option(options, :down_payment)
-    @annual_pre_tax_income = extract_float_option(options, :annual_pre_tax_income)
-    @monthly_debt_payments = extract_float_option(options, :monthly_debt_payments)
-    @hoa_plus_pmi = extract_float_option(options, :hoa_plus_pmi)
-  end
+  attribute :loan_interest_rate, :tool_percentage, default: 0.0
+
+  attribute :desired_home_price, :tool_float, default: 0.0
+  attribute :down_payment, :tool_float, default: 0.0
+  attribute :annual_pre_tax_income, :tool_float, default: 0.0
+  attribute :monthly_debt_payments, :tool_float, default: 0.0
+  attribute :hoa_plus_pmi, :tool_float, default: 0.0
 
   def blank?
     [ desired_home_price, down_payment, annual_pre_tax_income, loan_interest_rate, monthly_debt_payments ].all?(&:zero?)

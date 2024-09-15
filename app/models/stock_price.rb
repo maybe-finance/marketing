@@ -47,5 +47,9 @@ class StockPrice < ApplicationRecord
     def full_ticker_name(ticker)
       TICKER_FULL_NAMES[ticker.to_sym]
     end
+
+    def known_tickers
+      TICKER_FULL_NAMES.stringify_keys.keys
+    end
   end
 end

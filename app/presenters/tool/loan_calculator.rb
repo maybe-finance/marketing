@@ -1,11 +1,9 @@
 class Tool::LoanCalculator < Tool::Presenter
-  def initialize(**options)
-    @loan_amount = extract_float_option(options, :loan_amount)
-    @interest_rate = extract_float_option(options, :interest_rate)
-    @loan_term = extract_integer_option(options, :loan_term)
-    @loan_period = options[:loan_period].presence_in(%w[ years months ]) || "years"
-    @date = Date.parse(options[:date].presence || Date.current.to_s)
-  end
+  attribute :loan_amount, :tool_float, default: 0.0
+  attribute :interest_rate, :tool_percentage, default: 0.0
+  attribute :loan_term, :tool_integer, default: 0
+  attribute :loan_period, :tool_enum, enum: %w[ years months ], default: "years"
+  attribute :date, :date, default: -> { Date.current }
 
   def blank?
     [ loan_amount, interest_rate, loan_term ].all?(&:zero?)
@@ -45,13 +43,11 @@ class Tool::LoanCalculator < Tool::Presenter
   end
 
   private
-    attr_reader :loan_amount, :interest_rate, :loan_term, :loan_period, :date
-
     def active_record
       @active_record ||= Tool.find_by! slug: "loan-calculator"
     end
 
     def monthly_interest_rate
-      interest_rate / 100 / 12
+      interest_rate / 12.0
     end
 end

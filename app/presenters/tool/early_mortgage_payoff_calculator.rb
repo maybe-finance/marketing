@@ -1,12 +1,12 @@
 class Tool::EarlyMortgagePayoffCalculator < Tool::Presenter
-  def initialize(**options)
-    @loan_amount = extract_float_option(options, :loan_amount).clamp(0, 1_000_000) # guard against malicious input
-    @original_term = extract_integer_option(options, :original_term)
-    @years_left = extract_integer_option(options, :years_left)
-    @interest_rate = extract_percentage_option(options, :interest_rate)
-    @extra_payment = extract_float_option(options, :extra_payment)
-    @savings_rate = extract_percentage_option(options, :savings_rate)
-  end
+  attribute :loan_amount, :tool_float, default: 0.0, min: 0.0, max: 1_000_000.0
+  attribute :extra_payment, :tool_float, default: 0.0
+
+  attribute :interest_rate, :tool_percentage, default: 0.0
+  attribute :savings_rate, :tool_percentage, default: 0.0
+
+  attribute :original_term, :tool_integer, default: 0
+  attribute :years_left, :tool_integer, default: 0
 
   def blank?
     [ loan_amount, original_term, years_left, interest_rate, extra_payment, savings_rate ].all?(&:zero?)
@@ -120,8 +120,6 @@ class Tool::EarlyMortgagePayoffCalculator < Tool::Presenter
   end
 
   private
-    attr_reader :loan_amount, :original_term, :years_left, :interest_rate, :extra_payment, :savings_rate
-
     def active_record
       @active_record ||= Tool.find_by! slug: "early-mortgage-payoff-calculator"
     end
