@@ -4,9 +4,9 @@ class Tool::InflationCalculator < Tool::Presenter
   def initialize(**options)
     @active_record = Tool.find_by! slug: "inflation-calculator"
 
-    @initial_amount = extract_decimal_option(options, :initial_amount)
+    @initial_amount = extract_float_option(options, :initial_amount)
     @inflation_percentage = extract_percentage_option(options, :inflation_percentage)
-    @years = extract_decimal_option(options, :years)
+    @years = extract_float_option(options, :years)
   end
 
   def blank?

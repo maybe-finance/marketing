@@ -4,9 +4,9 @@ class Tool::CompoundInterestCalculator < Tool::Presenter
   def initialize(**options)
     @active_record = Tool.find_by! slug: "compound-interest-calculator"
 
-    @initial_investment = extract_decimal_option(options, :initial_investment)
-    @monthly_contribution = extract_decimal_option(options, :monthly_contribution)
-    @years_to_grow = extract_decimal_option(options, :years_to_grow).clamp(0, 150) # guard against malicious input
+    @initial_investment = extract_float_option(options, :initial_investment)
+    @monthly_contribution = extract_float_option(options, :monthly_contribution)
+    @years_to_grow = extract_float_option(options, :years_to_grow).clamp(0, 150) # guard against malicious input
     @annual_interest_rate = extract_percentage_option(options, :annual_interest_rate)
   end
 

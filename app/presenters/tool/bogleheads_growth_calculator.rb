@@ -4,7 +4,7 @@ class Tool::BogleheadsGrowthCalculator < Tool::Presenter
   def initialize(**options)
     @active_record = Tool.find_by! slug: "bogleheads-growth-calculator"
 
-    @invested_amount = extract_decimal_option(options, :invested_amount)
+    @invested_amount = extract_float_option(options, :invested_amount)
 
     @stock_market_ticker = options[:stock_market_ticker].presence || "VTI"
     @international_stock_market_ticker = options[:international_stock_market_ticker].presence || "VXUS"

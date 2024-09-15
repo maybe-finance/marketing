@@ -2,10 +2,10 @@ class Tool::RetirementCalculator < Tool::Presenter
   def initialize(**options)
     @active_record = Tool.find_by! slug: "401k-retirement-calculator"
 
-    @annual_salary = extract_decimal_option(options, :annual_salary)
-    @current_age = extract_decimal_option(options, :current_age)
-    @retirement_age = extract_decimal_option(options, :retirement_age)
-    @current_401k_balance = extract_decimal_option(options, :current_401k_balance)
+    @annual_salary = extract_float_option(options, :annual_salary)
+    @current_age = extract_float_option(options, :current_age)
+    @retirement_age = extract_float_option(options, :retirement_age)
+    @current_401k_balance = extract_float_option(options, :current_401k_balance)
 
     @monthly_contribution = extract_percentage_option(options, :monthly_contribution)
     @annual_salary_increase = extract_percentage_option(options, :annual_salary_increase)

@@ -2,8 +2,8 @@ class Tool::FinancialFreedomCalculator < Tool::Presenter
   def initialize(**options)
     @active_record = Tool.find_by! slug: "financial-freedom-calculator"
 
-    @current_savings = extract_decimal_option(options, :current_savings)
-    @monthly_expenses = extract_decimal_option(options, :monthly_expenses)
+    @current_savings = extract_float_option(options, :current_savings)
+    @monthly_expenses = extract_float_option(options, :monthly_expenses)
     @annual_savings_growth_rate = extract_percentage_option(options, :annual_savings_growth_rate)
   end
 
