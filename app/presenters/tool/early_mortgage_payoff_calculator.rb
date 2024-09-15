@@ -145,12 +145,11 @@ class Tool::EarlyMortgagePayoffCalculator < Tool::Presenter
     end
 
     def months_to_payoff_with_extra_payments
-      if defined?(@months_to_payoff_with_extra_payments)
-        @months_to_payoff_with_extra_payments
-      else
+      unless defined?(@months_to_payoff_with_extra_payments)
         total_interest_with_extra_payments # set ivar as a side effect
-        @months_to_payoff_with_extra_payments
       end
+
+      @months_to_payoff_with_extra_payments
     end
 
     def months_saved
