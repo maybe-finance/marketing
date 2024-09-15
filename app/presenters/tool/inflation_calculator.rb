@@ -2,8 +2,6 @@ class Tool::InflationCalculator < Tool::Presenter
   attr_reader :years, :initial_amount
 
   def initialize(**options)
-    @active_record = Tool.find_by! slug: "inflation-calculator"
-
     @initial_amount = extract_float_option(options, :initial_amount)
     @inflation_percentage = extract_percentage_option(options, :inflation_percentage)
     @years = extract_float_option(options, :years)
@@ -51,4 +49,8 @@ class Tool::InflationCalculator < Tool::Presenter
 
   private
     attr_reader :inflation_percentage
+
+    def active_record
+      @active_record ||= Tool.find_by! slug: "inflation-calculator"
+    end
 end

@@ -2,8 +2,6 @@ class Tool::CompoundInterestCalculator < Tool::Presenter
   attr_reader :years_to_grow
 
   def initialize(**options)
-    @active_record = Tool.find_by! slug: "compound-interest-calculator"
-
     @initial_investment = extract_float_option(options, :initial_investment)
     @monthly_contribution = extract_float_option(options, :monthly_contribution)
     @years_to_grow = extract_float_option(options, :years_to_grow).clamp(0, 150) # guard against malicious input
@@ -41,6 +39,10 @@ class Tool::CompoundInterestCalculator < Tool::Presenter
     COMPOUNDS_PER_YEAR = 12
 
     attr_reader :initial_investment, :monthly_contribution, :annual_interest_rate
+
+    def active_record
+      @active_record ||= Tool.find_by! slug: "compound-interest-calculator"
+    end
 
     def yearly_values
       @yearly_value ||= begin

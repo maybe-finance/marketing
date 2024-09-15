@@ -3,8 +3,6 @@ class Tool::HomeAffordabilityCalculator < Tool::Presenter
       :loan_duration, :loan_interest_rate, :monthly_debt_payments, :hoa_plus_pmi
 
   def initialize(**options)
-    @active_record = Tool.find_by! slug: "home-affordability-calculator"
-
     @loan_duration = extract_integer_option(options, :loan_duration)
     @loan_interest_rate = extract_percentage_option(options, :loan_interest_rate)
     @desired_home_price = extract_float_option(options, :desired_home_price)
@@ -36,6 +34,10 @@ class Tool::HomeAffordabilityCalculator < Tool::Presenter
 
   private
     TIME_ZONE_NAME = "Eastern Time (US & Canada)".freeze
+
+    def active_record
+      @active_record ||= Tool.find_by! slug: "home-affordability-calculator"
+    end
 
     def mortgage_rate_provider
       @mortgage_rate_provider ||= Provider::Fred.new

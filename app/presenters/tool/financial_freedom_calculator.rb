@@ -1,7 +1,5 @@
 class Tool::FinancialFreedomCalculator < Tool::Presenter
   def initialize(**options)
-    @active_record = Tool.find_by! slug: "financial-freedom-calculator"
-
     @current_savings = extract_float_option(options, :current_savings)
     @monthly_expenses = extract_float_option(options, :monthly_expenses)
     @annual_savings_growth_rate = extract_percentage_option(options, :annual_savings_growth_rate)
@@ -49,6 +47,10 @@ class Tool::FinancialFreedomCalculator < Tool::Presenter
     SECONDS_IN_A_DAY = 60 * 60 * 24
 
     attr_reader :source, :current_savings, :monthly_expenses, :annual_savings_growth_rate
+
+    def active_record
+      @active_record ||= Tool.find_by! slug: "financial-freedom-calculator"
+    end
 
     def monthly_savings_growth_rate
       annual_savings_growth_rate / 12

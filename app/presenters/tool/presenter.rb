@@ -4,6 +4,10 @@ class Tool::Presenter
   private
     attr_reader :active_record
 
+    def active_record
+      raise NotImplementedError, "Each Tool::Presenter must know how to fetch its Tool active record"
+    end
+
     def extract_float_option(options, key)
       (options[key].presence || 0).to_f
     end

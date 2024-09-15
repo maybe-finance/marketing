@@ -2,8 +2,6 @@ class Tool::BogleheadsGrowthCalculator < Tool::Presenter
   attr_reader :invested_amount
 
   def initialize(**options)
-    @active_record = Tool.find_by! slug: "bogleheads-growth-calculator"
-
     @invested_amount = extract_float_option(options, :invested_amount)
 
     @stock_market_ticker = options[:stock_market_ticker].presence || "VTI"
@@ -74,6 +72,10 @@ class Tool::BogleheadsGrowthCalculator < Tool::Presenter
 
     attr_reader :stock_market_ticker, :international_stock_market_ticker, :bond_market_ticker,
       :stock_market_percentage, :international_stock_market_percentage, :bond_market_percentage
+
+    def active_record
+      @active_record ||= Tool.find_by! slug: "bogleheads-growth-calculator"
+    end
 
     def monthly_portfolio_breakdowns
       @monthly_portfolio_breakdowns ||= begin

@@ -1,7 +1,5 @@
 class Tool::LoanCalculator < Tool::Presenter
   def initialize(**options)
-    @active_record = Tool.find_by! slug: "loan-calculator"
-
     @loan_amount = extract_float_option(options, :loan_amount)
     @interest_rate = extract_float_option(options, :interest_rate)
     @loan_term = extract_integer_option(options, :loan_term)
@@ -48,6 +46,10 @@ class Tool::LoanCalculator < Tool::Presenter
 
   private
     attr_reader :loan_amount, :interest_rate, :loan_term, :loan_period, :date
+
+    def active_record
+      @active_record ||= Tool.find_by! slug: "loan-calculator"
+    end
 
     def monthly_interest_rate
       interest_rate / 100 / 12

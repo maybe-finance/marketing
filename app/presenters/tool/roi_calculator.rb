@@ -1,7 +1,5 @@
 class Tool::RoiCalculator < Tool::Presenter
   def initialize(**options)
-    @active_record = Tool.find_by! slug: "roi-calculator"
-
     @amount_invested = extract_float_option(options, :amount_invested)
     @amount_returned = extract_float_option(options, :amount_returned)
     @investment_length = extract_float_option(options, :investment_length)
@@ -49,6 +47,10 @@ class Tool::RoiCalculator < Tool::Presenter
     DAYS_IN_YEAR = 365.25
 
     attr_reader :amount_invested, :amount_returned, :investment_period
+
+    def active_record
+      @active_record ||= Tool.find_by! slug: "roi-calculator"
+    end
 
     def investment_length
       case investment_period
