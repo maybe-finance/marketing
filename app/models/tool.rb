@@ -53,7 +53,7 @@ class Tool < ApplicationRecord
   class << self
     def from(params)
       tool = find_by! slug: params.delete("slug")
-      "Tool::#{tool.slug.tr("-", "_").tr("401k-", "").classify}".constantize.new(params.compact_blank)
+      "Tool::#{tool.slug.tr("-", "_").delete_prefix("401k-").classify}".constantize.new(params.compact_blank)
     end
   end
 
