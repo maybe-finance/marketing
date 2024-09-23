@@ -28,7 +28,7 @@ class Tool::Presenter::RetirementCalculator < Tool::Presenter
     plot_data.last[:totalEmployerContributions].round(2)
   end
 
-  def series_data
+  def legend_data
     {
       contributed: {
         name: "Without employer match",

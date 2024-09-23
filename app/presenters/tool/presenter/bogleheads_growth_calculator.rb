@@ -34,7 +34,7 @@ class Tool::Presenter::BogleheadsGrowthCalculator < Tool::Presenter
     monthly_portfolio_breakdowns.last[:value]
   end
 
-  def series_data
+  def legend_data
     {
       value: {
         name: "Portfolio value",

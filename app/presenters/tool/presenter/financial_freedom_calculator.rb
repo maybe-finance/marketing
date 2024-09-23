@@ -12,7 +12,7 @@ class Tool::Presenter::FinancialFreedomCalculator < Tool::Presenter
     current_savings * monthly_savings_growth_rate >= monthly_expenses
   end
 
-  def series_data
+  def legend_data
     {
       savingsRemaining: {
         name: "Savings remaining",

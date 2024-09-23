@@ -13,7 +13,7 @@ class Tool::Presenter::CompoundInterestCalculator < Tool::Presenter
     plot_data.last[:currentTotalValue].round(2)
   end
 
-  def series_data
+  def legend_data
     {
       contributed: {
         name: "Contributed",
