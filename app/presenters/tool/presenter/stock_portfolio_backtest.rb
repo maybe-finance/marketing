@@ -10,7 +10,7 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
   attribute :stock_allocations, :tool_array, type: :percentage, default: []
 
   def blank?
-    [ benchmark_stock, start_date ].all?(&:blank?)
+    [ benchmark_stock, start_date ].all?(&:blank?) || start_date.month == end_date.month
   end
 
   def searchable_stocks
@@ -76,7 +76,7 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
     def portfolio_trend_by_date
       @portfolio_trend_by_date ||= unique_dates.map do |date|
         {}.tap do |h|
-          h[:yearMonth] = date.strftime("%m %Y")
+          h[:yearMonth] = date.strftime("%b %Y")
           h[:year] = date.year
           h[:month] = date.month
           h[:date] = date
