@@ -1,4 +1,4 @@
-class Tool::LoanCalculator < Tool::Presenter
+class Tool::Presenter::LoanCalculator < Tool::Presenter
   attribute :loan_amount, :tool_float, default: 0.0
   attribute :interest_rate, :tool_percentage, default: 0.0
   attribute :loan_term, :tool_integer, default: 0

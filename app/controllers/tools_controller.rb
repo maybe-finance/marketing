@@ -4,13 +4,7 @@ class ToolsController < ApplicationController
   end
 
   def show
-    @tool = Tool.from tool_params
-
-    # if @tool.slug == "stock-portfolio-backtest"
-    #   @stocks = Rails.cache.fetch("all_stocks", expires_in: 24.hours) do
-    #     Stock.select(:name, :symbol).map { |stock| { name: stock.name, value: stock.symbol } }
-    #   end
-    # end
+    @tool = Tool.presenter_from tool_params.compact_blank
   end
 
   private
@@ -33,6 +27,8 @@ class ToolsController < ApplicationController
         # Retirement Calculator
         :annual_salary, :monthly_contribution, :annual_salary_increase, :current_age, :retirement_age, :annual_rate_of_return, :current_401k_balance, :employer_match, :salary_limit_match,
         # ROI Calculator
-        :amount_invested, :amount_returned, :investment_period, :investment_length
+        :amount_invested, :amount_returned, :investment_period, :investment_length,
+        # Stock Portfolio Backtest
+        :benchmark_stock, :investment_amount, :start_date, :end_date, :stocks, :stock_allocations
     end
 end

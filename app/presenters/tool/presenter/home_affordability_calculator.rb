@@ -1,4 +1,4 @@
-class Tool::HomeAffordabilityCalculator < Tool::Presenter
+class Tool::Presenter::HomeAffordabilityCalculator < Tool::Presenter
   attribute :loan_duration, :tool_integer, default: 0.0
 
   attribute :loan_interest_rate, :tool_percentage, default: 0.0

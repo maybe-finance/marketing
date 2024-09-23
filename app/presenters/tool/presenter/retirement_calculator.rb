@@ -1,4 +1,4 @@
-class Tool::RetirementCalculator < Tool::Presenter
+class Tool::Presenter::RetirementCalculator < Tool::Presenter
   attribute :retirement_age, :tool_integer, default: 65
 
   attribute :annual_salary, :tool_float, default: 0.0

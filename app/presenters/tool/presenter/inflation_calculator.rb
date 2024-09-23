@@ -1,4 +1,4 @@
-class Tool::InflationCalculator < Tool::Presenter
+class Tool::Presenter::InflationCalculator < Tool::Presenter
   attribute :inflation_percentage, :tool_percentage, default: 3.0
 
   attribute :initial_amount, :tool_float, default: 0.0

@@ -1,4 +1,4 @@
-class Tool::FinancialFreedomCalculator < Tool::Presenter
+class Tool::Presenter::FinancialFreedomCalculator < Tool::Presenter
   attribute :annual_savings_growth_rate, :tool_percentage, default: 0.0
 
   attribute :current_savings, :tool_float, default: 0.0

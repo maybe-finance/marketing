@@ -1,4 +1,4 @@
-class Tool::CompoundInterestCalculator < Tool::Presenter
+class Tool::Presenter::CompoundInterestCalculator < Tool::Presenter
   attribute :annual_interest_rate, :tool_percentage, default: 0.0
 
   attribute :initial_investment, :tool_float, default: 0.0

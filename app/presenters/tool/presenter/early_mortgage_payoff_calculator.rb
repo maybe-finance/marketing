@@ -1,4 +1,4 @@
-class Tool::EarlyMortgagePayoffCalculator < Tool::Presenter
+class Tool::Presenter::EarlyMortgagePayoffCalculator < Tool::Presenter
   attribute :loan_amount, :tool_float, default: 0.0, min: 0.0, max: 1_000_000.0
   attribute :extra_payment, :tool_float, default: 0.0
 
@@ -13,7 +13,7 @@ class Tool::EarlyMortgagePayoffCalculator < Tool::Presenter
   end
 
   def mortgage_rate_30
-    Tool::HomeAffordabilityCalculator.new.mortgage_rate_30
+    Tool::Presenter::HomeAffordabilityCalculator.new.mortgage_rate_30
   end
 
   def interest_savings

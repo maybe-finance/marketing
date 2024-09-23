@@ -1,4 +1,4 @@
-class Tool::RoiCalculator < Tool::Presenter
+class Tool::Presenter::RoiCalculator < Tool::Presenter
   attribute :amount_invested, :tool_float, default: 0.0
   attribute :amount_returned, :tool_float, default: 0.0
   attribute :investment_length, :tool_float, default: 0.0
