@@ -2,27 +2,29 @@ import { Controller } from "@hotwired/stimulus"
 import * as d3 from "d3"
 
 export default class extends Controller {
-  static values = { data: { type: Object, default: {} }, }
+  static values = {
+    data: { type: Object, default: {} },
+  };
 
-  #data = []
-  #isMobile = window.innerWidth <= 768
+  #data = [];
+  #isMobile = window.innerWidth <= 768;
 
   dataValueChanged(value) {
-    this.#data = value
-    this.#drawChart()
+    this.#data = value;
+    this.#drawChart();
   }
 
   connect() {
-    this.#drawChart()
+    this.#drawChart();
   }
 
   #drawChart() {
-    const data = this.#data.segments
-    const desiredHomePrice = this.#data.desiredHomePrice
+    const data = this.#data.segments;
+    const desiredHomePrice = this.#data.desiredHomePrice;
 
-    const margin = this.#isMobile ? { top: 20, right: 10, bottom: 40, left: 10 } : { top: 20, right: 30, bottom: 40, left: 50 }
-    const width = (this.#isMobile ? 350 : 600) - margin.left - margin.right
-    const height = 400 - margin.top - margin.bottom
+    const margin = this.#isMobile ? { top: 20, right: 10, bottom: 40, left: 10 } : { top: 20, right: 30, bottom: 40, left: 50 };
+    const width = (this.#isMobile ? 350 : 600) - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
 
     const svg = d3.select(this.element)
       .html("")
@@ -30,38 +32,38 @@ export default class extends Controller {
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`)
+      .attr("transform", `translate(${margin.left},${margin.top})`);
 
     const subgroups = data.map(d => d.category)
     const stackedData = d3.stack().keys(subgroups)([data.reduce((acc, d) => {
-      acc[d.category] = d.value
-      return acc
-    }, {})])
+      acc[d.category] = d.value;
+      return acc;
+    }, {})]);
 
-    const totalValue = data.reduce((sum, d) => sum + d.value, 0)
+    const totalValue = data.reduce((sum, d) => sum + d.value, 0);
     if (desiredHomePrice > totalValue) {
-      stackedData[stackedData.length - 1][0][1] = desiredHomePrice
+      stackedData[stackedData.length - 1][0][1] = desiredHomePrice;
     }
 
     const x = d3.scaleBand()
       .domain(["Total"])
       .range([0, width])
-      .padding([0.2])
+      .padding([0.2]);
 
     svg.append("g")
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(x).tickSize(0))
-      .selectAll("text").remove()
+      .selectAll("text").remove();
 
     const y = d3.scaleLinear()
       .domain([0, Math.max(d3.max(stackedData, d => d3.max(d, d => d[1])), desiredHomePrice)])
-      .range([height, 0])
+      .range([height, 0]);
 
     const color = d3.scaleOrdinal()
       .domain(subgroups)
-      .range(["#10A861", "#FFCC19", "#FF8329", "#EC2222"])
+      .range(["#10A861", "#FFCC19", "#FF8329", "#EC2222"]);
 
-    this.#addGrid(svg, width, height, y)
+    this.#addGrid(svg, width, height, y);
 
     svg.append("g")
       .selectAll("g")
@@ -74,11 +76,11 @@ export default class extends Controller {
       .attr("x", d => x("Total"))
       .attr("y", d => y(d[1]))
       .attr("height", d => y(d[0]) - y(d[1]))
-      .attr("width", x.bandwidth())
+      .attr("width", x.bandwidth());
 
-    this.#addVerticalLine(svg, width, height)
-    this.#addTooltip(svg, data, width, height)
-    this.#addLabels(svg, y)
+    this.#addVerticalLine(svg, width, height);
+    this.#addTooltip(svg, data, width, height);
+    this.#addLabels(svg, y);
   }
 
   /**
@@ -96,7 +98,7 @@ export default class extends Controller {
       .attr("fill", "#737373")
       .attr("x", -8)
       .attr("dy", "0.35em")
-      .attr("text-anchor", "end")
+      .attr("text-anchor", "end");
   }
 
   #getColor(category) {
@@ -105,8 +107,8 @@ export default class extends Controller {
       "Good": "#FFCC19",
       "Caution": "#FF8329",
       "Risky": "#EC2222"
-    }
-    return colorMap[category]
+    };
+    return colorMap[category];
   }
 
   /**
@@ -127,7 +129,7 @@ export default class extends Controller {
       .style("stroke-dasharray", "1, 12")
       .style("stroke", "#B6B6B6")
       .style("stroke-width", 1.5)
-      .style("stroke-linecap", "round")
+      .style("stroke-linecap", "round");
   }
 
   /**
@@ -145,7 +147,7 @@ export default class extends Controller {
       .attr("y2", height)
       .style("stroke-dasharray", "4,4")
       .style("stroke", "#D6D6D6")
-      .style("stroke-width", 1.5)
+      .style("stroke-width", 1.5);
   }
 
   /**
@@ -157,37 +159,37 @@ export default class extends Controller {
    */
   #addTooltip(svg, data, width, height) {
     // Add indicator dot
-    const totalValue = d3.sum(data, d => d.value)
+    const totalValue = d3.sum(data, d => d.value);
     const y = d3.scaleLinear()
       .domain([0, totalValue])
-      .range([height, 0])
+      .range([height, 0]);
 
-    let cumulativeValue = 0
+    let cumulativeValue = 0;
     const segment = data.find(d => {
-      cumulativeValue += d.value
-      return cumulativeValue >= this.#data.desiredHomePrice
-    }) || data[data.length - 1]
+      cumulativeValue += d.value;
+      return cumulativeValue >= this.#data.desiredHomePrice;
+    }) || data[data.length - 1];
 
-    const segmentStart = cumulativeValue - segment.value
-    const segmentCenter = segmentStart + segment.value / 2
-    const indicatorY = y(segmentCenter)
+    const segmentStart = cumulativeValue - segment.value;
+    const segmentCenter = segmentStart + segment.value / 2;
+    const indicatorY = y(segmentCenter);
 
     // Add indicator dot
     const indicatorGroup = svg.append("g")
       .attr("class", "indicator-dot")
-      .attr("transform", `translate(${width / 2}, ${indicatorY})`)
+      .attr("transform", `translate(${width / 2}, ${indicatorY})`);
 
     indicatorGroup.append("circle")
       .attr("r", 10)
-      .attr("fill", "rgba(97, 114, 243, 0.1)")
+      .attr("fill", "rgba(97, 114, 243, 0.1)");
 
     indicatorGroup.append("circle")
       .attr("r", 6)
-      .attr("fill", "white")
+      .attr("fill", "white");
 
     indicatorGroup.append("circle")
       .attr("r", 5)
-      .attr("fill", "#6172F3")
+      .attr("fill", "#6172F3");
 
     const formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -196,27 +198,27 @@ export default class extends Controller {
       maximumFractionDigits: 0,
       notation: "compact",
       compactDisplay: "short"
-    })
+    });
 
     const originalValues = data.reduce((acc, item) => {
-      acc.push((acc[acc.length - 1] || 0) + item.value)
-      return acc
-    }, [])
+      acc.push((acc[acc.length - 1] || 0) + item.value);
+      return acc;
+    }, []);
 
     const categoryAmounts = data.map((item, index) => {
-      const min = index === 0 ? 0 : originalValues[index - 1]
-      const max = originalValues[index]
-      let range
+      const min = index === 0 ? 0 : originalValues[index - 1];
+      const max = originalValues[index];
+      let range;
       if (index === data.length - 1) {
-        range = `Over ${formatter.format(min)}`
+        range = `Over ${formatter.format(min)}`;
       } else {
-        range = index === 0 ? `Up to ${formatter.format(max)}` : `${formatter.format(min)}-${formatter.format(max)}`
+        range = index === 0 ? `Up to ${formatter.format(max)}` : `${formatter.format(min)}-${formatter.format(max)}`;
       }
       return `<div class="flex items-center gap-3 py-1 w-40">
            <span class="w-[4px] h-[12px] rounded-full" style="background: ${this.#getColor(item.category)}"></span>
            <span class="text-sm text-gray-900"> ${range}</span>
-          </div>`
-    }).reverse().join("")
+          </div>`;
+    }).reverse().join("");
 
     const tooltip = d3.select(this.element)
       .append("div")
@@ -234,4 +236,5 @@ export default class extends Controller {
       .style('top', `${indicatorY / 1.2}px`)
       .html(categoryAmounts)
   }
+
 }
