@@ -29,7 +29,11 @@ end
 
 class ToolPercentage < ToolFloat
   def cast(value)
-    super(value) / 100.0
+    value = super(value)
+
+    unless value.nil?
+      value / 100.0
+    end
   end
 end
 
@@ -45,7 +49,20 @@ class ToolEnum < ActiveModel::Type::ImmutableString
   end
 end
 
+class ToolArray < ActiveModel::Type::Value
+  def initialize(type:, **rest)
+    @type = type
+    super(**rest)
+  end
+
+  def cast(value)
+    value = @type == :percentage ? value.map { |v| ToolPercentage.new.cast(v) } : value
+    super(value)
+  end
+end
+
 ActiveModel::Type.register :tool_float, ToolFloat
 ActiveModel::Type.register :tool_integer, ToolInteger
 ActiveModel::Type.register :tool_percentage, ToolPercentage
 ActiveModel::Type.register :tool_enum, ToolEnum
+ActiveModel::Type.register :tool_array, ToolArray

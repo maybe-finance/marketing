@@ -1,0 +1,38 @@
+<%= form_with method: :get, data: { turbo_frame: frame_id, controller: "stocks-allocator" } do |form| %>
+  <%= render partial: "shared/section_divider", locals: { section_name: "Portfolio" } %>
+
+  <% 10.times do |i| %>
+    <%= render partial: "shared/stocks_allocator", locals: { list: tool.searchable_stocks.to_json, index: i, required: i == 0 } %>
+  <% end %>
+
+  <div class="flex items-center justify-end gap-2">
+    <span class="text-gray-700 text-xs">Total allocation</span>
+
+    <div class="flex items-center gap-[6px] px-[14px] py-2 h-9 bg-green-400/5 border border-gray-200 rounded-md">
+      <span class="text-black text-sm" data-stocks-allocator-target="totalDisplay">0%</span>
+      <%= lucide_icon "align-vertical-distribute-center", class: "h-4 w-4 text-gray-500 cursor-pointer", "data-action": "click->stocks-allocator#distributeEvenly" %>
+    </div>
+  </div>
+
+  <span class="text-red-500 text-xs" data-stocks-allocator-target="warningText"></span>
+
+  <%= render partial: "shared/section_divider", locals: { section_name: "Settings" } %>
+
+  <%= render partial: "shared/search_select", locals: { list: tool.searchable_stocks.to_json, label: "Benchmark", name: "benchmark_stock", required: true, placeholder: "Search for a stock" } %>
+
+  <div data-controller="synchronized-input" class="flex flex-col gap-2">
+    <%= form.unit_field :investment_amount, label: "Investment amount", value: 10_000, unit_symbol: "$", data: { controller: "autonumeric" } %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.date_field :start_date, label: "Start date", max: Date.today %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.date_field :end_date, label: "End date", max: Date.today, value: Date.today %>
+  </div>
+
+  <div class="mt-auto">
+    <%= form.submit "Calculate", data: { action: "stocks-allocator#submitForm" } %>
+  </div>
+<% end %>
