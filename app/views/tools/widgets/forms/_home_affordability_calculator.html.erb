@@ -1,14 +1,14 @@
 <%= form_with method: :get, data: { turbo_frame: frame_id } do |form| %>
   <div class="flex flex-col gap-2">
-    <%= form.unit_field :desired_home_price, label: "Desired home price", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+    <%= form.unit_field :desired_home_price, label: "Desired home price", value: tool.desired_home_price, unit_symbol: "$", data: { controller: "autonumeric" } %>
   </div>
 
   <div class="flex flex-col gap-2">
-    <%= form.unit_field :down_payment, label: "Down payment", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+    <%= form.unit_field :down_payment, label: "Down payment", value: tool.down_payment, unit_symbol: "$", data: { controller: "autonumeric" } %>
   </div>
 
   <div class="flex flex-col gap-2">
-    <%= form.unit_field :annual_pre_tax_income, label: "Annual pre-tax income", value: 0, unit_symbol: "$", data: { controller: "autonumeric" } %>
+    <%= form.unit_field :annual_pre_tax_income, label: "Annual pre-tax income", value: tool.annual_pre_tax_income, unit_symbol: "$", data: { controller: "autonumeric" } %>
   </div>
 
   <%= tag.div class: "flex flex-row gap-2", data: {
@@ -58,11 +58,11 @@
   <% end %>
 
   <div class="flex flex-col gap-2">
-    <%= form.unit_field :monthly_debt_payments, label: "Monthly debt payments", unit_symbol: "$", value: 0, data: { controller: "autonumeric" } %>
+    <%= form.unit_field :monthly_debt_payments, label: "Monthly debt payments", unit_symbol: "$", value: tool.monthly_debt_payments, data: { controller: "autonumeric" } %>
   </div>
 
   <div class="flex flex-col gap-2">
-    <%= form.unit_field :hoa_plus_pmi, label: "Monthly HOA + PMI", value: 0, unit_symbol: "$", data: { controller: "autonumeric" }, required: false %>
+    <%= form.unit_field :hoa_plus_pmi, label: "Monthly HOA + PMI", value: tool.hoa_plus_pmi, unit_symbol: "$", data: { controller: "autonumeric" }, required: false %>
   </div>
 
   <div class="mt-auto md:mt-[44px]">

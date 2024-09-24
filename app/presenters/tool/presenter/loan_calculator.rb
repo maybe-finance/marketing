@@ -3,7 +3,7 @@ class Tool::Presenter::LoanCalculator < Tool::Presenter
   attribute :interest_rate, :tool_percentage, default: 0.0
   attribute :loan_term, :tool_integer, default: 0
   attribute :loan_period, :tool_enum, enum: %w[ years months ], default: "years"
-  attribute :date, :date, default: -> { Date.current }
+  attribute :date, :date, default: -> { Date.today }
 
   def blank?
     [ loan_amount, interest_rate, loan_term ].all?(&:zero?)

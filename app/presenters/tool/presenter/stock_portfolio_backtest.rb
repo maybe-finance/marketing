@@ -4,7 +4,7 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
   attribute :investment_amount, :tool_float, default: 10_000.0
 
   attribute :start_date, :date
-  attribute :end_date, :date, default: -> { Date.current }
+  attribute :end_date, :date, default: -> { Date.today }
 
   attribute :stocks, :tool_array, type: :string, default: []
   attribute :stock_allocations, :tool_array, type: :percentage, default: []

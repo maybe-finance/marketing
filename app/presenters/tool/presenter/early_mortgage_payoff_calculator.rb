@@ -1,15 +1,15 @@
 class Tool::Presenter::EarlyMortgagePayoffCalculator < Tool::Presenter
-  attribute :loan_amount, :tool_float, default: 0.0, min: 0.0, max: 1_000_000.0
-  attribute :extra_payment, :tool_float, default: 0.0
+  attribute :loan_amount, :tool_float, default: 500_000, min: 0.0, max: 1_000_000.0
+  attribute :extra_payment, :tool_float, default: 500.0
 
   attribute :interest_rate, :tool_percentage, default: 0.0
-  attribute :savings_rate, :tool_percentage, default: 0.0
+  attribute :savings_rate, :tool_percentage, default: 4.0
 
-  attribute :original_term, :tool_integer, default: 0
-  attribute :years_left, :tool_integer, default: 0
+  attribute :original_term, :tool_integer, default: 30
+  attribute :years_left, :tool_integer, default: 30
 
   def blank?
-    [ loan_amount, original_term, years_left, interest_rate, extra_payment, savings_rate ].all?(&:zero?)
+    interest_rate.zero?
   end
 
   def mortgage_rate_30

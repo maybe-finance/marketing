@@ -21,7 +21,7 @@
   <%= render partial: "shared/search_select", locals: { list: tool.searchable_stocks.to_json, label: "Benchmark", name: "benchmark_stock", required: true, placeholder: "Search for a stock" } %>
 
   <div data-controller="synchronized-input" class="flex flex-col gap-2">
-    <%= form.unit_field :investment_amount, label: "Investment amount", value: 10_000, unit_symbol: "$", data: { controller: "autonumeric" } %>
+    <%= form.unit_field :investment_amount, label: "Investment amount", value: tool.investment_amount, unit_symbol: "$", data: { controller: "autonumeric" } %>
   </div>
 
   <div class="flex flex-col gap-2">
@@ -29,7 +29,7 @@
   </div>
 
   <div class="flex flex-col gap-2">
-    <%= form.date_field :end_date, label: "End date", max: Date.today, value: Date.today %>
+    <%= form.date_field :end_date, label: "End date", max: Date.today, value: tool.end_date %>
   </div>
 
   <div class="mt-auto">
