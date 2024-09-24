@@ -18,8 +18,6 @@ def load_stock_data_from_json(file_name)
 
     stock_data.save!
   end
-
-  puts "Successfully loaded historical stock prices"
 end
 
 load_stock_data_from_json("stocks.json")

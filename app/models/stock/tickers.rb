@@ -3,7 +3,7 @@ module Stock::Tickers
 
   class_methods do
     def full_ticker_name(ticker)
-      FULL_NAMES[ticker.to_sym]
+      FULL_NAMES[ticker]
     end
 
     def known_tickers
@@ -35,6 +35,5 @@ module Stock::Tickers
       "IXUS" => "IXUS (iShares)",
       "SCHB" => "SCHB (Schwab)",
       "SPTM" => "SPTM (SPDR)",
-      "VTI" => "VTI (Vanguard)"
-    }
+      "VTI" => "VTI (Vanguard)" }
 end

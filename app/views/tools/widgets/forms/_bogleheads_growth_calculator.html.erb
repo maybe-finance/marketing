@@ -1,7 +1,7 @@
 <%= form_with method: :get, data: { turbo_frame: frame_id } do |form| %>
   <div data-controller="synchronized-input" class="flex flex-col gap-2">
-    <%= form.unit_field :invested_amount, label: "Invested Amount", value: tool.invested_amount, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
-    <%= range_input_slider class: "from-pink-500 to-pink-500", min: 1_000, max: 1_000_000, step: 1_000, value: tool.invested_amount %>
+    <%= form.unit_field :invested_amount, label: "Invested Amount", value: 10_000, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
+    <%= range_input_slider class: "from-pink-500 to-pink-500", min: 1_000, max: 1_000_000, step: 1_000, value: 10_000 %>
   </div>
 
   <div data-controller="synchronized-ranges" class="flex flex-col gap-4">

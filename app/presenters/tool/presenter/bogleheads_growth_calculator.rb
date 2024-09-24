@@ -1,5 +1,5 @@
 class Tool::Presenter::BogleheadsGrowthCalculator < Tool::Presenter
-  attribute :invested_amount, :tool_float, default: 10_000.0
+  attribute :invested_amount, :tool_float, default: 0.0
 
   attribute :stock_market_percentage, :tool_percentage, default: 40.0
   attribute :international_stock_market_percentage, :tool_percentage, default: 30.0
@@ -31,7 +31,7 @@ class Tool::Presenter::BogleheadsGrowthCalculator < Tool::Presenter
   end
 
   def final_value
-    monthly_portfolio_breakdowns.last[:value]
+    monthly_portfolio_breakdowns.last[:value].round(2)
   end
 
   def legend_data
