@@ -1,0 +1,733 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/BND/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:39 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"44e7a479e91c4978ad996e74d53430e7"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 5c0ae9be-4177-4c68-97da-d691fb50d960
+      X-Runtime:
+      - '0.300054'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=XoWkJgQt2nL1pkyQw1JugpeU2KzAB6lC9kn6Um7wj4u3xKsDGJyUepWvMTxfQ8UD4%2BTpO2wWnv%2BNx%2BIrTqZcsuqVJxpWSXdb1JY%2FV4YRAXaLdm7SZTJBckQeqiHohzMQgZHWe3%2BT"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83ac84096c6c43-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"BND","prices":[{"date":"<%= Date.yesterday %>","open":75.18,"close":75.25,"high":75.36,"low":75.05,"volume":6389170}],"paging":{"prev":"/tickers/BND/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/BND/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":871}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:39 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SCHZ/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"4437b430fb26f0d4594ac0cfdf7f4fd6"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 69bcd5f1-b0e9-47df-8c12-0cd64604b1a7
+      X-Runtime:
+      - '0.332720'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=OChI78ULThTJHdDFzRSfFM9%2BDXLRA4o3wJ0Mq1s%2Fc64GUk3eGTiz7ym2sh0ZUyckEHyTDTU9nba9L3Pc7bWsmE1z9Fz8xaIVwRVcPlhlT%2FzSnEn%2Fa3yaK%2FasawHsUBVjFs2gJ7KF"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83ac87dbe22d35-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SCHZ","prices":[{"date":"<%= Date.yesterday %>","open":47.55,"close":47.6,"high":47.67,"low":47.47,"volume":480923}],"paging":{"prev":"/tickers/SCHZ/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/SCHZ/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":869}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:40 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SPAB/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"aa2683b0c76f896bd6dbfa29c8dac327"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 8986df00-7f7d-4bc5-a920-7257711254c5
+      X-Runtime:
+      - '0.291799'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=k6%2F42PlYctKGxtYZeQ2em1ygQAn9NsQvjcmY3h5rJ3GGGoI1sccaJZe7oEv9qL6kmcdlnpUYwWpWl1tELD7qDd3o%2FDwvfGgvLoj7OPb9UjRPDkIRZUBL0ve7YdPVCoJrqP2HzTIQ"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83ac8bf88f2cde-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SPAB","prices":[{"date":"<%= Date.yesterday %>","open":26.18,"close":26.19,"high":26.23,"low":26.12,"volume":1398160}],"paging":{"prev":"/tickers/SPAB/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/SPAB/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":869}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:40 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/AGG/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"e10bd7987894444293c3bd16b1ee96c7"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - f6f70456-9894-42cd-bdc5-b5d2a59635d9
+      X-Runtime:
+      - '0.414455'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=AJ%2Fq%2FIeGR4kI4JtBZmVbVUy%2BPzsj4nmjHOBOiHf7tLqpcKbxi58AUfl84YYmYSznisORe%2FYRUfUdC80X1Hnx3r1gGo1wbQ%2BjjDyCWiTpTFz6HIMxCsX11oWoiM0CrPfTWCRJCrrj"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83ac8fbec3e972-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"AGG","prices":[{"date":"<%= Date.yesterday %>","open":101.34,"close":101.44,"high":101.59,"low":101.19,"volume":7952297}],"paging":{"prev":"/tickers/AGG/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/AGG/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":868}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:41 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/VXUS/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:42 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"b5adc1f2e2faa4042a087abfcb3f8e6a"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - fdc91850-cc1a-4574-8ebe-7cd517ffd45c
+      X-Runtime:
+      - '0.351683'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=nFQ3eRrmZbAKaNSPcbL4wYyZbngoTuIcjYt0vq44XvHlkEaMVf257V1x37Ndhu15bOHqqqu1bdYgCAeX548evwqr%2F4nGiw56E5y%2BzDQbWyGGdvbDQU3Wb1OKfcdjt1YMd0rwbbrO"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83ac944ccf6c2c-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"VXUS","prices":[{"date":"<%= Date.yesterday %>","open":63.26,"close":63.41,"high":63.49,"low":63.22,"volume":2501945}],"paging":{"prev":"/tickers/VXUS/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/VXUS/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":867}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:42 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SCHF/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:42 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"19e3a16d7b0c42d1d9de706c8e08eb63"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 3c47c193-9f73-45c7-bdd5-6b136004aa33
+      X-Runtime:
+      - '0.295225'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=KCkHHPpAJo%2BQqr2btfBdMmrJhaoPsOsvAgwunqZkvmWxd60X%2Fmjr%2BYXoa1URDedxcq5ThV6thaIqlVPXBizH5uNYSwtSe4dvQCwdxwVcdBDCKGr5Z1XoCgUkt4fjGa%2FWGBN8M3Uo"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83ac983f32e5c2-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SCHF","prices":[{"date":"<%= Date.yesterday %>","open":40.47,"close":40.66,"high":40.7,"low":40.47,"volume":1552795}],"paging":{"prev":"/tickers/SCHF/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/SCHF/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":866}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:42 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SPDW/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:43 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"5b9a0b59b4e39206362e6e3d98cf33bd"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 930061a6-a8c7-4cf3-9782-19932f28dc6d
+      X-Runtime:
+      - '0.305151'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=bkhDmeFz89%2FGDroPf4obMA8Q9RBjSqQIHHpNWTtcYLak52JG%2B55kRSp8h5TzSblzuzEVWeIKlSp4aENYMo45ovVrri3rYfGkLP3PTHneyEJUoORrvG%2BcS3OyxfxLdDvex1IzZgUo"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83ac9c1ddbceb7-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SPDW","prices":[{"date":"<%= Date.yesterday %>","open":37.09,"close":37.13,"high":37.19,"low":37.01,"volume":1045664}],"paging":{"prev":"/tickers/SPDW/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/SPDW/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":865}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:43 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/IXUS/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:44 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"9d2f275a0e43d6a79a4515e42ded3660"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 8d0abf06-9e49-4cf3-a889-6aa345fff83f
+      X-Runtime:
+      - '0.343404'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=1Uv2tuTf2gkvdlGyrEdlX72ycNS5G%2BTCFbHMAOymBNCDshRV6bLH%2FBJHLX%2Fe35cMm07atMS16HT8tFNj6dTiaL15z1NTTmyMr%2FFrQmILKNHH%2B7wKkk7s47fQtyhbpkvTEeC6ZLsX"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83aca06e102e34-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"IXUS","prices":[{"date":"<%= Date.yesterday %>","open":71.0,"close":71.2,"high":71.28,"low":70.97,"volume":607798}],"paging":{"prev":"/tickers/IXUS/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/IXUS/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":864}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:44 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SCHB/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:44 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"4357c2aceb69bcc1c43aa43cf7b5c450"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - f37cf5e2-a909-4469-8d26-d9aaac3ef58a
+      X-Runtime:
+      - '0.258895'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=d9XQF3BYYJpxTmlspLGhUP%2Bw0YKHxh9t40TCsXgB90lEBcIz%2FepSbI3HhocCy138A9OjI435PEjNpNb7xFzMkU397mu4N5T9BPLW199MxVEgd9b%2BzRuwPnbfS%2F2416YvvcPe%2Fn9k"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83aca449c0e932-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SCHB","prices":[{"date":"<%= Date.yesterday %>","open":66.24,"close":66.26,"high":66.32,"low":66.07,"volume":493150}],"paging":{"prev":"/tickers/SCHB/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/SCHB/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":863}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:44 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SPTM/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:45 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"de5d732b12bf8d5e7a41d553e4862aae"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - a23b10c2-c6bd-4d62-8e6d-5c681e84966a
+      X-Runtime:
+      - '0.260230'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=UzubXZDfcD3DGaiL500OLUTJ9Z%2BnmUJKwNAmv4cgRRZFY3sxOtJltmY2G9XVqzbQrHWB%2FSr6jQW9h%2FttAvq5I7dUS8gvNX4CkZtT5aJNtMcKphXrbSLEXm97dTUmR8zCnv3Sx1WK"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83aca8198e2ccf-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SPTM","prices":[{"date":"<%= Date.yesterday %>","open":69.58,"close":69.57,"high":69.68,"low":69.43,"volume":328585}],"paging":{"prev":"/tickers/SPTM/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/SPTM/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":862}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:45 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/VTI/open-close?end_date=<%= Date.yesterday %>&interval=day&limit=100&start_date=<%= Date.yesterday %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 15:05:46 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"8b7306114cc9ce44ec6439ce2654970a"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 97d5d664-33f2-4777-99ae-a62f989d298b
+      X-Runtime:
+      - '0.296410'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=WKBLGpr1G0V0hZCYw1SMFc9W9VlmyUtBebRnWXJR2yLUd0Y3nJoCn5dZLBiiH3ETyYDLFoXzCvbjQDxhT25D6G1FSKyhirEuxSptKKp4QyM77%2FrBa5%2BBF4TRhmjpqHdgbxvixyxJ"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c83acabbdac7301-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"VTI","prices":[{"date":"<%= Date.yesterday %>","open":282.2,"close":282.16,"high":282.56,"low":281.46,"volume":1916684}],"paging":{"prev":"/tickers/VTI/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","next":"/tickers/VTI/open-close?start_date=<%= Date.yesterday %>\u0026end_date=<%= Date.yesterday %>\u0026interval=day\u0026limit=100\u0026page=","total_records":1,"current_page":1,"per_page":100,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":861}}'
+  recorded_at: Tue, 24 Sep 2024 15:05:46 GMT
+recorded_with: VCR 6.3.1

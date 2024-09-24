@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SPY/open-close?end_date=2024-01-01&interval=day&limit=100&start_date=2024-01-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 16:09:52 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 805f95ae-a3e5-42aa-baa4-8707d4ce7328
+      X-Runtime:
+      - '0.279405'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=QrDCdpEBEXp%2BWOQL490khaM8%2F65ucTFiIct36BFj6oIVVXEkPpvbX%2FqIhG%2F1UgAAoAoTqU5%2F8RRyntKakv98tHdpD0i%2Fvn%2FuP92XVgeWBdaYrwY2AF%2Bw%2FTFfIut2O2bK786p72Ab"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c840a92bc12e94e-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":"No data found for the specified range"}'
+  recorded_at: Tue, 24 Sep 2024 16:09:52 GMT
+recorded_with: VCR 6.3.1

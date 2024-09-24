@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stlouisfed.org/fred/series/observations?api_key=<FRED_API_KEY>&file_type=json&frequency=w&limit=1&series_id=MORTGAGE15US&sort_order=desc
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Server:
+      - Apache
+      Last-Modified:
+      - Thu, 19 Sep 2024 16:01:04 GMT
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 24 Sep 2024 16:10:42 GMT
+      Cache-Control:
+      - max-age=0, no-cache
+      Pragma:
+      - no-cache
+      Date:
+      - Tue, 24 Sep 2024 16:10:42 GMT
+      Content-Length:
+      - '368'
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=86400
+    body:
+      encoding: UTF-8
+      string: '{"realtime_start":"2024-09-24","realtime_end":"2024-09-24","observation_start":"1600-01-01","observation_end":"9999-12-31","units":"lin","output_type":1,"file_type":"json","order_by":"observation_date","sort_order":"desc","count":1726,"offset":0,"limit":1,"observations":[{"realtime_start":"2024-09-24","realtime_end":"2024-09-24","date":"2024-09-19","value":"5.15"}]}'
+  recorded_at: Tue, 24 Sep 2024 16:10:42 GMT
+recorded_with: VCR 6.3.1

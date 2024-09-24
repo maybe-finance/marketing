@@ -18,7 +18,11 @@
 require "test_helper"
 
 class StockPriceTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "updating stock prices" do
+    VCR.use_cassette "synth/known_ticker_prices" do
+      assert_difference -> { StockPrice.count }, +Stock.known_tickers.size do
+        StockPrice.update_stock_prices
+      end
+    end
+  end
 end

@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SPY/open-close?end_date=2024-02-01&interval=day&limit=10&start_date=2024-01-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2024 16:09:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1359'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"c9bf600ddee027b762bdc38e5b879875"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 6cb62f11-ffb5-497e-9e84-83578f91dfec
+      X-Runtime:
+      - '0.289220'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=W0F2dDu1q55g%2F%2BVwjL36g6ysPC%2BIczdVnxr2wUGjtgMJMoPXczA%2BmsUjXuhun78EswY8LoiX5jQheMezWyo32OcVQSX1w0bs%2BZCBdP7XmYzsxxz49LPF7orRn%2BRHKcPVLgFJB7Ay"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8c840a8f4dd1e72a-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SPY","prices":[{"date":"2024-01-02","open":472.16,"close":472.65,"high":473.67,"low":470.49,"volume":122985393},{"date":"2024-01-03","open":470.43,"close":468.79,"high":471.19,"low":468.17,"volume":103577866},{"date":"2024-01-04","open":468.3,"close":467.28,"high":470.96,"low":467.05,"volume":84202339},{"date":"2024-01-05","open":467.49,"close":467.92,"high":470.44,"low":466.43,"volume":86118913},{"date":"2024-01-08","open":468.43,"close":474.6,"high":474.75,"low":468.3,"volume":74667074},{"date":"2024-01-09","open":471.87,"close":473.88,"high":474.93,"low":471.35,"volume":65613439},{"date":"2024-01-10","open":474.16,"close":476.56,"high":477.45,"low":473.87,"volume":67300640},{"date":"2024-01-11","open":477.59,"close":476.35,"high":478.12,"low":472.26,"volume":77910013},{"date":"2024-01-12","open":477.84,"close":476.68,"high":478.6,"low":475.23,"volume":58026420},{"date":"2024-01-16","open":475.26,"close":474.93,"high":476.61,"low":473.06,"volume":84814870}],"paging":{"prev":"/tickers/SPY/open-close?start_date=2024-01-01\u0026end_date=2024-02-01\u0026interval=day\u0026limit=10\u0026page=","next":"/tickers/SPY/open-close?start_date=2024-01-01\u0026end_date=2024-02-01\u0026interval=day\u0026limit=10\u0026page=2","total_records":22,"current_page":1,"per_page":10,"total_pages":3},"meta":{"credits_used":1,"credits_remaining":860}}'
+  recorded_at: Tue, 24 Sep 2024 16:09:51 GMT
+recorded_with: VCR 6.3.1
