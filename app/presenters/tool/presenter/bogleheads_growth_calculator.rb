@@ -5,9 +5,9 @@ class Tool::Presenter::BogleheadsGrowthCalculator < Tool::Presenter
   attribute :international_stock_market_percentage, :tool_percentage, default: 30.0
   attribute :bond_market_percentage, :tool_percentage, default: 30.0
 
-  attribute :stock_market_ticker, :tool_enum, enum: StockPrice.known_tickers, default: "VTI"
-  attribute :international_stock_market_ticker, :tool_enum, enum: StockPrice.known_tickers, default: "VXUS"
-  attribute :bond_market_ticker, :tool_enum, enum: StockPrice.known_tickers, default: "BND"
+  attribute :stock_market_ticker, :tool_enum, enum: Stock.known_tickers, default: "VTI"
+  attribute :international_stock_market_ticker, :tool_enum, enum: Stock.known_tickers, default: "VXUS"
+  attribute :bond_market_ticker, :tool_enum, enum: Stock.known_tickers, default: "BND"
 
   def blank?
     invested_amount.zero?

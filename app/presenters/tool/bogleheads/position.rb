@@ -5,7 +5,7 @@ class Tool::Bogleheads::Position
   end
 
   def ticker_name
-    StockPrice.full_ticker_name(ticker)
+    Stock.full_ticker_name(ticker)
   end
 
   def earliest_known_date

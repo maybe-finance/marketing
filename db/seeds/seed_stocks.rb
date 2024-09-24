@@ -12,7 +12,7 @@ def load_stock_data_from_json(file_name)
     month = record["month"]
     date = record["datetime"]
 
-    Stock.find_or_create_by(symbol: ticker, name: StockPrice.full_ticker_name(ticker))
+    Stock.find_or_create_by(symbol: ticker, name: Stock.full_ticker_name(ticker))
     stock_data = StockPrice.find_or_create_by(ticker: ticker, year: year, month: month)
     stock_data.update(price: price, date: date) if record.has_key?("price")
 

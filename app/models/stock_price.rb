@@ -16,20 +16,6 @@
 #  index_stock_prices_on_ticker  (ticker)
 #
 class StockPrice < ApplicationRecord
-  TICKER_FULL_NAMES = {
-    BND: "BND (Vanguard)",
-    SCHZ: "SCHZ (Schwab)",
-    SPAB: "SPAB (SPDR)",
-    AGG: "AGG (iShares)",
-    VXUS: "VXUS (Vanguard)",
-    SCHF: "SCHF (Schwab)",
-    SPDW: "SPDW (SPDR)",
-    IXUS: "IXUS (iShares)",
-    SCHB: "SCHB (Schwab)",
-    SPTM: "SPTM (SPDR)",
-    VTI: "VTI (Vanguard)"
-  }
-
   class << self
     def update_stock_prices(date = Date.yesterday)
       StockPrice.distinct.pluck(:ticker).each do |ticker|
@@ -42,14 +28,6 @@ class StockPrice < ApplicationRecord
           end
         end
       end
-    end
-
-    def full_ticker_name(ticker)
-      TICKER_FULL_NAMES[ticker.to_sym]
-    end
-
-    def known_tickers
-      TICKER_FULL_NAMES.stringify_keys.keys
     end
   end
 end
