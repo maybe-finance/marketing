@@ -14,11 +14,11 @@ class Tool::Presenter::HomeAffordabilityCalculator < Tool::Presenter
   end
 
   def mortgage_rate_30
-    cached_mortgage_rate 30
+    mortgage_rate_cache.rate_30
   end
 
   def mortgage_rate_15
-    cached_mortgage_rate 15
+    mortgage_rate_cache.rate_15
   end
 
   def affordable_amount
@@ -30,28 +30,12 @@ class Tool::Presenter::HomeAffordabilityCalculator < Tool::Presenter
   end
 
   private
-    TIME_ZONE_NAME = "Eastern Time (US & Canada)".freeze
-
     def active_record
       @active_record ||= Tool.find_by! slug: "home-affordability-calculator"
     end
 
-    def mortgage_rate_provider
-      @mortgage_rate_provider ||= Provider::Fred.new
-    end
-
-    def cached_mortgage_rate(years)
-      method_name = "mortgage_rate_#{years}"
-
-      Time.use_zone TIME_ZONE_NAME do
-        Rails.cache.fetch method_name, expires_at: Time.current.end_of_day, skip_nil: true do
-          response = mortgage_rate_provider.public_send method_name
-
-          if response.success?
-            response.value
-          end
-        end
-      end
+    def mortgage_rate_cache
+      @mortgage_rate_cache ||= MortgageRate::Cache.new
     end
 
     def segments

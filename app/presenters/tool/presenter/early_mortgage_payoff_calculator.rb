@@ -13,7 +13,7 @@ class Tool::Presenter::EarlyMortgagePayoffCalculator < Tool::Presenter
   end
 
   def mortgage_rate_30
-    Tool::Presenter::HomeAffordabilityCalculator.new.mortgage_rate_30
+    mortgage_rate_cache.rate_30
   end
 
   def interest_savings
@@ -122,6 +122,10 @@ class Tool::Presenter::EarlyMortgagePayoffCalculator < Tool::Presenter
   private
     def active_record
       @active_record ||= Tool.find_by! slug: "early-mortgage-payoff-calculator"
+    end
+
+    def mortgage_rate_cache
+      @mortgage_rate_cache ||= MortgageRate::Cache.new
     end
 
     def monthly_rate
