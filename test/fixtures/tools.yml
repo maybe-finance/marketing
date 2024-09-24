@@ -15,16 +15,10 @@
 #  updated_at     :datetime         not null
 #
 
-one:
-  name: MyString
-  slug: MyString
-  intro: MyText
-  description: MyText
-  content: MyText
-
-two:
-  name: MyString
-  slug: MyString
-  intro: MyText
-  description: MyText
-  content: MyText
+roi_calculator:
+  name: ROI Calculator
+  slug: roi-calculator
+  intro: Calculate the return on your investments and evaluate the gain or loss.
+  description: See how to calculate the return on your investments and evaluate the gain or loss.
+  category_slug: investing
+  icon: line-chart
