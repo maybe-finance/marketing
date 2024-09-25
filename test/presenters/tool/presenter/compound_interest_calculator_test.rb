@@ -11,6 +11,7 @@ class Tool::Presenter::CompoundInterestCalculatorTest < ActiveSupport::TestCase
 
   test "blankness" do
     assert Tool::Presenter::CompoundInterestCalculator.new.blank?
+    assert_not @tool.blank?
   end
 
   test "total value" do

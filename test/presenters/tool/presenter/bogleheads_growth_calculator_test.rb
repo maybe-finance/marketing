@@ -12,6 +12,10 @@ class Tool::Presenter::BogleheadsGrowthCalculatorTest < ActiveSupport::TestCase
       bond_market_percentage: "30"
   end
 
+  test "blankness" do
+    assert Tool::Presenter::BogleheadsGrowthCalculator.new.blank?
+  end
+
   test "tool" do
     load Rails.root.join("db", "seeds", "seed_stocks.rb") # time consuming, which is why we use a single test
 
@@ -34,7 +38,6 @@ class Tool::Presenter::BogleheadsGrowthCalculatorTest < ActiveSupport::TestCase
       date: "2024-06-01",
       value: 22_549.633209608284 }
 
-    assert Tool::Presenter::BogleheadsGrowthCalculator.new.blank?
     assert_not @tool.blank?
     assert_equal "125%", @tool.returns
     assert_equal 2.3, @tool.downside_deviation_value
