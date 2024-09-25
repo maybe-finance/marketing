@@ -242,6 +242,8 @@ GEM
     method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.25.1)
+    mocha (2.4.5)
+      ruby2_keywords (>= 0.0.5)
     msgpack (1.7.2)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
@@ -361,6 +363,7 @@ GEM
     ruby-lsp-rails (0.3.11)
       ruby-lsp (>= 0.17.2, < 0.18.0)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     securerandom (0.3.1)
     selenium-webdriver (4.24.0)
@@ -453,6 +456,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   lucide-rails!
+  mocha
   pagy
   pg (~> 1.5)
   propshaft
