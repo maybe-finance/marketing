@@ -1,8 +1,8 @@
 class Tool::Presenter::RetirementCalculator < Tool::Presenter
   attribute :retirement_age, :tool_integer, default: 65
+  attribute :current_age, :tool_integer, default: 0.0
 
   attribute :annual_salary, :tool_float, default: 0.0
-  attribute :current_age, :tool_float, default: 0.0
   attribute :current_401k_balance, :tool_float, default: 0.0
 
   attribute :annual_rate_of_return, :tool_percentage, default: 5.0
@@ -84,7 +84,7 @@ class Tool::Presenter::RetirementCalculator < Tool::Presenter
 
           result << {}.tap do |h|
             h[:year] = year + 1
-            h[:date] = Date.today + year.years
+            h[:date] = Date.today + (year + 1).years
             h[:contributed] = employee_contribution_total
             h[:interest] = employee_contribution_total + employer_contribution_total
             h[:currentTotalValue] = retirement_amount
