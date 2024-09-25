@@ -3,10 +3,10 @@ require "test_helper"
 class Tool::Presenter::CompoundInterestCalculatorTest < ActiveSupport::TestCase
   setup do
     @tool = Tool::Presenter::CompoundInterestCalculator.new \
-      annual_interest_rate: 8.0,
-      initial_investment: 100_000.00,
-      monthly_contribution: 1_000.00,
-      years_to_grow: 10
+      annual_interest_rate: "8.0",
+      initial_investment: "$100,000.00",
+      monthly_contribution: "$1,000.00",
+      years_to_grow: "10"
   end
 
   test "blankness" do
