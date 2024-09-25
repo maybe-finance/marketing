@@ -15,15 +15,24 @@ class Tool::Presenter::BogleheadsGrowthCalculatorTest < ActiveSupport::TestCase
   test "tool" do
     load Rails.root.join("db", "seeds", "seed_stocks.rb") # time consuming, which is why we use a single test
 
+    first_plot_point = {
+      yearMonth: "Jan 2011",
+      year: 2011,
+      month: 1,
+      bondMarketFunds: 2_999.9999999999995,
+      internationalStockFunds: 3_000.00,
+      stockMarketFunds: 4_000.00,
+      date: "2011-01-01",
+      value: 10_000.00 }
     last_plot_point = {
       yearMonth: "Jun 2024",
       year: 2024,
       month: 6,
-      bondMarketFunds: 2704.0702016430173,
-      internationalStockFunds: 3620.088211708099,
-      stockMarketFunds: 16225.474796257167,
+      bondMarketFunds: 2_704.0702016430173,
+      internationalStockFunds: 3_620.088211708099,
+      stockMarketFunds: 16_225.474796257167,
       date: "2024-06-01",
-      value: 22549.633209608284 }
+      value: 22_549.633209608284 }
 
     assert Tool::Presenter::BogleheadsGrowthCalculator.new.blank?
     assert_not @tool.blank?
@@ -35,6 +44,7 @@ class Tool::Presenter::BogleheadsGrowthCalculatorTest < ActiveSupport::TestCase
     assert_equal "VTI (Vanguard)", @tool.legend_data[:stockMarketFunds][:name]
     assert_equal "VXUS (Vanguard)", @tool.legend_data[:internationalStockFunds][:name]
     assert_equal "BND (Vanguard)", @tool.legend_data[:bondMarketFunds][:name]
+    assert_equal first_plot_point, @tool.plot_data.first
     assert_equal last_plot_point, @tool.plot_data.last
   end
 end
