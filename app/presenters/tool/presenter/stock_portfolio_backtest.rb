@@ -52,7 +52,9 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
     end
 
     def unique_dates
-      @unique_dates ||= ohclv_data.flat_map { |data| data[:prices].map { |price| price["date"].to_date } }.uniq.sort
+      @unique_dates ||= ohclv_data.flat_map do |data|
+        data[:prices].map { |price| price["date"].to_date }
+      end.uniq.sort
     end
 
     def ohclv_data
@@ -60,13 +62,12 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
         tickers = stocks + [ benchmark_stock ]
 
         tickers.map do |ticker|
-          response = Provider::Synth.new.stock_prices(
+          response = Provider::Synth.new.stock_prices \
             ticker: ticker,
             start_date: start_date,
             end_date: end_date,
             interval: "month",
             limit: 500
-          )
 
           { ticker: response.ticker, prices: response.prices }
         end
@@ -77,9 +78,9 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
       @portfolio_trend_by_date ||= unique_dates.map do |date|
         {}.tap do |h|
           h[:yearMonth] = date.strftime("%b %Y")
-          h[:year] = date.year
-          h[:month] = date.month
-          h[:date] = date
+          h[:year] = date.year.to_s
+          h[:month] = date.month.to_s.rjust(2, "0")
+          h[:date] = date.iso8601
           h[:benchmark] = benchmark_value_at(date)
           h[:portfolio] = portfolio_value_at(date)
         end
@@ -111,7 +112,9 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
 
     def portfolio_shares_by_ticker
       @portfolio_shares_by_ticker ||= stocks.zip(stock_allocations).map do |stock, allocation|
-        [ stock, investment_amount * allocation / initial_stock_price(stock) ]
+        shares = investment_amount * allocation / initial_stock_price(stock)
+
+        [ stock, shares ]
       end.to_h
     end
 end
