@@ -34,7 +34,7 @@ class Provider::Synth
   end
 
   private
-    BASE_URL = "https://api.synthfinance.com".freeze
+    BASE_URL = "https://api.synthfinance.com"
 
     attr_reader :api_key
 

@@ -12,7 +12,7 @@ class Provider::Fred
   end
 
   private
-    BASE_URL = "https://api.stlouisfed.org/fred".freeze
+    BASE_URL = "https://api.stlouisfed.org/fred"
 
     attr_reader :api_key
 

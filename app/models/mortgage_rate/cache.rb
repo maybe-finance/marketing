@@ -8,7 +8,7 @@ class MortgageRate::Cache
   end
 
   private
-    TIME_ZONE_NAME = "Eastern Time (US & Canada)".freeze
+    TIME_ZONE_NAME = "Eastern Time (US & Canada)"
 
     def provider
       @provider ||= Provider::Fred.new
