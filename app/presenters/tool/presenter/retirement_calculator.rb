@@ -1,6 +1,6 @@
 class Tool::Presenter::RetirementCalculator < Tool::Presenter
-  attribute :retirement_age, :tool_integer, default: 65
-  attribute :current_age, :tool_integer, default: 0.0
+  attribute :retirement_age, :tool_integer, default: 65, max: 100
+  attribute :current_age, :tool_integer, default: 0, min: 0
 
   attribute :annual_salary, :tool_float, default: 0.0
   attribute :current_401k_balance, :tool_float, default: 0.0
