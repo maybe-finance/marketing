@@ -5,7 +5,7 @@ class MortgageRate::CacheTest < ActiveSupport::TestCase
     with_cache_store do
       cache = MortgageRate::Cache.new
 
-      VCR.use_cassette "fred/mortgage_rate_30", record: :once do
+      VCR.use_cassette "fred/mortgage_rate_30", record: :once, match_requests_on: [ uri_without_param(:api_key) ] do
         assert_equal "6.09", cache.rate_30
         assert_equal "6.09", cache.rate_30 # Raises if not cached because of record: :once
       end
@@ -13,6 +13,8 @@ class MortgageRate::CacheTest < ActiveSupport::TestCase
   end
 
   private
+    delegate :uri_without_param, to: "VCR.request_matchers", private: true
+
     def with_cache_store
       previous_cache = Rails.cache
       Rails.cache = ActiveSupport::Cache::MemoryStore.new
