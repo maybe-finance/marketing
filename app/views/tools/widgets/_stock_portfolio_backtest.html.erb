@@ -26,6 +26,8 @@
       <div class="flex-1 h-full group-aria-[busy=true]:hidden">
         <% if tool.blank? %>
           <%= render "tools/widgets/shared/blank_slate", text: "Add stocks on the left to start benchmarking and backtesting your portfolio!" %>
+        <% elsif tool.same_month? %>
+          <%= render "tools/widgets/shared/blank_slate", text: "Please choose start and end dates that are at least a month apart." %>
         <% else %>
           <%= render "tools/widgets/content/stock_portfolio_backtest", tool: tool %>
         <% end %>

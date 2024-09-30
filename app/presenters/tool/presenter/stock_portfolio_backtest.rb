@@ -10,7 +10,11 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
   attribute :stock_allocations, :tool_array, type: :percentage, default: []
 
   def blank?
-    [ benchmark_stock, start_date ].all?(&:blank?) || start_date.month == end_date.month
+    [ benchmark_stock, start_date ].all?(&:blank?)
+  end
+
+  def same_month?
+    start_date.month == end_date.month
   end
 
   def searchable_stocks
