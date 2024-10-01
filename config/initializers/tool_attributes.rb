@@ -50,12 +50,17 @@ class ToolEnum < ActiveModel::Type::ImmutableString
 end
 
 class ToolArray < ActiveModel::Type::Value
-  def initialize(type:, **rest)
+  def initialize(type:, max: nil, **rest)
     @type = type
+    @max = max
     super(**rest)
   end
 
   def cast(value)
+    if @max && value.size > @max
+      raise ArgumentError, "Value must have at most #{@max} elements"
+    end
+
     value = @type == :percentage ? value.map { |v| ToolPercentage.new.cast(v) } : value
     super(value)
   end

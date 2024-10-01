@@ -6,8 +6,8 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
   attribute :start_date, :date
   attribute :end_date, :date, default: -> { Date.today }
 
-  attribute :stocks, :tool_array, type: :string, default: []
-  attribute :stock_allocations, :tool_array, type: :percentage, default: []
+  attribute :stocks, :tool_array, type: :string, default: [], max: 10
+  attribute :stock_allocations, :tool_array, type: :percentage, default: [], max: 10
 
   def blank?
     [ benchmark_stock, start_date ].all?(&:blank?)

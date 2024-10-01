@@ -6,7 +6,7 @@ class Tool::Presenter::EarlyMortgagePayoffCalculator < Tool::Presenter
   attribute :savings_rate, :tool_percentage, default: 4.0
 
   attribute :original_term, :tool_integer, default: 30
-  attribute :years_left, :tool_integer, default: 30
+  attribute :years_left, :tool_integer, default: 30, max: 100
 
   def blank?
     interest_rate.zero?
@@ -42,6 +42,8 @@ class Tool::Presenter::EarlyMortgagePayoffCalculator < Tool::Presenter
       balance = loan_amount
 
       while balance > 0
+        break if balance > loan_amount # guard against malicious input
+
         @months_to_payoff_with_extra_payments += 1
 
         interest_payment = balance * monthly_rate

@@ -53,4 +53,14 @@ class Tool::Presenter::StockPortfolioBacktestTest < ActiveSupport::TestCase
     assert_equal first_plot_point, @tool.plot_data.first
     assert_equal last_plot_point, @tool.plot_data.last
   end
+
+  test "too many stocks" do
+    assert_raises ArgumentError do
+      Tool::Presenter::StockPortfolioBacktest.new(stocks: %w[ AGG SCHB SCHZ VTI VOO VEA VWO VTV VUG VIG VYM ]).stocks
+    end
+
+    assert_raises ArgumentError do
+      Tool::Presenter::StockPortfolioBacktest.new(stock_allocations: [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ]).stock_allocations
+    end
+  end
 end
