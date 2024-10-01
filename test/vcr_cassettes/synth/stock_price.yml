@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.synthfinance.com/tickers/SPY/open-close?end_date=2024-01-01&interval=day&limit=100&start_date=2024-01-01
+    uri: https://api.synthfinance.com/tickers/SPY/open-close?end_date=2024-01-01&interval=day&limit=1&start_date=2024-01-01
     body:
       encoding: US-ASCII
       string: ''
@@ -25,7 +25,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Tue, 24 Sep 2024 16:09:52 GMT
+      - Tue, 01 Oct 2024 03:53:34 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -45,23 +45,23 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Request-Id:
-      - 805f95ae-a3e5-42aa-baa4-8707d4ce7328
+      - daa727ad-16cf-4ddf-8533-05e6dc8c1ccb
       X-Runtime:
-      - '0.279405'
+      - '0.179054'
       X-Xss-Protection:
       - '0'
       Cf-Cache-Status:
       - DYNAMIC
       Report-To:
-      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=QrDCdpEBEXp%2BWOQL490khaM8%2F65ucTFiIct36BFj6oIVVXEkPpvbX%2FqIhG%2F1UgAAoAoTqU5%2F8RRyntKakv98tHdpD0i%2Fvn%2FuP92XVgeWBdaYrwY2AF%2Bw%2FTFfIut2O2bK786p72Ab"}],"group":"cf-nel","max_age":604800}'
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=v4%2FuIRr%2BRkqeXxIVjL06tGmIKgo0g4l0AzB0GaOs0bS7BC8FMvA3919q0V0N%2FH3bmg7J%2B9aKdX9AhVdAGsCinht%2FF%2FT0MPfN2H2zb%2Bn4HBoqDBLoKNKqV4IcxU6DCoUoiuzK0unv"}],"group":"cf-nel","max_age":604800}'
       Nel:
       - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
       Server:
       - cloudflare
       Cf-Ray:
-      - 8c840a92bc12e94e-DFW
+      - 8cb981a6c9d5e9b1-DFW
     body:
       encoding: ASCII-8BIT
       string: '{"error":"No data found for the specified range"}'
-  recorded_at: Tue, 24 Sep 2024 16:09:52 GMT
+  recorded_at: Tue, 01 Oct 2024 03:53:34 GMT
 recorded_with: VCR 6.3.1
