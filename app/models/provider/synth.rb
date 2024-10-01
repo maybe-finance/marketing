@@ -4,7 +4,7 @@ class Provider::Synth
   end
 
   def stock_price(ticker:, date:)
-    response = fetch_stock_prices(ticker: ticker, start_date: date, end_date: date)
+    response = fetch_stock_prices(ticker: ticker, start_date: date, end_date: date, limit: 1)
 
     if response.success? && (price = response.parsed_response["prices"].first) && (close = price["close"])
       StockPriceResponse.new \
