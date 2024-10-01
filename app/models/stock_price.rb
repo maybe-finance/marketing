@@ -18,7 +18,7 @@
 class StockPrice < ApplicationRecord
   class << self
     def update_stock_prices(date = Date.yesterday)
-      Stock.known_tickers.each do |ticker|
+      StockPrice.distinct.pluck(:ticker).each do |ticker|
         response = Provider::Synth.new.stock_price(ticker: ticker, date: date)
 
         if response.success?
