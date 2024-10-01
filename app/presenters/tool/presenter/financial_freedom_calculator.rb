@@ -59,7 +59,7 @@ class Tool::Presenter::FinancialFreedomCalculator < Tool::Presenter
         savings = current_savings
 
         while savings > 0
-          break if savings > current_savings || result.size > 1_000 # guard against malicious input
+          break if savings > current_savings || result.size > 1_200 # guard against malicious input
           savings = savings * (1 + monthly_savings_growth_rate) - monthly_expenses
           result << savings
         end
