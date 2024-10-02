@@ -1,49 +1,49 @@
-import { Controller } from "@hotwired/stimulus"
-import tailwindColors from "@maybe/tailwindcolors"
-import * as d3 from "d3"
+import { Controller } from "@hotwired/stimulus";
+import tailwindColors from "@maybe/tailwindcolors";
+import * as d3 from "d3";
 
 export default class extends Controller {
-  static values = { series: Object, data: Array, useLabels: { type: Boolean, default: true } }
+  static values = { series: Object, data: Array, useLabels: { type: Boolean, default: true } };
 
-  #initialElementWidth = 0
-  #initialElementHeight = 0
-  #d3TooltipMemo = null
-  #d3GroupMemo = null
-  #d3SvgMemo = null
-  #data = []
+  #initialElementWidth = 0;
+  #initialElementHeight = 0;
+  #d3TooltipMemo = null;
+  #d3GroupMemo = null;
+  #d3SvgMemo = null;
+  #data = [];
 
   connect() {
-    this.#install()
-    document.addEventListener("turbo:load", this.#reinstall)
+    this.#install();
+    document.addEventListener("turbo:load", this.#reinstall);
   }
 
   disconnect() {
-    this.#teardown()
-    document.removeEventListener("turbo:load", this.#reinstall)
+    this.#teardown();
+    document.removeEventListener("turbo:load", this.#reinstall);
   }
 
   #reinstall = () => {
-    this.#teardown()
-    this.#install()
-  }
+    this.#teardown();
+    this.#install();
+  };
 
   #teardown() {
-    this.#d3TooltipMemo = null
-    this.#d3GroupMemo = null
-    this.#d3SvgMemo = null
+    this.#d3TooltipMemo = null;
+    this.#d3GroupMemo = null;
+    this.#d3SvgMemo = null;
 
-    this.#d3Element.selectAll("*").remove()
+    this.#d3Element.selectAll("*").remove();
   }
 
   #install() {
-    this.#rememberInitialElementSize()
-    this.#drawGridlines()
-    this.#drawBarChart()
+    this.#rememberInitialElementSize();
+    this.#drawGridlines();
+    this.#drawBarChart();
     if (this.useLabelsValue) {
-      this.#drawXAxis()
-      this.#drawLegend()
+      this.#drawXAxis();
+      this.#drawLegend();
     }
-    this.#installTooltip()
+    this.#installTooltip();
   }
 
   // Normalize data when it is set
@@ -51,33 +51,33 @@ export default class extends Controller {
     this.#data = value.map(d => ({
       ...d,
       date: new Date(d.date),
-    }))
+    }));
   }
 
   #rememberInitialElementSize() {
-    this.#initialElementWidth = this.element.clientWidth
-    this.#initialElementHeight = this.element.clientHeight
+    this.#initialElementWidth = this.element.clientWidth;
+    this.#initialElementHeight = this.element.clientHeight;
   }
 
   get #contentWidth() {
-    return this.#initialElementWidth - this.#margin.left - this.#margin.right
+    return this.#initialElementWidth - this.#margin.left - this.#margin.right;
   }
 
   get #contentHeight() {
-    return this.#initialElementHeight - this.#margin.top - this.#margin.bottom
+    return this.#initialElementHeight - this.#margin.top - this.#margin.bottom;
   }
 
   get #margin() {
     if (this.useLabelsValue) {
-      return { top: 10, right: 0, bottom: 40, left: 0 }
+      return { top: 10, right: 0, bottom: 40, left: 0 };
     } else {
-      return { top: 0, right: 0, bottom: 0, left: 0 }
+      return { top: 0, right: 0, bottom: 0, left: 0 };
     }
   }
 
   #drawBarChart() {
-    const x = this.#d3XScale
-    const y = this.#d3YScale
+    const x = this.#d3XScale;
+    const y = this.#d3YScale;
 
     // Append a group for each series, and a rect for each element in the series.
     this.#d3Content
@@ -90,7 +90,7 @@ export default class extends Controller {
       .data(D => D.map(d => (d.key = D.key, d)))
       .join("path")
         .attr("d", (d, i) => {
-          const isTopSeries = Object.keys(this.seriesValue).reverse()[0] === d.key
+          const isTopSeries = Object.keys(this.seriesValue).reverse()[0] === d.key;
 
           return this.#rectPathWithRadius({
             x: x(d.data.date),
@@ -98,7 +98,7 @@ export default class extends Controller {
             width: x.bandwidth(),
             height: y(d[0]) - y(d[1]),
             radius: !isTopSeries ? 0 : Math.min(x.bandwidth() / 4, 10),
-          })
+          });
         });
   }
 
@@ -118,12 +118,12 @@ export default class extends Controller {
     const axisGenerator = d3.axisRight(this.#d3YScale)
       .ticks(10)
       .tickSize(this.#contentWidth)
-      .tickFormat("")
+      .tickFormat("");
 
     const gridlines = this.#d3Content
       .append("g")
       .attr("class", "d3gridlines")
-      .call(axisGenerator)
+      .call(axisGenerator);
 
     gridlines
       .selectAll("line")
@@ -134,40 +134,40 @@ export default class extends Controller {
 
     gridlines
       .select(".domain")
-      .remove()
+      .remove();
   }
 
   #drawXAxis() {
-    const formattedDateToday = d3.timeFormat("%d %b %Y")(new Date())
+    const formattedDateToday = d3.timeFormat("%d %b %Y")(new Date());
 
     const axisGenerator = d3.axisBottom(this.#d3XScale)
       .tickValues([ this.#data[0].date, this.#data[this.#data.length - 1].date ])
       .tickSize(0)
       .tickFormat((date) => {
-        const formattedDate = d3.timeFormat("%d %b %Y")(date)
-        return formattedDate === formattedDateToday ? "Today" : formattedDate
-      })
+        const formattedDate = d3.timeFormat("%d %b %Y")(date);
+        return formattedDate === formattedDateToday ? "Today" : formattedDate;
+      });
 
     const axis = this.#d3Content
       .append("g")
       .attr("transform", `translate(0, ${this.#contentHeight - this.#margin.bottom / 2 - 6})`)
-      .call(axisGenerator)
+      .call(axisGenerator);
 
     axis
       .select(".domain")
-      .remove()
+      .remove();
 
     axis
       .selectAll(".tick text")
       .style("fill", tailwindColors.gray[500])
       .style("font-size", "14px")
       .style("font-weight", "400")
-      .attr("text-anchor", (_, i) => i === 0 ? "start" : "end")
+      .attr("text-anchor", (_, i) => i === 0 ? "start" : "end");
   }
 
   #drawLegend() {
     const legend = this.#d3Content
-      .append("g")
+      .append("g");
 
     let offsetX = 0;
     Object.values(this.seriesValue).forEach((series, i) => {
@@ -180,7 +180,7 @@ export default class extends Controller {
         .attr("width", 4)
         .attr("class", series.fillClass)
         .attr("rx", 2)
-        .attr("ry", 2)
+        .attr("ry", 2);
 
       item.append("text")
         .attr("x", 10)
@@ -189,14 +189,14 @@ export default class extends Controller {
         .style("fill", tailwindColors.gray[900])
         .style("font-size", "14px")
         .style("font-weight", "400")
-        .text(series.name)
+        .text(series.name);
 
       const itemWidth = item.node().getBBox().width;
       offsetX += itemWidth + 12;
-    })
+    });
 
     const legendWidth = legend.node().getBBox().width;
-    legend.attr("transform", `translate(${this.#contentWidth/2 - legendWidth/2}, ${this.#contentHeight})`)
+    legend.attr("transform", `translate(${this.#contentWidth/2 - legendWidth/2}, ${this.#contentHeight})`);
   }
 
   #installTooltip() {
@@ -207,10 +207,10 @@ export default class extends Controller {
       .attr("fill", "none")
       .attr("pointer-events", "all")
       .on("mousemove", (event) => {
-        const x = this.#d3XScale
-        const d = this.#findDatumByPointer(event)
+        const x = this.#d3XScale;
+        const d = this.#findDatumByPointer(event);
 
-        this.#d3Content.selectAll(".guideline").remove()
+        this.#d3Content.selectAll(".guideline").remove();
 
         this.#d3Content
           .insert("path", ":first-child")
@@ -222,31 +222,31 @@ export default class extends Controller {
             width: x.bandwidth() + x.step() / 4,
             height: this.#contentHeight - this.#margin.bottom,
             radius: Math.min(x.bandwidth() / 4, 10),
-          }))
+          }));
 
         this.#d3Tooltip
           .html(this.#tooltipTemplate(d))
           .style("opacity", 1)
           .style("z-index", 999)
           .style("left", this.#tooltipLeft(event) + "px")
-          .style("top", event.pageY - 10 + "px")
+          .style("top", event.pageY - 10 + "px");
       })
       .on("mouseout", (event) => {
-        const hoveringOnGuideline = event.toElement?.classList.contains("guideline")
+        const hoveringOnGuideline = event.toElement?.classList.contains("guideline");
         if (!hoveringOnGuideline) {
-          this.#d3Content.selectAll(".guideline").remove()
-          this.#d3Tooltip.style("opacity", 0)
+          this.#d3Content.selectAll(".guideline").remove();
+          this.#d3Tooltip.style("opacity", 0);
         }
-      })
+      });
   }
 
   #tooltipLeft(event) {
-    const estimatedTooltipWidth = 250
-    const pageWidth = document.body.clientWidth
-    const tooltipX = event.pageX + 10
-    const overflowX = tooltipX + estimatedTooltipWidth - pageWidth
-    const adjustedX = overflowX > 0 ? event.pageX - overflowX - 20 : tooltipX
-    return adjustedX
+    const estimatedTooltipWidth = 250;
+    const pageWidth = document.body.clientWidth;
+    const tooltipX = event.pageX + 10;
+    const overflowX = tooltipX + estimatedTooltipWidth - pageWidth;
+    const adjustedX = overflowX > 0 ? event.pageX - overflowX - 20 : tooltipX;
+    return adjustedX;
   }
 
   #tooltipTemplate(datum) {
@@ -283,54 +283,54 @@ export default class extends Controller {
           </div>
         `).join("")
       }
-    `)
+    `);
   }
 
   get #d3Tooltip() {
-    if (this.#d3TooltipMemo) return this.#d3TooltipMemo
+    if (this.#d3TooltipMemo) return this.#d3TooltipMemo;
 
     return this.#d3TooltipMemo = this.#d3Element
       .append("div")
       .attr("class", "absolute text-sm bg-white border border-alpha-black-100 p-2 rounded-lg")
       .style("pointer-events", "none")
-      .style("opacity", 0)
+      .style("opacity", 0);
   }
 
   get #d3Content() {
-    if (this.#d3GroupMemo) return this.#d3GroupMemo
+    if (this.#d3GroupMemo) return this.#d3GroupMemo;
 
     return this.#d3GroupMemo = this.#d3Svg
       .append("g")
-      .attr("transform", `translate(${this.#margin.left},${this.#margin.top})`)
+      .attr("transform", `translate(${this.#margin.left},${this.#margin.top})`);
   }
 
   get #d3Svg() {
-    if (this.#d3SvgMemo) return this.#d3SvgMemo
+    if (this.#d3SvgMemo) return this.#d3SvgMemo;
 
     this.#d3SvgMemo = this.#d3Element
       .append("svg")
       .attr("width", this.#initialElementWidth)
       .attr("height", this.#initialElementHeight)
-      .attr("viewBox", [ 0, 0, this.#initialElementWidth, this.#initialElementHeight ])
+      .attr("viewBox", [ 0, 0, this.#initialElementWidth, this.#initialElementHeight ]);
 
     this.#d3SvgMemo.append("defs")
       .append("clipPath")
       .attr("id", "rounded-top")
       .append("path")
-      .attr("d", "M0,10 Q0,0 10,0 H90 Q100,0 100,10 V100 H0 Z")
+      .attr("d", "M0,10 Q0,0 10,0 H90 Q100,0 100,10 V100 H0 Z");
 
-    return this.#d3SvgMemo
+    return this.#d3SvgMemo;
   }
 
   get #d3Element() {
-    return d3.select(this.element)
+    return d3.select(this.element);
   }
 
   get #d3Series() {
     const stack = d3.stack()
-      .keys(Object.keys(this.seriesValue))
+      .keys(Object.keys(this.seriesValue));
 
-    return stack(this.#data)
+    return stack(this.#data);
   }
 
   get #d3XScale() {
@@ -343,17 +343,17 @@ export default class extends Controller {
   get #d3YScale() {
     return d3.scaleLinear()
       .domain([0, d3.max(this.#d3Series, d => d3.max(d, d => d[1]))])
-      .rangeRound([this.#contentHeight - this.#margin.bottom, this.#margin.top])
+      .rangeRound([this.#contentHeight - this.#margin.bottom, this.#margin.top]);
   }
 
   #findDatumByPointer(event) {
-    const x = this.#d3XScale
-    const [xPos] = d3.pointer(event)
+    const x = this.#d3XScale;
+    const [xPos] = d3.pointer(event);
 
-    const index = Math.floor((xPos - x.bandwidth() / 2) / x.step())
+    const index = Math.floor((xPos - x.bandwidth() / 2) / x.step());
 
-    if (index < 0) return this.#data[0]
-    if (index >= this.#data.length) return this.#data[this.#data.length - 1]
-    return this.#data[index]
+    if (index < 0) return this.#data[0];
+    if (index >= this.#data.length) return this.#data[this.#data.length - 1];
+    return this.#data[index];
   }
 }

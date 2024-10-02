@@ -54,6 +54,22 @@ class Tool::Presenter::StockPortfolioBacktestTest < ActiveSupport::TestCase
     assert_equal last_plot_point, @tool.plot_data.last
   end
 
+  test "with an unknown stock" do
+    VCR.use_cassette "synth/stock_portfolio_backtest_unknown_stock" do
+      tool = Tool::Presenter::StockPortfolioBacktest.new \
+        benchmark_stock: "IXUS",
+        investment_amount: "$100,000.00",
+        start_date: "2024-08-07",
+        end_date: "2024-09-29",
+        stocks: %w[ AACIU AACIW ],
+        stock_allocations: [ 50, 50 ]
+
+      assert_not_nil tool.plot_data
+      assert_not_nil tool.portfolio_growth
+      assert_not_nil tool.benchmark_growth
+    end
+  end
+
   test "too many stocks" do
     assert_raises ArgumentError do
       Tool::Presenter::StockPortfolioBacktest.new(stocks: %w[ AGG SCHB SCHZ VTI VOO VEA VWO VTV VUG VIG VYM ]).stocks

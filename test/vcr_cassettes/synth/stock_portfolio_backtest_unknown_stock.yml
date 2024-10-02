@@ -1,0 +1,203 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/AACIU/open-close?end_date=2024-09-29&interval=month&limit=500&start_date=2024-08-07
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 02 Oct 2024 21:40:58 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"0a4d906b7d82bec092a253d048d3317e"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - e79a578e-fe39-4712-a750-26f38c0834b5
+      X-Runtime:
+      - '0.214356'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=sFRUCVkVeqgYqJwk6lHXoX7FpIMYHxzwn7TkfHvGpJtA598fu3ksonsJhlA%2B1Gr03DgRkRYlMJkp5oC4XOA7LeQCyIMdrOMmc24WPvWOnK5xKWxB%2F8FweECS49FfxCbs2E%2B%2BnGcQ"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8cc7da990c78ac96-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"AACIU","prices":[],"paging":{"prev":"/tickers/AACIU/open-close?start_date=2024-08-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","next":"/tickers/AACIU/open-close?start_date=2024-08-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","total_records":0,"current_page":1,"per_page":500,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":781}}'
+  recorded_at: Wed, 02 Oct 2024 21:40:58 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/AACIW/open-close?end_date=2024-09-29&interval=month&limit=500&start_date=2024-08-07
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 02 Oct 2024 21:40:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"36d29007d7b57f0d7a68b6075c209cf8"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 48885efe-8684-48aa-9115-89e9f4da05cf
+      X-Runtime:
+      - '0.226892'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=kLbFD3zFqcU7LuW%2FEjZpfTZHwQZHhhZ%2BJIqv92RV5UkTZ6Ef2B0b3MRqFl7JPpWm9SmpGUpFG3aLGJeMM2uZVahnPoOAVRKP19IUcgnTciYq7w23ubj27WGEaD26BKKH%2BG9xWEI3"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8cc7da9cb98636ce-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"AACIW","prices":[],"paging":{"prev":"/tickers/AACIW/open-close?start_date=2024-08-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","next":"/tickers/AACIW/open-close?start_date=2024-08-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","total_records":0,"current_page":1,"per_page":500,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":780}}'
+  recorded_at: Wed, 02 Oct 2024 21:40:59 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/IXUS/open-close?end_date=2024-09-29&interval=month&limit=500&start_date=2024-08-07
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 02 Oct 2024 21:40:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"c9b9d1be69856e8992df3aa46ed71933"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 4ce1b815-2eac-4c47-abc2-92eed14a4e84
+      X-Runtime:
+      - '0.222578'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=%2B%2BDMUY0uAWC%2B%2BTXBvNaAul8NIxgAaR1tsfs4lLK2CMPon97wP2Q48CEtAJxyodKDoCGJd%2Fxtfo4ofDb1XOaxsqWlzTDmO4UV%2BKiUy3vIanlKmtw%2FO8NJhF7XQ%2BOPI4FJQYP18spR"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8cc7daa0b9d3ab28-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"IXUS","prices":[{"date":"2024-09-01","open":70.44,"close":72.63,"high":73.53,"low":67.95,"volume":19366823}],"paging":{"prev":"/tickers/IXUS/open-close?start_date=2024-08-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","next":"/tickers/IXUS/open-close?start_date=2024-08-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","total_records":1,"current_page":1,"per_page":500,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":779}}'
+  recorded_at: Wed, 02 Oct 2024 21:40:59 GMT
+recorded_with: VCR 6.3.1
