@@ -1,0 +1,17 @@
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl">
+  <aside class="bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1 w-fit">
+    <%= render "tools/widgets/forms/401k_retirement_calculator", tool: tool, frame_id: :retirement_results %>
+  </aside>
+
+  <div class="col-span-2 ml-6">
+    <%= turbo_frame_tag :retirement_results do %>
+      <div class="flex-1">
+        <% if tool.blank? %>
+          <%= render "tools/widgets/shared/blank_slate", text: "Enter your details to see how your 401k can grow over time and secure retirement!" %>
+        <% else %>
+          <%= render "tools/widgets/content/401k_retirement_calculator", tool: tool %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

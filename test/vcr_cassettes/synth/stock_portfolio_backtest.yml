@@ -1,0 +1,277 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/AGG/open-close?end_date=2024-09-29&interval=month&limit=500&start_date=2020-01-07
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 30 Sep 2024 04:17:24 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '5726'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"07ed615c9cf3d1498c8ef801fea57e1b"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 6f4816e7-9b0a-40f9-ac8f-96bf2cf559e4
+      X-Runtime:
+      - '0.668647'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=Ph7dc8dmhnw2fCbeB2AZp6vbJgxPuElZu%2BS3SRngZ3QcEH%2FIfCIXPpu5yfEhmsAvGRO538NH2FX5TUfHclEePx7rWFrJh%2Fx1ZV2uvcZhaZu2hysp3mzwg9HvNUt7A4WENb%2FTYJiD"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8cb1672b9a16e7eb-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"AGG","prices":[{"date":"2020-02-01","open":114.2,"close":116.22,"high":116.34,"low":113.76,"volume":126899769},{"date":"2020-03-01","open":116.29,"close":115.37,"high":119.27,"low":105.56,"volume":309747824},{"date":"2020-04-01","open":115.38,"close":117.1,"high":117.62,"low":114.28,"volume":135731687},{"date":"2020-05-01","open":116.97,"close":117.65,"high":117.71,"low":116.07,"volume":110462862},{"date":"2020-06-01","open":117.35,"close":118.21,"high":118.32,"low":116.48,"volume":113175328},{"date":"2020-07-01","open":117.9,"close":119.56,"high":119.63,"low":117.76,"volume":122569133},{"date":"2020-08-01","open":119.37,"close":118.37,"high":119.73,"low":117.95,"volume":144651275},{"date":"2020-09-01","open":118.12,"close":118.06,"high":118.87,"low":117.95,"volume":127464970},{"date":"2020-10-01","open":117.81,"close":117.2,"high":118.15,"low":117.2,"volume":120249674},{"date":"2020-11-01","open":117.27,"close":118.42,"high":118.45,"low":117.02,"volume":116616832},{"date":"2020-12-01","open":118.03,"close":118.19,"high":118.24,"low":117.51,"volume":111839134},{"date":"2021-01-01","open":118.08,"close":117.31,"high":118.14,"low":116.68,"volume":131018949},{"date":"2021-02-01","open":117.2,"close":115.34,"high":117.26,"low":114.2,"volume":116953277},{"date":"2021-03-01","open":114.97,"close":113.83,"high":115.59,"low":113.2,"volume":153972158},{"date":"2021-04-01","open":113.93,"close":114.49,"high":115.13,"low":113.69,"volume":115616329},{"date":"2021-05-01","open":114.4,"close":114.55,"high":114.97,"low":113.78,"volume":110805268},{"date":"2021-06-01","open":114.36,"close":115.33,"high":115.45,"low":113.97,"volume":125331203},{"date":"2021-07-01","open":115.15,"close":116.46,"high":116.82,"low":115.01,"volume":127184628},{"date":"2021-08-01","open":116.36,"close":116.06,"high":116.83,"low":115.34,"volume":109572594},{"date":"2021-09-01","open":116.02,"close":114.83,"high":116.38,"low":114.69,"volume":105395181},{"date":"2021-10-01","open":114.82,"close":114.64,"high":115.06,"low":113.84,"volume":116337369},{"date":"2021-11-01","open":114.16,"close":114.77,"high":115.5,"low":113.39,"volume":143851305},{"date":"2021-12-01","open":114.27,"close":114.08,"high":115.24,"low":113.81,"volume":168252487},{"date":"2022-01-01","open":113.67,"close":111.8,"high":113.68,"low":111.36,"volume":177026105},{"date":"2022-02-01","open":111.66,"close":110.36,"high":111.97,"low":109.1,"volume":182563284},{"date":"2022-03-01","open":110.6,"close":107.1,"high":111.17,"low":105.98,"volume":264017674},{"date":"2022-04-01","open":106.35,"close":102.87,"high":106.95,"low":102.67,"volume":186589817},{"date":"2022-05-01","open":102.32,"close":103.47,"high":104.31,"low":101.48,"volume":209489683},{"date":"2022-06-01","open":103.39,"close":101.68,"high":103.53,"low":98.86,"volume":164198425},{"date":"2022-07-01","open":102.21,"close":104.07,"high":104.4,"low":101.16,"volume":129139575},{"date":"2022-08-01","open":103.99,"close":100.71,"high":104.35,"low":100.64,"volume":137149517},{"date":"2022-09-01","open":100.07,"close":96.34,"high":100.67,"low":95.38,"volume":167484484},{"date":"2022-10-01","open":96.89,"close":94.9,"high":97.55,"low":93.2,"volume":156647891},{"date":"2022-11-01","open":95.25,"close":98.29,"high":98.32,"low":93.93,"volume":151655149},{"date":"2022-12-01","open":98.3,"close":96.99,"high":100.18,"low":96.97,"volume":182228537},{"date":"2023-01-01","open":97.97,"close":100.22,"high":100.88,"low":97.37,"volume":163156286},{"date":"2023-02-01","open":100.19,"close":97.31,"high":101.15,"low":96.93,"volume":136175880},{"date":"2023-03-01","open":96.83,"close":99.64,"high":100.49,"low":96.11,"volume":178253441},{"date":"2023-04-01","open":99.28,"close":99.96,"high":100.98,"low":98.71,"volume":102268600},{"date":"2023-05-01","open":99.35,"close":98.57,"high":100.42,"low":97.24,"volume":147936446},{"date":"2023-06-01","open":98.6,"close":97.95,"high":98.8,"low":97.45,"volume":154658402},{"date":"2023-07-01","open":97.82,"close":97.68,"high":98.48,"low":96.28,"volume":147773599},{"date":"2023-08-01","open":97.01,"close":96.8,"high":97.22,"low":95.04,"volume":189197769},{"date":"2023-09-01","open":96.54,"close":94.04,"high":96.57,"low":93.53,"volume":156122632},{"date":"2023-10-01","open":93.43,"close":92.31,"high":94.05,"low":91.58,"volume":217452272},{"date":"2023-11-01","open":92.23,"close":96.26,"high":96.67,"low":92.23,"volume":189882849},{"date":"2023-12-01","open":96.0,"close":99.25,"high":99.7,"low":95.97,"volume":200150882},{"date":"2024-01-01","open":98.84,"close":99.1,"high":99.36,"low":97.67,"volume":189450634},{"date":"2024-02-01","open":99.2,"close":97.35,"high":99.57,"low":96.75,"volume":183195791},{"date":"2024-03-01","open":96.99,"close":97.94,"high":98.41,"low":96.81,"volume":171263654},{"date":"2024-04-01","open":97.32,"close":95.23,"high":97.34,"low":94.85,"volume":224299376},{"date":"2024-05-01","open":95.2,"close":96.52,"high":97.28,"low":94.99,"volume":141832183},{"date":"2024-06-01","open":96.4,"close":97.07,"high":98.05,"low":96.38,"volume":114784713},{"date":"2024-07-01","open":96.43,"close":99.11,"high":99.12,"low":96.22,"volume":155538945},{"date":"2024-08-01","open":99.01,"close":100.25,"high":100.92,"low":99.01,"volume":161338230},{"date":"2024-09-01","open":100.32,"close":101.5,"high":102.04,"low":100.08,"volume":140907170}],"paging":{"prev":"/tickers/AGG/open-close?start_date=2020-01-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","next":"/tickers/AGG/open-close?start_date=2020-01-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","total_records":56,"current_page":1,"per_page":500,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":833}}'
+  recorded_at: Mon, 30 Sep 2024 04:17:24 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SCHB/open-close?end_date=2024-09-29&interval=month&limit=500&start_date=2020-01-07
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 30 Sep 2024 04:17:25 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '5543'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"340c78584c9791b79b87cb3cf094bdad"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 02ff1c59-3f29-4b9e-bba6-18ba032f5f56
+      X-Runtime:
+      - '0.509198'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=nqJXi4hO3BlS1YjvNIAVesZpEdLfcwY2UwFWdlo7OIvRKr4UR9yBbx5Tma%2FEAOK40T%2F%2F7HBt7WdplHsg%2B%2BlsZGKvH9XSjvXm9c4QaQsAoXBVFO%2BE3IFDdZ%2FUHShHN8CxduAyW%2BcN"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8cb16730c855464e-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SCHB","prices":[{"date":"2020-02-01","open":38.6,"close":35.29,"high":40.52,"low":34.12,"volume":64465082},{"date":"2020-03-01","open":35.55,"close":30.22,"high":37.38,"low":25.69,"volume":191892178},{"date":"2020-04-01","open":29.16,"close":34.24,"high":34.84,"low":28.57,"volume":100023260},{"date":"2020-05-01","open":33.56,"close":36.08,"high":36.4,"low":32.47,"volume":51340292},{"date":"2020-06-01","open":36.04,"close":36.74,"high":38.51,"low":35.19,"volume":54388830},{"date":"2020-07-01","open":36.81,"close":38.84,"high":39.0,"low":36.74,"volume":38394182},{"date":"2020-08-01","open":39.06,"close":41.64,"high":41.82,"low":39.0,"volume":28421688},{"date":"2020-09-01","open":41.68,"close":39.82,"high":42.62,"low":37.95,"volume":33824844},{"date":"2020-10-01","open":40.17,"close":39.03,"high":42.26,"low":38.6,"volume":27601202},{"date":"2020-11-01","open":39.47,"close":43.79,"high":44.06,"low":39.09,"volume":27306312},{"date":"2020-12-01","open":44.26,"close":45.5,"high":45.61,"low":43.94,"volume":23089612},{"date":"2021-01-01","open":45.71,"close":45.31,"high":47.3,"low":44.39,"volume":27784878},{"date":"2021-02-01","open":45.77,"close":46.75,"high":48.68,"low":45.48,"volume":25122404},{"date":"2021-03-01","open":47.47,"close":48.36,"high":48.91,"low":45.38,"volume":28536922},{"date":"2021-04-01","open":48.64,"close":50.81,"high":51.36,"low":48.59,"volume":21364892},{"date":"2021-05-01","open":51.12,"close":51.01,"high":51.24,"low":48.97,"volume":20878632},{"date":"2021-06-01","open":51.35,"close":52.14,"high":52.26,"low":50.56,"volume":17080002},{"date":"2021-07-01","open":52.25,"close":53.07,"high":53.52,"low":50.99,"volume":21656736},{"date":"2021-08-01","open":53.34,"close":54.58,"high":54.76,"low":52.51,"volume":17191772},{"date":"2021-09-01","open":54.72,"close":51.93,"high":54.91,"low":51.91,"volume":23364332},{"date":"2021-10-01","open":52.17,"close":55.45,"high":55.48,"low":51.58,"volume":19483150},{"date":"2021-11-01","open":55.62,"close":54.65,"high":56.99,"low":54.57,"volume":19519180},{"date":"2021-12-01","open":55.29,"close":56.51,"high":57.05,"low":53.61,"volume":27188558},{"date":"2022-01-01","open":56.72,"close":53.08,"high":57.1,"low":49.65,"volume":43633726},{"date":"2022-02-01","open":53.22,"close":51.78,"high":54.26,"low":48.45,"volume":41514144},{"date":"2022-03-01","open":51.59,"close":53.39,"high":54.68,"low":49.0,"volume":41658078},{"date":"2022-04-01","open":53.55,"close":48.49,"high":54.07,"low":48.43,"volume":38084537},{"date":"2022-05-01","open":48.53,"close":48.42,"high":50.58,"low":44.7,"volume":73781768},{"date":"2022-06-01","open":48.67,"close":44.19,"high":49.05,"low":42.61,"volume":63424111},{"date":"2022-07-01","open":44.1,"close":48.33,"high":48.44,"low":43.48,"volume":39009154},{"date":"2022-08-01","open":48.01,"close":46.47,"high":50.85,"low":46.47,"volume":30679332},{"date":"2022-09-01","open":46.21,"close":41.99,"high":48.45,"low":41.96,"volume":69509898},{"date":"2022-10-01","open":42.45,"close":45.4,"high":45.76,"low":40.92,"volume":42715254},{"date":"2022-11-01","open":45.86,"close":47.78,"high":47.79,"low":43.33,"volume":33768062},{"date":"2022-12-01","open":47.94,"close":44.81,"high":48.09,"low":43.89,"volume":34091792},{"date":"2023-01-01","open":45.05,"close":47.89,"high":48.04,"low":44.26,"volume":19557738},{"date":"2023-02-01","open":47.8,"close":46.79,"high":49.42,"low":46.43,"volume":16927037},{"date":"2023-03-01","open":46.71,"close":47.85,"high":48.04,"low":44.57,"volume":27350418},{"date":"2023-04-01","open":47.84,"close":48.36,"high":48.48,"low":46.99,"volume":11616635},{"date":"2023-05-01","open":48.33,"close":48.61,"high":49.17,"low":46.92,"volume":15772354},{"date":"2023-06-01","open":48.64,"close":51.7,"high":51.89,"low":48.47,"volume":15766579},{"date":"2023-07-01","open":51.68,"close":53.57,"high":53.71,"low":50.87,"volume":11998584},{"date":"2023-08-01","open":53.39,"close":52.54,"high":53.48,"low":50.46,"volume":15948282},{"date":"2023-09-01","open":52.85,"close":49.85,"high":52.95,"low":49.22,"volume":14702834},{"date":"2023-10-01","open":49.77,"close":48.5,"high":50.97,"low":47.46,"volume":18651934},{"date":"2023-11-01","open":48.56,"close":53.07,"high":53.28,"low":48.5,"volume":17803546},{"date":"2023-12-01","open":52.98,"close":55.67,"high":56.0,"low":52.75,"volume":20295528},{"date":"2024-01-01","open":55.3,"close":56.28,"high":57.32,"low":54.51,"volume":20399160},{"date":"2024-02-01","open":56.5,"close":59.31,"high":59.43,"low":56.31,"volume":15228143},{"date":"2024-03-01","open":59.37,"close":61.05,"high":61.18,"low":58.88,"volume":16260419},{"date":"2024-04-01","open":61.13,"close":58.4,"high":61.14,"low":57.41,"volume":19258510},{"date":"2024-05-01","open":58.32,"close":61.19,"high":61.97,"low":58.14,"volume":18146688},{"date":"2024-06-01","open":61.45,"close":62.87,"high":63.52,"low":60.63,"volume":10744779},{"date":"2024-07-01","open":63.08,"close":64.02,"high":65.57,"low":62.44,"volume":14856543},{"date":"2024-08-01","open":64.19,"close":65.36,"high":65.41,"low":59.0,"volume":17201853},{"date":"2024-09-01","open":64.99,"close":66.24,"high":66.59,"low":62.44,"volume":13158909}],"paging":{"prev":"/tickers/SCHB/open-close?start_date=2020-01-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","next":"/tickers/SCHB/open-close?start_date=2020-01-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","total_records":56,"current_page":1,"per_page":500,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":832}}'
+  recorded_at: Mon, 30 Sep 2024 04:17:25 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/SCHZ/open-close?end_date=2024-09-29&interval=month&limit=500&start_date=2020-01-07
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 30 Sep 2024 04:17:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '5531'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"10c0bfe02692b352aac102551b0c044f"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 7317381a-c2c1-4f46-ae7b-81dc5121ce9f
+      X-Runtime:
+      - '0.499654'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=NH8%2BHc0h%2F3apE2S4XpdKg9HmRcXOkBoOiGZ3HVC4iacar4agtx0Idkjv%2Bz5eolGIofKa%2Ffqyuw2If8sMppWurwHwuOlYigAOUktbkaIlWeoCxVfWFp5YpPjtkxHxfcp%2FwMIT9J6k"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8cb16735b95fe766-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"SCHZ","prices":[{"date":"2020-02-01","open":54.28,"close":55.19,"high":55.24,"low":54.05,"volume":16621262},{"date":"2020-03-01","open":55.29,"close":54.27,"high":56.72,"low":50.1,"volume":43479356},{"date":"2020-04-01","open":54.63,"close":55.78,"high":55.91,"low":54.16,"volume":20499412},{"date":"2020-05-01","open":55.69,"close":55.99,"high":56.0,"low":55.14,"volume":14630225},{"date":"2020-06-01","open":55.8,"close":56.24,"high":56.25,"low":55.39,"volume":17496973},{"date":"2020-07-01","open":56.06,"close":56.9,"high":56.92,"low":55.94,"volume":17785374},{"date":"2020-08-01","open":56.73,"close":56.29,"high":56.98,"low":56.05,"volume":15658643},{"date":"2020-09-01","open":56.16,"close":56.08,"high":56.55,"low":56.04,"volume":14056071},{"date":"2020-10-01","open":55.97,"close":55.63,"high":56.12,"low":55.63,"volume":16557764},{"date":"2020-11-01","open":55.73,"close":56.23,"high":56.25,"low":55.5,"volume":17391464},{"date":"2020-12-01","open":56.04,"close":56.03,"high":56.07,"low":55.77,"volume":20134227},{"date":"2021-01-01","open":55.98,"close":55.65,"high":56.02,"low":55.29,"volume":20668034},{"date":"2021-02-01","open":55.54,"close":54.69,"high":55.6,"low":54.1,"volume":19409715},{"date":"2021-03-01","open":54.52,"close":53.95,"high":54.6,"low":53.64,"volume":17933283},{"date":"2021-04-01","open":53.95,"close":54.27,"high":54.48,"low":53.86,"volume":21263554},{"date":"2021-05-01","open":54.18,"close":54.25,"high":54.46,"low":53.86,"volume":12535572},{"date":"2021-06-01","open":54.13,"close":54.6,"high":54.65,"low":54.05,"volume":13196489},{"date":"2021-07-01","open":54.51,"close":55.09,"high":55.28,"low":54.4,"volume":13644682},{"date":"2021-08-01","open":55.01,"close":54.92,"high":55.29,"low":54.55,"volume":10801875},{"date":"2021-09-01","open":54.89,"close":54.26,"high":55.03,"low":54.01,"volume":11455287},{"date":"2021-10-01","open":54.27,"close":54.2,"high":54.39,"low":53.8,"volume":13008572},{"date":"2021-11-01","open":54.0,"close":54.22,"high":54.82,"low":53.39,"volume":23350489},{"date":"2021-12-01","open":54.04,"close":53.9,"high":54.45,"low":53.73,"volume":17399042},{"date":"2022-01-01","open":53.68,"close":52.72,"high":53.68,"low":52.58,"volume":36389834},{"date":"2022-02-01","open":52.71,"close":52.08,"high":52.86,"low":51.49,"volume":22609548},{"date":"2022-03-01","open":52.19,"close":50.57,"high":52.46,"low":49.98,"volume":26653571},{"date":"2022-04-01","open":50.11,"close":48.47,"high":50.44,"low":48.4,"volume":21672885},{"date":"2022-05-01","open":48.22,"close":48.74,"high":49.15,"low":47.82,"volume":25838543},{"date":"2022-06-01","open":48.7,"close":47.87,"high":48.76,"low":46.55,"volume":24262509},{"date":"2022-07-01","open":47.91,"close":49.05,"high":49.17,"low":47.61,"volume":19622148},{"date":"2022-08-01","open":49.12,"close":47.43,"high":49.15,"low":47.41,"volume":15289816},{"date":"2022-09-01","open":47.15,"close":45.31,"high":47.38,"low":44.91,"volume":23955075},{"date":"2022-10-01","open":45.53,"close":44.69,"high":45.98,"low":43.86,"volume":22429092},{"date":"2022-11-01","open":44.87,"close":46.25,"high":46.29,"low":44.23,"volume":21258853},{"date":"2022-12-01","open":46.29,"close":45.65,"high":47.15,"low":45.65,"volume":22463067},{"date":"2023-01-01","open":46.12,"close":47.25,"high":47.52,"low":45.84,"volume":28375360},{"date":"2023-02-01","open":47.15,"close":45.84,"high":47.6,"low":45.64,"volume":19322620},{"date":"2023-03-01","open":45.6,"close":46.91,"high":47.31,"low":45.24,"volume":18387194},{"date":"2023-04-01","open":46.72,"close":47.06,"high":47.47,"low":46.45,"volume":11437669},{"date":"2023-05-01","open":46.8,"close":46.38,"high":47.27,"low":45.78,"volume":11849091},{"date":"2023-06-01","open":46.4,"close":46.16,"high":46.49,"low":45.88,"volume":12576971},{"date":"2023-07-01","open":46.05,"close":45.96,"high":46.35,"low":45.3,"volume":13625826},{"date":"2023-08-01","open":45.62,"close":45.54,"high":45.75,"low":44.73,"volume":13913002},{"date":"2023-09-01","open":45.43,"close":44.23,"high":45.43,"low":43.99,"volume":13788589},{"date":"2023-10-01","open":43.92,"close":43.41,"high":44.21,"low":43.05,"volume":26876418},{"date":"2023-11-01","open":43.49,"close":45.25,"high":45.44,"low":43.4,"volume":18784185},{"date":"2023-12-01","open":45.12,"close":46.62,"high":47.0,"low":45.09,"volume":21598663},{"date":"2024-01-01","open":46.48,"close":46.6,"high":46.69,"low":45.9,"volume":24790614},{"date":"2024-02-01","open":46.61,"close":45.78,"high":46.77,"low":45.43,"volume":20355657},{"date":"2024-03-01","open":45.58,"close":46.0,"high":46.22,"low":45.49,"volume":11901740},{"date":"2024-04-01","open":45.77,"close":44.67,"high":45.77,"low":44.53,"volume":16243432},{"date":"2024-05-01","open":44.65,"close":45.34,"high":45.67,"low":44.55,"volume":9642503},{"date":"2024-06-01","open":45.3,"close":45.58,"high":46.0,"low":45.24,"volume":9099880},{"date":"2024-07-01","open":45.25,"close":46.52,"high":46.53,"low":45.16,"volume":12380468},{"date":"2024-08-01","open":46.47,"close":47.04,"high":47.39,"low":46.47,"volume":10508996},{"date":"2024-09-01","open":47.07,"close":47.62,"high":48.3,"low":47.02,"volume":11656930}],"paging":{"prev":"/tickers/SCHZ/open-close?start_date=2020-01-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","next":"/tickers/SCHZ/open-close?start_date=2020-01-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","total_records":56,"current_page":1,"per_page":500,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":831}}'
+  recorded_at: Mon, 30 Sep 2024 04:17:26 GMT
+- request:
+    method: get
+    uri: https://api.synthfinance.com/tickers/IXUS/open-close?end_date=2024-09-29&interval=month&limit=500&start_date=2020-01-07
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SYNTH_API_KEY>
+      X-Source:
+      - maybe_marketing
+      X-Source-Type:
+      - api
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 30 Sep 2024 04:17:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '5538'
+      Connection:
+      - keep-alive
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Etag:
+      - W/"debaf6806fd731634d311291f93d2011"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 46a3c8b5-c91d-435a-bd4b-fd772f536057
+      X-Runtime:
+      - '0.495176'
+      X-Xss-Protection:
+      - '0'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=0ESbkdYsS4ECCHvONud51yd6BVO28pAMiGxTVkquE7WT%2BPGnx%2FDf9EiT2AxVgFh1zRFYNNSY31VIK%2B%2F6o9ROSBQQw91XSbqmf3xgqDLkNCC0%2FolV68x4P4vbmyE3Jr9mj7oJu6P6"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8cb1673a9b7245e7-DFW
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ticker":"IXUS","prices":[{"date":"2020-02-01","open":59.97,"close":55.74,"high":62.16,"low":54.29,"volume":29958449},{"date":"2020-03-01","open":55.78,"close":47.01,"high":57.64,"low":40.35,"volume":90828703},{"date":"2020-04-01","open":45.51,"close":50.35,"high":51.56,"low":44.68,"volume":43690205},{"date":"2020-05-01","open":49.49,"close":52.8,"high":53.31,"low":48.31,"volume":31227651},{"date":"2020-06-01","open":53.27,"close":54.52,"high":57.31,"low":52.79,"volume":37624448},{"date":"2020-07-01","open":54.57,"close":56.82,"high":58.54,"low":54.57,"volume":35343765},{"date":"2020-08-01","open":57.3,"close":59.37,"high":60.09,"low":57.17,"volume":30875125},{"date":"2020-09-01","open":59.53,"close":58.34,"high":60.29,"low":56.66,"volume":30803090},{"date":"2020-10-01","open":58.69,"close":57.1,"high":60.79,"low":56.69,"volume":27842127},{"date":"2020-11-01","open":57.71,"close":64.21,"high":65.66,"low":57.38,"volume":27431016},{"date":"2020-12-01","open":65.28,"close":67.19,"high":67.9,"low":65.04,"volume":37201400},{"date":"2021-01-01","open":68.45,"close":67.31,"high":70.69,"low":67.09,"volume":32597057},{"date":"2021-02-01","open":68.5,"close":68.92,"high":72.65,"low":68.13,"volume":26055226},{"date":"2021-03-01","open":70.08,"close":70.28,"high":71.6,"low":68.39,"volume":43339535},{"date":"2021-04-01","open":70.88,"close":72.27,"high":73.55,"low":70.78,"volume":29198262},{"date":"2021-05-01","open":72.63,"close":74.41,"high":74.61,"low":71.07,"volume":30851407},{"date":"2021-06-01","open":75.35,"close":73.3,"high":75.53,"low":72.47,"volume":31113861},{"date":"2021-07-01","open":73.36,"close":72.44,"high":73.54,"low":70.61,"volume":38262643},{"date":"2021-08-01","open":73.01,"close":73.55,"high":73.7,"low":70.8,"volume":30044179},{"date":"2021-09-01","open":74.03,"close":71.0,"high":74.97,"low":70.84,"volume":39555399},{"date":"2021-10-01","open":71.05,"close":73.07,"high":73.92,"low":69.57,"volume":39251856},{"date":"2021-11-01","open":73.37,"close":69.85,"high":74.28,"low":69.28,"volume":37247698},{"date":"2021-12-01","open":70.82,"close":70.94,"high":72.12,"low":68.22,"volume":75133671},{"date":"2022-01-01","open":71.39,"close":68.9,"high":72.34,"low":66.53,"volume":87594742},{"date":"2022-02-01","open":69.25,"close":66.75,"high":70.79,"low":64.31,"volume":74983458},{"date":"2022-03-01","open":66.45,"close":66.58,"high":68.0,"low":61.27,"volume":82105177},{"date":"2022-04-01","open":67.21,"close":62.21,"high":67.85,"low":61.46,"volume":62116092},{"date":"2022-05-01","open":62.01,"close":63.03,"high":63.61,"low":57.95,"volume":76843124},{"date":"2022-06-01","open":63.34,"close":57.03,"high":63.74,"low":55.92,"volume":84242959},{"date":"2022-07-01","open":56.31,"close":59.23,"high":59.23,"low":54.24,"volume":59199964},{"date":"2022-08-01","open":59.02,"close":56.5,"high":60.46,"low":56.5,"volume":49482113},{"date":"2022-09-01","open":55.84,"close":50.92,"high":57.9,"low":50.47,"volume":64214460},{"date":"2022-10-01","open":51.44,"close":52.85,"high":53.96,"low":49.42,"volume":80150366},{"date":"2022-11-01","open":53.98,"close":59.67,"high":59.84,"low":52.01,"volume":55766814},{"date":"2022-12-01","open":60.15,"close":57.88,"high":60.32,"low":57.3,"volume":50104311},{"date":"2023-01-01","open":58.46,"close":62.96,"high":63.56,"low":58.09,"volume":43472994},{"date":"2023-02-01","open":63.0,"close":60.28,"high":63.83,"low":59.85,"volume":29058959},{"date":"2023-03-01","open":61.0,"close":61.95,"high":62.07,"low":57.63,"volume":38715844},{"date":"2023-04-01","open":62.1,"close":63.14,"high":63.62,"low":61.71,"volume":30794015},{"date":"2023-05-01","open":63.16,"close":60.88,"high":63.67,"low":60.47,"volume":32387470},{"date":"2023-06-01","open":61.17,"close":62.62,"high":64.11,"low":61.14,"volume":27514964},{"date":"2023-07-01","open":62.79,"close":65.1,"high":65.25,"low":60.84,"volume":27666773},{"date":"2023-08-01","open":64.52,"close":62.18,"high":64.63,"low":60.33,"volume":33888185},{"date":"2023-09-01","open":62.81,"close":59.99,"high":62.86,"low":59.38,"volume":27613887},{"date":"2023-10-01","open":59.73,"close":57.89,"high":60.66,"low":57.04,"volume":45647335},{"date":"2023-11-01","open":58.0,"close":62.75,"high":62.95,"low":57.91,"volume":36992044},{"date":"2023-12-01","open":62.62,"close":64.93,"high":65.2,"low":62.36,"volume":37301017},{"date":"2024-01-01","open":64.32,"close":63.82,"high":64.69,"low":61.99,"volume":39956759},{"date":"2024-02-01","open":64.08,"close":65.71,"high":66.17,"low":63.3,"volume":32441118},{"date":"2024-03-01","open":66.04,"close":67.86,"high":68.1,"low":65.85,"volume":30374997},{"date":"2024-04-01","open":67.88,"close":66.23,"high":68.31,"low":64.92,"volume":35780995},{"date":"2024-05-01","open":66.27,"close":68.92,"high":70.18,"low":66.02,"volume":28784580},{"date":"2024-06-01","open":69.37,"close":67.56,"high":69.67,"low":66.63,"volume":23593191},{"date":"2024-07-01","open":67.82,"close":69.19,"high":70.62,"low":67.18,"volume":25771093},{"date":"2024-08-01","open":68.54,"close":70.85,"high":71.04,"low":63.61,"volume":32660118},{"date":"2024-09-01","open":70.44,"close":73.04,"high":73.53,"low":67.95,"volume":17820101}],"paging":{"prev":"/tickers/IXUS/open-close?start_date=2020-01-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","next":"/tickers/IXUS/open-close?start_date=2020-01-07\u0026end_date=2024-09-29\u0026interval=month\u0026limit=500\u0026page=","total_records":56,"current_page":1,"per_page":500,"total_pages":1},"meta":{"credits_used":1,"credits_remaining":830}}'
+  recorded_at: Mon, 30 Sep 2024 04:17:26 GMT
+recorded_with: VCR 6.3.1

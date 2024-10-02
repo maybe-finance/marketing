@@ -1,0 +1,31 @@
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl">
+  <aside class="bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1">
+    <%= render "tools/widgets/forms/financial_freedom_calculator", tool: tool, frame_id: :financial_freedom_results %>
+  </aside>
+
+  <section class="col-span-2">
+    <%= turbo_frame_tag :financial_freedom_results do %>
+      <div class="flex-1 p-4">
+        <% if tool.blank? %>
+          <%= render "tools/widgets/shared/blank_slate", text: "How long will your savings support you? Enter your details to find out now." %>
+        <% elsif tool.free_forever? %>
+          <div class="grid h-96 place-items-center">
+            <div class="flex flex-col gap-4 text-sm text-center text-gray-900 max-w-80">
+              <%= lucide_icon "party-popper", class: "h-8 w-8 mx-auto text-blue-600" %>
+
+              <p class="font-medium text-gray-900">
+                Congratulations!
+              </p>
+
+              <p class="text-balance">
+                At your current monthly expenses and savings growth rate you will not run out of money.
+              </p>
+            </div>
+          </div>
+        <% else %>
+          <%= render "tools/widgets/content/financial_freedom_calculator", tool: tool %>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+</div>

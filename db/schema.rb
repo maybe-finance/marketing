@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_06_26_190512) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_15_055133) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_26_190512) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["ticker"], name: "index_stock_prices_on_ticker"
   end
 
   create_table "stocks", force: :cascade do |t|

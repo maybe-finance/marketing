@@ -1,64 +1,91 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["allocator", "allocation"]
+  static targets = [ "allocation", "totalDisplay", "warningText" ]
 
-  connect() {
-    this.updateAllocation();
+  submitForm(event) {
+    if (this.#totalAllocation < 100) {
+      this.warningTextTarget.textContent = "The total allocation is below 100%. Please review and adjust your allocations."
+      this.warningTextTarget.classList.remove("hidden")
+      event.preventDefault()
+    } else if (this.#totalAllocation > 100) {
+      this.warningTextTarget.textContent = "The total allocation exceeds 100%. Please review and adjust your allocations."
+      this.warningTextTarget.classList.remove("hidden")
+      event.preventDefault()
+    } else {
+      this.warningTextTarget.textContent = ""
+      this.warningTextTarget.classList.add("hidden")
+    }
   }
 
   updateAllocation() {
-    const newPercent = parseFloat(this.allocationTarget.value) || 0;
-    const oldPercent = parseFloat(this.element.dataset.allocationPercent) || 0;
-    
-    const backtestController = this.getControllerByIdentifier("stock-portfolio-backtest");
-    if (backtestController) {
-      const currentTotal = parseFloat(backtestController.totalAllocation) || 0;
-      const newTotal = currentTotal + (newPercent - oldPercent);
+    this.totalDisplayTarget.textContent = `${this.#totalAllocation}%`
+    this.totalDisplayTarget.classList.toggle("text-red-500", this.#totalAllocation > 100)
+  }
 
-      this.element.dataset.allocationPercent = newPercent;
-      const action = newPercent > oldPercent ? 'increment' : 'decrement';
-      backtestController.updateTotalAllocation(Math.abs(newPercent - oldPercent), action);
-      
-      if (newTotal > 100) {
-        alert("Total allocation cannot exceed 100%");
+  distributeEvenly() {
+    this.allocationTargets.filter(visible).forEach((element, index) => {
+      const isLastAllocation = index === this.#visibleAllocatorCount - 1
+      const evenAllocation = Math.floor(100 / this.#visibleAllocatorCount)
+
+      if (isLastAllocation) {
+        element.querySelector("input[type='number']").value = 100 - evenAllocation * (this.#visibleAllocatorCount - 1)
+      } else {
+        element.querySelector("input[type='number']").value = evenAllocation
       }
+    })
+
+    this.updateAllocation()
+  }
+
+  addStockSelector() {
+    const nextAllocator = this.allocationTargets.find(input => input.classList.contains("hidden"))
+
+    if (nextAllocator) {
+      nextAllocator.classList.remove("hidden")
+
+      nextAllocator.querySelector("input[type='number']").setAttribute("required", "")
+      nextAllocator.querySelector("input[type='number']").disabled = false
+
+      nextAllocator.querySelector("input[type='text']").setAttribute("required", "")
+      nextAllocator.querySelector("input[type='text']").disabled = false
+      nextAllocator.querySelector("input[type='hidden']").disabled = false
     }
+
+    this.updateAllocation()
   }
 
-  addStockSelector(event) {
-    const currentAllocator = event.target.closest("[data-controller='stocks-allocator']");
-    const currentIndex = parseInt(currentAllocator.dataset.index, 10);
-    const nextAllocator = document.querySelector(`[data-controller='stocks-allocator'][data-index='${currentIndex + 1}']`);
-    if (nextAllocator && this.countVisibleAllocators() < 10) {
-      nextAllocator.classList.remove("hidden");
-      nextAllocator.querySelector('input[type="number"]').setAttribute('required', '');
-      nextAllocator.querySelector('input[type="text"]').setAttribute('required', '');
+  removeStockSelector() {
+    if (this.#visibleAllocatorCount > 1) {
+      const lastAllocator = this.allocationTargets[this.#visibleAllocatorCount - 1]
+
+      lastAllocator.classList.add("hidden")
+
+      lastAllocator.querySelector("input[type='number']").removeAttribute("required")
+      lastAllocator.querySelector("input[type='number']").value = ""
+      lastAllocator.querySelector("input[type='number']").disabled = true
+
+      lastAllocator.querySelector("input[type='text']").removeAttribute("required")
+      lastAllocator.querySelector("input[type='text']").value = ""
+      lastAllocator.querySelector("input[type='text']").disabled = true
+      lastAllocator.querySelector("input[type='hidden']").disabled = true
     }
+
+    this.updateAllocation()
   }
 
-  removeStockSelector(event) {
-    const currentAllocator = event.target.closest("[data-controller='stocks-allocator']");
-    if (this.countVisibleAllocators() > 1) {
-      currentAllocator.classList.add("hidden");
-      currentAllocator.querySelector('input[type="number"]').removeAttribute('required');
-      currentAllocator.querySelector('input[type="text"]').removeAttribute('required');
-
-      const searchSelectController = this.getControllerByIdentifier("search-select", currentAllocator);
-      if (searchSelectController) {
-        searchSelectController.resetInput();
-      }
-    }
+  get #totalAllocation() {
+    return this.allocationTargets.reduce((acc, allocation) => {
+      const value = parseFloat(allocation.querySelector("input[type='number']").value)
+      return isNaN(value) ? acc : acc + value
+    }, 0)
   }
 
-  countVisibleAllocators() {
-    return document.querySelectorAll("[data-controller='stocks-allocator']:not(.hidden)").length;
+  get #visibleAllocatorCount() {
+    return this.allocationTargets.filter(visible).length
   }
+}
 
-  getControllerByIdentifier(identifier, element = document) {
-    return this.application.getControllerForElementAndIdentifier(
-      element.querySelector(`[data-controller='${identifier}']`),
-      identifier
-    );
-  }
+function visible(element) {
+  return !element.classList.contains("hidden")
 }

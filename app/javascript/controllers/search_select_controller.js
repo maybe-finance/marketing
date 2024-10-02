@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static classes = ["active"];
   static targets = ["option", "input", "list", "hiddenInput"];
-  static values = { selected: String, count: Number, list: String, customFilter: String };
+  static values = { selected: String, count: Number, list: Array, customFilter: String };
 
   initialize() {
     this.show = false;
@@ -157,21 +157,21 @@ export default class extends Controller {
   filterOptions(event) {
     const filterValue = event.target.value.toLowerCase();
     this.listTarget.innerHTML = '';
-    
+
     if (filterValue === '') {
       this.close();
       return;
     }
-    
-    const dataList = window[this.listValue];
+
+    const dataList = this.listValue
     let filteredList;
 
     if (this.hasCustomFilterValue && typeof window[this.customFilterValue] === 'function') {
       filteredList = window[this.customFilterValue](dataList, filterValue).slice(0, 5);
     } else {
       filteredList = dataList
-        .filter(item => 
-          item.name.toLowerCase().includes(filterValue) || 
+        .filter(item =>
+          item.name.toLowerCase().includes(filterValue) ||
           item.value.toLowerCase().includes(filterValue)
         )
         .slice(0, 5);
@@ -189,7 +189,7 @@ export default class extends Controller {
         li.textContent = `${item.name} (${item.value})`;
         this.listTarget.appendChild(li);
       });
-    
+
       this.listTarget.classList.remove("hidden");
       this.show = true;
     } else {

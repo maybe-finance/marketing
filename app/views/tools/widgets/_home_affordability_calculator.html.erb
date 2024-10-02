@@ -1,0 +1,17 @@
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl">
+  <aside class="bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1">
+    <%= render "tools/widgets/forms/home_affordability_calculator", tool: tool, frame_id: :home_affordability_results %>
+  </aside>
+
+  <div class="col-span-2">
+    <%= turbo_frame_tag :home_affordability_results do %>
+      <div class="flex-1 p-4">
+        <% if tool.blank? %>
+          <%= render "tools/widgets/shared/blank_slate", text: "Enter your details to see what home you could afford with your current situation!" %>
+        <% else %>
+          <%= render "tools/widgets/content/home_affordability_calculator", tool: tool %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

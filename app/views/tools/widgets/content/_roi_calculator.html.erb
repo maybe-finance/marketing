@@ -1,0 +1,16 @@
+<section class="flex flex-col gap-4 p-6 mb-24 ml-2 rounded-lg bg-gradient-to-b to-white <%= tool.trend_class %>">
+  <div class="flex flex-col gap-3">
+    <p class="text-base text-gray-500">Investment gain</p>
+    <p class="text-4xl font-medium"><%= number_to_currency(tool.investment_gain) %></p>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <p class="text-base text-gray-500">ROI</p>
+    <p class="<%= tool.roi_class %>"><%= tool.roi_sign %><%= number_with_delimiter(tool.roi) %>%</p>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <p class="text-base text-gray-500">Annualized ROI</p>
+    <p class="<%= tool.roi_class %>"><%= tool.roi_sign %><%= number_with_delimiter(tool.annualized_roi) %>%</p>
+  </div>
+</section>

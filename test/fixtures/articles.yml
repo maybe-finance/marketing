@@ -14,15 +14,11 @@
 #
 
 one:
-  title: MyString
-  slug: MyString
-  content: MyText
+  title: "Gamification: Leveling Up Your Personal Finance Game"
+  slug: gamification-level-up-personal-finance
+  content: >
+    Sometimes, budgeting can feel like a chore. It’s talked about on every platform on this planet
+    and of course, when it comes to budgeting apps, there’s no shortage of advice as
+    I’m sure you’ve seen with one Google Search.
   publish_at: 2024-04-29 15:00:34
-  author_name: MyString
-
-two:
-  title: MyString
-  slug: MyString
-  content: MyText
-  publish_at: 2024-04-29 15:00:34
-  author_name: MyString
+  author_name: Nethmi Dimbulana

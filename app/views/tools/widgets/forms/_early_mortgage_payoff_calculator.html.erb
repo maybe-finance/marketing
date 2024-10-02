@@ -1,0 +1,32 @@
+<%= form_with method: :get, data: { turbo_frame: frame_id, controller: "auto-submit-form", auto_submit_form_submit_on_connect_value: true } do |form| %>
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :loan_amount, label: "Loan amount", value: tool.loan_amount, unit_symbol: "$", data: { controller: "autonumeric", auto_submit_form_target: "auto" } %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :original_term, label: "Original loan term", value: tool.original_term, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 }, auto_submit_form_target: "auto" } %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :years_left, label: "Years left on loan", value: tool.years_left, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 }, auto_submit_form_target: "auto" } %>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :interest_rate, label: "Interest rate", value: tool.mortgage_rate_30, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 2 }, auto_submit_form_target: "auto" } %>
+  </div>
+
+  <div data-controller="synchronized-input" class="flex flex-col gap-2">
+    <%= form.unit_field :extra_payment, label: "Extra monthly payment", value: tool.extra_payment, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue input->auto-submit-form#submit", auto_submit_form_target: "auto", autosubmit_trigger_event: "input-sync" } %>
+    <%= range_input_slider class: "from-pink-500 to-pink-500", min: 0, max: 2000, step: 100, value: tool.extra_payment %>
+  </div>
+
+  <h4 class="text-base font-medium text-gray-700 mt-4">What if you invested instead?</h4>
+
+  <div class="flex flex-col gap-2">
+    <%= form.unit_field :savings_rate, label: "Annual investment return", value: tool.savings_rate * 100, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 2 }, auto_submit_form_target: "auto" } %>
+  </div>
+
+  <div class="mt-auto">
+    <%= form.submit "Calculate", class: "hidden" %>
+  </div>
+<% end %>

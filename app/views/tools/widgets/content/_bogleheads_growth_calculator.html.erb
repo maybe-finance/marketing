@@ -1,0 +1,51 @@
+<div class="flex flex-col gap-8 px-8 py-4">
+  <div class="flex items-center justify-between gap-12">
+    <div class="flex flex-col justify-center gap-2 text-left align-start">
+      <span class="text-sm text-gray-500">Invested</span>
+      <span class="text-xl font-medium"><%= number_to_currency(tool.invested_amount) %></span>
+    </div>
+
+    <div class="flex flex-col justify-center gap-2 text-left align-start">
+      <span class="text-sm text-gray-500">Returns</span>
+      <span class="text-xl font-medium"><%= tool.returns %></span>
+    </div>
+
+    <div class="flex flex-col justify-center gap-2 text-left align-start">
+      <span class="flex items-center gap-1 text-sm text-gray-500 has-tooltip">
+        <div class='max-w-xs p-2 text-sm bg-white border rounded shadow-xs tooltip mt-36 ml-14' style="z-index: 50000000000">
+          <p>
+            We use downside risk to determine the riskiness of a portfolio strategy.
+          </p>
+
+          <dl class="pt-3 mt-3 border-t border-gray-700">
+            <div class="flex justify-between">
+              <dt class="mr-1">Downside Deviation</dt>
+              <dd class="text-right whitespace-nowrap"><%= tool.downside_deviation_value %></dd>
+            </div>
+            <div className="mt-1 flex justify-between">
+              <dt className="mr-1">Maximum Drawdown</dt>
+              <dd class="text-right whitespace-nowrap"><%= tool.drawdown_text %></dd>
+            </div>
+          </dl>
+        </div>
+
+        <span>Risk Level</span>
+        <%= lucide_icon "circle-help", class: "mx-auto text-base p-1" %>
+      </span>
+
+      <span class="text-xl font-medium text-pink-500" data-controller="risk-level-text-color" data-risk-level-text-color-target="text">
+        <%= tool.risk_level %>
+      </span>
+    </div>
+
+    <div class="flex flex-col justify-center gap-2 text-left align-start">
+      <span class="text-sm text-gray-500">Final Value</span>
+      <span class="text-xl font-medium"><%= number_to_currency(tool.final_value) %></span>
+    </div>
+  </div>
+
+  <%= tag.div style: "height: 432px", data: {
+        controller: "time-series-bogleheads-growth-chart",
+        time_series_bogleheads_growth_chart_series_value: tool.legend_data.to_json,
+        time_series_bogleheads_growth_chart_data_value: tool.plot_data.to_json } %>
+</div>

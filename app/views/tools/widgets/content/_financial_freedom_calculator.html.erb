@@ -1,0 +1,44 @@
+<section>
+  <div class="flex flex-col gap-6 text-center" data-controller="countdown" data-countdown-seconds-left-value="<%= tool.seconds_left %>">
+    <p class="text-2xl text-balance">
+      You have <span class="font-medium" data-countdown-target="summary"></span> of freedom ahead of you.
+    </p>
+
+    <div class="flex items-end justify-center gap-4">
+      <div class="flex flex-col gap-2">
+        <p class="text-sm text-gray-500">Years</p>
+        <p class="text-xl font-medium" data-countdown-target="years">-</p>
+      </div>
+      <span class="text-xl text-gray-500">:</span>
+      <div class="flex flex-col gap-2">
+        <p class="text-sm text-gray-500">Months</p>
+        <p class="text-xl font-medium" data-countdown-target="months">-</p>
+      </div>
+      <span class="text-xl text-gray-500">:</span>
+      <div class="flex flex-col gap-2">
+        <p class="text-sm text-gray-500">Days</p>
+        <p class="text-xl font-medium" data-countdown-target="days">-</p>
+      </div>
+      <span class="text-xl text-gray-500">:</span>
+      <div class="flex flex-col gap-2">
+        <p class="text-sm text-gray-500">Hours</p>
+        <p class="text-xl font-medium" data-countdown-target="hours">-</p>
+      </div>
+      <span class="text-xl text-gray-500">:</span>
+      <div class="flex flex-col gap-2">
+        <p class="text-sm text-gray-500">Minutes</p>
+        <p class="text-xl font-medium" data-countdown-target="minutes">-</p>
+      </div>
+      <span class="text-xl text-gray-500">:</span>
+      <div class="flex flex-col gap-2">
+        <p class="text-sm text-gray-500">Seconds</p>
+        <p class="text-xl font-medium" data-countdown-target="seconds">-</p>
+      </div>
+    </div>
+  </div>
+
+  <%= tag.div class: "h-96 mt-6", data: {
+        controller: "time-series-bar-chart",
+        time_series_bar_chart_series_value: tool.legend_data.to_json,
+        time_series_bar_chart_data_value: tool.plot_data.to_json } %>
+</section>

@@ -1,0 +1,37 @@
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl">
+  <aside class="bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1">
+    <%= render "tools/widgets/forms/stock_portfolio_backtest", tool: tool, frame_id: :backtest_results %>
+  </aside>
+
+  <div class="col-span-2">
+    <%= turbo_frame_tag :backtest_results, class: "group" do %>
+      <div class="hidden group-aria-[busy=true]:flex animate-pulse flex-col gap-4 p-6 rounded-lg">
+        <div class="flex justify-around">
+          <div class="text-left">
+            <div class="text-3xl font-medium text-gray-900 h-8 bg-gray-300 rounded"></div>
+            <div class="mt-4 flex items-center justify-center gap-3 text-gray-900">
+              <span class="text-sm w-32 h-4 bg-gray-300 rounded"></span>
+            </div>
+          </div>
+          <div class="text-left">
+            <div class="text-3xl font-medium text-gray-900 h-8 bg-gray-300 rounded"></div>
+            <div class="mt-4 flex items-center justify-center gap-3 text-gray-900">
+              <span class="text-sm w-32 h-4 bg-gray-300 rounded"></span>
+            </div>
+          </div>
+        </div>
+        <div class="h-96 bg-gray-300 rounded"></div>
+      </div>
+
+      <div class="flex-1 h-full group-aria-[busy=true]:hidden">
+        <% if tool.blank? %>
+          <%= render "tools/widgets/shared/blank_slate", text: "Add stocks on the left to start benchmarking and backtesting your portfolio!" %>
+        <% elsif tool.same_month? %>
+          <%= render "tools/widgets/shared/blank_slate", text: "Please choose start and end dates that are at least a month apart." %>
+        <% else %>
+          <%= render "tools/widgets/content/stock_portfolio_backtest", tool: tool %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

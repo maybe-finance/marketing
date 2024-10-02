@@ -15,6 +15,7 @@ After cloning the repo, the basic setup commands are:
 cd marketing
 cp .env.example .env
 bin/setup
+bin/rails db:seed
 bin/dev
 ```
 

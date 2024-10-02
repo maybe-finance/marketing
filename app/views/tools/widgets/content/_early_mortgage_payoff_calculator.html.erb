@@ -1,0 +1,72 @@
+<section>
+  <div class="flex flex-col gap-4 p-6 ml-2 rounded-lg">
+    <div class="flex flex-col gap-3 bg-green-50 p-4 rounded-lg">
+      <h4 class="text-base text-gray-700">Interest savings</h4>
+      <p class="text-4xl font-medium text-green-600"><%= number_to_currency(tool.interest_savings) %></p>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <h4 class="text-base text-gray-500">Time saved on mortgage</h4>
+      <p class="text-4xl font-medium"><%= tool.time_saved %></p>
+    </div>
+
+    <hr class="color-[#0B0B0B14]">
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col gap-1">
+        <h4 class="text-sm text-gray-500">Total interest (original)</h4>
+        <p class="text-xl font-medium"><%= number_to_currency(tool.total_interest) %></p>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <h4 class="text-sm text-gray-500">Total interest (with extra payments)</h4>
+        <p class="text-xl font-medium"><%= number_to_currency(tool.total_interest_with_extra_payments) %></p>
+      </div>
+    </div>
+
+    <hr class="color-[#0B0B0B14]">
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col gap-1">
+        <h4 class="text-sm text-gray-500">Principal + Interest (original)</h4>
+        <p class="text-xl font-medium"><%= number_to_currency(tool.total_principal_and_interest) %></p>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <h4 class="text-sm text-gray-500">Principal + Interest (with extra payments)</h4>
+        <p class="text-xl font-medium"><%= number_to_currency(tool.total_principal_and_interest_with_extra_payments) %></p>
+      </div>
+    </div>
+
+    <hr class="color-[#0B0B0B14]">
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col gap-1">
+        <h4 class="text-sm text-gray-500">Original payoff date</h4>
+        <p class="text-xl font-medium"><%= tool.original_payoff_date.strftime("%B %Y") %></p>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <h4 class="text-sm text-gray-500">New payoff date</h4>
+        <p class="text-xl font-medium"><%= tool.new_payoff_date.strftime("%B %Y") %></p>
+      </div>
+    </div>
+
+    <hr class="color-[#0B0B0B14]">
+
+    <div class="flex flex-col gap-3 bg-blue-50 p-4 rounded-lg">
+      <h4 class="text-base text-gray-700">Investment account balance</h4>
+      <p class="text-4xl font-medium text-blue-600"><%= number_to_currency(tool.savings_account_balance) %></p>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <h4 class="text-sm text-gray-500">Net difference <code>(Investment Value - Interest Savings)</code></h4>
+      <p class="text-xl font-medium <%= tool.net_difference_class %>">
+        <%= number_to_currency(tool.net_difference) %>
+      </p>
+      <p class="text-sm <%= tool.net_difference_comment_class %>">
+        <%= tool.net_difference_comment %>
+      </p>
+    </div>
+  </div>
+</section>

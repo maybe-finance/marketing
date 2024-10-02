@@ -21,14 +21,13 @@ Rails.application.routes.draw do
   get "/now-subscribe", to: redirect("/", status: 301)
   get "/community", to: redirect("https://link.maybe.co/discord", status: 301)
   get "/early-access", to: redirect("/", status: 301)
-  get "tickers/open_close", to: "tickers#open_close"
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
-  resources :tools, only: [ :index, :show ]
+  resources :tools, only: [ :index, :show ], param: :slug
 
   resources :stocks, only: [ :index ]
   resources :stocks, only: :show, param: :ticker, constraints: { ticker: /[a-zA-Z0-9\-\.\/]+/ } do

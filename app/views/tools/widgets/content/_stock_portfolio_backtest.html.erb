@@ -1,0 +1,31 @@
+<section>
+  <div class="flex flex-col gap-4 p-6 rounded-lg">
+    <div class="flex justify-around">
+      <div class="text-left">
+        <div class="text-3xl font-medium text-gray-900">
+          <%= number_to_currency(tool.portfolio_growth, precision: 0) %>
+        </div>
+        <div class="mt-4 flex items-center justify-center gap-3 text-gray-900">
+          <span class="inline-block w-2 h-2 bg-pink-500 rounded-full"></span>
+          <span class="text-sm">Portfolio Growth</span>
+        </div>
+      </div>
+
+      <div class="text-left">
+        <div class="text-3xl font-medium text-gray-900">
+          <%= number_to_currency(tool.benchmark_growth, precision: 0) %>
+        </div>
+        <div class="mt-4 flex items-center justify-center gap-3 text-gray-900">
+          <span class="inline-block w-2 h-2 bg-blue-500 rounded-full"></span>
+          <span class="text-sm">Benchmark Growth</span>
+        </div>
+      </div>
+    </div>
+
+    <%= tag.div style: "height: 432px", data: {
+          controller: "time-series-bogleheads-growth-chart",
+          time_series_bogleheads_growth_chart_show_legend_value: false,
+          time_series_bogleheads_growth_chart_series_value: tool.legend_data.to_json,
+          time_series_bogleheads_growth_chart_data_value: tool.plot_data.to_json } %>
+  </div>
+</section>

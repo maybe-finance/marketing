@@ -1,0 +1,17 @@
+<div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl">
+  <aside class="bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1">
+    <%= render "tools/widgets/forms/compound_interest_calculator", tool: tool, frame_id: :compound_interest_results %>
+  </aside>
+
+  <div class="col-span-2">
+    <%= turbo_frame_tag :compound_interest_results do %>
+      <div class="flex-1 p-4">
+        <% if tool.blank? %>
+          <%= render "tools/widgets/shared/blank_slate", text: "Enter your details to see how your investments can grow with compound interest!" %>
+        <% else %>
+          <%= render "tools/widgets/content/compound_interest_calculator", tool: tool %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
