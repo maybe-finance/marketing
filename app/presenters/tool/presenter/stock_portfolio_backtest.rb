@@ -55,29 +55,6 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
       @active_record ||= Tool.find_by! slug: "stock-portfolio-backtest"
     end
 
-    def unique_dates
-      @unique_dates ||= ohclv_data.flat_map do |data|
-        data[:prices].map { |price| price["date"].to_date }
-      end.uniq.sort
-    end
-
-    def ohclv_data
-      @ohclv_data ||= begin
-        tickers = stocks + [ benchmark_stock ]
-
-        tickers.map do |ticker|
-          response = Provider::Synth.new.stock_prices \
-            ticker: ticker,
-            start_date: start_date,
-            end_date: end_date,
-            interval: "month",
-            limit: 500
-
-          { ticker: response.ticker, prices: response.prices }
-        end
-      end
-    end
-
     def portfolio_trend_by_date
       @portfolio_trend_by_date ||= unique_dates.map do |date|
         {}.tap do |h|
@@ -91,34 +68,79 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
       end
     end
 
+    def unique_dates
+      @unique_dates ||= ohclv_data.flat_map do |data|
+        data[:prices].map { |price| price["date"].to_date }
+      end.uniq.sort
+    end
+
+    # `ohclv_data` -> [
+    #   {
+    #     ticker: "AAPL",
+    #     prices: [{ "date": "2024-09-03", "open": 228.55, "close": 222.77, "high": 229, "low": 221.17, "volume": 49286866 }]
+    #   }, ...
+    # ]
+    def ohclv_data
+      @ohclv_data ||= begin
+        tickers = stocks + [ benchmark_stock ]
+
+        tickers.map do |ticker|
+          response = Provider::Synth.new.stock_prices \
+            ticker: ticker,
+            start_date: start_date,
+            end_date: end_date,
+            interval: "month",
+            limit: 500
+
+          if response.success?
+            { ticker: ticker, prices: response.prices }
+          else
+            { ticker: ticker, prices: [] }
+          end
+        end
+      end
+    end
+
     def benchmark_value_at(date)
-      benchmark_shares * ohlc_at(date, stock: benchmark_stock)["close"]
+      stock_shares(benchmark_stock, 1) * ohclv_at(date, stock: benchmark_stock)["close"]
     end
 
-    def benchmark_shares
-      investment_amount / initial_stock_price(benchmark_stock)
+    def stock_shares(stock, allocation)
+      initial_price = first_known_closing_price_for(stock)
+
+      if initial_price.zero?
+        0.0
+      else
+        investment_amount * allocation / initial_price
+      end
     end
 
-    def initial_stock_price(stock)
-      ohclv_data.find { |data| data[:ticker] == stock }[:prices].first["close"]
+    def first_known_closing_price_for(stock)
+      ohclv = ohclvs_for(stock).find { |price| price["close"].present? } || null_ohclv
+      ohclv["close"]
     end
 
-    def ohlc_at(date, stock:)
-      all_ohlc = ohclv_data.find { |data| data[:ticker] == stock }[:prices]
-      all_ohlc.find { |price| price["date"].to_date == date }
+    def ohclv_at(date, stock:)
+      ohclvs_for(stock).find { |price| price["date"].to_date == date } || null_ohclv(at: date)
+    end
+
+    def ohclvs_for(ticker)
+      ohclv_data.find { |data| data[:ticker] == ticker }[:prices]
+    end
+
+    def null_ohclv(at: unique_dates.first)
+      { "date" => at.iso8601, "open" => 0.0, "close" => 0.0, "high" => 0.0, "low" => 0.0, "volume" => 0.0 }
     end
 
     def portfolio_value_at(date)
       stocks.reduce(0.0) do |sum, stock|
-        sum + portfolio_shares_by_ticker[stock] * ohlc_at(date, stock: stock)["close"]
+        sum + portfolio_shares_by_ticker[stock] * ohclv_at(date, stock: stock)["close"]
       end
     end
 
     def portfolio_shares_by_ticker
       @portfolio_shares_by_ticker ||= stocks.zip(stock_allocations).map do |stock, allocation|
-        shares = investment_amount * allocation / initial_stock_price(stock)
-
-        [ stock, shares ]
+        [ stock, stock_shares(stock, allocation) ]
       end.to_h
     end
 end
