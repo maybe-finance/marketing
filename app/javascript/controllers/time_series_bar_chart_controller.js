@@ -3,14 +3,14 @@ import tailwindColors from "@maybe/tailwindcolors"
 import * as d3 from "d3"
 
 export default class extends Controller {
-  static values = { series: Object, data: Array, useLabels: { type: Boolean, default: true } }
+  static values = { series: Object, data: Array, useLabels: { type: Boolean, default: true } };
 
-  #initialElementWidth = 0
-  #initialElementHeight = 0
-  #d3TooltipMemo = null
-  #d3GroupMemo = null
-  #d3SvgMemo = null
-  #data = []
+  #initialElementWidth = 0;
+  #initialElementHeight = 0;
+  #d3TooltipMemo = null;
+  #d3GroupMemo = null;
+  #d3SvgMemo = null;
+  #data = [];
 
   connect() {
     this.#install()
