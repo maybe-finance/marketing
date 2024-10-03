@@ -4,6 +4,7 @@ class ToolsController < ApplicationController
   end
 
   def show
+    params[:slug] ||= params[:id]
     @tool = Tool.presenter_from tool_params.compact_blank
   end
 
