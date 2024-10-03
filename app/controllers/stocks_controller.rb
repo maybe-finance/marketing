@@ -24,9 +24,10 @@ class StocksController < ApplicationController
   #
   # @param ticker [String] The stock symbol (ticker) to look up
   # @return [Stock] The Stock object matching the provided ticker
+  # @raises [ActiveRecord::RecordNotFound] If no stock is found with the given ticker
   # @example
   #   GET /stocks/AAPL
   def show
-    @stock = Stock.find_by(symbol: params[:ticker])
+    @stock = Stock.find_by!(symbol: params[:ticker])
   end
 end
