@@ -116,7 +116,7 @@ GEM
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
-    avo (3.12.0)
+    avo (3.13.3)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -240,7 +240,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
-    meta-tags (2.22.0)
+    meta-tags (2.22.1)
       actionpack (>= 6.0.0, < 8.1)
     method_source (1.1.0)
     mini_mime (1.1.5)
@@ -411,7 +411,7 @@ GEM
     useragent (0.16.10)
     vcr (6.3.1)
       base64
-    view_component (3.14.0)
+    view_component (3.16.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
