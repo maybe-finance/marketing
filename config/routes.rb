@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  namespace :stocks do
-    get "news/show"
-    get "info/show"
-  end
   revise_auth
 
   authenticated -> { _1.admin? } do
@@ -42,6 +38,7 @@ Rails.application.routes.draw do
   end
 
   get "tos" => "pages#tos"
+  get "terms", to: redirect("/tos", status: 301)
   get "privacy" => "pages#privacy"
 
   get "sitemap", to: "pages#sitemap", defaults: { format: "xml" }
