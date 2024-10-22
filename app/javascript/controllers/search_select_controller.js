@@ -166,7 +166,7 @@ export default class extends Controller {
     const dataList = this.listValue
     let filteredList;
 
-    if (this.hasCustomFilterValue && typeof window[this.customFilterValue] === 'function') {
+    if (typeof window[this.customFilterValue] === 'function') {
       filteredList = window[this.customFilterValue](dataList, filterValue).slice(0, 5);
     } else {
       filteredList = dataList

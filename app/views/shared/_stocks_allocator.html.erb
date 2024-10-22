@@ -1,11 +1,12 @@
-<%= tag.div class: [ "flex items-center gap-2", { "hidden": !index.zero? } ], data: { stocks_allocator_target: "allocation", search_select_custom_filter_value: "prioritizeTickerFilter" } do %>
+<%= tag.div class: [ "flex items-center gap-2", { "hidden": !index.zero? } ], data: { stocks_allocator_target: "allocation" } do %>
   <%= render partial: "shared/search_select", locals: {
         list: local_assigns[:list],
         label: local_assigns[:label],
         name: "stocks[]",
         required: local_assigns[:required],
         disabled: !local_assigns[:required],
-        placeholder: "Search for a stock"
+        placeholder: "Search for a stock",
+        custom_filter_value: "prioritizeTickerFilter"
       } %>
 
   <div class="relative w-16">
@@ -31,20 +32,30 @@
 
 <script>
 window.prioritizeTickerFilter = function(dataList, filterValue) {
+  function getStockSearchRank(item) {
+    const filterWord = filterValue.toLowerCase()
+    const ticker = item.name.toLowerCase().match(/\((.*?)\)/)?.[1];
+    const name = item.name.toLowerCase();
+
+    let rank = 0;
+
+    if (ticker?.startsWith(filterWord)) {
+      rank += (2 ** filterWord.length)
+    }
+
+    let i = 0
+    while ((i = name.indexOf(filterWord, i)) >= 0) {
+      rank += (1.2 ** filterWord.length)
+      i += 1
+    }
+
+    return rank
+  }
+
   return dataList
-    .filter(item => {
-      const ticker = item.name.match(/\((.*?)\)/)?.[1] || '';
-      return ticker.toLowerCase().includes(filterValue) ||
-             item.name.toLowerCase().includes(filterValue);
-    })
-    .sort((a, b) => {
-      const tickerA = a.name.match(/\((.*?)\)/)?.[1] || '';
-      const tickerB = b.name.match(/\((.*?)\)/)?.[1] || '';
-      const aStartsWithFilter = tickerA.toLowerCase().startsWith(filterValue);
-      const bStartsWithFilter = tickerB.toLowerCase().startsWith(filterValue);
-      if (aStartsWithFilter && !bStartsWithFilter) return -1;
-      if (!aStartsWithFilter && bStartsWithFilter) return 1;
-      return 0;
-    });
+    .map(item => ({ item, rank: getStockSearchRank(item) }))
+    .filter(itemWithRank => itemWithRank.rank > 0)
+    .sort((a, b) => b.rank - a.rank)
+    .map(itemWithRank => itemWithRank.item);
 };
 </script>
