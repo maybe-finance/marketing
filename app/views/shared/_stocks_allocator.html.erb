@@ -1,11 +1,12 @@
-<%= tag.div class: [ "flex items-center gap-2", { "hidden": !index.zero? } ], data: { stocks_allocator_target: "allocation", search_select_custom_filter_value: "prioritizeTickerFilter" } do %>
+<%= tag.div class: [ "flex items-center gap-2", { "hidden": !index.zero? } ], data: { stocks_allocator_target: "allocation" } do %>
   <%= render partial: "shared/search_select", locals: {
         list: local_assigns[:list],
         label: local_assigns[:label],
         name: "stocks[]",
         required: local_assigns[:required],
         disabled: !local_assigns[:required],
-        placeholder: "Search for a stock"
+        placeholder: "Search for a stock",
+        custom_filter_value: "prioritizeTickerFilter"
       } %>
 
   <div class="relative w-16">
@@ -33,15 +34,12 @@
 window.prioritizeTickerFilter = function(dataList, filterValue) {
   return dataList
     .filter(item => {
-      const ticker = item.name.match(/\((.*?)\)/)?.[1] || '';
-      return ticker.toLowerCase().includes(filterValue) ||
+      return item.value.toLowerCase().includes(filterValue) ||
              item.name.toLowerCase().includes(filterValue);
     })
     .sort((a, b) => {
-      const tickerA = a.name.match(/\((.*?)\)/)?.[1] || '';
-      const tickerB = b.name.match(/\((.*?)\)/)?.[1] || '';
-      const aStartsWithFilter = tickerA.toLowerCase().startsWith(filterValue);
-      const bStartsWithFilter = tickerB.toLowerCase().startsWith(filterValue);
+      const aStartsWithFilter = a.value.toLowerCase().startsWith(filterValue);
+      const bStartsWithFilter = b.value.toLowerCase().startsWith(filterValue);
       if (aStartsWithFilter && !bStartsWithFilter) return -1;
       if (!aStartsWithFilter && bStartsWithFilter) return 1;
       return 0;

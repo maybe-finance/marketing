@@ -1,4 +1,4 @@
-<div class="relative flex self-end gap-2 w-full" data-controller="search-select" data-search-select-active-class="bg-gray-100" data-search-select-list-value="<%= list %>">
+<div class="relative flex self-end gap-2 w-full" data-controller="search-select" data-search-select-active-class="bg-gray-100" data-search-select-list-value="<%= list %>" <%= "data-search-select-custom-filter-value=#{local_assigns[:custom_filter_value]}" if local_assigns[:custom_filter_value].present? %>>
   <%= tag.input type: :hidden, name: name,
         disabled: local_assigns[:disabled],
         data: { search_select_target: "hiddenInput", auto_submit_form_target: "auto" } %>
