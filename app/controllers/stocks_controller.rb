@@ -17,6 +17,8 @@ class StocksController < ApplicationController
     scope = Stock.order(:name)
     scope = scope.where("symbol ILIKE :query OR name ILIKE :query", query: "%#{@query}%") if @query.present?
     @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
+
+    render :index, variants: [ :combobox ] if params[:combobox].present?
   end
 
   # GET /stocks/:ticker

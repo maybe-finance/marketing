@@ -2,7 +2,7 @@
   <%= render partial: "shared/section_divider", locals: { section_name: "Portfolio" } %>
 
   <% 10.times do |i| %>
-    <%= render partial: "shared/stocks_allocator", locals: { list: tool.searchable_stocks, index: i, required: i == 0 } %>
+    <%= render partial: "shared/stocks_allocator", locals: { index: i, required: i == 0 } %>
   <% end %>
 
   <div class="flex items-center justify-end gap-2">
@@ -19,7 +19,7 @@
   <%= render partial: "shared/section_divider", locals: { section_name: "Settings" } %>
 
   <div class="search-combobox">
-    <%= combobox_tag "benchmark_stock", tool.searchable_stocks,
+    <%= combobox_tag "benchmark_stock", stocks_path(combobox: true),
       label: "Benchmark",
       placeholder: "Search for a stock",
       required: true %>

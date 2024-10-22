@@ -17,10 +17,6 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
     start_date.month == end_date.month
   end
 
-  def searchable_stocks
-    @searchable_stocks ||= Stock.select(:name, :symbol).map { |stock| StockComboboxOption.new(stock) }
-  end
-
   def portfolio_growth
     plot_data.last[:portfolio].round(0)
   end
