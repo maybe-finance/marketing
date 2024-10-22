@@ -1,24 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
-import Fuse from 'fuse.js'
 
 export default class extends Controller {
   static targets = [ "allocation", "totalDisplay", "warningText" ]
   static values = { stocks: Array }
 
   connect() {
-    this.isFuseInitialized = false;
     window.prioritizeTickerFilter = this.prioritizeTickerFilter.bind(this)
-  }
-
-  initializeFuse(dataList) {
-    if (!this.isFuseInitialized) {
-      this.fuseInstance = new Fuse(dataList, {
-        keys: ['value', 'name'],
-        threshold: 0.3,
-        includeScore: true
-      })
-      this.isFuseInitialized = true;
-    }
   }
 
   submitForm(event) {
@@ -93,13 +80,11 @@ export default class extends Controller {
   }
 
   prioritizeTickerFilter(dataList, filterValue) {
-    if (!this.isFuseInitialized) {
-      this.initializeFuse(dataList)
-    }
-    const results = this.fuseInstance.search(filterValue);
-    
-    return results
-      .map(result => result.item)
+    return dataList
+      .filter(item => 
+        item.value.toLowerCase().includes(filterValue.toLowerCase()) ||
+        item.name.toLowerCase().includes(filterValue.toLowerCase())
+      )
       .sort((a, b) => {
         const aStartsWithFilter = a.value.toLowerCase().startsWith(filterValue.toLowerCase());
         const bStartsWithFilter = b.value.toLowerCase().startsWith(filterValue.toLowerCase());
