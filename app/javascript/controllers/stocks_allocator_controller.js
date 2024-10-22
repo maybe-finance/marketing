@@ -6,12 +6,19 @@ export default class extends Controller {
   static values = { stocks: Array }
 
   connect() {
-    this.fuseInstance = new Fuse(this.stocksValue, {
-      keys: ['value', 'name'],
-      threshold: 0.3,
-      includeScore: true
-    })
-    window.prioritizeTickerFilter = this.prioritizeTickerFilter
+    this.isFuseInitialized = false;
+    window.prioritizeTickerFilter = this.prioritizeTickerFilter.bind(this)
+  }
+
+  initializeFuse(dataList) {
+    if (!this.isFuseInitialized) {
+      this.fuseInstance = new Fuse(dataList, {
+        keys: ['value', 'name'],
+        threshold: 0.3,
+        includeScore: true
+      })
+      this.isFuseInitialized = true;
+    }
   }
 
   submitForm(event) {
@@ -86,14 +93,10 @@ export default class extends Controller {
   }
 
   prioritizeTickerFilter(dataList, filterValue) {
-    const options = {
-      keys: ['value', 'name'],
-      threshold: 0.3,
-      includeScore: true
-    };
-    
-    const fuse = new Fuse(dataList, options);
-    const results = fuse.search(filterValue);
+    if (!this.isFuseInitialized) {
+      this.initializeFuse(dataList)
+    }
+    const results = this.fuseInstance.search(filterValue);
     
     return results
       .map(result => result.item)
