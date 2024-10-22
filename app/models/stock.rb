@@ -20,6 +20,10 @@ class Stock < ApplicationRecord
     symbol
   end
 
+  def to_combobox_display
+    "#{symbol} - #{name}"
+  end
+
   private
     def create_meta_image
       super("#{symbol} Stock Price, Information and News")

@@ -18,9 +18,7 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
   end
 
   def searchable_stocks
-    @searchable_stocks ||= Stock.select(:name, :symbol).map do |stock|
-      { name: stock.name, value: stock.symbol }
-    end
+    @searchable_stocks ||= Stock.select(:name, :symbol).map { |stock| StockComboboxOption.new(stock) }
   end
 
   def portfolio_growth

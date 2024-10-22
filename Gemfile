@@ -20,6 +20,7 @@ gem "lucide-rails", github: "maybe-finance/lucide-rails"
 # Hotwire
 gem "stimulus-rails"
 gem "turbo-rails"
+gem "hotwire_combobox", "~> 0.3.2"
 
 # Other
 gem "faraday"

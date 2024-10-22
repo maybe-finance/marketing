@@ -87,4 +87,47 @@
     @apply text-[#737373] text-sm;
   }
 
+  .search-combobox {
+    .hw-combobox {
+      @apply w-full;
+    }
+
+    .hw-combobox__main__wrapper {
+      @apply relative bg-white border rounded-md shadow-xs border-alpha-black-100;
+      @apply focus-within:shadow-none focus-within:border-gray-900 focus-within:ring-4 focus-within:ring-gray-100;
+
+      @apply flex rounded-[10px] shadow-xs w-full text-sm justify-start items-center px-3 pr-7 text-ellipsis h-9;
+    }
+
+    .hw-combobox__label {
+      @apply absolute top-2 left-3 text-xs text-gray-500 z-10;
+    }
+
+    .hw-combobox__listbox {
+      @apply absolute top-[110%] right-0 w-full border border-black/10 bg-white rounded shadow-xs p-1 z-30;
+    }
+
+    .hw-combobox__option {
+      @apply flex items-center justify-start w-full px-2 py-1 min-h-9 text-sm text-black rounded cursor-pointer hover:bg-alpha-black-50;
+    }
+
+    .hw-combobox__handle {
+      @apply h-4 w-4 transform -translate-y-1/2 top-1/2;
+    }
+
+    &:has(label:not(:empty)) {
+      .hw-combobox__main__wrapper {
+        @apply h-14 pt-7;
+      }
+
+      .hw-combobox__handle {
+        @apply top-[67%];
+      }
+    }
+
+    --hw-handle-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-search'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
+    --hw-handle-width: 16px;
+    --hw-handle-height: 16px;
+    --hw-handle-offset-right: 12px;
+  }
 }

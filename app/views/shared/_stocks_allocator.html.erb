@@ -1,12 +1,10 @@
-<%= tag.div class: [ "flex items-center gap-2", { "hidden": !index.zero? } ], data: { stocks_allocator_target: "allocation", search_select_custom_filter_value: "prioritizeTickerFilter" } do %>
-  <%= render partial: "shared/search_select", locals: {
-        list: local_assigns[:list],
-        label: local_assigns[:label],
-        name: "stocks[]",
-        required: local_assigns[:required],
-        disabled: !local_assigns[:required],
-        placeholder: "Search for a stock"
-      } %>
+<%= tag.div class: [ "flex items-center gap-2", { "hidden": !index.zero? } ], data: { stocks_allocator_target: "allocation" } do %>
+  <div class="search-combobox">
+    <%= combobox_tag "stocks[]", local_assigns[:list],
+      label: local_assigns[:label],
+      placeholder: "Search for a stock",
+      required: local_assigns[:required] %>
+  </div>
 
   <div class="relative w-16">
     <%= tag.input type: :number, min: 0, max: 100, step: 1,
@@ -27,24 +25,3 @@
     </button>
   </div>
 <% end %>
-
-
-<script>
-window.prioritizeTickerFilter = function(dataList, filterValue) {
-  return dataList
-    .filter(item => {
-      const ticker = item.name.match(/\((.*?)\)/)?.[1] || '';
-      return ticker.toLowerCase().includes(filterValue) ||
-             item.name.toLowerCase().includes(filterValue);
-    })
-    .sort((a, b) => {
-      const tickerA = a.name.match(/\((.*?)\)/)?.[1] || '';
-      const tickerB = b.name.match(/\((.*?)\)/)?.[1] || '';
-      const aStartsWithFilter = tickerA.toLowerCase().startsWith(filterValue);
-      const bStartsWithFilter = tickerB.toLowerCase().startsWith(filterValue);
-      if (aStartsWithFilter && !bStartsWithFilter) return -1;
-      if (!aStartsWithFilter && bStartsWithFilter) return 1;
-      return 0;
-    });
-};
-</script>
