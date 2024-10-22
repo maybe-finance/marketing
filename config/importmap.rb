@@ -46,3 +46,4 @@ pin "delaunator" # @5.0.1
 pin "internmap" # @2.0.3
 pin "robust-predicates" # @3.0.2
 pin "autonumeric" # @4.10.5
+pin "fuse.js" # @7.0.0

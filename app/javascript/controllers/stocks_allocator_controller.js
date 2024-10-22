@@ -1,7 +1,18 @@
 import { Controller } from "@hotwired/stimulus"
+import Fuse from 'fuse.js'
 
 export default class extends Controller {
   static targets = [ "allocation", "totalDisplay", "warningText" ]
+  static values = { stocks: Array }
+
+  connect() {
+    this.fuseInstance = new Fuse(this.stocksValue, {
+      keys: ['value', 'name'],
+      threshold: 0.3,
+      includeScore: true
+    })
+    window.prioritizeTickerFilter = this.prioritizeTickerFilter
+  }
 
   submitForm(event) {
     if (this.#totalAllocation < 100) {
@@ -73,6 +84,27 @@ export default class extends Controller {
 
     this.updateAllocation()
   }
+
+  prioritizeTickerFilter(dataList, filterValue) {
+    const options = {
+      keys: ['value', 'name'],
+      threshold: 0.3,
+      includeScore: true
+    };
+    
+    const fuse = new Fuse(dataList, options);
+    const results = fuse.search(filterValue);
+    
+    return results
+      .map(result => result.item)
+      .sort((a, b) => {
+        const aStartsWithFilter = a.value.toLowerCase().startsWith(filterValue.toLowerCase());
+        const bStartsWithFilter = b.value.toLowerCase().startsWith(filterValue.toLowerCase());
+        if (aStartsWithFilter && !bStartsWithFilter) return -1;
+        if (!aStartsWithFilter && bStartsWithFilter) return 1;
+        return 0;
+      });
+  };
 
   get #totalAllocation() {
     return this.allocationTargets.reduce((acc, allocation) => {

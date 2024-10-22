@@ -28,21 +28,3 @@
     </button>
   </div>
 <% end %>
-
-
-<script>
-window.prioritizeTickerFilter = function(dataList, filterValue) {
-  return dataList
-    .filter(item => {
-      return item.value.toLowerCase().includes(filterValue) ||
-             item.name.toLowerCase().includes(filterValue);
-    })
-    .sort((a, b) => {
-      const aStartsWithFilter = a.value.toLowerCase().startsWith(filterValue);
-      const bStartsWithFilter = b.value.toLowerCase().startsWith(filterValue);
-      if (aStartsWithFilter && !bStartsWithFilter) return -1;
-      if (!aStartsWithFilter && bStartsWithFilter) return 1;
-      return 0;
-    });
-};
-</script>
