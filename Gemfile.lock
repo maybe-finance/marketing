@@ -147,7 +147,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
-    brakeman (6.2.1)
+    brakeman (6.2.2)
       racc
     builder (3.3.0)
     capybara (3.40.0)
@@ -203,6 +203,10 @@ GEM
       actioncable (>= 6.0.0)
       listen (>= 3.0.0)
       railties (>= 6.0.0)
+    hotwire_combobox (0.3.2)
+      rails (>= 7.0.7.2)
+      stimulus-rails (>= 1.2)
+      turbo-rails (>= 1.2)
     httparty (0.22.0)
       csv
       mini_mime (>= 1.0.0)
@@ -454,6 +458,7 @@ DEPENDENCIES
   erb_lint
   faraday
   hotwire-livereload
+  hotwire_combobox (~> 0.3.2)
   importmap-rails
   jbuilder
   lucide-rails!

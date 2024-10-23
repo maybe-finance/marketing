@@ -2,7 +2,7 @@
   <%= render partial: "shared/section_divider", locals: { section_name: "Portfolio" } %>
 
   <% 10.times do |i| %>
-    <%= render partial: "shared/stocks_allocator", locals: { list: tool.searchable_stocks.to_json, index: i, required: i == 0 } %>
+    <%= render partial: "shared/stocks_allocator", locals: { index: i, required: i == 0 } %>
   <% end %>
 
   <div class="flex items-center justify-end gap-2">
@@ -18,7 +18,12 @@
 
   <%= render partial: "shared/section_divider", locals: { section_name: "Settings" } %>
 
-  <%= render partial: "shared/search_select", locals: { list: tool.searchable_stocks.to_json, label: "Benchmark", name: "benchmark_stock", required: true, placeholder: "Search for a stock" } %>
+  <div class="search-combobox">
+    <%= combobox_tag "benchmark_stock", stocks_path(combobox: true),
+      label: "Benchmark",
+      placeholder: "Search for a stock",
+      required: true %>
+  </div>
 
   <div data-controller="synchronized-input" class="flex flex-col gap-2">
     <%= form.unit_field :investment_amount, label: "Investment amount", value: tool.investment_amount, unit_symbol: "$", data: { controller: "autonumeric" } %>

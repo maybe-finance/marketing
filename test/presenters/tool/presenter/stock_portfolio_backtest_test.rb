@@ -22,10 +22,6 @@ class Tool::Presenter::StockPortfolioBacktestTest < ActiveSupport::TestCase
     assert_not @tool.blank?
   end
 
-  test "searchable stocks" do
-    assert_equal Stock.count, @tool.searchable_stocks.size
-  end
-
   test "portfolio growth" do
     assert_equal 120_098, @tool.portfolio_growth
   end
