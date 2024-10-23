@@ -14,7 +14,7 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
   end
 
   def same_month?
-    start_date.month == end_date.month
+    start_date.month == end_date.month && start_date.year == end_date.year
   end
 
   def portfolio_growth
