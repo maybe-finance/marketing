@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_15_055133) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_23_094219) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -45,6 +45,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_15_055133) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "meta_image_url"
+    t.virtual "search_vector", type: :tsvector, as: "(setweight(to_tsvector('simple'::regconfig, (COALESCE(symbol, ''::character varying))::text), 'B'::\"char\") || to_tsvector('simple'::regconfig, (COALESCE(name, ''::character varying))::text))", stored: true
+    t.index ["search_vector"], name: "index_stocks_on_search_vector", using: :gin
   end
 
   create_table "terms", force: :cascade do |t|

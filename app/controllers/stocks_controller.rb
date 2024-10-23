@@ -13,10 +13,9 @@ class StocksController < ApplicationController
   #   GET /stocks?q=AAPL
   def index
     @query = params[:q]
-    @total_stocks = Stock.count
-    scope = Stock.order(:name)
-    scope = scope.where("symbol ILIKE :query OR name ILIKE :query", query: "%#{@query}%") if @query.present?
+    scope = Stock.order(:name).search(@query)
     @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
+    @total_stocks = @pagy.count
 
     render :index, variants: [ :combobox ] if params[:combobox].present?
   end
