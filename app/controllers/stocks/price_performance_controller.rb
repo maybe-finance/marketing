@@ -12,36 +12,38 @@ class Stocks::PricePerformanceController < ApplicationController
     @stock = Stock.find_by(symbol: params[:stock_ticker])
     timeframe = params[:timeframe] || "24h"
 
-    headers = {
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
-      "X-Source" => "maybe_marketing",
-      "X-Source-Type" => "api"
-    }
-
-    # Fetch real-time data
-    @real_time_data = fetch_real_time_data(@stock.symbol, headers)
-
-    if @real_time_data.nil?
-      @price_performance = { error: "Unable to fetch real-time data" }
-    elsif timeframe == "24h"
-      @price_performance = {
-        low: @real_time_data["low"],
-        high: @real_time_data["high"],
-        current: @real_time_data["fair_market_value"]
+    @price_performance = Rails.cache.fetch("price_performance/v1/#{@stock.symbol}/#{timeframe}", expires_in: 12.hours) do
+      headers = {
+        "Content-Type" => "application/json",
+        "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
+        "X-Source" => "maybe_marketing",
+        "X-Source-Type" => "api"
       }
-    else
-      # Fetch historical data based on timeframe
-      @historical_data = fetch_historical_data(@stock.symbol, timeframe, headers)
 
-      if @historical_data.nil?
-        @price_performance = { error: "Unable to fetch historical data" }
-      else
-        @price_performance = {
-          low: @historical_data[:low],
-          high: @historical_data[:high],
-          current: @real_time_data["fair_market_value"]
+      # Fetch real-time data
+      real_time_data = fetch_real_time_data(@stock.symbol, headers)
+
+      if real_time_data.nil?
+        { error: "Unable to fetch real-time data" }
+      elsif timeframe == "24h"
+        {
+          low: real_time_data["low"],
+          high: real_time_data["high"],
+          current: real_time_data["fair_market_value"]
         }
+      else
+        # Fetch historical data based on timeframe
+        historical_data = fetch_historical_data(@stock.symbol, timeframe, headers)
+
+        if historical_data.nil?
+          { error: "Unable to fetch historical data" }
+        else
+          {
+            low: historical_data[:low],
+            high: historical_data[:high],
+            current: real_time_data["fair_market_value"]
+          }
+        end
       end
     end
 
