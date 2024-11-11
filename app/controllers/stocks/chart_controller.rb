@@ -11,49 +11,52 @@ class Stocks::ChartController < ApplicationController
   # @return [JSON] A JSON object containing chart data or an error message
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
+    time_range = params[:time_range].presence || "1M"  # Set default if nil or empty
 
-    headers = {
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
-      "X-Source" => "maybe_marketing",
-      "X-Source-Type" => "api"
-    }
-
-    end_date = Date.today
-    start_date, interval = calculate_start_date_and_interval(params[:time_range])
-
-    response = Faraday.get(
-      "https://api.synthfinance.com/tickers/#{@stock.symbol}/open-close",
-      {
-        start_date: start_date.iso8601,
-        end_date: end_date.iso8601,
-        interval: interval,
-        limit: 500
-      },
-      headers
-    )
-
-    if response.success?
-      data = JSON.parse(response.body)
-      valid_prices = data["prices"].reject { |p| p["no_data"] || p["close"].nil? || p["open"].nil? }
-
-      if valid_prices.any?
-        latest_price = valid_prices.last["close"].to_f
-        first_price = valid_prices.first["open"].to_f
-        price_change = (latest_price - first_price).round(2)
-        price_change_percentage = ((price_change / first_price) * 100).round(2)
-      else
-        latest_price = price_change = price_change_percentage = 0
-      end
-
-      @stock_chart = {
-        latest_price: latest_price,
-        price_change: price_change,
-        price_change_percentage: price_change_percentage,
-        prices: valid_prices
+    @stock_chart = Rails.cache.fetch("stock_chart/v1/#{@stock.symbol}/#{time_range}", expires_in: 12.hours) do
+      headers = {
+        "Content-Type" => "application/json",
+        "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
+        "X-Source" => "maybe_marketing",
+        "X-Source-Type" => "api"
       }
-    else
-      @stock_chart = { error: "Unable to fetch stock data" }
+
+      end_date = Date.today
+      start_date, interval = calculate_start_date_and_interval(time_range)
+
+      response = Faraday.get(
+        "https://api.synthfinance.com/tickers/#{@stock.symbol}/open-close",
+        {
+          start_date: start_date.iso8601,
+          end_date: end_date.iso8601,
+          interval: interval,
+          limit: 500
+        },
+        headers
+      )
+
+      if response.success?
+        data = JSON.parse(response.body)
+        valid_prices = data["prices"].reject { |p| p["no_data"] || p["close"].nil? || p["open"].nil? }
+
+        if valid_prices.any?
+          latest_price = valid_prices.last["close"].to_f
+          first_price = valid_prices.first["open"].to_f
+          price_change = (latest_price - first_price).round(2)
+          price_change_percentage = ((price_change / first_price) * 100).round(2)
+        else
+          latest_price = price_change = price_change_percentage = 0
+        end
+
+        {
+          latest_price: latest_price,
+          price_change: price_change,
+          price_change_percentage: price_change_percentage,
+          prices: valid_prices
+        }
+      else
+        { error: "Unable to fetch stock data" }
+      end
     end
 
     respond_to do |format|
