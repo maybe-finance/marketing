@@ -9,14 +9,17 @@ class Stocks::StatisticsController < ApplicationController
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
 
-    headers = {
+    @stock_statistics = Rails.cache.fetch("stock_statistics/v1/#{@stock.symbol}", expires_in: 24.hours) do
+      headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
       "X-Source" => "maybe_marketing",
-      "X-Source-Type" => "api"
-    }
-    @stock_statistics = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}", nil, headers)
-    parsed_data = JSON.parse(@stock_statistics.body)["data"]
-    @stock_statistics = parsed_data && parsed_data["market_data"] ? parsed_data["market_data"] : nil
+        "X-Source-Type" => "api"
+      }
+
+      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}", nil, headers)
+      parsed_data = JSON.parse(response.body)["data"]
+      parsed_data && parsed_data["market_data"] ? parsed_data["market_data"] : nil
+    end
   end
 end

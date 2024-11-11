@@ -9,15 +9,16 @@ class Stocks::InfoController < ApplicationController
   def show
     @stock = Stock.find_by(symbol: params[:stock_ticker])
 
-    headers = {
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
-      "X-Source" => "maybe_marketing",
-      "X-Source-Type" => "api"
-    }
+    @stock_info = Rails.cache.fetch("stock_info/v1/#{@stock.symbol}", expires_in: 24.hours) do
+      headers = {
+        "Content-Type" => "application/json",
+        "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
+        "X-Source" => "maybe_marketing",
+        "X-Source-Type" => "api"
+      }
 
-    # Fetch stock information from Synth Finance API
-    @stock_info = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}", nil, headers)
-    @stock_info = JSON.parse(@stock_info.body)["data"]
+      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}", nil, headers)
+      JSON.parse(response.body)["data"]
+    end
   end
 end
