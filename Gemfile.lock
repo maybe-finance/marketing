@@ -282,7 +282,7 @@ GEM
     parser (3.3.5.0)
       ast (~> 2.4.1)
       racc
-    pg (1.5.8)
+    pg (1.5.9)
     prism (1.2.0)
     prop_initializer (0.2.0)
       zeitwerk (>= 2.6.18)
