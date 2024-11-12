@@ -53,8 +53,8 @@ class PagesController < ApplicationController
     # Paginate stocks
     @stocks = Stock.order(name: :asc)
                    .where.not(mic_code: nil)
-                   .offset((@page - 1) * 45_000)
-                   .limit(45_000)
+                   .offset((@page - 1) * 20_000)
+                   .limit(20_000)
 
     respond_to do |format|
       format.xml
@@ -67,7 +67,7 @@ class PagesController < ApplicationController
   # @return [XML] Sitemap index file
   def sitemap_index
     @total_stocks = Stock.where.not(mic_code: nil).count
-    @sitemap_count = (@total_stocks / 45_000.0).ceil # Using 45k to leave room for other URLs
+    @sitemap_count = (@total_stocks / 20_000.0).ceil # Using 20k to leave room for other URLs
 
     respond_to do |format|
       format.xml
