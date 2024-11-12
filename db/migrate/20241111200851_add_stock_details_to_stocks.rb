@@ -11,6 +11,6 @@ class AddStockDetailsToStocks < ActiveRecord::Migration[8.0]
     add_index :stocks, :mic_code
     add_index :stocks, :country_code
     add_index :stocks, :kind
-    add_index :stocks, [:symbol, :mic_code], unique: true
+    add_index :stocks, [ :symbol, :mic_code ], unique: true
   end
 end
