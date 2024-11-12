@@ -15,3 +15,31 @@
     <% end %>
   </div>
 </div>
+
+<div class="max-w-full mt-10 mx-auto prose prose-headings:font-medium bg-white border shadow-xs sm:rounded-xl p-4">
+  <div class=" grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="bg-gray-50 rounded-lg p-6">
+      <h3 class="text-lg font-medium mb-4">Convert <%= tool.from_currency %> to <%= tool.to_currency %></h3>
+      <div class="space-y-3">
+        <% [1, 5, 10, 25, 50, 100, 500, 1000, 5000, 10000].each do |amount| %>
+          <%= link_to "/tools/exchange-rate-calculator/#{tool.from_currency}/#{tool.to_currency}/#{amount}", class: "flex justify-between hover:bg-gray-100 p-2 rounded" do %>
+            <span class="text-blue-600"><%= amount %> <%= tool.from_currency %></span>
+            <span><%= number_to_currency(amount * tool.current_rate, unit: tool.to_currency, format: "%n %u") %></span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 rounded-lg p-6">
+      <h3 class="text-lg font-medium mb-4">Convert <%= tool.to_currency %> to <%= tool.from_currency %></h3>
+      <div class="space-y-3">
+        <% [1, 5, 10, 25, 50, 100, 500, 1000, 5000, 10000].each do |amount| %>
+          <%= link_to "/tools/exchange-rate-calculator/#{tool.to_currency}/#{tool.from_currency}/#{amount}", class: "flex justify-between hover:bg-gray-100 p-2 rounded" do %>
+            <span class="text-blue-600"><%= amount %> <%= tool.to_currency %></span>
+            <span><%= number_to_currency(amount / tool.current_rate, unit: tool.from_currency, format: "%n %u") %></span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

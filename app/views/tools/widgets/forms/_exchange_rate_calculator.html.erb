@@ -13,7 +13,8 @@
 
 <%= form_with method: :get, data: { 
   turbo_frame: frame_id, 
-  controller: "auto-submit-form exchange-rate-loading" 
+  controller: "auto-submit-form exchange-rate-loading exchange-rate-url",
+  exchange_rate_url_debug: true
 } do |form| %>
   <div class="flex flex-col gap-2">
     <%= form.unit_field :amount,
@@ -30,12 +31,17 @@
     <div class="form-field">
       <label class="form-field__label">From Currency</label>
       <div class="flex items-center">
-        <div class="relative flex self-end w-full" data-controller="select" data-select-active-class="bg-gray-100" data-select-selected-value="<%= tool.from_currency %>">
+        <div class="relative flex self-end w-full" 
+          data-controller="select" 
+          data-select-active-class="bg-gray-100" 
+          data-select-selected-value="<%= tool.from_currency %>"
+          data-action="select:changed->exchange-rate-url#currencyChanged">
           <input type="hidden" name="from_currency" 
             value="<%= tool.from_currency %>" 
             data-select-target="input" 
             data-auto-submit-form-target="auto"
-            data-action="change->exchange-rate-loading#showSpinner">
+            data-exchange-rate-url-target="fromCurrency"
+            data-action="input->exchange-rate-url#currencyChanged">
           
           <button type="button" class="items-center px-3 py-[6px] cursor-pointer text-gray-900 text-sm w-full flex justify-between" data-select-target="button">
             <span data-select-target="buttonText"><%= currency_options.find { |opt| opt[1] == tool.from_currency }&.first %></span>
@@ -66,7 +72,8 @@
             value="<%= tool.to_currency %>" 
             data-select-target="input" 
             data-auto-submit-form-target="auto"
-            data-action="change->exchange-rate-loading#showSpinner">
+            data-exchange-rate-url-target="toCurrency"
+            data-action="input->exchange-rate-url#currencyChanged">
           
           <button type="button" class="items-center px-3 py-[6px] cursor-pointer text-gray-900 text-sm w-full flex justify-between" data-select-target="button">
             <span data-select-target="buttonText"><%= currency_options.find { |opt| opt[1] == tool.to_currency }&.first %></span>

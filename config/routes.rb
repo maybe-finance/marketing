@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
   resources :tools, only: [ :index, :show ], param: :slug do
-    get ":from_currency/:to_currency/:amount", on: :member,
+    get ":from_currency/:to_currency(/:amount)", on: :member,
       constraints: {
         from_currency: /[A-Z]{3}/,
         to_currency: /[A-Z]{3}/,
