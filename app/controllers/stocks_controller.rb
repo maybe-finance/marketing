@@ -12,7 +12,15 @@ class StocksController < ApplicationController
   #   GET /stocks
   #   GET /stocks?q=AAPL
   def index
-    @exchanges = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:exchange, :country_code).compact.sort_by(&:first)
+    @exchanges = Stock.where(kind: "stock")
+                     .where.not(mic_code: nil)
+                     .distinct
+                     .pluck(:exchange, :country_code)
+                     .compact
+                     .group_by(&:first)
+                     .transform_values(&:first)
+                     .values
+                     .sort_by(&:first)
     @industries = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
     @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
     @total_stocks = Stock.where(kind: "stock").where.not(mic_code: nil).count
@@ -68,7 +76,15 @@ class StocksController < ApplicationController
       @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
       render :all
     else
-      @exchanges = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:exchange).compact.sort
+      @exchanges = Stock.where(kind: "stock")
+                     .where.not(mic_code: nil)
+                     .distinct
+                     .pluck(:exchange, :country_code)
+                     .compact
+                     .group_by(&:first)
+                     .transform_values(&:first)
+                     .values
+                     .sort_by(&:first)
     end
   end
 

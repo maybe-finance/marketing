@@ -53,7 +53,8 @@ Rails.application.routes.draw do
   get "terms", to: redirect("/tos", status: 301)
   get "privacy" => "pages#privacy"
 
-  get "sitemap", to: "pages#sitemap", defaults: { format: "xml" }
+  get "sitemap.xml", to: "pages#sitemap_index", defaults: { format: "xml" }
+  get "sitemap_:page.xml", to: "pages#sitemap", defaults: { format: "xml" }
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

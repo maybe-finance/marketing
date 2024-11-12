@@ -33,10 +33,44 @@ class PagesController < ApplicationController
   #
   # @return [Array<Term>, Array<Article>, Array<Tool>, Array<Stock>] Collections of resources for the sitemap
   def sitemap
+    @page = (params[:page] || 1).to_i
     @terms = Term.all
     @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
     @tools = Tool.all
+    @exchanges = Stock.where(kind: "stock")
+                     .where.not(mic_code: nil)
+                     .distinct
+                     .pluck(:exchange, :country_code)
+                     .compact
+                     .group_by(&:first)
+                     .transform_values(&:first)
+                     .values
+                     .sort_by(&:first)
+    @industries = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
+    @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
+
+    # Paginate stocks
     @stocks = Stock.order(name: :asc)
+                   .where.not(mic_code: nil)
+                   .offset((@page - 1) * 45_000)
+                   .limit(45_000)
+
+    respond_to do |format|
+      format.xml
+    end
+  end
+
+  # GET /sitemap.xml
+  # Generates a sitemap index file with links to multiple sitemaps.
+  #
+  # @return [XML] Sitemap index file
+  def sitemap_index
+    @total_stocks = Stock.where.not(mic_code: nil).count
+    @sitemap_count = (@total_stocks / 45_000.0).ceil # Using 45k to leave room for other URLs
+
+    respond_to do |format|
+      format.xml
+    end
   end
 
   private
