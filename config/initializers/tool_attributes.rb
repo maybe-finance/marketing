@@ -66,8 +66,21 @@ class ToolArray < ActiveModel::Type::Value
   end
 end
 
+class ToolString < ActiveModel::Type::String
+  def initialize(enum: nil, **rest)
+    @enum = enum&.index_by(&:itself)
+    super(**rest)
+  end
+
+  def cast(value)
+    value = @enum[value].presence if @enum
+    super(value)
+  end
+end
+
 ActiveModel::Type.register :tool_float, ToolFloat
 ActiveModel::Type.register :tool_integer, ToolInteger
 ActiveModel::Type.register :tool_percentage, ToolPercentage
 ActiveModel::Type.register :tool_enum, ToolEnum
 ActiveModel::Type.register :tool_array, ToolArray
+ActiveModel::Type.register :tool_string, ToolString

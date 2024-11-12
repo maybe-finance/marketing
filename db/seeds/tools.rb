@@ -78,6 +78,14 @@ tools = [
     description: "See how a portfolio would have performed, just remember that past performance isn’t indicative of future returns.",
     category_slug: "investing",
     icon: "bar-chart-4"
+  },
+  {
+    name: "Exchange Rate Calculator",
+    slug: "exchange-rate-calculator",
+    intro: "Convert between currencies and track historical exchange rates",
+    description: "Calculate currency exchange rates and view historical trends between different currencies.",
+    category_slug: "other",
+    icon: "currency"
   }
 ]
 

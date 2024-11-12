@@ -48,6 +48,7 @@ class PagesController < ApplicationController
                      .sort_by(&:first)
     @industries = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
     @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
+    @exchange_rate_currencies = Tool::Presenter::ExchangeRateCalculator.new.currency_options
 
     # Paginate stocks
     @stocks = Stock.order(name: :asc)
