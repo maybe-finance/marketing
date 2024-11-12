@@ -11,7 +11,13 @@
 <div class="flex items-center justify-between mt-8">
   <div class="flex items-center gap-3">
     <img src="https://logo.synthfinance.com/ticker/<%= @stock.symbol %>" alt="<%= @stock.symbol %>" class="w-10 h-10 rounded-full">
-    <h1 class="text-2xl font-medium text-black"><%= @stock.name %> <span class="font-normal text-gray-500"><%= @stock.symbol %></span></h1>
+    <h1 class="text-2xl font-medium text-black"><%= @stock.name %> <span class="font-normal text-gray-500 font-mono"><%= @stock.symbol %></span></h1>
+    <div class="flex items-center gap-x-1 text-sm text-gray-500">
+      <%= @stock.mic_code %>
+      <img src="https://hatscripts.github.io/circle-flags/flags/<%= @stock.country_code.downcase %>.svg" 
+           alt="<%= @stock.country_code %>" 
+           class="w-4 h-4 rounded-full">
+    </div>
   </div>
   <%= link_to "https://synthfinance.com", target: "_blank", class: "flex items-center gap-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg px-3 py-1" do %>
     Powered by <%= image_tag "logo-synth.svg", alt: "Synth Logo", class: "inline-block h-4" %>

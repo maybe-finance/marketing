@@ -64,9 +64,17 @@
       <% @stocks.each do |stock| %>
         <%= link_to stock_path("#{stock.symbol}:#{stock.mic_code}"), class: "block px-4 py-3 bg-white rounded-lg flex items-center gap-x-3 border border-gray-200 shadow-xs hover:border-gray-300 hover:shadow-sm" do %>
           <%= image_tag("https://logo.synthfinance.com/ticker/#{stock.symbol}", alt: "#{stock.name} logo", class: "rounded-full w-10 h-10") %>
-          <span class="block overflow-hidden">
+          <span class="block overflow-hidden flex-1">
             <h6 class="font-medium truncate whitespace-nowrap"><%= stock.name %></h6>
-            <p class="font-normal text-gray-500"><%= stock.symbol %>:<%= stock.mic_code %></p>
+            <div class="flex justify-between items-center">
+              <span class="font-normal text-gray-500 font-mono"><%= stock.symbol %></span>
+              <span class="font-normal text-gray-500 flex items-center gap-x-1 text-xs">
+                <%= stock.mic_code %>
+                <img src="https://hatscripts.github.io/circle-flags/flags/<%= stock.country_code.downcase %>.svg" 
+                     alt="<%= stock.country_code %>" 
+                     class="w-4 h-4 rounded-full">
+              </span>
+            </div>
           </span>
         <% end %>
       <% end %>
