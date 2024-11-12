@@ -1,5 +1,7 @@
 <%
-  title tool.from_currency && tool.to_currency && tool.amount ? "#{tool.amount.to_i} #{tool.from_currency} to #{tool.to_currency} Currency Exchange Rate Converter" : "Exchange Rate Calculator"
+  title params[:from_currency] && params[:to_currency] ? 
+    "#{tool.amount.to_i} #{tool.from_currency} to #{tool.to_currency} Currency Exchange Rate Converter" : 
+    "Exchange Rate Calculator"
 %>
 <div class="flex items-center text-center justify-center mb-8 -mt-8">
   <%= link_to "https://synthfinance.com", target: "_blank", class: "flex items-center gap-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg px-3 py-1" do %>
