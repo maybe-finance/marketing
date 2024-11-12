@@ -23,14 +23,33 @@ namespace :data do
       end
 
       stocks = JSON.parse(response.body)
-      stocks["data"].each do |stock|
-        stock_record = Stock.find_or_create_by!(symbol: stock["ticker"]) do |s|
-          s.name = stock["name"]
-          s.description = stock["description"]
-          s.links = stock["links"]
-        end
-        puts "Created #{stock_record.symbol}"
+
+      # Collect records for bulk insert
+      new_stocks = stocks["data"].map do |stock|
+        {
+          symbol: stock["ticker"],
+          name: stock["name"],
+          description: stock["description"],
+          links: stock["links"],
+          exchange: stock.dig("exchange", "acronym"),
+          mic_code: stock.dig("exchange", "mic_code"),
+          country_code: stock.dig("exchange", "country_code"),
+          kind: stock["kind"],
+          industry: stock["industry"],
+          sector: stock["sector"],
+          created_at: Time.current,
+          updated_at: Time.current
+        }
       end
+
+      # Bulk upsert using unique constraint on symbol and mic_code
+      Stock.upsert_all(
+        new_stocks,
+        unique_by: [ :symbol, :mic_code ],
+        returning: false
+      )
+
+      puts "Processed page #{page}/#{stocks['paging']['total_pages']} (#{new_stocks.size} stocks)"
 
       break if stocks["paging"]["current_page"] == stocks["paging"]["total_pages"]
       page += 1

@@ -9,10 +9,15 @@ class Stocks::PricePerformanceController < ApplicationController
   # @param timeframe [String] The timeframe for historical data (default: "24h")
   # @return [JSON] Price performance data including low, high, and current prices
   def show
-    @stock = Stock.find_by(symbol: params[:stock_ticker])
+    if params[:stock_ticker].include?(":")
+      symbol, mic_code = params[:stock_ticker].split(":")
+      @stock = Stock.find_by(symbol:, mic_code:)
+    else
+      @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
+    end
     timeframe = params[:timeframe] || "24h"
 
-    @price_performance = Rails.cache.fetch("price_performance/v1/#{@stock.symbol}/#{timeframe}", expires_in: 12.hours) do
+    @price_performance = Rails.cache.fetch("price_performance/v1/#{@stock.symbol}:#{@stock.mic_code}/#{timeframe}", expires_in: 12.hours) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
@@ -61,7 +66,7 @@ class Stocks::PricePerformanceController < ApplicationController
   # @param headers [Hash] HTTP headers for the API request
   # @return [Hash, nil] Real-time stock data or nil if the request fails
   def fetch_real_time_data(symbol, headers)
-    response = Faraday.get("https://api.synthfinance.com/tickers/#{symbol}/real-time", nil, headers)
+    response = Faraday.get("https://api.synthfinance.com/tickers/#{symbol}/real-time?mic_code=#{@stock.mic_code}", nil, headers)
     return nil unless response.success?
     JSON.parse(response.body)["data"]
   rescue Faraday::Error, JSON::ParserError => e

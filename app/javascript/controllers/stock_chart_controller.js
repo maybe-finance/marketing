@@ -55,10 +55,10 @@ export default class extends Controller {
 
     const svg = d3.select(chartElement)
       .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`)
+      .attr("transform", `translate(${margin.left},${margin.top})`)
 
     const x = d3.scaleTime()
       .domain(d3.extent(prices, d => new Date(d.date)))
@@ -76,11 +76,11 @@ export default class extends Controller {
       .attr("y1", y(d3.min(prices, d => d.low)))
       .attr("x2", 0)
       .attr("y2", y(d3.max(prices, d => d.high)))
-    
+
     gradient.append("stop")
       .attr("offset", "0%")
       .attr("stop-color", "#10B981")
-    
+
     gradient.append("stop")
       .attr("offset", "100%")
       .attr("stop-color", "#10B981")
@@ -152,18 +152,18 @@ export default class extends Controller {
       const d1 = prices[i]
       const d = x0 - new Date(d0.date) > new Date(d1.date) - x0 ? d1 : d0
       const prevD = prices[Math.max(0, i - 1)]
-      
+
       const xPos = x(new Date(d.date))
       const yPos = y(d.close)
-      
+
       focus.attr("transform", `translate(${xPos},0)`)
       focus.select("circle").attr("cy", yPos)
       focus.select("line").attr("y2", height)
-      
+
       const change = d.close - prevD.close
       const changePercent = ((change / prevD.close) * 100).toFixed(2)
       const changeText = `${change >= 0 ? '+' : ''}$${change.toFixed(2)} (${changePercent}%)`
-      
+
       tooltip.html(`
         <div class="font-semibold">${d3.timeFormat("%b %d, %Y")(new Date(d.date))}</div>
         <div>$${d.close.toFixed(2)}</div>
@@ -203,7 +203,7 @@ export default class extends Controller {
 
   updateTimeRange(event) {
     const timeRange = event.target.dataset.timeRange;
-    
+
     this.element.querySelectorAll('button').forEach(btn => {
       btn.classList.remove('bg-gray-50', 'text-gray-700')
       btn.classList.add('bg-transparent', 'text-gray-500')
@@ -215,21 +215,21 @@ export default class extends Controller {
     this.element.querySelector('#stock-chart').classList.add('hidden')
 
     const url = `/stocks/${this.symbolValue}/chart?time_range=${timeRange}`
-    
+
     fetch(url, {
       headers: {
         'Accept': 'application/json',
         'X-Requested-With': 'XMLHttpRequest'
       }
     })
-    .then(response => response.json())
-    .then(data => {
-      this.dataValue = data
-      this.drawChart()
-    })
-    .catch(error => {
-      this.loadingSpinnerTarget.classList.add('hidden')
-      this.element.querySelector('#stock-chart').innerHTML = '<p class="text-red-500">Error loading chart data. Please try again.</p>'
-    })
+      .then(response => response.json())
+      .then(data => {
+        this.dataValue = data
+        this.drawChart()
+      })
+      .catch(error => {
+        this.loadingSpinnerTarget.classList.add('hidden')
+        this.element.querySelector('#stock-chart').innerHTML = '<p class="text-red-500">Error loading chart data. Please try again.</p>'
+      })
   }
 }

@@ -7,9 +7,14 @@ class Stocks::InfoController < ApplicationController
   # @param stock_ticker [String] The ticker symbol of the stock (passed in the URL)
   # @return [Object] Sets @stock and @stock_info instance variables for use in the view
   def show
-    @stock = Stock.find_by(symbol: params[:stock_ticker])
+    if params[:stock_ticker].include?(":")
+      symbol, mic_code = params[:stock_ticker].split(":")
+      @stock = Stock.find_by(symbol:, mic_code:)
+    else
+      @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
+    end
 
-    @stock_info = Rails.cache.fetch("stock_info/v1/#{@stock.symbol}", expires_in: 24.hours) do
+    @stock_info = Rails.cache.fetch("stock_info/v1/#{@stock.symbol}:#{@stock.mic_code}", expires_in: 24.hours) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
@@ -17,7 +22,7 @@ class Stocks::InfoController < ApplicationController
         "X-Source-Type" => "api"
       }
 
-      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}", nil, headers)
+      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}?mic_code=#{@stock.mic_code}", nil, headers)
       JSON.parse(response.body)["data"]
     end
   end

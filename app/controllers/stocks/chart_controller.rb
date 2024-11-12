@@ -10,10 +10,18 @@ class Stocks::ChartController < ApplicationController
   # @param time_range [String] The time range for the chart (e.g., "1M", "3M", "6M", "1Y", "5Y")
   # @return [JSON] A JSON object containing chart data or an error message
   def show
-    @stock = Stock.find_by(symbol: params[:stock_ticker])
+    if params[:stock_ticker].include?(":")
+      symbol, mic_code = params[:stock_ticker].split(":")
+      @stock = Stock.find_by(symbol:, mic_code:)
+    else
+      @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
+    end
+
+    # return redirect_to stocks_path if @stock.nil?
+
     time_range = params[:time_range].presence || "1M"  # Set default if nil or empty
 
-    @stock_chart = Rails.cache.fetch("stock_chart/v1/#{@stock.symbol}/#{time_range}", expires_in: 12.hours) do
+    @stock_chart = Rails.cache.fetch("stock_chart/v1/#{@stock.symbol}:#{@stock.mic_code}/#{time_range}", expires_in: 12.hours) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
@@ -25,7 +33,7 @@ class Stocks::ChartController < ApplicationController
       start_date, interval = calculate_start_date_and_interval(time_range)
 
       response = Faraday.get(
-        "https://api.synthfinance.com/tickers/#{@stock.symbol}/open-close",
+        "https://api.synthfinance.com/tickers/#{@stock.symbol}/open-close?mic_code=#{@stock.mic_code}",
         {
           start_date: start_date.iso8601,
           end_date: end_date.iso8601,

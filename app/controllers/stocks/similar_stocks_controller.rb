@@ -7,7 +7,12 @@ class Stocks::SimilarStocksController < ApplicationController
   # @param stock_ticker [String] The ticker symbol of the stock to find similar stocks for.
   # @return [void]
   def show
-    @stock = Stock.find_by(symbol: params[:stock_ticker])
+    if params[:stock_ticker].include?(":")
+      symbol, mic_code = params[:stock_ticker].split(":")
+      @stock = Stock.find_by(symbol:, mic_code:)
+    else
+      @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
+    end
 
     headers = {
       "Content-Type" => "application/json",
@@ -16,7 +21,7 @@ class Stocks::SimilarStocksController < ApplicationController
       "X-Source-Type" => "api"
     }
 
-    response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}/related", nil, headers)
+    response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}/related?mic_code=#{@stock.mic_code}", nil, headers)
     data = JSON.parse(response.body)["data"]
 
     @similar_stocks_data = []

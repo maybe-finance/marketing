@@ -12,12 +12,37 @@ class StocksController < ApplicationController
   #   GET /stocks
   #   GET /stocks?q=AAPL
   def index
-    @query = params[:q]
-    scope = Stock.order(:name).search(@query)
-    @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
-    @total_stocks = @pagy.count
+    @exchanges = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:exchange, :country_code).compact.sort_by(&:first)
+    @industries = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
+    @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
+    @total_stocks = Stock.where(kind: "stock").where.not(mic_code: nil).count
 
-    render :index, variants: [ :combobox ] if params[:combobox].present?
+    if params[:combobox].present?
+      scope = Stock.order(:name).search(params[:q])
+      @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
+      @total_stocks = @pagy.count
+      render :index, variants: [ :combobox ]
+    elsif params[:q].present?
+      redirect_to all_stocks_path(q: params[:q])
+    end
+  end
+
+  def all
+    @query = params[:q]
+    scope = Stock.order(:name).where(kind: "stock").where.not(mic_code: nil)
+
+    scope = scope.where(exchange: params[:exchange]) if params[:exchange].present?
+    scope = scope.where(industry: params[:industry]) if params[:industry].present?
+    scope = scope.where(sector: params[:sector]) if params[:sector].present?
+
+    if @query.present?
+      @total_stocks = scope.search(@query).count("DISTINCT stocks.id")
+      scope = scope.search(@query)
+    else
+      @total_stocks = scope.count
+    end
+
+    @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
   end
 
   # GET /stocks/:ticker
@@ -28,6 +53,63 @@ class StocksController < ApplicationController
   # @example
   #   GET /stocks/AAPL
   def show
-    @stock = Stock.find_by(symbol: params[:ticker])
+    if params[:ticker].include?(":")
+      symbol, mic_code = params[:ticker].split(":")
+      @stock = Stock.find_by(symbol:, mic_code:)
+    else
+      @stock = Stock.find_by(symbol: params[:ticker], country_code: "US")
+    end
+  end
+
+  def exchanges
+    if params[:id]
+      @exchange = params[:id]
+      @stocks = Stock.where(exchange: @exchange).where.not(mic_code: nil).order(:name)
+      @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+      render :all
+    else
+      @exchanges = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:exchange).compact.sort
+    end
+  end
+
+  def industries
+    if params[:id]
+      @industry = params[:id]
+      @stocks = Stock.where(industry: @industry).where.not(mic_code: nil).order(:name)
+      @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+      render :all
+    else
+      @industries = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:industry).compact.sort
+    end
+  end
+
+  def sectors
+    if params[:id]
+      @sector = sector_from_slug(params[:id])
+      if @sector
+        @stocks = Stock.where(sector: @sector).where.not(mic_code: nil).order(:name)
+        @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+        render :all
+      else
+        redirect_to stocks_path, status: :moved_permanently
+      end
+    else
+      @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:sector).compact.sort
+    end
+  end
+
+  private
+
+  def sector_from_slug(slug)
+    Stock.where(kind: "stock")
+         .where.not(mic_code: nil)
+         .distinct
+         .pluck(:sector)
+         .compact
+         .find { |sector| sector_slug(sector) == slug }
+  end
+
+  def sector_slug(sector)
+    sector.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/-+$/, "")
   end
 end

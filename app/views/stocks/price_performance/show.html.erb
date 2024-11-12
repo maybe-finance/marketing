@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "stock_price_performance" do %>
   <% unless @price_performance[:error] %>
-    <div data-controller="price-performance" data-price-performance-symbol-value="<%= @stock.symbol %>">
+    <div data-controller="price-performance" data-price-performance-symbol-value="<%= "#{@stock.symbol}:#{@stock.mic_code}" %>">
       <div class="flex justify-between items-center mb-2">
         <span class="text-base text-gray-800">Price performance</span>
         <select class="text-sm bg-gray-100 border-none rounded-md" data-price-performance-target="timeframeSelect" data-action="change->price-performance#updateTimeframe">

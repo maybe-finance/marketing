@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_23_094219) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_11_200851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -46,7 +46,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_23_094219) do
     t.datetime "updated_at", null: false
     t.string "meta_image_url"
     t.virtual "search_vector", type: :tsvector, as: "(setweight(to_tsvector('simple'::regconfig, (COALESCE(symbol, ''::character varying))::text), 'B'::\"char\") || to_tsvector('simple'::regconfig, (COALESCE(name, ''::character varying))::text))", stored: true
+    t.string "exchange"
+    t.string "mic_code"
+    t.string "country_code"
+    t.string "kind"
+    t.string "industry"
+    t.string "sector"
+    t.index ["country_code"], name: "index_stocks_on_country_code"
+    t.index ["exchange"], name: "index_stocks_on_exchange"
+    t.index ["kind"], name: "index_stocks_on_kind"
+    t.index ["mic_code"], name: "index_stocks_on_mic_code"
     t.index ["search_vector"], name: "index_stocks_on_search_vector", using: :gin
+    t.index ["symbol", "mic_code"], name: "index_stocks_on_symbol_and_mic_code", unique: true
   end
 
   create_table "terms", force: :cascade do |t|

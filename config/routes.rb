@@ -25,8 +25,20 @@ Rails.application.routes.draw do
   resources :terms, only: [ :index, :show ], path: "financial-terms"
   resources :tools, only: [ :index, :show ], param: :slug
 
-  resources :stocks, only: [ :index ]
-  resources :stocks, only: :show, param: :ticker, constraints: { ticker: /[a-zA-Z0-9\-\.\/]+/ } do
+  get "stocks/exchanges/:id", to: "stocks#exchanges", as: :stock_exchange
+  get "stocks/sectors/:id", to: "stocks#sectors", as: :stock_sector
+  get "stocks/industries/:id", to: "stocks#industries", as: :stock_industry
+
+  resources :stocks, only: [ :index ] do
+    collection do
+      get :all
+      get :exchanges
+      get :industries
+      get :sectors
+    end
+  end
+
+  resources :stocks, only: [ :show ], param: :ticker do
     scope module: :stocks do
       resource :info, only: :show, controller: "info"
       resource :statistics, only: :show
