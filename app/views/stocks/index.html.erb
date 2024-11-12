@@ -33,7 +33,12 @@
                 <img src="https://hatscripts.github.io/circle-flags/flags/<%= country_code.downcase %>.svg" alt="<%= country_code %>" class="w-5 h-5 rounded-full">
                 <div class="font-medium"><%= exchange %></div>
               </div>
-              <div class="text-sm text-gray-500"><%= Stock.where(exchange: exchange).count %> stocks</div>
+              <div class="text-sm text-gray-500">
+                <%= Rails.cache.fetch("stocks/exchange_count/#{exchange.parameterize}", expires_in: 24.hours) do
+                  count = Stock.where(exchange: exchange).count
+                  pluralize(count, 'stock')
+                end %>
+              </div>
             <% end %>
           <% end %>
         </div>
@@ -45,7 +50,12 @@
           <% @sectors.each do |sector| %>
             <%= link_to stock_sector_path(sector_slug(sector)), class: "p-4 bg-white rounded-lg border hover:border-gray-400 transition-colors" do %>
               <div class="font-medium"><%= sector %></div>
-              <div class="text-sm text-gray-500"><%= Stock.where(sector: sector).count %> stocks</div>
+              <div class="text-sm text-gray-500">
+                <%= Rails.cache.fetch("stocks/sector_count/#{sector.parameterize}", expires_in: 24.hours) do
+                  count = Stock.where(sector: sector).count
+                  pluralize(count, 'stock')
+                end %>
+              </div>
             <% end %>
           <% end %>
         </div>

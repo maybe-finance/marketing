@@ -12,18 +12,25 @@ class StocksController < ApplicationController
   #   GET /stocks
   #   GET /stocks?q=AAPL
   def index
-    @exchanges = Stock.where(kind: "stock")
-                     .where.not(mic_code: nil)
-                     .distinct
-                     .pluck(:exchange, :country_code)
-                     .compact
-                     .group_by(&:first)
-                     .transform_values(&:first)
-                     .values
-                     .sort_by(&:first)
-    @industries = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
-    @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
-    @total_stocks = Stock.where(kind: "stock").where.not(mic_code: nil).count
+    @exchanges = Rails.cache.fetch("stock_exchanges_groupings", expires_in: 24.hours) do
+      Stock.where(kind: "stock")
+           .where.not(mic_code: nil)
+           .distinct
+           .pluck(:exchange, :country_code)
+           .compact
+           .group_by(&:first)
+           .transform_values(&:first)
+           .values
+           .sort_by(&:first)
+    end
+
+    @industries = Rails.cache.fetch("stock_industries_groupings", expires_in: 24.hours) do
+      Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
+    end
+
+    @sectors = Rails.cache.fetch("stock_sectors_groupings", expires_in: 24.hours) do
+      Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
+    end
 
     if params[:combobox].present?
       scope = Stock.order(:name).search(params[:q])
