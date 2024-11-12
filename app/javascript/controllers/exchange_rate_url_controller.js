@@ -4,7 +4,10 @@ export default class extends Controller {
   static targets = ["fromCurrency", "toCurrency"]
 
   connect() {
-    this.updateURL()
+    // Only update URL on connect if we're not on the root calculator page
+    if (window.location.pathname !== '/tools/exchange-rate-calculator') {
+      this.updateURL()
+    }
   }
 
   updateURL() {
