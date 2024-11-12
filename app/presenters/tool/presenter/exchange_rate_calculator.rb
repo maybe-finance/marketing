@@ -95,6 +95,10 @@ class Tool::Presenter::ExchangeRateCalculator < Tool::Presenter
     ]
   end
 
+  def total_currencies
+    currency_options.length
+  end
+
   private
     def active_record
       @active_record ||= Tool.find_by! slug: "exchange-rate-calculator"
