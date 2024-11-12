@@ -70,6 +70,31 @@ class Tool::Presenter::ExchangeRateCalculator < Tool::Presenter
     end
   end
 
+  def currency_options
+    [
+      [ "USD - US Dollar", "USD" ],
+      [ "AUD - Australian Dollar", "AUD" ],
+      [ "BRL - Brazilian Real", "BRL" ],
+      [ "BTC - Bitcoin", "BTC" ],
+      [ "CAD - Canadian Dollar", "CAD" ],
+      [ "CHF - Swiss Franc", "CHF" ],
+      [ "CNY - Chinese Yuan", "CNY" ],
+      [ "ETH - Ethereum", "ETH" ],
+      [ "EUR - Euro", "EUR" ],
+      [ "GBP - British Pound", "GBP" ],
+      [ "HKD - Hong Kong Dollar", "HKD" ],
+      [ "INR - Indian Rupee", "INR" ],
+      [ "JPY - Japanese Yen", "JPY" ],
+      [ "KRW - South Korean Won", "KRW" ],
+      [ "MXN - Mexican Peso", "MXN" ],
+      [ "NZD - New Zealand Dollar", "NZD" ],
+      [ "SEK - Swedish Krona", "SEK" ],
+      [ "SGD - Singapore Dollar", "SGD" ],
+      [ "TWD - Taiwan Dollar", "TWD" ],
+      [ "ZAR - South African Rand", "ZAR" ]
+    ]
+  end
+
   private
     def active_record
       @active_record ||= Tool.find_by! slug: "exchange-rate-calculator"

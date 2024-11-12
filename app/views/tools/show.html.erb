@@ -1,5 +1,10 @@
 <%
-  title @tool.name
+  # Render widget first so it can set the title
+  content_for :widget do
+    render "tools/widgets/#{@tool.slug.underscore}", tool: @tool
+  end
+
+  content_for(:title) { @tool.name } unless content_for?(:title)
   description @tool.intro
   meta_image @tool.meta_image_url if @tool.meta_image_url.present?
 %>
@@ -19,7 +24,7 @@
     </div>
   </div>
 
-  <%= render "tools/widgets/#{@tool.slug.underscore}", tool: @tool %>
+  <%= content_for :widget %>
 
   <div class="max-w-[600px] mt-10 mx-auto prose prose-headings:font-medium">
     <%= markdown @tool.content %>

@@ -3,14 +3,28 @@
     <div class="flex flex-col gap-2">
       <p class="text-sm text-gray-500">Amount</p>
       <div class="flex items-center gap-2">
-        <p class="text-4xl font-medium"><%= number_to_currency(tool.converted_amount, unit: tool.to_currency, format: "%n %u") %></p>
+        <div class="flex items-center gap-2">
+          <img src="https://hatscripts.github.io/circle-flags/flags/<%= tool.to_currency[0..1].downcase %>.svg" 
+               alt="<%= tool.to_currency %>" 
+               class="w-8 h-8 rounded-full inline-block mr-2">
+          <p class="text-4xl font-medium"><%= number_to_currency(tool.converted_amount, unit: tool.to_currency, format: "%n %u") %></p>
+        </div>
         <div data-exchange-rate-loading-target="spinner" class="hidden animate-spin rounded-full h-4 w-4 border-2 border-b-2 border-gray-300 border-b-blue-500"></div>
       </div>
     </div>
 
     <div class="flex flex-col gap-2">
       <p class="text-sm text-gray-500">Exchange Rate</p>
-      <p class="text-base">1 <%= tool.from_currency %> = <%= number_to_currency(tool.current_rate, unit: tool.to_currency, format: "%n %u") %></p>
+      <p class="text-base">
+        <img src="https://hatscripts.github.io/circle-flags/flags/<%= tool.from_currency[0..1].downcase %>.svg" 
+             alt="<%= tool.from_currency %>" 
+             class="w-5 h-5 rounded-full inline-block mr-2">
+        1 <%= tool.from_currency %> = 
+        <img src="https://hatscripts.github.io/circle-flags/flags/<%= tool.to_currency[0..1].downcase %>.svg" 
+             alt="<%= tool.to_currency %>" 
+             class="w-5 h-5 rounded-full inline-block mx-2">
+        <%= number_to_currency(tool.current_rate, unit: tool.to_currency, format: "%n %u") %>
+      </p>
     </div>
   </div>
 

@@ -84,7 +84,7 @@ tools = [
     slug: "exchange-rate-calculator",
     intro: "Convert between currencies and track historical exchange rates",
     description: "Calculate currency exchange rates and view historical trends between different currencies.",
-    category_slug: "investing",
+    category_slug: "other",
     icon: "currency"
   }
 ]

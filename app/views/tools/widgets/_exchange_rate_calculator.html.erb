@@ -1,3 +1,7 @@
+<%
+  title tool.from_currency && tool.to_currency && tool.amount ? "#{tool.amount.to_i} #{tool.from_currency} to #{tool.to_currency} Currency Exchange Rate Converter" : "Exchange Rate Calculator"
+%>
+
 <div class="grid grid-cols-1 p-2 bg-white border shadow-xs sm:grid-cols-3 rounded-xl">
   <aside class="bg-gray-25 p-4 rounded-lg flex flex-col gap-4 col-span-1">
     <%= render "tools/widgets/forms/exchange_rate_calculator", tool: tool, frame_id: :exchange_rate_results %>
@@ -16,30 +20,67 @@
   </div>
 </div>
 
-<div class="max-w-full mt-10 mx-auto prose prose-headings:font-medium bg-white border shadow-xs sm:rounded-xl p-4">
+<div class="max-w-full mt-10 mx-auto prose prose-img:m-0 prose-headings:font-medium prose-a:no-underline bg-white border shadow-xs sm:rounded-xl p-4">
   <div class=" grid grid-cols-1 md:grid-cols-2 gap-8">
     <div class="bg-gray-50 rounded-lg p-6">
-      <h3 class="text-lg font-medium mb-4">Convert <%= tool.from_currency %> to <%= tool.to_currency %></h3>
-      <div class="space-y-3">
+      <h3 class="text-lg font-medium mb-4 mt-0">Convert <%= tool.from_currency %> to <%= tool.to_currency %></h3>
+      <div class="space-y-1">
         <% [1, 5, 10, 25, 50, 100, 500, 1000, 5000, 10000].each do |amount| %>
           <%= link_to "/tools/exchange-rate-calculator/#{tool.from_currency}/#{tool.to_currency}/#{amount}", class: "flex justify-between hover:bg-gray-100 p-2 rounded" do %>
-            <span class="text-blue-600"><%= amount %> <%= tool.from_currency %></span>
-            <span><%= number_to_currency(amount * tool.current_rate, unit: tool.to_currency, format: "%n %u") %></span>
+            <span class="text-blue-600">
+              <img src="https://hatscripts.github.io/circle-flags/flags/<%= tool.from_currency[0..1].downcase %>.svg" 
+                   alt="<%= tool.from_currency %>" 
+                   class="w-5 h-5 rounded-full inline-block mr-2">
+              <%= amount %> <%= tool.from_currency %>
+            </span>
+            <span>
+              <img src="https://hatscripts.github.io/circle-flags/flags/<%= tool.to_currency[0..1].downcase %>.svg" 
+                   alt="<%= tool.to_currency %>" 
+                   class="w-5 h-5 rounded-full inline-block mr-2">
+              <%= number_to_currency(amount * tool.current_rate, unit: tool.to_currency, format: "%n %u") %>
+            </span>
           <% end %>
         <% end %>
       </div>
     </div>
 
     <div class="bg-gray-50 rounded-lg p-6">
-      <h3 class="text-lg font-medium mb-4">Convert <%= tool.to_currency %> to <%= tool.from_currency %></h3>
-      <div class="space-y-3">
+      <h3 class="text-lg font-medium mb-4 mt-0">Convert <%= tool.to_currency %> to <%= tool.from_currency %></h3>
+      <div class="space-y-1">
         <% [1, 5, 10, 25, 50, 100, 500, 1000, 5000, 10000].each do |amount| %>
           <%= link_to "/tools/exchange-rate-calculator/#{tool.to_currency}/#{tool.from_currency}/#{amount}", class: "flex justify-between hover:bg-gray-100 p-2 rounded" do %>
-            <span class="text-blue-600"><%= amount %> <%= tool.to_currency %></span>
-            <span><%= number_to_currency(amount / tool.current_rate, unit: tool.from_currency, format: "%n %u") %></span>
+            <span class="text-blue-600">
+              <img src="https://hatscripts.github.io/circle-flags/flags/<%= tool.to_currency[0..1].downcase %>.svg" 
+                   alt="<%= tool.to_currency %>" 
+                   class="w-5 h-5 rounded-full inline-block mr-2">
+              <%= amount %> <%= tool.to_currency %>
+            </span>
+            <span>
+              <img src="https://hatscripts.github.io/circle-flags/flags/<%= tool.from_currency[0..1].downcase %>.svg" 
+                   alt="<%= tool.from_currency %>" 
+                   class="w-5 h-5 rounded-full inline-block mr-2">
+              <%= number_to_currency(amount / tool.current_rate, unit: tool.from_currency, format: "%n %u") %>
+            </span>
           <% end %>
         <% end %>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="max-w-full mt-10 mx-auto prose prose-img:my-5 prose-headings:font-medium prose-a:no-underline">
+  <h3 class="text-lg font-medium mb-4 mt-0">Convert <%= tool.from_currency %> to other currencies</h3>
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    <% tool.currency_options.reject { |_, code| code == tool.from_currency }.each do |label, code| %>
+      <%= link_to "/tools/exchange-rate-calculator/#{tool.from_currency}/#{code}", class: "bg-white flex items-center gap-3 px-5 py-0 hover:bg-gray-100 rounded-lg border" do %>
+        <img src="https://hatscripts.github.io/circle-flags/flags/<%= code[0..1].downcase %>.svg" 
+             alt="<%= code %>" 
+             class="w-5 h-5 rounded-full">
+        <div>
+          <div class="font-medium text-sm"><%= code %></div>
+          <div class="text-xs text-gray-500"><%= label.split(' - ').last %></div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
