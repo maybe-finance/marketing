@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :stocks, only: [ :show ], param: :ticker do
+  resources :stocks, only: [ :show ], param: :ticker, constraints: { ticker: /[^\/]+/ } do
     scope module: :stocks do
       resource :info, only: :show, controller: "info"
       resource :statistics, only: :show
