@@ -81,9 +81,15 @@ class StocksController < ApplicationController
   def exchanges
     if params[:id]
       @exchange = params[:id]
-      @stocks = Stock.where(exchange: @exchange).where.not(mic_code: nil).order(:name)
-      @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
-      render :all
+      if @exchange.present?
+        @stocks = Stock.where(exchange: @exchange).where.not(mic_code: nil).order(:name)
+        return redirect_to stocks_path if @stocks.empty?
+
+        @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+        render :all
+      else
+        redirect_to stocks_path and return
+      end
     else
       @exchanges = Stock.where(kind: "stock")
                      .where.not(mic_code: nil)
@@ -94,22 +100,31 @@ class StocksController < ApplicationController
                      .transform_values(&:first)
                      .values
                      .sort_by(&:first)
-    end
 
-    redirect_to stocks_path unless @exchange
+      redirect_to stocks_path and return if @exchanges.empty?
+    end
   end
 
   def industries
     if params[:id]
       @industry = params[:id]
-      @stocks = Stock.where(industry: @industry).where.not(mic_code: nil).order(:name)
-      @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
-      render :all
+      if @industry.present?
+        @stocks = Stock.where(industry: @industry).where.not(mic_code: nil).order(:name)
+        @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+        render :all
+      else
+        redirect_to stocks_path and return
+      end
     else
-      @industries = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:industry).compact.sort
-    end
+      @industries = Stock.where(kind: "stock")
+                        .where.not(mic_code: nil)
+                        .distinct
+                        .pluck(:industry)
+                        .compact
+                        .sort
 
-    redirect_to stocks_path unless @industry
+      redirect_to stocks_path and return if @industries.empty?
+    end
   end
 
   def sectors
@@ -124,9 +139,9 @@ class StocksController < ApplicationController
       end
     else
       @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:sector).compact.sort
+      return if @sectors.present?
+      redirect_to stocks_path
     end
-
-    redirect_to stocks_path unless @sector
   end
 
   private
