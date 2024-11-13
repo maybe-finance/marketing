@@ -43,8 +43,8 @@
         <% end %>
       </p>
 
-      <%= form_with method: :get, html: {class: "mt-4 relative"}, data: { controller: "auto-submit-form", turbo_frame: "stock_list" } do |f| %>
-        <%= f.text_field:q, value: @query,
+      <%= form_with url: all_stocks_path, method: :get, html: {class: "mt-4 relative"} do |f| %>
+        <%= f.text_field :q, value: @query,
           class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-sm",
           placeholder: "Search by name or ticker",
           data: { auto_submit_form_target: "auto" } %>
