@@ -12,7 +12,7 @@ class StocksController < ApplicationController
   #   GET /stocks
   #   GET /stocks?q=AAPL
   def index
-    @exchanges = Rails.cache.fetch("stock_exchanges_groupings", expires_in: 24.hours) do
+    @exchanges = Rails.cache.fetch("stock_exchanges_groupings/v1", expires_in: 24.hours) do
       Stock.where(kind: "stock")
            .where.not(mic_code: nil)
            .distinct
@@ -24,11 +24,11 @@ class StocksController < ApplicationController
            .sort_by(&:first)
     end
 
-    @industries = Rails.cache.fetch("stock_industries_groupings", expires_in: 24.hours) do
+    @industries = Rails.cache.fetch("stock_industries_groupings/v1", expires_in: 24.hours) do
       Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
     end
 
-    @sectors = Rails.cache.fetch("stock_sectors_groupings", expires_in: 24.hours) do
+    @sectors = Rails.cache.fetch("stock_sectors_groupings/v1", expires_in: 24.hours) do
       Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
     end
 
@@ -95,6 +95,8 @@ class StocksController < ApplicationController
                      .values
                      .sort_by(&:first)
     end
+
+    redirect_to stocks_path unless @exchange
   end
 
   def industries
@@ -106,6 +108,8 @@ class StocksController < ApplicationController
     else
       @industries = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:industry).compact.sort
     end
+
+    redirect_to stocks_path unless @industry
   end
 
   def sectors
@@ -121,6 +125,8 @@ class StocksController < ApplicationController
     else
       @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).distinct.pluck(:sector).compact.sort
     end
+
+    redirect_to stocks_path unless @sector
   end
 
   private
