@@ -74,6 +74,8 @@ class StocksController < ApplicationController
     else
       @stock = Stock.find_by(symbol: params[:ticker], country_code: "US")
     end
+
+    redirect_to stocks_path unless @stock
   end
 
   def exchanges
