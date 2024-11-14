@@ -69,10 +69,13 @@ class StocksController < ApplicationController
   #   GET /stocks/AAPL
   def show
     if params[:ticker].include?(":")
+      if params[:ticker].end_with?(":")
+        redirect_to stock_path(params[:ticker].chomp(":")) and return
+      end
       symbol, mic_code = params[:ticker].split(":")
       @stock = Stock.find_by(symbol:, mic_code:)
     else
-      @stock = Stock.find_by(symbol: params[:ticker], country_code: "US")
+      @stock = Stock.find_by(symbol: params[:ticker])
     end
 
     redirect_to stocks_path unless @stock
