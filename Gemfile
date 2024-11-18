@@ -31,6 +31,7 @@ gem "avo", ">= 3.2"
 gem "revise_auth"
 gem "pagy"
 gem "bannerbear"
+gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
 
