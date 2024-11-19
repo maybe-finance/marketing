@@ -1,0 +1,35 @@
+<div class="grid items-start grid-cols-1 md:grid-cols-3 gap-4 mt-4" data-stock-cache-target="content">
+  <div class="flex flex-col col-span-1 md:col-span-2 gap-4">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-xs">
+      <%= turbo_frame_tag "stock_chart", src: stock_chart_path("#{@stock.symbol}:#{@stock.mic_code}") do %>
+        <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading chart...</div>
+      <% end %>
+    </div>
+
+    <div class="p-4 bg-white border border-gray-100 rounded-lg shadow-xs">
+      <h3 class="text-lg font-medium text-black">About <%= @stock.name %> (<%= @stock.symbol %>)</h3>
+      <%= turbo_frame_tag "stock_info", src: stock_info_path("#{@stock.symbol}:#{@stock.mic_code}") do %>
+        <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading info...</div>
+      <% end %>
+    </div>
+
+    <div class="p-4 bg-white border border-gray-100 rounded-lg shadow-xs">
+      <h3 class="text-lg font-medium text-black">Key Statistics</h3>
+      <%= turbo_frame_tag "stock_statistics", src: stock_statistics_path("#{@stock.symbol}:#{@stock.mic_code}") do %>
+        <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading info...</div>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="flex flex-col gap-4">
+    <%= render partial: 'stock_to_usd_converter' %>
+
+    <%= turbo_frame_tag "stock_price_performance", src: stock_price_performance_path("#{@stock.symbol}:#{@stock.mic_code}") do %>
+      <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading price performance...</div>
+    <% end %>
+
+    <%= turbo_frame_tag "stock_similar_stocks", src: stock_similar_stocks_path("#{@stock.symbol}:#{@stock.mic_code}") do %>
+      <div class="px-4 py-12 text-xs font-bold text-center text-gray-300 uppercase">Loading similar stocks...</div>
+    <% end %>
+  </div>
+</div>

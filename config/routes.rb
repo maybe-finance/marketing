@@ -57,6 +57,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :stocks do
+    member do
+      post "cache_page", as: :cache
+    end
+  end
+
   get "tos" => "pages#tos"
   get "terms", to: redirect("/tos", status: 301)
   get "privacy" => "pages#privacy"

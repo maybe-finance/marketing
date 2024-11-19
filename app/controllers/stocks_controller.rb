@@ -78,6 +78,10 @@ class StocksController < ApplicationController
       @stock = Stock.find_by(symbol: params[:ticker])
     end
 
+    if cached = Rails.cache.read("stock_page/#{@stock.symbol}:#{@stock.mic_code}")
+      @cached_content = cached
+    end
+
     redirect_to stocks_path unless @stock && @stock.country_code.present?
   end
 
@@ -145,6 +149,15 @@ class StocksController < ApplicationController
       return if @sectors.present?
       redirect_to stocks_path
     end
+  end
+
+  def cache_page
+    Rails.cache.write(
+      "stock_page/#{params[:key]}",
+      params[:content],
+      expires_in: 12.hours
+    )
+    head :ok
   end
 
   private
