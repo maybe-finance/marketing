@@ -89,24 +89,28 @@ class StocksController < ApplicationController
     if params[:id]
       @exchange = params[:id]
       if @exchange.present?
-        @stocks = Stock.where(exchange: @exchange).where.not(mic_code: nil).order(:name)
-        return redirect_to stocks_path if @stocks.empty?
+        scope = Rails.cache.fetch("exchange_stocks/#{@exchange}/v1", expires_in: 12.hours) do
+          Stock.where(exchange: @exchange).where.not(mic_code: nil).order(:name)
+        end
+        return redirect_to stocks_path if scope.empty?
 
-        @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+        @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
         render :all
       else
         redirect_to stocks_path and return
       end
     else
-      @exchanges = Stock.where(kind: "stock")
-                     .where.not(mic_code: nil)
-                     .distinct
-                     .pluck(:exchange, :country_code)
-                     .compact
-                     .group_by(&:first)
-                     .transform_values(&:first)
-                     .values
-                     .sort_by(&:first)
+      @exchanges = Rails.cache.fetch("exchanges_list/v1", expires_in: 24.hours) do
+        Stock.where(kind: "stock")
+             .where.not(mic_code: nil)
+             .distinct
+             .pluck(:exchange, :country_code)
+             .compact
+             .group_by(&:first)
+             .transform_values(&:first)
+             .values
+             .sort_by(&:first)
+      end
 
       redirect_to stocks_path and return if @exchanges.empty?
     end
