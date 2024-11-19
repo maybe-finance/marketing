@@ -86,6 +86,14 @@ tools = [
     description: "Calculate currency exchange rates and view historical trends between different currencies.",
     category_slug: "other",
     icon: "currency"
+  },
+  {
+    name: "Inside Trading Tracker",
+    slug: "inside-trading-tracker",
+    intro: "Track insider trading activity at publicly traded companies to understand how executives are trading their shares.",
+    description: "Monitor insider trading patterns to gain insights into how company executives and major shareholders are trading their stock positions.",
+    category_slug: "investing",
+    icon: "users"
   }
 ]
 

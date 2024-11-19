@@ -1,0 +1,23 @@
+<tr class="hover:bg-gray-50 group">
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <div><%= trade[:full_name].titleize %></div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= trade[:position] %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= Date.parse(trade[:date_reported]).strftime("%b %-d, %Y") %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+    <span class="<%= trade[:shares] > 0 ? 'text-green-600' : 'text-red-600' %>">
+      <%= number_with_delimiter(trade[:shares].abs) %>
+      <%= trade[:shares] > 0 ? 'Purchase' : 'Sale' %>
+    </span>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+    <span class="<%= trade[:value] > 0 ? 'text-green-600' : 'text-red-600' %>">
+      <%= number_to_currency(trade[:value].abs, precision: 0) %>
+      <%= trade[:value] > 0 ? 'Purchase' : 'Sale' %>
+    </span>
+  </td>
+</tr>

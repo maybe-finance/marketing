@@ -1,0 +1,18 @@
+<div class="p-2 bg-white border shadow-xs rounded-xl">
+  <div class="bg-gray-25 p-4 rounded-lg mb-4">
+    <%= render "tools/widgets/forms/inside_trading_tracker", tool: tool, frame_id: :insider_results %>
+  </div>
+
+  <%= turbo_frame_tag :insider_results do %>
+    <div class="flex-1">
+      <% if tool.blank? %>
+        <%= render "tools/widgets/shared/blank_slate",
+          text: tool.symbol.present? ? 
+            "No insider trading data available for #{tool.company_name}." :
+            "Enter a stock symbol to see insider trading activity!" %>
+      <% else %>
+        <%= render "tools/widgets/content/inside_trading_tracker", tool: tool %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
