@@ -1,0 +1,40 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "3026bb3b6c40ac30ac9996c6226b94f769315e5804d4c741f7ac91b816f398f7",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/stocks/show.html.erb",
+      "line": 29,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Rails.cache.read(\"stock_page/#{(Stock.find_by(:symbol => symbol, :mic_code => mic_code) or Stock.find_by(:symbol => params[:ticker])).symbol}:#{(Stock.find_by(:symbol => symbol, :mic_code => mic_code) or Stock.find_by(:symbol => params[:ticker])).mic_code}\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "StocksController",
+          "method": "show",
+          "line": 86,
+          "file": "app/controllers/stocks_controller.rb",
+          "rendered": {
+            "name": "stocks/show",
+            "file": "app/views/stocks/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "stocks/show"
+      },
+      "user_input": "Stock.find_by(:symbol => symbol, :mic_code => mic_code)",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    }
+  ],
+  "updated": "2024-11-20 13:05:03 -0600",
+  "brakeman_version": "6.2.2"
+}
