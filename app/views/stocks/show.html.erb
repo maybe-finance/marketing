@@ -13,7 +13,7 @@
     <img src="https://logo.synthfinance.com/ticker/<%= @stock.symbol %>" alt="<%= @stock.symbol %>" class="w-10 h-10 rounded-full">
     <h1 class="text-2xl font-medium text-black"><%= @stock.name %> <span class="font-normal text-gray-500 font-mono"><%= @stock.symbol %></span></h1>
     <div class="flex items-center gap-x-1 text-sm text-gray-500">
-      <%= @stock.mic_code %>
+      <%= link_to @stock.mic_code, stock_exchange_path(@stock.exchange), class: "hover:text-gray-700" %>
       <img src="https://hatscripts.github.io/circle-flags/flags/<%= @stock.country_code.downcase %>.svg" 
            alt="<%= @stock.country_code %>" 
            class="w-4 h-4 rounded-full">
