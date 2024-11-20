@@ -18,7 +18,9 @@ export default class extends Controller {
 
     setTimeout(() => {
       this.tableBodyTarget.innerHTML = ''
-      sortedRows.forEach(row => this.tableBodyTarget.appendChild(row))
+      for (const row of sortedRows) {
+        this.tableBodyTarget.appendChild(row)
+      }
       this.hideLoading()
     }, 200)
   }
@@ -57,7 +59,7 @@ export default class extends Controller {
   }
 
   parseNumericValue(value) {
-    return parseFloat(value.replace(/[^-\d.]/g, ''))
+    return Number.parseFloat(value.replace(/[^-\d.]/g, ''))
   }
 
   compareValues(a, b) {
