@@ -5,6 +5,12 @@
     "Inside Trading Tracker"
 %>
 
+<div class="flex items-center text-center justify-center mb-8 -mt-8">
+  <%= link_to "https://synthfinance.com", target: "_blank", class: "flex items-center gap-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg px-3 py-1" do %>
+    Powered by <%= image_tag "logo-synth.svg", alt: "Synth Logo", class: "inline-block h-4" %>
+  <% end %>
+</div>
+
 <div class="p-2 bg-white border shadow-xs rounded-xl">
   <div class="bg-gray-25 p-4 rounded-lg mb-4">
     <%= render "tools/widgets/forms/inside_trading_tracker", tool: tool, frame_id: :insider_results %>
