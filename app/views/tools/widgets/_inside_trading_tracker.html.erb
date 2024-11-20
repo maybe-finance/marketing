@@ -13,9 +13,7 @@
     <div class="flex-1">
       <% if tool.blank? %>
         <%= render "tools/widgets/shared/blank_slate",
-          text: tool.symbol.present? ? 
-            "No insider trading data available for #{tool.company_name}." :
-            "Enter a stock symbol to see insider trading activity!" %>
+          text: "No insider trading data available." %>
       <% else %>
         <%= render "tools/widgets/content/inside_trading_tracker", tool: tool %>
       <% end %>

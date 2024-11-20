@@ -48,7 +48,9 @@ export default class extends Controller {
       position: 1,
       date: 2,
       shares: 3,
-      value: 4
+      value: 4,
+      holdings: 5,
+      type: 6
     }[column]
 
     return row.children[index].textContent.trim()

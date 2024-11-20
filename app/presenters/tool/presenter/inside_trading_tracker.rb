@@ -2,28 +2,21 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
   attribute :symbol, :string
 
   def blank?
-    symbol.blank? || insider_trades.empty?
+    insider_trades.empty?
   end
 
   def company_name
+    return "Recent Insider Trading Activity" if symbol.blank?
     insider_data.dig(:meta, :name) || symbol&.upcase
   end
 
   def insider_trades
-    return [] unless insider_data[:insider_transactions]&.any?
-
-    insider_data[:insider_transactions].map do |trade|
-      next unless trade[:description].present?
-
-      is_purchase = trade[:description].include?("Purchase")
-      is_sale = trade[:description].include?("Sale")
-      next unless is_purchase || is_sale
-
-      trade.merge(
-        shares: is_purchase ? trade[:shares].to_i.abs : -trade[:shares].to_i.abs,
-        value: is_purchase ? trade[:value].to_f.abs : -trade[:value].to_f.abs
-      )
-    end.compact
+    if symbol.blank?
+      recent_insider_trades
+    else
+      return [] unless insider_data[:trades]&.any?
+      format_trades(insider_data[:trades])
+    end
   end
 
   def total_value
@@ -67,15 +60,60 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
 
     def insider_data
       @insider_data ||= begin
-        response = Provider::TwelveData.new.insider_transactions(
-          symbol: symbol
+        response = Provider::Synth.new.insider_trades(
+          ticker: symbol,
+          start_date: 90.days.ago,
+          end_date: Date.today,
+          limit: 100
         )
 
         if response.success?
-          response.transactions
+          { trades: response.trades }
         else
-          { meta: {}, insider_transactions: [] }
+          { trades: [] }
         end
       end
+    end
+
+    def recent_insider_trades
+      response = Provider::Synth.new.recent_insider_trades(limit: 50)
+      return [] unless response[:trades]&.any?
+      format_trades(response[:trades])
+    end
+
+    def format_trades(trades)
+      trades.map do |trade|
+        next unless trade["transaction_type"].present?
+
+        transaction_type = trade["transaction_type"]
+        is_positive = [ "Purchase", "Grant", "Exercise/Conversion" ].include?(transaction_type)
+        is_negative = [ "Sale", "Sale to Issuer", "Payment of Exercise Price" ].include?(transaction_type)
+        next unless is_positive || is_negative || transaction_type == "Discretionary Transaction"
+
+        shares = trade["shares"].to_i.abs
+        value = trade["value"].to_f.abs
+
+        {
+          full_name: trade["full_name"],
+          title: trade["position"],
+          date_reported: trade["transaction_date"],
+          description: trade["formatted_transaction_code"],
+          shares: is_positive ? shares : -shares,
+          value: is_positive ? value : -value,
+          price: trade["price"],
+          roles: trade["formatted_roles"],
+          ownership_type: trade["formatted_ownership_type"],
+          post_transaction_shares: trade["post_transaction_shares"],
+          filing_link: trade["filing_link"],
+          summary: trade["summary"],
+          company: trade["company_name"] || trade["ticker"],
+          ticker: trade["ticker"],
+          position: trade["position"],
+          exchange: trade.dig("exchange", "acronym"),
+          exchange_country: trade.dig("exchange", "country_code"),
+          footnotes: trade["footnotes"],
+          transaction_type: transaction_type
+        }
+      end.compact
     end
 end
