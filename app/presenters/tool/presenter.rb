@@ -2,6 +2,8 @@ class Tool::Presenter
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  attribute :action_name, :string
+
   delegate :slug, :name, :intro, :content, :meta_image_url, to: :active_record
 
   private

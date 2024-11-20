@@ -1,0 +1,11 @@
+<%= form_with method: :get, data: { controller: "insider-form" } do |form| %>
+  <div class="search-combobox">
+    <%= combobox_tag "symbol", stocks_path(combobox: true),
+      label: "Company Symbol",
+      placeholder: "Search for a stock",
+      required: true,
+      data: {
+        action: "change->insider-form#submit"
+      } %>
+  </div>
+<% end %>

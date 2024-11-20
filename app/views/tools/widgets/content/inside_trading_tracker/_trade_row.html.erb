@@ -1,0 +1,58 @@
+<tr class="hover:bg-gray-50 group <%= trade[:value] > 0 ? 'bg-green-50/50' : trade[:value] < 0 ? 'bg-red-50/50' : 'bg-gray-50/50' %>">
+  <td class="px-4 py-1.5 whitespace-nowrap text-xs font-medium text-gray-900">
+    <div class="flex items-center gap-2">
+      <%= link_to "/tools/inside-trading-tracker/#{trade[:ticker]}", class: "flex items-center gap-2 hover:text-blue-600", data: { turbo_frame: "_top" } do %>
+        <img src="https://logo.synthfinance.com/ticker/<%= trade[:ticker] %>" alt="<%= trade[:ticker] %> logo" class="w-6 h-6 rounded">
+        <div>
+          <%= trade[:full_name].titleize %>
+          <% if @tool.symbol.blank? %>
+            <div class="text-xs text-gray-500"><%= trade[:company] %></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </td>
+  <td class="px-3 py-1.5 whitespace-nowrap text-xs text-gray-500">
+    <% if trade[:position].present? %>
+      <div><%= trade[:position] %></div>
+      <div class="text-xs text-gray-400"><%= trade[:roles] %></div>
+    <% else %>
+      <div><%= trade[:roles] %></div>
+    <% end %>
+  </td>
+  <td class="px-3 py-1.5 whitespace-nowrap text-xs text-gray-500">
+    <%= Date.parse(trade[:date_reported]).strftime("%b %-d, %Y") %>
+  </td>
+  <td class="px-3 py-1.5 whitespace-nowrap text-xs text-gray-900 text-right">
+    <span class="<%= trade[:shares] == 0 ? 'text-gray-500' : trade[:shares] > 0 ? 'text-green-600' : 'text-red-600' %>">
+      <%= number_with_delimiter(trade[:shares].abs) %>
+    </span>
+  </td>
+  <td class="px-3 py-1.5 whitespace-nowrap text-xs text-gray-900 text-right">
+    <span class="<%= trade[:value] == 0 ? 'text-gray-500' : trade[:value] > 0 ? 'text-green-600' : 'text-red-600' %>">
+      <%= number_to_currency(trade[:value].abs, precision: 0) %>
+    </span>
+  </td>
+  <td class="px-3 py-1.5 whitespace-nowrap text-xs text-gray-900 text-right">
+    <% if trade[:post_transaction_shares].present? %>
+      <%= number_with_delimiter(trade[:post_transaction_shares]) %>
+      <% if trade[:shares] != 0 && trade[:post_transaction_shares] != 0 %>
+        <span class="text-xs <%= trade[:shares] > 0 ? 'text-green-600' : 'text-red-600' %>">
+          (<%= trade[:shares] > 0 ? '+' : '-' %><%= ((trade[:shares].abs / trade[:post_transaction_shares].to_f) * 100).round(1) %>%)
+        </span>
+      <% end %>
+    <% else %>
+      <span class="text-gray-400">—</span>
+    <% end %>
+  </td>
+  <td class="px-3 py-1.5 whitespace-nowrap text-xs text-gray-500">
+    <% if trade[:filing_link].present? %>
+      <%= link_to trade[:filing_link], target: "_blank", class: "hover:text-blue-600 inline-flex items-center gap-1" do %>
+        <%= trade[:transaction_type] %>
+        <%= lucide_icon "file-text", class: "w-3 h-3" %>
+      <% end %>
+    <% else %>
+      <%= trade[:transaction_type] %>
+    <% end %>
+  </td>
+</tr>
