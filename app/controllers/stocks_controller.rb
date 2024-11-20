@@ -33,7 +33,9 @@ class StocksController < ApplicationController
     end
 
     if params[:combobox].present?
-      scope = Stock.order(:name).search(params[:q])
+      scope = Stock.order(:name)
+      scope = scope.where(country_code: params[:country_code]) if params[:country_code].present?
+      scope = scope.search(params[:q])
       @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
       @total_stocks = @pagy.count
       render :index, variants: [ :combobox ]

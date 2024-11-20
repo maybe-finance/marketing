@@ -1,6 +1,6 @@
 <%= form_with method: :get, data: { controller: "insider-form" } do |form| %>
   <div class="search-combobox">
-    <%= combobox_tag "symbol", stocks_path(combobox: true),
+    <%= combobox_tag "symbol", stocks_path(combobox: true, country_code: "US"),
       label: "Company Symbol",
       placeholder: "Search for a stock",
       required: true,
