@@ -9,15 +9,20 @@
     <div class="flex flex-col">
       <div class="max-w-full mb-8">
         <% if first_trade = tool.insider_trades.first %>
-          <h2 class="text-2xl font-medium"><%= first_trade[:company] %> (<%= first_trade[:ticker] %>) Insider Trading Activity</h2>
-          <% if first_trade[:company_industry].present? %>
-            <p class="text-sm text-gray-600 mt-1">
-              <%= first_trade[:company_sector] %> • <%= first_trade[:company_industry] %>
-              <% if first_trade[:company_employees].present? %>
-                • <%= number_with_delimiter(first_trade[:company_employees]) %> employees
+          <div class="flex items-center gap-3">
+            <%= image_tag "https://logo.synthfinance.com/ticker/#{first_trade[:ticker]}", class: "h-14 w-14 rounded-full" %>
+            <div>
+              <h2 class="text-2xl font-medium"><%= first_trade[:company] %> (<%= first_trade[:ticker] %>) Insider Trading Activity</h2>
+              <% if first_trade[:company_industry].present? %>
+                <p class="text-sm text-gray-600 mt-1">
+                  <%= first_trade[:company_sector] %> • <%= first_trade[:company_industry] %>
+                  <% if first_trade[:company_employees].present? %>
+                    • <%= number_with_delimiter(first_trade[:company_employees]) %> employees
+                  <% end %>
+                </p>
               <% end %>
-            </p>
-          <% end %>
+            </div>
+          </div>
           <% if first_trade[:company_description].present? %>
             <p class="text-gray-500 mt-2 text-sm line-clamp-4">
               <%= first_trade[:company_description] %>
