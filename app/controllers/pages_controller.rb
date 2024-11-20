@@ -50,11 +50,23 @@ class PagesController < ApplicationController
     @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
     @exchange_rate_currencies = Tool::Presenter::ExchangeRateCalculator.new.currency_options
 
-    # Paginate stocks
-    @stocks = Stock.order(name: :asc)
-                   .where.not(mic_code: nil)
-                   .offset((@page - 1) * 20_000)
-                   .limit(20_000)
+    # Add insider trades pagination
+    @insider_trades = Stock.where(kind: "stock", country_code: "US")
+                          .where.not(mic_code: nil)
+                          .order(name: :asc)
+                          .offset((@page - 1) * 20_000)
+                          .limit(20_000)
+
+    # Adjust stocks pagination to start after insider trades pages
+    stocks_page = @page - (Stock.where(kind: "stock", country_code: "US").count / 20_000.0).ceil
+    @stocks = if stocks_page > 0
+      Stock.order(name: :asc)
+           .where.not(mic_code: nil)
+           .offset((stocks_page - 1) * 20_000)
+           .limit(20_000)
+    else
+      Stock.none
+    end
 
     respond_to do |format|
       format.xml
@@ -66,8 +78,12 @@ class PagesController < ApplicationController
   #
   # @return [XML] Sitemap index file
   def sitemap_index
+    @us_stocks_count = Stock.where(kind: "stock", country_code: "US").where.not(mic_code: nil).count
     @total_stocks = Stock.where.not(mic_code: nil).count
-    @sitemap_count = (@total_stocks / 20_000.0).ceil # Using 20k to leave room for other URLs
+
+    @insider_trades_pages = (@us_stocks_count / 20_000.0).ceil
+    @stocks_pages = ((@total_stocks - @us_stocks_count) / 20_000.0).ceil
+    @sitemap_count = @insider_trades_pages + @stocks_pages
 
     respond_to do |format|
       format.xml

@@ -56,6 +56,20 @@
       </url>
     <% end %>
   <% end %>
+  <url>
+    <loc>https://maybe.co/tools/inside-trading-tracker/top-owners</loc>
+  </url>
+  <url>
+    <loc>https://maybe.co/tools/inside-trading-tracker/biggest-trades</loc>
+  </url>
+  <url>
+    <loc>https://maybe.co/tools/inside-trading-tracker/top-officers</loc>
+  </url>
+  <% @insider_trades.each do |stock| %>
+    <url>
+      <loc>https://maybe.co/tools/inside-trading-tracker/<%= stock.symbol %></loc>
+    </url>
+  <% end %>
   
   <% @stocks.each do |stock| %>
     <url>
