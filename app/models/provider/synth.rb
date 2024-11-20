@@ -106,8 +106,8 @@ class Provider::Synth
     end
   end
 
-  def recent_insider_trades(limit: 50)
-    response = fetch_recent_insider_trades(limit: limit)
+  def recent_insider_trades(filters = {})
+    response = fetch_recent_insider_trades(**filters)
 
     if response.success?
       InsiderTradesResponse.new(
@@ -182,25 +182,36 @@ class Provider::Synth
     end
 
     def fetch_insider_trades(ticker:, start_date:, end_date:, limit: 100)
-      HTTParty.get "#{BASE_URL}/insider-trades",
-        query: {
-          ticker: ticker,
-          start_date: start_date.to_s,
-          end_date: end_date.to_s,
-          limit: limit,
-          sort: "transaction_date",
-          direction: "desc"
-        },
+      url = "#{BASE_URL}/insider-trades"
+      query = {
+        ticker: ticker,
+        start_date: start_date.to_s,
+        end_date: end_date.to_s,
+        limit: limit,
+        sort: "transaction_date",
+        direction: "desc"
+      }
+
+      Rails.logger.warn "Synth API Call: #{url}?#{query.to_query}"
+
+      HTTParty.get url,
+        query: query,
         headers: default_headers
     end
 
-    def fetch_recent_insider_trades(limit: 50)
-      HTTParty.get "#{BASE_URL}/insider-trades",
-        query: {
-          limit: limit,
-          sort: "transaction_date",
-          direction: "desc"
-        },
+    def fetch_recent_insider_trades(**filters)
+      Rails.logger.warn "Synth API Call Filters: #{filters}"
+      url = "#{BASE_URL}/insider-trades"
+      query_params = {
+        limit: 50,
+        sort: "transaction_date",
+        direction: "desc"
+      }.merge(filters)
+
+      Rails.logger.warn "Synth API Call: #{url}?#{query_params.to_query}"
+
+      HTTParty.get url,
+        query: query_params,
         headers: default_headers
     end
 

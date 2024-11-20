@@ -67,6 +67,28 @@
       <div>
         <h2 class="text-2xl font-medium"><%= tool.company_name %></h2>
       </div>
+      <div class="flex gap-4 mb-6">
+        <%= link_to top_owners_tool_path(slug: "inside-trading-tracker"), 
+            class: "text-sm text-gray-600 hover:text-blue-600 flex items-center gap-1 #{action_name == 'owners' ? 'text-blue-600' : ''}",
+            data: { turbo_frame: "_top" } do %>
+          <%= lucide_icon "users", class: "w-4 h-4" %>
+          Top 10% Owner Trades
+        <% end %>
+
+        <%= link_to biggest_trades_tool_path(slug: "inside-trading-tracker"), 
+            class: "text-sm text-gray-600 hover:text-blue-600 flex items-center gap-1 #{action_name == 'biggest' ? 'text-blue-600' : ''}",
+            data: { turbo_frame: "_top" } do %>
+          <%= lucide_icon "trending-up", class: "w-4 h-4" %>
+          Biggest Insider Trades
+        <% end %>
+
+        <%= link_to top_officers_tool_path(slug: "inside-trading-tracker"), 
+            class: "text-sm text-gray-600 hover:text-blue-600 flex items-center gap-1 #{action_name == 'officers' ? 'text-blue-600' : ''}",
+            data: { turbo_frame: "_top" } do %>
+          <%= lucide_icon "briefcase", class: "w-4 h-4" %>
+          Top Officer Trades
+        <% end %>
+      </div>
     </div>
   <% end %>
 
@@ -89,7 +111,7 @@
       </thead>
 
       <tbody class="bg-white divide-y divide-gray-200" data-insider-trades-target="tableBody">
-        <%= render partial: "tools/widgets/content/inside_trading_tracker/trade_row", collection: tool.insider_trades, as: :trade %>
+        <%= render partial: "tools/widgets/content/inside_trading_tracker/trade_row", collection: tool.insider_trades(params[:filter]), as: :trade %>
       </tbody>
     </table>
   </div>

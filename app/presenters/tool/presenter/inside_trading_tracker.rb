@@ -1,5 +1,7 @@
 class Tool::Presenter::InsideTradingTracker < Tool::Presenter
   attribute :symbol, :string
+  attribute :action_name, :string
+  attribute :filter, :string
 
   def blank?
     insider_trades.empty?
@@ -10,12 +12,21 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
     insider_data.dig(:meta, :name) || symbol&.upcase
   end
 
-  def insider_trades
-    if symbol.blank?
-      recent_insider_trades
-    else
+  def insider_trades(filter = nil)
+    if symbol.present?
       return [] unless insider_data[:trades]&.any?
       format_trades(insider_data[:trades])
+    else
+      case filter
+      when "top-owners"
+        fetch_filtered_trades(ten_percent_owner: true, min_value: 100_000, sort: "value")
+      when "biggest-trades"
+        fetch_filtered_trades(min_value: 1_000_000, sort: "value")
+      when "top-officers"
+        fetch_filtered_trades(officer: true, min_value: 100_000, sort: "value")
+      else
+        recent_insider_trades
+      end
     end
   end
 
@@ -51,6 +62,18 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
       volume: total_volume,
       count: last_month_trades.size
     }
+  end
+
+  def owner_trades
+    fetch_filtered_trades(ten_percent_owner: true, min_value: 100_000)
+  end
+
+  def officer_trades
+    fetch_filtered_trades(officer: true, min_value: 100_000)
+  end
+
+  def biggest_trades
+    fetch_filtered_trades(min_value: 1_000_000)
   end
 
   private
@@ -115,5 +138,18 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
           transaction_type: transaction_type
         }
       end.compact
+    end
+
+    def fetch_filtered_trades(filters = {})
+      Rails.logger.warn "Fetching filtered trades with filters: #{filters}"
+      response = Provider::Synth.new.recent_insider_trades(
+        start_date: 90.days.ago,
+        end_date: Date.today,
+        limit: 25,
+        **filters
+      )
+
+      return [] unless response.success? && response.trades&.any?
+      format_trades(response.trades)
     end
 end

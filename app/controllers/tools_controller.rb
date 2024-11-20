@@ -4,7 +4,7 @@ class ToolsController < ApplicationController
   end
 
   def show
-    @tool = Tool.presenter_from tool_params.compact_blank
+    @tool = Tool.presenter_from tool_params.compact_blank.merge(action_name: action_name)
   end
 
   private
@@ -33,6 +33,6 @@ class ToolsController < ApplicationController
         # Exchange Rate Calculator
         :amount, :from_currency, :to_currency,
         # Insider Trading Tracker
-        :symbol
+        :symbol, :filter
     end
 end
