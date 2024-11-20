@@ -26,7 +26,7 @@
 
 <% if @cached_content %>
   <div class="grid items-start grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-    <%= @cached_content.html_safe %>
+    <%= @cached_content %>
   </div>
 <% else %>
   <div data-controller="stock-cache"

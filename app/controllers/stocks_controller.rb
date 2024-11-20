@@ -79,7 +79,7 @@ class StocksController < ApplicationController
     end
 
     if cached = Rails.cache.read("stock_page/#{@stock.symbol}:#{@stock.mic_code}")
-      @cached_content = cached
+      @cached_content = cached.html_safe
     end
 
     redirect_to stocks_path unless @stock && @stock.country_code.present?
