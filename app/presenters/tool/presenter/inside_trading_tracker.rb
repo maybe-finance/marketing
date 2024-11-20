@@ -64,18 +64,6 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
     }
   end
 
-  def owner_trades
-    fetch_filtered_trades(ten_percent_owner: true, min_value: 100_000)
-  end
-
-  def officer_trades
-    fetch_filtered_trades(officer: true, min_value: 100_000)
-  end
-
-  def biggest_trades
-    fetch_filtered_trades(min_value: 1_000_000)
-  end
-
   private
     def active_record
       @active_record ||= Tool.find_by! slug: "inside-trading-tracker"
@@ -85,7 +73,7 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
       @insider_data ||= begin
         response = Provider::Synth.new.insider_trades(
           ticker: symbol,
-          start_date: 90.days.ago,
+          start_date: 180.days.ago,
           end_date: Date.today,
           limit: 100
         )
@@ -99,7 +87,7 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
     end
 
     def recent_insider_trades
-      response = Provider::Synth.new.recent_insider_trades(limit: 50)
+      response = Provider::Synth.new.recent_insider_trades(limit: 250)
       return [] unless response[:trades]&.any?
       format_trades(response[:trades])
     end
@@ -129,7 +117,11 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
           post_transaction_shares: trade["post_transaction_shares"],
           filing_link: trade["filing_link"],
           summary: trade["summary"],
-          company: trade["company_name"] || trade["ticker"],
+          company: trade.dig("company", "name") || trade["company_name"] || trade["ticker"],
+          company_description: trade.dig("company", "description"),
+          company_industry: trade.dig("company", "industry"),
+          company_sector: trade.dig("company", "sector"),
+          company_employees: trade.dig("company", "total_employees"),
           ticker: trade["ticker"],
           position: trade["position"],
           exchange: trade.dig("exchange", "acronym"),

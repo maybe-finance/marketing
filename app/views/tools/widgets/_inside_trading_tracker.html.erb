@@ -1,6 +1,7 @@
 <%
+  company_name = tool.insider_trades.first&.dig(:company) || tool.company_name
   title tool.symbol.present? ? 
-    "#{tool.symbol} #{tool.company_name} Insider Trading Tracker" : 
+    "#{company_name} (#{tool.symbol}) Insider Trading Tracker" : 
     "Inside Trading Tracker"
 %>
 

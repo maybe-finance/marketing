@@ -1,13 +1,15 @@
 <tr class="hover:bg-gray-50 group <%= trade[:value] > 0 ? 'bg-green-50/50' : trade[:value] < 0 ? 'bg-red-50/50' : 'bg-gray-50/50' %>">
-  <td class="px-3 py-1.5 whitespace-nowrap text-xs font-medium text-gray-900">
+  <td class="px-4 py-1.5 whitespace-nowrap text-xs font-medium text-gray-900">
     <div class="flex items-center gap-2">
-      <img src="https://logo.synthfinance.com/ticker/<%= trade[:ticker] %>" alt="<%= trade[:ticker] %> logo" class="w-6 h-6 rounded">
-      <div>
-        <%= trade[:full_name].titleize %>
-        <% if @tool.symbol.blank? %>
-          <div class="text-xs text-gray-500"><%= trade[:company] %></div>
-        <% end %>
-      </div>
+      <%= link_to "/tools/inside-trading-tracker/#{trade[:ticker]}", class: "flex items-center gap-2 hover:text-blue-600", data: { turbo_frame: "_top" } do %>
+        <img src="https://logo.synthfinance.com/ticker/<%= trade[:ticker] %>" alt="<%= trade[:ticker] %> logo" class="w-6 h-6 rounded">
+        <div>
+          <%= trade[:full_name].titleize %>
+          <% if @tool.symbol.blank? %>
+            <div class="text-xs text-gray-500"><%= trade[:company] %></div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </td>
   <td class="px-3 py-1.5 whitespace-nowrap text-xs text-gray-500">

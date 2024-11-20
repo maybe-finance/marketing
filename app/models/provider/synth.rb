@@ -192,23 +192,18 @@ class Provider::Synth
         direction: "desc"
       }
 
-      Rails.logger.warn "Synth API Call: #{url}?#{query.to_query}"
-
       HTTParty.get url,
         query: query,
         headers: default_headers
     end
 
     def fetch_recent_insider_trades(**filters)
-      Rails.logger.warn "Synth API Call Filters: #{filters}"
       url = "#{BASE_URL}/insider-trades"
       query_params = {
-        limit: 50,
+        limit: 250,
         sort: "transaction_date",
         direction: "desc"
       }.merge(filters)
-
-      Rails.logger.warn "Synth API Call: #{url}?#{query_params.to_query}"
 
       HTTParty.get url,
         query: query_params,
