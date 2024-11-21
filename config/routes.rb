@@ -25,18 +25,26 @@ Rails.application.routes.draw do
   resources :terms, only: [ :index, :show ], path: "financial-terms"
   resources :tools, only: [ :index, :show ], param: :slug do
     member do
-      get "top-owners", to: "tools#show", defaults: { filter: "top-owners" }
-      get "biggest-trades", to: "tools#show", defaults: { filter: "biggest-trades" }
-      get "top-officers", to: "tools#show", defaults: { filter: "top-officers" }
+      # Exchange rate calculator routes
+      get ":from_currency/:to_currency(/:amount)",
+        constraints: {
+          from_currency: /[A-Z]{3}/,
+          to_currency: /[A-Z]{3}/,
+          amount: /\d+(\.\d+)?/
+        },
+        action: :show
+
+      # Insider trading views
+      get ":filter",
+        action: :show,
+        constraints: {
+          filter: /top-owners|biggest-trades|top-officers/,
+          slug: "inside-trading-tracker"
+        }
+
+      # Stock symbol route
       get ":symbol", action: :show, constraints: { symbol: /[A-Z]+/ }
     end
-    get ":from_currency/:to_currency(/:amount)", on: :member,
-      constraints: {
-        from_currency: /[A-Z]{3}/,
-        to_currency: /[A-Z]{3}/,
-        amount: /\d+(\.\d+)?/
-      },
-      action: :show
   end
 
   get "stocks/exchanges/:id", to: "stocks#exchanges", as: :stock_exchange

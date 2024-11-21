@@ -91,21 +91,21 @@
         <h2 class="text-2xl font-medium">Insider Trading Activity</h2>
       </div>
       <div class="flex items-center gap-2">
-        <%= link_to top_owners_tool_path(slug: "inside-trading-tracker"), 
+        <%= link_to "/tools/inside-trading-tracker/top-owners",
             class: "px-3 py-2 text-xs rounded-lg border border-gray-200 hover:bg-gray-50 flex items-center gap-1.5 #{params[:filter] == 'top-owners' ? 'bg-blue-50 border-blue-200 text-blue-600' : 'text-gray-600'}",
             data: { turbo_frame: "_top" } do %>
           <%= lucide_icon "users", class: "w-4 h-4" %>
           Large 10% Owner Trades
         <% end %>
 
-        <%= link_to biggest_trades_tool_path(slug: "inside-trading-tracker"), 
+        <%= link_to "/tools/inside-trading-tracker/biggest-trades",
             class: "px-3 py-2 text-xs rounded-lg border border-gray-200 hover:bg-gray-50 flex items-center gap-1.5 #{params[:filter] == 'biggest-trades' ? 'bg-blue-50 border-blue-200 text-blue-600' : 'text-gray-600'}",
             data: { turbo_frame: "_top" } do %>
           <%= lucide_icon "trending-up", class: "w-4 h-4" %>
           Biggest Insider Trades
         <% end %>
 
-        <%= link_to top_officers_tool_path(slug: "inside-trading-tracker"), 
+        <%= link_to "/tools/inside-trading-tracker/top-officers",
             class: "px-3 py-2 text-xs rounded-lg border border-gray-200 hover:bg-gray-50 flex items-center gap-1.5 #{params[:filter] == 'top-officers' ? 'bg-blue-50 border-blue-200 text-blue-600' : 'text-gray-600'}",
             data: { turbo_frame: "_top" } do %>
           <%= lucide_icon "briefcase", class: "w-4 h-4" %>
