@@ -3,7 +3,7 @@
     <div class="flex items-center gap-2">
       <%= link_to "/tools/inside-trading-tracker/#{trade[:ticker]}", class: "flex items-center gap-2 hover:text-blue-600", data: { turbo_frame: "_top" } do %>
         <img src="https://logo.synthfinance.com/ticker/<%= trade[:ticker] %>" alt="<%= trade[:ticker] %> logo" class="w-6 h-6 rounded">
-        <div class="max-w-[250px]">
+        <div class="max-w-[215px]">
           <div class="truncate"><%= trade[:full_name].titleize %></div>
           <% if @tool.symbol.blank? %>
             <div class="text-xs text-gray-500 truncate"><%= trade[:company] %></div>
