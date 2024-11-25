@@ -17,7 +17,7 @@ class Stocks::PricePerformanceController < ApplicationController
     end
     timeframe = params[:timeframe] || "24h"
 
-    @price_performance = Rails.cache.fetch("price_performance/v1/#{@stock.symbol}:#{@stock.mic_code}/#{timeframe}", expires_in: 12.hours) do
+    @price_performance = Rails.cache.fetch("price_performance/v2/#{@stock.symbol}:#{@stock.mic_code}/#{timeframe}", expires_in: 12.hours) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",

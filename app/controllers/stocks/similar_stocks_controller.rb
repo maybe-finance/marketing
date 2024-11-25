@@ -14,7 +14,7 @@ class Stocks::SimilarStocksController < ApplicationController
       @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
     end
 
-    @similar_stocks_data = Rails.cache.fetch("similar_stocks/v1/#{@stock.symbol}/#{@stock.mic_code}", expires_in: 6.hours) do
+    @similar_stocks_data = Rails.cache.fetch("similar_stocks/v2/#{@stock.symbol}/#{@stock.mic_code}", expires_in: 6.hours) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",

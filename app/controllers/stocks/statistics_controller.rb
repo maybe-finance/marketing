@@ -14,7 +14,7 @@ class Stocks::StatisticsController < ApplicationController
       @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
     end
 
-    @stock_statistics = Rails.cache.fetch("stock_statistics/v1/#{@stock.symbol}:#{@stock.mic_code}", expires_in: 24.hours) do
+    @stock_statistics = Rails.cache.fetch("stock_statistics/v2/#{@stock.symbol}:#{@stock.mic_code}", expires_in: 24.hours) do
       headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
