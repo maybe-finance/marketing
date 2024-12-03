@@ -1,6 +1,6 @@
 # Maybe Marketing Site
 
-This is the marketing site for [Maybe](https://maybe.co), an OS for your personal finances.
+This is the marketing site for [Maybe](https://maybefinance.com), an OS for your personal finances.
 
 ## Local Development Setup
 

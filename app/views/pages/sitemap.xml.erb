@@ -2,78 +2,78 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <% if @page == 1 %>
     <url>
-      <loc>https://maybe.co</loc>
+      <loc>https://maybefinance.com</loc>
     </url>
     <url>
-      <loc>https://maybe.co/privacy</loc>
+      <loc>https://maybefinance.com/privacy</loc>
     </url>
     <url>
-      <loc>https://maybe.co/tos</loc>
+      <loc>https://maybefinance.com/tos</loc>
     </url>
     <url>
-      <loc>https://maybe.co/financial-terms</loc>
+      <loc>https://maybefinance.com/financial-terms</loc>
     </url>
     <% @terms.each do |term| %>
       <url>
-        <loc>https://maybe.co/financial-terms/<%= term.slug %></loc>
+        <loc>https://maybefinance.com/financial-terms/<%= term.slug %></loc>
       </url>
     <% end %>
     <url>
-      <loc>https://maybe.co/articles</loc>
+      <loc>https://maybefinance.com/articles</loc>
     </url>
     <% @articles.each do |article| %>
       <url>
-        <loc>https://maybe.co/articles/<%= article.slug %></loc>
+        <loc>https://maybefinance.com/articles/<%= article.slug %></loc>
       </url>
     <% end %>
     <url>
-      <loc>https://maybe.co/tools</loc>
+      <loc>https://maybefinance.com/tools</loc>
     </url>
     <% @tools.each do |tool| %>
       <url>
-        <loc>https://maybe.co/tools/<%= tool.slug %></loc>
+        <loc>https://maybefinance.com/tools/<%= tool.slug %></loc>
       </url>
     <% end %>
     <% @exchange_rate_currencies.each do |from_currency| %>
       <% @exchange_rate_currencies.each do |to_currency| %>
         <% next if from_currency.last == to_currency.last # Skip same currency pairs %>
         <url>
-          <loc>https://maybe.co/tools/exchange-rate-calculator/<%= from_currency.last %>/<%= to_currency.last %></loc>
+          <loc>https://maybefinance.com/tools/exchange-rate-calculator/<%= from_currency.last %>/<%= to_currency.last %></loc>
         </url>
       <% end %>
     <% end %>
     <url>
-      <loc>https://maybe.co/stocks/all</loc>
+      <loc>https://maybefinance.com/stocks/all</loc>
     </url>
     <% @exchanges.each do |exchange| %>
       <url>
-        <loc>https://maybe.co<%= stock_exchange_path(exchange.first) %></loc>
+        <loc>https://maybefinance.com<%= stock_exchange_path(exchange.first) %></loc>
       </url>
     <% end %>
     <% @sectors.each do |sector| %>
       <url>
-        <loc>https://maybe.co<%= stock_sector_path(sector_slug(sector)) %></loc>
+        <loc>https://maybefinance.com<%= stock_sector_path(sector_slug(sector)) %></loc>
       </url>
     <% end %>
   <% end %>
   <url>
-    <loc>https://maybe.co/tools/inside-trading-tracker/top-owners</loc>
+    <loc>https://maybefinance.com/tools/inside-trading-tracker/top-owners</loc>
   </url>
   <url>
-    <loc>https://maybe.co/tools/inside-trading-tracker/biggest-trades</loc>
+    <loc>https://maybefinance.com/tools/inside-trading-tracker/biggest-trades</loc>
   </url>
   <url>
-    <loc>https://maybe.co/tools/inside-trading-tracker/top-officers</loc>
+    <loc>https://maybefinance.com/tools/inside-trading-tracker/top-officers</loc>
   </url>
   <% @insider_trades.each do |stock| %>
     <url>
-      <loc>https://maybe.co/tools/inside-trading-tracker/<%= stock.symbol %></loc>
+      <loc>https://maybefinance.com/tools/inside-trading-tracker/<%= stock.symbol %></loc>
     </url>
   <% end %>
   
   <% @stocks.each do |stock| %>
     <url>
-      <loc>https://maybe.co/stocks/<%= stock.symbol %>:<%= stock.mic_code %></loc>
+      <loc>https://maybefinance.com/stocks/<%= stock.symbol %>:<%= stock.mic_code %></loc>
     </url>
   <% end %>
 </urlset>

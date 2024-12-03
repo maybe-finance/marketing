@@ -7,4 +7,4 @@ Disallow: /password_resets
 Disallow: /logout
 Disallow: /signups
 
-Sitemap: https://maybe.co/sitemap.xml
+Sitemap: https://maybefinance.com/sitemap.xml

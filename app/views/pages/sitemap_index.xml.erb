@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://maybe.co/sitemap_1.xml</loc>
+    <loc>https://maybefinance.com/sitemap_1.xml</loc>
     <lastmod><%= Time.current.strftime("%Y-%m-%d") %></lastmod>
   </sitemap>
   <% 2.upto(@sitemap_count) do |page| %>
     <sitemap>
-      <loc>https://maybe.co/sitemap_<%= page %>.xml</loc>
+      <loc>https://maybefinance.com/sitemap_<%= page %>.xml</loc>
       <lastmod><%= Time.current.strftime("%Y-%m-%d") %></lastmod>
     </sitemap>
   <% end %>
