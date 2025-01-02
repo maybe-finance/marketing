@@ -45,6 +45,16 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+  # Trust load balancer and specified proxy IPs
+  config.action_dispatch.trusted_proxies = [
+    IPAddr.new("10.0.0.0/8"),      # Private network range
+    IPAddr.new("172.16.0.0/12"),   # Private network range
+    IPAddr.new("192.168.0.0/16"),  # Private network range
+    /^127\./,                      # Localhost
+    # Cloudflare IPs (based on the Cf-Ray header in your VCR cassette)
+    IPAddr.new("172.71.0.0/16")    
+  ]
+
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
     .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
