@@ -1,30 +1,7 @@
 class ToolFloat < ActiveModel::Type::Float
-  def initialize(min: nil, max: nil, non_negative: false, **rest)
-    @min = non_negative ? 0.0 : min
-    @max = max
-    @non_negative = non_negative
-    super(**rest)
-  end
-
   def cast(value)
-    return nil if value.nil?
-    
     value = value.to_s.gsub(/[^\d.-]/, "") # Remove non-numeric characters added by autonumeric
-    value = super(value)
-    
-    return nil if value.nil?
-
-    if @non_negative && value.negative?
-      raise ArgumentError, "Value must be non-negative"
-    elsif @min && value < @min
-      raise ArgumentError, "Value must be greater than or equal to #{@min}"
-    end
-
-    if @max && value > @max
-      raise ArgumentError, "Value must be less than or equal to #{@max}"
-    end
-
-    value
+    super(value)
   end
 end
 
