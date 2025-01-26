@@ -1,6 +1,5 @@
 class Tool::Presenter::CompoundInterestCalculator < Tool::Presenter
   attribute :annual_interest_rate, :tool_percentage, default: 0.0
-
   attribute :initial_investment, :tool_float, default: 0.0
   attribute :monthly_contribution, :tool_float, default: 0.0
   attribute :years_to_grow, :tool_float, default: 0.0, min: 0.0, max: 150.0
@@ -11,6 +10,7 @@ class Tool::Presenter::CompoundInterestCalculator < Tool::Presenter
   end
 
   def total_value
+    return 0.0 if plot_data.empty?
     plot_data.last[:currentTotalValue].round(2)
   end
 
@@ -31,6 +31,22 @@ class Tool::Presenter::CompoundInterestCalculator < Tool::Presenter
 
   def plot_data
     yearly_values
+  end
+
+  def initial_investment
+    super || 0.0
+  end
+
+  def monthly_contribution
+    super || 0.0
+  end
+
+  def years_to_grow
+    super || 0.0
+  end
+
+  def annual_interest_rate
+    super || 0.0
   end
 
   private
