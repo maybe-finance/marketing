@@ -34,6 +34,7 @@ gem "bannerbear"
 gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "logtail-rails"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]

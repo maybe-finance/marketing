@@ -45,10 +45,17 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+   # Log to Logtail if API key is present, otherwise log to STDOUT
+  config.logger = if ENV["LOGTAIL_API_KEY"].present?
+    Logtail::Logger.create_default_logger(
+      ENV["LOGTAIL_API_KEY"],
+      telemetry_host: "in.logs.betterstack.com"
+    )
+  else
+    ActiveSupport::Logger.new(STDOUT)
+      .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+      .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  end
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
