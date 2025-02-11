@@ -75,7 +75,7 @@ class StocksController < ApplicationController
         redirect_to stock_path(params[:ticker].chomp(":")) and return
       end
       symbol, mic_code = params[:ticker].split(":")
-      @stock = Stock.find_by(symbol:, mic_code:)
+      @stock = Stock.find_by(symbol: symbol, mic_code: mic_code)
     else
       @stock = Stock.find_by(symbol: params[:ticker])
     end
@@ -96,7 +96,12 @@ class StocksController < ApplicationController
         end
         return redirect_to stocks_path if scope.empty?
 
-        @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
+        @pagy, @stocks = pagy(
+          scope,
+          page: params[:page].to_i >= 1 ? params[:page].to_i : 1,
+          limit: 27,
+          size: [ 1, 3, 3, 1 ]
+        )
         render :all
       else
         redirect_to stocks_path and return
@@ -130,11 +135,11 @@ class StocksController < ApplicationController
       end
     else
       @industries = Stock.where(kind: "stock")
-                        .where.not(mic_code: nil)
-                        .distinct
-                        .pluck(:industry)
-                        .compact
-                        .sort
+                         .where.not(mic_code: nil)
+                         .distinct
+                         .pluck(:industry)
+                         .compact
+                         .sort
 
       redirect_to stocks_path and return if @industries.empty?
     end
