@@ -15,7 +15,7 @@
           "type": "controller",
           "class": "StocksController",
           "method": "show",
-          "line": 86,
+          "line": 88,
           "file": "app/controllers/stocks_controller.rb",
           "rendered": {
             "name": "stocks/show",
@@ -33,8 +33,31 @@
         79
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Dangerous Eval",
+      "warning_code": 13,
+      "fingerprint": "7bfde17285d92c67b7d86b47667adff9bc26f97a16539b8e15fe3afbbfa69eea",
+      "check_name": "Evaluation",
+      "message": "Dynamic string evaluated as code",
+      "file": "app/helpers/application_form_builder.rb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_eval/",
+      "code": "class_eval(\"      def #{selector}(method, options = {})\\n        default_options = { class: \\\"form-field__input\\\" }\\n        merged_options = default_options.merge(options)\\n\\n        return super(method, merged_options) unless options[:label]\\n\\n        @template.form_field_tag do\\n          label(method, *label_args(options)) +\\n          super(method, merged_options.except(:label))\\n        end\\n      end\\n\", \"app/helpers/application_form_builder.rb\", (10 + 1))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ApplicationFormBuilder",
+        "method": null
+      },
+      "user_input": null,
+      "confidence": "Weak",
+      "cwe_id": [
+        913,
+        95
+      ],
+      "note": ""
     }
   ],
-  "updated": "2024-11-20 13:05:03 -0600",
-  "brakeman_version": "6.2.2"
+  "brakeman_version": "7.0.0"
 }
