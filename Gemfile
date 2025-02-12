@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Rails
-gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 8.0"
 
 # Drivers
 gem "pg", "~> 1.5"
