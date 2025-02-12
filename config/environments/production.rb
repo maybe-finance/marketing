@@ -45,7 +45,7 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-   # Log to Logtail if API key is present, otherwise log to STDOUT
+  # Log to Logtail if API key is present, otherwise log to STDOUT
   config.logger = if ENV["LOGTAIL_API_KEY"].present?
     Logtail::Logger.create_default_logger(
       ENV["LOGTAIL_API_KEY"],
