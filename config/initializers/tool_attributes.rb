@@ -29,11 +29,22 @@ end
 
 class ToolPercentage < ToolFloat
   def cast(value)
-    value = super(value)
+    value = value.to_s.gsub(/[^\d.-]/, "") # Remove non-numeric characters added by autonumeric
+    value = value.to_f
 
     unless value.nil?
-      value / 100.0
+      value /= 100.0
+
+      if @min && value < @min
+        raise ArgumentError, "Value must be greater than or equal to #{@min}"
+      end
+
+      if @max && value > @max
+        raise ArgumentError, "Value must be less than or equal to #{@max}"
+      end
     end
+
+    value
   end
 end
 
