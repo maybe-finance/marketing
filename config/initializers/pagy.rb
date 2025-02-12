@@ -32,7 +32,6 @@
 
 # Calendar extra: Add pagination filtering by calendar time unit (year, quarter, month, week, day)
 # See https://ddnexus.github.io/pagy/docs/extras/calendar
-# require 'pagy/extras/calendar'
 # Default for each unit
 # Pagy::Calendar::Year::DEFAULT[:order]     = :asc        # Time direction of pagination
 # Pagy::Calendar::Year::DEFAULT[:format]    = '%Y'        # strftime format
@@ -82,7 +81,7 @@
 # Meilisearch extra: Paginate `Meilisearch` result objects
 # See https://ddnexus.github.io/pagy/docs/extras/meilisearch
 # Default :pagy_search method: change only if you use also
-# the elasticsearch_rails or searchkick extra that define the same method
+# the elasticsearch_rails or searchkick extra that defines the same method
 # Pagy::DEFAULT[:meilisearch_pagy_search] = :pagy_search
 # Default original :search method called internally to do the actual search
 # Pagy::DEFAULT[:meilisearch_search] = :ms_search
@@ -147,8 +146,8 @@
 
 # Overflow extra: Allow for easy handling of overflowing pages
 # See https://ddnexus.github.io/pagy/docs/extras/overflow
-# require 'pagy/extras/overflow'
-# Pagy::DEFAULT[:overflow] = :empty_page    # default  (other options: :last_page and :exception)
+require 'pagy/extras/overflow'
+Pagy::DEFAULT[:overflow] = :empty_page    # options are :empty_page, :last_page, :exception
 
 # Trim extra: Remove the page=1 param from links
 # See https://ddnexus.github.io/pagy/docs/extras/trim
@@ -205,7 +204,6 @@ require "pagy/extras/trim"
 #                 { locale: 'xyz',  # not built-in
 #                   filepath: 'path/to/pagy-xyz.yml',
 #                   pluralize: lambda{ |count| ... } )
-
 
 # I18n extra: uses the standard i18n gem which is ~18x slower using ~10x more memory
 # than the default pagy internal i18n (see above)
