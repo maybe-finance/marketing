@@ -141,61 +141,67 @@ export default class extends Controller {
         focus.style("display", "none");
         tooltip.style("opacity", 0);
       })
-      .on("mousemove", mousemove)
+      .on("mousemove", (event) => {
+        const [mouseX, mouseY] = d3.pointer(event, svg.node());
+        const bisect = d3.bisector(d => new Date(d.date)).left
+        const x0 = x.invert(mouseX)
+        const i = bisect(prices, x0, 1)
+        const d0 = prices[i - 1]
+        const d1 = prices[i]
+        const d = x0 - new Date(d0.date) > new Date(d1.date) - x0 ? d1 : d0
+        const prevD = prices[Math.max(0, i - 1)]
 
-    function mousemove(event) {
-      const [mouseX, mouseY] = d3.pointer(event, svg.node());
-      const bisect = d3.bisector(d => new Date(d.date)).left
-      const x0 = x.invert(mouseX)
-      const i = bisect(prices, x0, 1)
-      const d0 = prices[i - 1]
-      const d1 = prices[i]
-      const d = x0 - new Date(d0.date) > new Date(d1.date) - x0 ? d1 : d0
-      const prevD = prices[Math.max(0, i - 1)]
+        const xPos = x(new Date(d.date))
+        const yPos = y(d.close)
 
-      const xPos = x(new Date(d.date))
-      const yPos = y(d.close)
+        focus.attr("transform", `translate(${xPos},0)`)
+        focus.select("circle").attr("cy", yPos)
+        focus.select("line").attr("y2", height)
 
-      focus.attr("transform", `translate(${xPos},0)`)
-      focus.select("circle").attr("cy", yPos)
-      focus.select("line").attr("y2", height)
+        const change = d.close - prevD.close
+        const changePercent = ((change / prevD.close) * 100).toFixed(2)
+        const formatter = new Intl.NumberFormat(undefined, {
+          style: 'currency',
+          currency: this.dataValue.currency
+        })
+        const changeText = `${change >= 0 ? '+' : ''}${formatter.format(change)} (${changePercent}%)`
 
-      const change = d.close - prevD.close
-      const changePercent = ((change / prevD.close) * 100).toFixed(2)
-      const changeText = `${change >= 0 ? '+' : ''}$${change.toFixed(2)} (${changePercent}%)`
+        tooltip.html(`
+          <div class="font-semibold">${d3.timeFormat("%b %d, %Y")(new Date(d.date))}</div>
+          <div>${formatter.format(d.close)}</div>
+          <div style="color: ${change >= 0 ? '#10B981' : '#EF4444'}">${changeText}</div>
+        `)
 
-      tooltip.html(`
-        <div class="font-semibold">${d3.timeFormat("%b %d, %Y")(new Date(d.date))}</div>
-        <div>$${d.close.toFixed(2)}</div>
-        <div style="color: ${change >= 0 ? '#10B981' : '#EF4444'}">${changeText}</div>
-      `)
+        const tooltipNode = tooltip.node();
+        const tooltipRect = tooltipNode.getBoundingClientRect();
 
-      const tooltipNode = tooltip.node();
-      const tooltipRect = tooltipNode.getBoundingClientRect();
+        let tooltipX = xPos + 10;
+        let tooltipY = yPos - tooltipRect.height / 2;
 
-      let tooltipX = xPos + 10;
-      let tooltipY = yPos - tooltipRect.height / 2;
+        if (tooltipX + tooltipRect.width > width) {
+          tooltipX = xPos - tooltipRect.width - 10;
+        }
 
-      if (tooltipX + tooltipRect.width > width) {
-        tooltipX = xPos - tooltipRect.width - 10;
-      }
+        if (tooltipY < 0) {
+          tooltipY = 0;
+        } else if (tooltipY + tooltipRect.height > height) {
+          tooltipY = height - tooltipRect.height;
+        }
 
-      if (tooltipY < 0) {
-        tooltipY = 0;
-      } else if (tooltipY + tooltipRect.height > height) {
-        tooltipY = height - tooltipRect.height;
-      }
-
-      tooltip
-        .style("left", `${tooltipX}px`)
-        .style("top", `${tooltipY}px`)
-        .style("opacity", 1);
-    }
+        tooltip
+          .style("left", `${tooltipX}px`)
+          .style("top", `${tooltipY}px`)
+          .style("opacity", 1);
+      })
   }
 
   updatePriceAndChangeDisplay(data) {
-    this.priceDisplayTarget.textContent = `$${data.latest_price.toFixed(2)}`
-    const changeText = `${data.price_change >= 0 ? '+' : ''}${data.price_change.toFixed(2)} (${data.price_change_percentage.toFixed(2)}%) today`
+    const formatter = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: data.currency
+    })
+    this.priceDisplayTarget.textContent = formatter.format(data.latest_price)
+    const changeText = `${data.price_change >= 0 ? '+' : ''}${formatter.format(data.price_change)} (${data.price_change_percentage.toFixed(2)}%) today`
     this.changeDisplayTarget.textContent = changeText
     this.changeDisplayTarget.classList.remove('text-green-500', 'text-red-500')
     this.changeDisplayTarget.classList.add(data.price_change >= 0 ? 'text-green-500' : 'text-red-500')

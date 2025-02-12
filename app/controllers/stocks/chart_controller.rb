@@ -52,14 +52,17 @@ class Stocks::ChartController < ApplicationController
           first_price = valid_prices.first["open"].to_f
           price_change = (latest_price - first_price).round(2)
           price_change_percentage = ((price_change / first_price) * 100).round(2)
+          currency = data["currency"] || "USD"  # Default to USD if not provided
         else
           latest_price = price_change = price_change_percentage = 0
+          currency = "USD"
         end
 
         {
           latest_price: latest_price,
           price_change: price_change,
           price_change_percentage: price_change_percentage,
+          currency: currency,
           prices: valid_prices
         }
       else
