@@ -21,7 +21,7 @@ class Stocks::ChartController < ApplicationController
 
     time_range = params[:time_range].presence || "1M"  # Set default if nil or empty
 
-    @stock_chart = Rails.cache.fetch("stock_chart/v2/#{@stock.symbol}:#{@stock.mic_code}/#{time_range}", expires_in: 12.hours) do
+    @stock_chart = Rails.cache.fetch("stock_chart/v3/#{@stock.symbol}:#{@stock.mic_code}/#{time_range}", expires_in: 12.hours) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
