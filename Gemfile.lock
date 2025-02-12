@@ -168,13 +168,7 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.17.0)
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-arm-linux-gnu)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.1)
@@ -483,6 +477,7 @@ DEPENDENCIES
   dotenv-rails
   erb_lint
   faraday
+  ffi (>= 1.17)
   hotwire-livereload
   hotwire_combobox (~> 0.3.2)
   importmap-rails
