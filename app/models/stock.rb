@@ -35,7 +35,11 @@ class Stock < ApplicationRecord
   scope :search, ->(query) {
     return nil if query.blank? || query.length < 2
 
-    sanitized_query = query.split.map { |term| "#{term.gsub(/[()&|!:*]/, '')}:*" }.join(" & ")
+    sanitized_query = query.split
+                          .map { |term| term.gsub(/[()&|!:*]/, '') }
+                          .reject(&:blank?)
+                          .map { |term| "#{term}:*" }
+                          .join(" & ")
 
     select("stocks.*, ts_rank_cd(search_vector, to_tsquery('simple', $1)) AS rank")
       .where("search_vector @@ to_tsquery('simple', :q)", q: sanitized_query)
