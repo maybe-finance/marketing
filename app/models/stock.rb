@@ -33,7 +33,7 @@ class Stock < ApplicationRecord
   include Tickers
 
   scope :search, ->(query) {
-    return nil if query.blank? || query.length < 2
+    return none if query.blank? || query.length < 2
 
     sanitized_query = query.split.map { |term| "#{term.gsub(/[()&|!:*]/, '')}:*" }.join(" & ")
 
