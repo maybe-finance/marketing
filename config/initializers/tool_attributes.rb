@@ -14,7 +14,7 @@ class ToolFloat < ActiveModel::Type::Float
     end
 
     if @max && value > @max
-      raise ArgumentError, "Value must be less than or equal to #{@max}"
+      value = @max
     end
 
     value
