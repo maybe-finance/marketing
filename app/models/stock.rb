@@ -43,7 +43,7 @@ class Stock < ApplicationRecord
   }
 
   def to_param
-    symbol
+    CGI.escape(symbol)
   end
 
   def exchanges
