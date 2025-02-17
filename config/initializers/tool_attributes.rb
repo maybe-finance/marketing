@@ -28,6 +28,10 @@ class ToolInteger < ToolFloat
 end
 
 class ToolPercentage < ToolFloat
+  def initialize(**rest)
+    super(min: nil, max: nil, **rest)
+  end
+
   def cast(value)
     value = super(value)
 
