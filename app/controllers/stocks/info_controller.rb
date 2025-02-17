@@ -23,7 +23,11 @@ class Stocks::InfoController < ApplicationController
       }
 
       response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}?mic_code=#{@stock.mic_code}", nil, headers)
-      JSON.parse(response.body)["data"]
+      if response.success?
+        JSON.parse(response.body)["data"]
+      else
+        {}
+      end
     end
   end
 end
