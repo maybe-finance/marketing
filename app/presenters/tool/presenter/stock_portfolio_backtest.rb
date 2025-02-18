@@ -18,11 +18,19 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
   end
 
   def portfolio_growth
-    plot_data.last[:portfolio].round(0)
+    if plot_data.any?
+      plot_data.last[:portfolio].round(0)
+    else
+      0
+    end
   end
 
   def benchmark_growth
-    plot_data.last[:benchmark].round(0)
+    if plot_data.any?
+      plot_data.last[:benchmark].round(0)
+    else
+      0
+    end
   end
 
   def legend_data
@@ -68,12 +76,6 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
       end.uniq.sort
     end
 
-    # `ohclv_data` -> [
-    #   {
-    #     ticker: "AAPL",
-    #     prices: [{ "date": "2024-09-03", "open": 228.55, "close": 222.77, "high": 229, "low": 221.17, "volume": 49286866 }]
-    #   }, ...
-    # ]
     def ohclv_data
       @ohclv_data ||= begin
         tickers = stocks + [ benchmark_stock ]
