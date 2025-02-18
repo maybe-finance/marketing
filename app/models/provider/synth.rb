@@ -161,13 +161,15 @@ class Provider::Synth
     def fetch_stock_prices(ticker:, start_date:, end_date:, interval: "day", limit: 100)
       HTTParty.get "#{BASE_URL}/tickers/#{ticker}/open-close",
         query: { start_date: start_date.to_s, end_date: end_date.to_s, interval: interval, limit: limit },
-        headers: { "Authorization" => "Bearer #{api_key}", "X-Source" => "maybe_marketing", "X-Source-Type" => "api" }
+        headers: { "Authorization" => "Bearer #{api_key}", "X-Source" => "maybe_marketing", "X-Source-Type" => "api" },
+        timeout: 15
     end
 
     def fetch_exchange_rate(from_currency:, to_currency:)
       HTTParty.get "#{BASE_URL}/rates/live",
         query: { from: from_currency, to: to_currency },
-        headers: default_headers
+        headers: default_headers,
+        timeout: 15
     end
 
     def fetch_exchange_rates(from_currency:, to_currency:, start_date:, end_date:)
@@ -178,7 +180,8 @@ class Provider::Synth
           date_start: start_date.to_s,
           date_end: end_date.to_s
         },
-        headers: default_headers
+        headers: default_headers,
+        timeout: 15
     end
 
     def fetch_insider_trades(ticker:, start_date:, end_date:, limit: 100)
@@ -194,7 +197,8 @@ class Provider::Synth
 
       HTTParty.get url,
         query: query,
-        headers: default_headers
+        headers: default_headers,
+        timeout: 15
     end
 
     def fetch_recent_insider_trades(**filters)
@@ -207,7 +211,8 @@ class Provider::Synth
 
       HTTParty.get url,
         query: query_params,
-        headers: default_headers
+        headers: default_headers,
+        timeout: 15
     end
 
     def default_headers
