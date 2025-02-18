@@ -21,15 +21,15 @@ class Tool::Presenter::ExchangeRateCalculator < Tool::Presenter
     @current_rate ||= begin
       return 1.0 if from_currency == to_currency
 
-      response = fetch_current_rate
-      Rails.logger.debug "Exchange Rate Response: #{response.inspect}"
-      # Rails.logger.debug "Response rate: #{response&.rate}"
+      rate = fetch_current_rate
+      Rails.logger.debug "Exchange Rate Rate: #{rate.inspect}"
+      # Rails.logger.debug "Response rate: #{rate}"
 
-      response
+      rate || 0.0
     rescue StandardError => e
       Rails.logger.error "Failed to fetch exchange rate: #{e.message}"
       Rails.logger.error e.backtrace.join("\n")
-      nil
+      0.0
     end
   end
 
