@@ -15,14 +15,12 @@ class Stocks::StatisticsController < ApplicationController
     end
 
     @stock_statistics = Rails.cache.fetch("stock_statistics/v2/#{@stock.symbol}:#{@stock.mic_code}", expires_in: 24.hours) do
-      headers = {
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
-      "X-Source" => "maybe_marketing",
-        "X-Source-Type" => "api"
-      }
-
-      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}?mic_code=#{@stock.mic_code}", nil, headers)
+      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}?mic_code=#{@stock.mic_code}") do |req|
+        req.headers["Content-Type"] = "application/json"
+        req.headers["Authorization"] = "Bearer #{ENV['SYNTH_API_KEY']}"
+        req.headers["X-Source"] = "maybe_marketing"
+        req.headers["X-Source-Type"] = "api"
+      end
       parsed_data = JSON.parse(response.body)["data"]
       parsed_data && parsed_data["market_data"] ? parsed_data["market_data"] : nil
     end
