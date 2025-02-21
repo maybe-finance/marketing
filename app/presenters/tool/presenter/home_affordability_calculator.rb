@@ -10,7 +10,7 @@ class Tool::Presenter::HomeAffordabilityCalculator < Tool::Presenter
   attribute :hoa_plus_pmi, :tool_float, default: 0.0
 
   def blank?
-    [ desired_home_price, down_payment, annual_pre_tax_income, loan_interest_rate, monthly_debt_payments ].all?(&:zero?)
+    [ desired_home_price, down_payment, annual_pre_tax_income, loan_interest_rate, monthly_debt_payments ].all? { |value| value.to_f.zero? }
   end
 
   def mortgage_rate_30
