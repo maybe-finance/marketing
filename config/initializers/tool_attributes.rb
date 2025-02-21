@@ -7,7 +7,7 @@ class ToolFloat < ActiveModel::Type::Float
 
   def cast(value)
     value = value.to_s.gsub(/[^\d.-]/, "") # Remove non-numeric characters added by autonumeric
-    value = super(value)
+    value = super(value.presence || 0.0)
 
     if @min && value < @min
       raise ArgumentError, "Value must be greater than or equal to #{@min}"
