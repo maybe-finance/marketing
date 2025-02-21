@@ -9,7 +9,7 @@
 
       <%= tag.button type: "button", class: button_class.presence || "flex items-center justify-between gap-1 text-sm p-2 cursor-pointer text-gray-500 w-full text-sm", data: { select_target: "button" } do %>
         <span data-select-target="buttonText" class="pl-1 text-black">
-          <%= options.find { |option| option[1] == value }[1] %>
+          <%= (options.find { |option| option[1] == value } || options.first)[1] %>
         </span>
         <%= lucide_icon("chevron-down", class: "w-5 h-5 inline-block") %>
       <% end %>

@@ -7,7 +7,7 @@
 
   <%= tag.button type: "button", class: button_class.presence || "flex items-center gap-1 text-sm p-2 cursor-pointer text-gray-500 text-sm", data: { "select-target": "button" } do %>
     <span data-select-target="buttonText">
-      <%= options.find { |option| option[1] == value }[0] %>
+      <%= (options.find { |option| option[1] == value } || options.first)[0] %>
     </span>
     <%= lucide_icon("chevron-down", class: "w-5 h-5 text-gray-500") %>
   <% end %>

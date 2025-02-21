@@ -8,7 +8,7 @@
       class: button_class.presence || "flex items-center gap-1 text-sm p-2 cursor-pointer text-gray-500 text-sm"
     ) do
   %>
-    <span data-select-target="buttonText"><%= options.find { |option| option[1] == value }[1] %></span>
+    <span data-select-target="buttonText"><%= (options.find { |option| option[1] == value } || options.first)[1] %></span>
     <%= lucide_icon("chevron-down", class: "w-5 h-5 text-gray-500") %>
   <% end %>
   <input type="hidden" name="loan_period" data-select-target="input" data-auto-submit-form-target="auto">
