@@ -53,7 +53,7 @@
     </div>
 
     <div class="w-1/2">
-      <%= form.unit_field :loan_interest_rate, label: "Loan interest rate", label_right: "%", data: { mortgage_rate_select_target: "interestRateInput" } %>
+      <%= form.unit_field :loan_interest_rate, label: "Loan interest rate", label_right: "%", value: tool.loan_interest_rate, data: { mortgage_rate_select_target: "interestRateInput" } %>
     </div>
   <% end %>
 
