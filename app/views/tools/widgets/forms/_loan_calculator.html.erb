@@ -13,7 +13,7 @@
   </div>
 
   <div class="flex flex-col gap-2">
-    <%= form.date_field :date, as: :date,label: "Start date" , value: tool.date.strftime("%m/%d/%Y"), required: true, max: Date.today %>
+    <%= form.date_field :date, as: :date,label: "Start date" , value: tool.date&.strftime("%m/%d/%Y"), required: true, max: Date.today %>
   </div>
 
   <div class="mt-auto">
