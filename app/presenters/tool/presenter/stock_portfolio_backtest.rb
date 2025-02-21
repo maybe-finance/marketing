@@ -14,6 +14,7 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
   end
 
   def same_month?
+    return false if start_date.blank? || end_date.blank?
     start_date.month == end_date.month && start_date.year == end_date.year
   end
 
@@ -68,12 +69,6 @@ class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
       end.uniq.sort
     end
 
-    # `ohclv_data` -> [
-    #   {
-    #     ticker: "AAPL",
-    #     prices: [{ "date": "2024-09-03", "open": 228.55, "close": 222.77, "high": 229, "low": 221.17, "volume": 49286866 }]
-    #   }, ...
-    # ]
     def ohclv_data
       @ohclv_data ||= begin
         tickers = stocks + [ benchmark_stock ]
