@@ -33,13 +33,11 @@ class Stock < ApplicationRecord
   include Tickers
 
   scope :search, ->(query) {
-    return nil if query.blank? || query.length < 2
+    return none if query.blank? || query.length < 2
 
-    sanitized_query = query.split.map { |term| "#{term.gsub(/[()&|!:*]/, '')}:*" }.join(" & ")
-
-    select("stocks.*, ts_rank_cd(search_vector, to_tsquery('simple', $1)) AS rank")
-      .where("search_vector @@ to_tsquery('simple', :q)", q: sanitized_query)
-      .reorder("rank DESC")
+    select("stocks.*, ts_rank_cd(search_vector, plainto_tsquery('simple', :q)) AS rank")
+      .where("search_vector @@ plainto_tsquery('simple', :q)", q: query)
+      .order("rank DESC")
   }
 
   def to_param
