@@ -20,6 +20,8 @@ namespace :data do
         req.headers["Authorization"] = "Bearer #{ENV['SYNTH_API_KEY']}"
         req.headers["X-Source"] = "maybe_marketing"
         req.headers["X-Source-Type"] = "api"
+        req.options.timeout = 10        # seconds
+        req.options.open_timeout = 5    # seconds
       end
 
       stocks = JSON.parse(response.body)

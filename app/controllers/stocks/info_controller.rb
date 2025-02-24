@@ -22,7 +22,10 @@ class Stocks::InfoController < ApplicationController
         "X-Source-Type" => "api"
       }
 
-      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}?mic_code=#{@stock.mic_code}", nil, headers)
+      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}?mic_code=#{@stock.mic_code}", nil, headers) do |req|
+        req.options.timeout = 5         # seconds
+        req.options.open_timeout = 2    # seconds
+      end
       JSON.parse(response.body)["data"]
     end
   end

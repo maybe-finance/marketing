@@ -66,7 +66,10 @@ class Stocks::PricePerformanceController < ApplicationController
   # @param headers [Hash] HTTP headers for the API request
   # @return [Hash, nil] Real-time stock data or nil if the request fails
   def fetch_real_time_data(symbol, headers)
-    response = Faraday.get("https://api.synthfinance.com/tickers/#{symbol}/real-time?mic_code=#{@stock.mic_code}", nil, headers)
+    response = Faraday.get("https://api.synthfinance.com/tickers/#{symbol}/real-time?mic_code=#{@stock.mic_code}", nil, headers) do |req|
+      req.options.timeout = 5         # seconds
+      req.options.open_timeout = 2    # seconds
+    end
     return nil unless response.success?
     JSON.parse(response.body)["data"]
   rescue Faraday::Error, JSON::ParserError => e
@@ -92,7 +95,10 @@ class Stocks::PricePerformanceController < ApplicationController
         interval: "day"
       },
       headers
-    )
+    ) do |req|
+      req.options.timeout = 5         # seconds
+      req.options.open_timeout = 2    # seconds
+    end
 
     return nil unless response.success?
 
