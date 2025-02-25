@@ -43,6 +43,10 @@
     <%= hotwire_livereload_tags if Rails.env.development? %>
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
     <%= render "shared/ga" if Rails.env.production? %>
+
+    <script>LUX=function(){function n(){return Date.now?Date.now():+new Date}var r,t=n(),a=window.performance||{},e=a.timing||{activationStart:0,navigationStart:(null===(r=window.LUX)||void 0===r?void 0:r.ns)||t};function i(){return a.now?(r=a.now(),Math.floor(r)):n()-e.navigationStart;var r}(LUX=window.LUX||{}).ac=[],LUX.addData=function(n,r){return LUX.cmd(["addData",n,r])},LUX.cmd=function(n){return LUX.ac.push(n)},LUX.getDebug=function(){return[[t,0,[]]]},LUX.init=function(){return LUX.cmd(["init"])},LUX.mark=function(){for(var n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];if(a.mark)return a.mark.apply(a,n);var t=n[0],e=n[1]||{};void 0===e.startTime&&(e.startTime=i());LUX.cmd(["mark",t,e])},LUX.markLoadTime=function(){return LUX.cmd(["markLoadTime",i()])},LUX.measure=function(){for(var n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];if(a.measure)return a.measure.apply(a,n);var t,e=n[0],o=n[1],u=n[2];t="object"==typeof o?n[1]:{start:o,end:u};t.duration||t.end||(t.end=i());LUX.cmd(["measure",e,t])},LUX.send=function(){return LUX.cmd(["send"])},LUX.ns=t;var o=LUX;return window.LUX_ae=[],window.addEventListener("error",(function(n){window.LUX_ae.push(n)})),o}();
+    </script>
+    <script src="https://cdn.speedcurve.com/js/lux.js?id=4605039082" defer crossorigin="anonymous"></script>
   </head>
 
   <body class="min-h-screen bg-gradient-to-b from-gray-25 to-gray-50">
