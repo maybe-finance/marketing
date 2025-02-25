@@ -1,9 +1,11 @@
 class ToolsController < ApplicationController
   def index
+    expires_in 12.hours, public: true
     @tools = Tool.all
   end
 
   def show
+    expires_in 12.hours, public: true
     @tool = Tool.presenter_from tool_params.compact_blank.merge(action_name: action_name)
   end
 

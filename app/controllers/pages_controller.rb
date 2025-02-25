@@ -12,19 +12,27 @@ class PagesController < ApplicationController
   #
   # @return [Integer, nil] The number of GitHub stars or nil if fetching fails
   def index
-    @stars = Rails.cache.fetch("stargazers_count", expires_in: 24.hours) do
-      fetch_stars_count
+    http_cache_forever(public: true) do
+      @stars = Rails.cache.fetch("stargazers_count", expires_in: 24.hours) do
+        fetch_stars_count
+      end
     end
   end
 
   # GET /tos
   # Renders the Terms of Service page.
   def tos
+    http_cache_forever(public: true) do
+      render
+    end
   end
 
   # GET /privacy
   # Renders the Privacy Policy page.
   def privacy
+    http_cache_forever(public: true) do
+      render
+    end
   end
 
   # GET /sitemap

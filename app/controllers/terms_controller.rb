@@ -11,6 +11,7 @@ class TermsController < ApplicationController
   #   GET /terms
   #   GET /terms?q=ruby
   def index
+    expires_in 12.hours, public: true
     @query = params[:q]
 
     @terms = Term.order(:name)
@@ -26,6 +27,7 @@ class TermsController < ApplicationController
   # @example
   #   GET /terms/ruby-on-rails
   def show
+    expires_in 12.hours, public: true
     @term = Term.find_by(slug: params[:id])
   end
 end

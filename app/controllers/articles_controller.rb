@@ -8,6 +8,7 @@ class ArticlesController < ApplicationController
   # @example
   #   GET /articles
   def index
+    expires_in 12.hours, public: true
     @articles = Article.all.order("publish_at DESC").where("publish_at <= ?", Time.now)
   end
 
@@ -19,6 +20,7 @@ class ArticlesController < ApplicationController
   # @example
   #   GET /articles/my-first-article
   def show
+    expires_in 3.days, public: true
     @article = Article.find_by(slug: params[:id])
     redirect_to articles_path unless @article
   end
