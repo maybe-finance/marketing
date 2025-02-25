@@ -22,29 +22,40 @@ class Stocks::SimilarStocksController < ApplicationController
         "X-Source-Type" => "api"
       }
 
-      response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}/related?mic_code=#{@stock.mic_code}", nil, headers)
-      data = JSON.parse(response.body)["data"]
+      begin
+        response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}/related?mic_code=#{@stock.mic_code}", nil, headers) do |req|
+          req.options.timeout = 10        # open/read timeout in seconds
+          req.options.open_timeout = 5    # connection open timeout in seconds
+        end
+        data = JSON.parse(response.body)["data"]
+      rescue Faraday::TimeoutError, Faraday::ConnectionFailed => e
+        Rails.logger.error "Error fetching similar stocks: #{e.message}"
+        data = nil
+      end
 
       similar_stocks = []
-      data["related_tickers"].each do |related_stock|
-        break if similar_stocks.size == 6
 
-        market_data = related_stock["market_data"]
-        next if market_data.nil? || market_data.empty?
-        next if market_data["open_today"].nil? || market_data["price_change"].nil? || market_data["percent_change"].nil?
+      if data && data["related_tickers"]
+        data["related_tickers"].each do |related_stock|
+          break if similar_stocks.size == 6
 
-        current_price = market_data["open_today"].to_f
-        price_change = market_data["price_change"]
-        percent_change = market_data["percent_change"]
+          market_data = related_stock["market_data"]
+          next if market_data.nil? || market_data.empty?
+          next if market_data["open_today"].nil? || market_data["price_change"].nil? || market_data["percent_change"].nil?
 
-        similar_stocks << {
-          name: related_stock["name"],
-          symbol: related_stock["ticker"],
-          mic_code: related_stock["exchange"]["mic_code"],
-          current_price: current_price,
-          price_change: price_change,
-          percent_change: percent_change
-        }
+          current_price = market_data["open_today"].to_f
+          price_change = market_data["price_change"]
+          percent_change = market_data["percent_change"]
+
+          similar_stocks << {
+            name: related_stock["name"],
+            symbol: related_stock["ticker"],
+            mic_code: related_stock["exchange"]["mic_code"],
+            current_price: current_price,
+            price_change: price_change,
+            percent_change: percent_change
+          }
+        end
       end
 
       similar_stocks
