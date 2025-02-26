@@ -82,47 +82,76 @@ class Provider::Synth
     end
   end
 
-  def insider_trades(ticker:, start_date: 365.days.ago, end_date: Date.today, limit: 100)
-    response = fetch_insider_trades(
-      ticker: ticker,
-      start_date: start_date,
-      end_date: end_date,
-      limit: limit
-    )
+  def insider_trades(ticker:, start_date: 365.days.ago, end_date: Date.today, limit: 50)
+    trades = []
+    page = 1
 
-    if response.success?
-      InsiderTradesResponse.new(
+    loop do
+      response = fetch_insider_trades(
         ticker: ticker,
-        trades: response.parsed_response["data"],
-        success?: true,
-        raw_response: response
+        start_date: start_date,
+        end_date: end_date,
+        limit: limit,
+        page: page
       )
-    else
-      InsiderTradesResponse.new(
-        ticker: ticker,
-        success?: false,
-        raw_response: response
-      )
+
+      unless response.success?
+        return InsiderTradesResponse.new(
+          ticker: ticker,
+          success?: false,
+          raw_response: response
+        )
+      end
+
+      data = response.parsed_response["data"]
+      trades += data if data
+
+      paging = response.parsed_response["paging"]
+      break if paging.nil? || page >= paging["total_pages"]
+
+      page += 1
     end
+
+    InsiderTradesResponse.new(
+      ticker: ticker,
+      trades: trades,
+      success?: true,
+      raw_response: OpenStruct.new(code: 200)
+    )
   end
 
   def recent_insider_trades(filters = {})
-    response = fetch_recent_insider_trades(**filters)
+    trades = []
+    page = 1
+    limit = filters[:limit] || 50
 
-    if response.success?
-      InsiderTradesResponse.new(
-        ticker: nil,
-        trades: response.parsed_response["data"],
-        success?: true,
-        raw_response: response
-      )
-    else
-      InsiderTradesResponse.new(
-        ticker: nil,
-        success?: false,
-        raw_response: response
-      )
+    loop do
+      response = fetch_recent_insider_trades(page: page, limit: limit, **filters)
+      
+      unless response.success?
+        return InsiderTradesResponse.new(
+          ticker: nil,
+          success?: false,
+          raw_response: response
+        )
+      end
+
+      data = response.parsed_response["data"]
+      trades += data if data
+
+      paging = response.parsed_response["paging"]
+      break if paging.nil? || page >= paging["total_pages"]
+      break if trades.size >= limit
+
+      page += 1
     end
+
+    InsiderTradesResponse.new(
+      ticker: nil,
+      trades: trades.first(limit),
+      success?: true,
+      raw_response: OpenStruct.new(code: 200)
+    )
   end
 
   private
@@ -159,55 +188,87 @@ class Provider::Synth
     )
 
     def fetch_stock_prices(ticker:, start_date:, end_date:, interval: "day", limit: 100)
-      HTTParty.get "#{BASE_URL}/tickers/#{ticker}/open-close",
-        query: { start_date: start_date.to_s, end_date: end_date.to_s, interval: interval, limit: limit },
-        headers: { "Authorization" => "Bearer #{api_key}", "X-Source" => "maybe_marketing", "X-Source-Type" => "api" }
+      begin
+        HTTParty.get "#{BASE_URL}/tickers/#{ticker}/open-close",
+          query: { start_date: start_date.to_s, end_date: end_date.to_s, interval: interval, limit: limit },
+          headers: { "Authorization" => "Bearer #{api_key}", "X-Source" => "maybe_marketing", "X-Source-Type" => "api" },
+          timeout: 10
+      rescue Net::OpenTimeout, Net::ReadTimeout => e
+        Rails.logger.error("Timeout error fetching stock prices: #{e.message}")
+        OpenStruct.new(success?: false, parsed_response: {}, code: 408)
+      end
     end
 
     def fetch_exchange_rate(from_currency:, to_currency:)
-      HTTParty.get "#{BASE_URL}/rates/live",
-        query: { from: from_currency, to: to_currency },
-        headers: default_headers
+      begin
+        HTTParty.get "#{BASE_URL}/rates/live",
+          query: { from: from_currency, to: to_currency },
+          headers: default_headers,
+          timeout: 10
+      rescue Net::OpenTimeout, Net::ReadTimeout => e
+        Rails.logger.error("Timeout error fetching exchange rate: #{e.message}")
+        OpenStruct.new(success?: false, parsed_response: {}, code: 408)
+      end
     end
 
     def fetch_exchange_rates(from_currency:, to_currency:, start_date:, end_date:)
-      HTTParty.get "#{BASE_URL}/rates/historical-range",
-        query: {
-          from: from_currency,
-          to: to_currency,
-          date_start: start_date.to_s,
-          date_end: end_date.to_s
-        },
-        headers: default_headers
+      begin
+        HTTParty.get "#{BASE_URL}/rates/historical-range",
+          query: {
+            from: from_currency,
+            to: to_currency,
+            date_start: start_date.to_s,
+            date_end: end_date.to_s
+          },
+          headers: default_headers,
+          timeout: 10
+      rescue Net::OpenTimeout, Net::ReadTimeout => e
+        Rails.logger.error("Timeout error fetching exchange rates: #{e.message}")
+        OpenStruct.new(success?: false, parsed_response: {}, code: 408)
+      end
     end
 
-    def fetch_insider_trades(ticker:, start_date:, end_date:, limit: 100)
+    def fetch_insider_trades(ticker:, start_date:, end_date:, limit: 50, page: 1)
       url = "#{BASE_URL}/insider-trades"
       query = {
         ticker: ticker,
         start_date: start_date.to_s,
         end_date: end_date.to_s,
         limit: limit,
+        page: page,
         sort: "transaction_date",
         direction: "desc"
       }
 
-      HTTParty.get url,
-        query: query,
-        headers: default_headers
+      begin
+        HTTParty.get url,
+          query: query,
+          headers: default_headers,
+          timeout: 10
+      rescue Net::OpenTimeout, Net::ReadTimeout => e
+        Rails.logger.error("Timeout error fetching insider trades: #{e.message}")
+        OpenStruct.new(success?: false, parsed_response: {}, code: 408)
+      end
     end
 
-    def fetch_recent_insider_trades(**filters)
+    def fetch_recent_insider_trades(page: 1, **filters)
       url = "#{BASE_URL}/insider-trades"
       query_params = {
-        limit: 250,
+        limit: 50,
         sort: "transaction_date",
-        direction: "desc"
+        direction: "desc",
+        page: page
       }.merge(filters)
 
-      HTTParty.get url,
-        query: query_params,
-        headers: default_headers
+      begin
+        HTTParty.get url,
+          query: query_params,
+          headers: default_headers,
+          timeout: 10
+      rescue Net::OpenTimeout, Net::ReadTimeout => e
+        Rails.logger.error("Timeout error fetching recent insider trades: #{e.message}")
+        OpenStruct.new(success?: false, parsed_response: {}, code: 408)
+      end
     end
 
     def default_headers
