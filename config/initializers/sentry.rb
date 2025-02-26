@@ -5,4 +5,5 @@ Sentry.init do |config|
   config.traces_sample_rate = 0.25
   config.profiles_sample_rate = 0.25
   config.profiler_class = Sentry::Vernier::Profiler
+  config.rails.skippable_instrumentations = ["net_http"]
 end
