@@ -20,8 +20,6 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   <% if ENV["DB_HOST"].present? %>
   host: <%= ENV["DB_HOST"] %>
-  username: postgres
-  password: postgres
   <% end %>
 
 
