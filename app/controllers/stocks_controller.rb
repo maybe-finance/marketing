@@ -12,7 +12,7 @@ class StocksController < ApplicationController
   #   GET /stocks
   #   GET /stocks?q=AAPL
   def index
-    @exchanges = Rails.cache.fetch("stock_exchanges_groupings/v2", expires_in: 24.hours) do
+    @exchanges = Rails.cache.fetch("stock_exchanges_groupings/v3", expires_in: 24.hours) do
       Stock.where(kind: "stock")
            .where.not(mic_code: nil)
            .distinct
@@ -24,11 +24,11 @@ class StocksController < ApplicationController
            .sort_by(&:first)
     end
 
-    @industries = Rails.cache.fetch("stock_industries_groupings/v2", expires_in: 24.hours) do
+    @industries = Rails.cache.fetch("stock_industries_groupings/v3", expires_in: 24.hours) do
       Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
     end
 
-    @sectors = Rails.cache.fetch("stock_sectors_groupings/v2", expires_in: 24.hours) do
+    @sectors = Rails.cache.fetch("stock_sectors_groupings/v3", expires_in: 24.hours) do
       Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
     end
 
@@ -91,7 +91,7 @@ class StocksController < ApplicationController
     if params[:id]
       @exchange = params[:id]
       if @exchange.present?
-        scope = Rails.cache.fetch("exchange_stocks/#{@exchange}/v2", expires_in: 12.hours) do
+        scope = Rails.cache.fetch("exchange_stocks/#{@exchange}/v3", expires_in: 12.hours) do
           Stock.where(exchange: @exchange).where.not(mic_code: nil).order(:name)
         end
         return redirect_to stocks_path if scope.empty?
@@ -102,7 +102,7 @@ class StocksController < ApplicationController
         redirect_to stocks_path and return
       end
     else
-      @exchanges = Rails.cache.fetch("exchanges_list/v2", expires_in: 24.hours) do
+      @exchanges = Rails.cache.fetch("exchanges_list/v3", expires_in: 24.hours) do
         Stock.where(kind: "stock")
              .where.not(mic_code: nil)
              .distinct
