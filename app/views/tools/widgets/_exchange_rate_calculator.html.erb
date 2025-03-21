@@ -43,7 +43,7 @@
               <img src="https://hatscripts.github.io/circle-flags/flags/<%= tool.to_currency[0..1].downcase %>.svg" 
                    alt="<%= tool.to_currency %>" 
                    class="w-5 h-5 rounded-full inline-block mr-2">
-              <%= number_to_currency(amount * tool.current_rate, unit: tool.to_currency, format: "%n %u") %>
+              <%= number_to_currency((amount * (tool.current_rate || 0)), unit: tool.to_currency, format: "%n %u") %>
             </span>
           <% end %>
         <% end %>
