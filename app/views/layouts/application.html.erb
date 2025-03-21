@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <meta name="title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe: The OS for your personal finances" %>">
-    <meta name="description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe: The OS for your personal finances" %>"> 
+    <meta name="description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe: The OS for your personal finances" %>">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -84,7 +84,7 @@
         </ul>
       </div>
     </header>
-    <main class="max-w-5xl px-3 mx-auto my-10 md:px-4">
+    <main class="px-3 mx-auto my-10 md:px-4">
       <%= yield %>
     </main>
     <footer class="max-w-5xl p-6 mx-auto my-8 md:p-4">
