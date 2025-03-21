@@ -96,6 +96,17 @@
                 </li>
                 <li>
                   <%= link_to "Terms of Service", tos_path, class: 'text-[#141414]' %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col justify-between mt-12 text-sm text-center text-gray-500 md:flex-row md:text-left">
+          <p class="">© <%= Time.now.year %> Maybe Finance, Inc.</p>
+          <p class="">Built by people around the world. <%= lucide_icon("globe", class: "w-4 h-4 inline") %></p>
+        </div>
+      </div>
+      <%= image_tag "border-strip.jpeg", alt: "Maybe Stripe", class: "w-full" %>
     </footer>
   </body>
 </html>
