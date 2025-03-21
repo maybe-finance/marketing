@@ -67,10 +67,9 @@
       <%= lucide_icon("menu", alt: "Menu", class: "w-6 h-6 md:hidden", 'data-action': 'click->navbar#toggleMobileMenu') %>
       <div class="flex flex-col hidden w-full mt-4 font-medium md:hidden" data-navbar-target="mobileMenu">
         <ul class="flex flex-col lg:flex-row lg:space-x-8">
-          <li><%= link_to "Articles", articles_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
-          <li><%= link_to "Financial Terms", terms_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
-          <li><%= link_to "Tools", tools_path, class: "block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl" %></li>
-          <li><a href="https://github.com/maybe-finance/maybe" class="block px-3 py-1.5 text-neutral-800 hover:text-neutral-900 hover:bg-neutral-200/60 rounded-xl">Contribute</a></li>
+          <% footer_resources.each do |link| %>
+            <li><%= link_to link[:text], link[:path], class: link[:class] %></li>
+          <% end %>
           <div class="flex flex-col gap-y-3">
           <li>
             <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
