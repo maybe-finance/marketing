@@ -95,14 +95,13 @@
               </ul>
             </div>
             <div>
-              <h4 class="mb-4 text-xs font-medium uppercase">More</h4>
+              <h4 class="mb-4 text-xs font-medium uppercase">Tools</h4>
               <ul class="flex flex-col gap-y-1">
-                <li>
-                  <%= link_to "Join Community", "https://link.maybe.co/discord", class: 'text-[#141414]' %>
-                </li>
-                <li>
-                  <%= link_to "Self-Host", "https://github.com/maybe-finance/maybe", class: 'text-[#141414]' %>
-                </li>
+                <% footer_tools.each do |link| %>
+                  <li>
+                    <%= link_to link[:text], link[:path], class: link[:class] %>
+                  </li>
+                <% end %>
               </ul>
             </div>
             <div>
