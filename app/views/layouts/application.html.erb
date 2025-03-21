@@ -87,7 +87,8 @@
     <main class="px-3 mx-auto my-10 md:px-4">
       <%= yield %>
     </main>
-    <footer class="max-w-5xl p-6 mx-auto my-8 md:p-4">
+    <footer class="w-full">
+    <div class="max-w-5xl p-6 mx-auto my-8 md:p-4 ">
       <div class="flex flex-col justify-between gap-x-4 md:flex-row">
         <div class="flex flex-col gap-y-4 max-w-96">
           <div><%= link_to image_tag("icon-logo.svg", alt: "Maybe Logo", class: "w-10 inline"), root_path %></div>
@@ -148,6 +149,8 @@
       <div class="flex flex-col justify-between mt-12 text-sm text-center text-gray-500 md:flex-row md:text-left">
         <p class="">© <%= Time.now.year %> Maybe Finance, Inc.</p>
         <p class="">Made with ❤️ on planet Earth.</p>
+
+    </div>
     </footer>
   </body>
 </html>
