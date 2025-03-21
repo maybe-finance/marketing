@@ -44,15 +44,13 @@
         <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
       </div>
       <nav class="hidden text-sm text-center gap-x-1 md:flex">
-        <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
-        <%= link_to "Financial Terms", terms_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
-        <%= link_to "Tools", tools_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
-        <%= link_to "Stocks", stocks_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
+        <%= link_to "Products", "#", class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
+        <%= link_to "Resources", "#", class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
         <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-gray-800 hover:text-gray-9000 hover:bg-alpha-black-50 rounded-xl">Contribute</a>
       </nav>
       <div class="flex hidden gap-x-2 md:flex">
         <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
-          <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
+          Sign in <span><%= lucide_icon("chevron-right", alt: "Menu", class: "bg-gray-500 w-6 h-6 md:hidden") %></span>
         <% end %>
         <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900" %>
       </div>
@@ -65,7 +63,7 @@
           <div class="flex flex-col gap-y-3">
             <li>
               <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
-                <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
+                Sign in <%= lucide_icon("chevron-right", alt: "Menu", class: "bg-gray-500 w-6 h-6 md:hidden") %>
               <% end %>
             </li>
             <li>
