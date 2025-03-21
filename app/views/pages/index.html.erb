@@ -1,5 +1,5 @@
-<div class="text-center">
-  <div class="max-w-xl pt-8 mx-auto mb-4 text-[28px] md:text-3xl ">
+<div>
+  <div class="text-center max-w-xl pt-8 mx-auto mb-4 text-[28px] md:text-3xl ">
     Maybe <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> is a <em class="relative"><span class="border-b-2 border-gray-400 border-dotted">fully</span><sup>*</sup> <span class="absolute w-40 md:w-64 text-xs text-left text-gray-400 left-2 -top-8 md:left-16 md:-top-7 -rotate-3"><sup>*</sup>your finances are secure</span></em> open-source
     <div class="inline-flex border rounded-md shadow-[0_1px_8px_0_rgba(0,0,0,0.04)] border-gray-200 scale-[0.8] md:scale-100">
       <%= link_to "https://github.com/maybe-finance/maybe", class: "px-2 py-1.5 border-r shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] bg-gray-100 rounded-l-md border-gray-200 flex items-center justify-center" do %>
@@ -12,7 +12,8 @@
   <section class="bg-white py-20">
     <div class="max-w-5xl mx-auto">
       <div>
-        <h2 class="text-[70px] font-medium tracking-tight leading-[1] mb-[-1em]">Transactions <br/> <span class="text-gray-400">handled your way</span></h2>
+        <h2 class="text-[70px] text-center font-medium tracking-tight leading-[1] mb-[-1em]">Transactions <br/>
+          <span class="text-gray-400">handled your way</span></h2>
         <div class="p-3 mx-auto my-10 bg-black/[0.02] rounded-3xl border border-black/1 shadow-[0px_0px_22.07px_0px_rgba(0,0,0,0.03)]">
           <%= image_tag "screenshot.png", alt: "Maybe Screenshot", class: "w-full border border-black/1 rounded-2xl shadow-[0_7.36px_7.36px_-3.68px_rgba(11,11,11,0.03)] shadow-[0_18.39px_22.07px_-3.68px_rgba(11,11,11,0.08)]" %>
         </div>
@@ -25,16 +26,72 @@
       </div>
     </div>
   </section>
-    <div class="max-w-xl pt-8 mx-auto mb-4 text-[28px] md:text-3xl ">
-      Maybe <%= lucide_icon("arrow-left", class: "h-5 w-5") %>  <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> is a <em class="relative"><span class="border-b-2 border-gray-400 border-dotted">fully</span><sup>*</sup> <span class="absolute w-40 md:w-64 text-xs text-left text-gray-400 left-2 -top-8 md:left-16 md:-top-7 -rotate-3"><sup>*</sup>your finances are secure</span></em> open-source
-      <div class="inline-flex border rounded-md shadow-[0_1px_8px_0_rgba(0,0,0,0.04)] border-gray-200 scale-[0.8] md:scale-100">
-        <%= link_to "https://github.com/maybe-finance/maybe", class: "px-2 py-1.5 border-r shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] bg-gray-100 rounded-l-md border-gray-200 flex items-center justify-center" do %>
-          <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-5 w-5") %>
-        <% end %>
-        <span class="px-2 py-1.5 text-sm font-medium bg-white shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] rounded-r-md"><%= number_to_human(@stars, format: "%n%u", units: { thousand: "k" }) %></span>
+  <section class="py-20">
+    <h2 class="text-[70px] max-w-5xl mx-auto mb-16 text-center font-medium tracking-tight leading-[1]">Uncompromising Security <br/>
+      <span class="text-gray-400">Radical Transparency</span></h2>
+    <div class="max-w-7xl mx-auto flex flex-col text-sm leading-6 gap-x-10 md:flex-row">
+      <div>
+        <%= image_tag "maybe-security.jpeg", alt: "Maybe Open Source", class: "w-full rounded-2xl" %>
+        <div class="bg-white border-gray-200 border-2 mb-4 w-10 h-10 grid place-items-center rounded-full">
+          <%= lucide_icon 'lock', class: "w-5 h-5" %>
+        </div>
+        <div class="mt-auto">
+          <h2 class="font-medium">Secure by design</h2>
+          <p class="text-gray-600 mb-6">We treat your financial data like we'd want ours to be treated, by using strong encryption and secure authentication.</p>
+          <%= link_to "https://github.com/maybe-finance/maybe", class: "text-gray-800 font-medium flex items-center gap-2" do %>
+            Ask about security
+            <span class="bg-gray-200 w-6 h-6 grid place-items-center rounded-full">
+              <%= lucide_icon 'arrow-up-right', class: "w-4 h-4" %>
+            </span>
+          <% end %>
+        </div>
       </div>
-      OS for your personal finances <%= image_tag("icon-chart.svg", alt: "Chart", class: "inline w-8 md:w-auto") %> built by a small team <%= image_tag("icon-team.png", alt: "Maybe Team", class: "inline h-8 md:h-9") %> alongside an incredible community <%= image_tag("icon-discord.svg", alt: "Discord", class: "inline w-8 md:w-auto") %>
+      <div>
+        <%= image_tag "maybe-open.jpeg", alt: "Maybe Open Source", class: "w-full rounded-2xl" %>
+        <div class="bg-white border-gray-200 border-2 mb-4
+ w-10 h-10 grid place-items-center rounded-full">
+          <%= lucide_icon 'code-xml', class: "w-5 h-5" %>
+        </div>
+        <div class="mt-auto">
+          <h2 class="font-medium">Open source</h2>
+          <p class="text-gray-600 mb-6">We believe financial tools should be transparent. Maybe is open-source - you can review the code, contribute, or self-host for full control.</p>
+          <%= link_to "https://github.com/maybe-finance/maybe", class: "text-gray-800 font-medium flex items-center gap-2" do %>
+            Start contributing
+            <span class="bg-gray-200 w-6 h-6 grid place-items-center rounded-full">
+              <%= lucide_icon 'arrow-up-right', class: "w-4 h-4" %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <%= image_tag "maybe-community.jpeg", alt: "Maybe Open Source", class: "w-full rounded-2xl" %>
+        <div class="bg-white border-gray-200 border-2 mb-4
+ w-10 h-10 grid place-items-center rounded-full">
+          <%= lucide_icon 'heart-handshake', class: "w-5 h-5" %>
+        </div>
+        <div class="mt-auto">
+          <h2 class="font-medium">Built in public</h2>
+          <p class="text-gray-600 mb-6">No hidden agendas, no gatekeeping-just a transparent, community-driven approach to creating the best financial tool possible.</p>
+          <%= link_to "https://github.com/maybe-finance/maybe", class: "text-gray-800 font-medium flex items-center gap-2" do %>
+            Join community
+            <span class="bg-gray-200 w-6 h-6 grid place-items-center rounded-full">
+              <%= lucide_icon 'arrow-up-right', class: "w-4 h-4" %>
+            </span>
+          <% end %>
+        </div>
+      </div>
     </div>
+  </section>
+  <div class="max-w-xl pt-8 mx-auto mb-4 text-[28px] md:text-3xl ">
+    Maybe <%= lucide_icon("arrow-left", class: "h-5 w-5") %>  <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> is a <em class="relative"><span class="border-b-2 border-gray-400 border-dotted">fully</span><sup>*</sup> <span class="absolute w-40 md:w-64 text-xs text-left text-gray-400 left-2 -top-8 md:left-16 md:-top-7 -rotate-3"><sup>*</sup>your finances are secure</span></em> open-source
+    <div class="inline-flex border rounded-md shadow-[0_1px_8px_0_rgba(0,0,0,0.04)] border-gray-200 scale-[0.8] md:scale-100">
+      <%= link_to "https://github.com/maybe-finance/maybe", class: "px-2 py-1.5 border-r shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] bg-gray-100 rounded-l-md border-gray-200 flex items-center justify-center" do %>
+        <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-5 w-5") %>
+      <% end %>
+      <span class="px-2 py-1.5 text-sm font-medium bg-white shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] rounded-r-md"><%= number_to_human(@stars, format: "%n%u", units: { thousand: "k" }) %></span>
+    </div>
+    OS for your personal finances <%= image_tag("icon-chart.svg", alt: "Chart", class: "inline w-8 md:w-auto") %> built by a small team <%= image_tag("icon-team.png", alt: "Maybe Team", class: "inline h-8 md:h-9") %> alongside an incredible community <%= image_tag("icon-discord.svg", alt: "Discord", class: "inline w-8 md:w-auto") %>
+  </div>
   <div class="mx-auto max-w-96" id="waitlist">
     <%= render_signup_form %>
   </div>
