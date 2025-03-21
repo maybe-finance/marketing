@@ -1,0 +1,63 @@
+<footer class="w-full">
+  <div class="max-w-6xl p-6 mx-auto my-8 md:p-4 ">
+    <div class="flex flex-col justify-between gap-x-4 md:flex-row">
+      <div class="flex flex-col gap-y-4 w-2/5">
+        <div><%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6 inline"), root_path %></div>
+        <p class="text-sm text-gray-500">The OS for your personal finances.</p>
+      </div>
+      <div class="flex flex-col text-sm leading-6 w-3/5 text-gray-500 justify-between md:flex-row">
+        <div>
+          <h4 class="mb-4 text-xs font-medium uppercase  text-gray-800">Resources</h4>
+          <ul class="flex flex-col gap-y-1">
+            <% footer_resources.each do |link| %>
+              <li>
+                <%= link_to link[:text], link[:path]%>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div>
+          <h4 class="mb-4 text-xs font-medium uppercase  text-gray-800">Tools</h4>
+          <ul class="flex flex-col gap-y-1 mb-10">
+            <% footer_tools.each do |link| %>
+              <li>
+                <%= link_to link[:text], link[:path]%>
+              </li>
+            <% end %>
+          </ul>
+          <h4 class="mb-4 text-xs font-medium uppercase  text-gray-800">Stocks</h4>
+          <ul class="flex flex-col gap-y-1">
+            <% footer_stocks.each do |link| %>
+              <li>
+                <%= link_to link[:text], link[:path]%>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div>
+          <h4 class="mb-4 text-xs font-medium uppercase  text-gray-800">Legal</h4>
+          <ul class="flex flex-col gap-y-1 mb-10">
+            <% footer_legal.each do |link| %>
+              <li>
+                <%= link_to link[:text], link[:path]%>
+              </li>
+            <% end %>
+          </ul>
+          <h4 class="mb-4 text-xs font-medium uppercase text-gray-800">Connect</h4>
+          <ul class="flex flex-row gap-x-4">
+            <% footer_socials.each do |link| %>
+              <li>
+                <%= link_to lucide_icon(link[:icon], class: "w-4 h-4"), link[:path]%>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col justify-between mt-12 text-sm text-center text-gray-500 md:flex-row md:text-left">
+      <p class="">&copy; <%= Time.now.year %> Maybe Finance, Inc.</p>
+      <p class="">Built by people around the world. <%= lucide_icon("globe", class: "w-4 h-4 inline") %></p>
+    </div>
+  </div>
+  <%= image_tag "border-strip.jpeg", alt: "Maybe Stripe", class: "w-full" %>
+</footer>
