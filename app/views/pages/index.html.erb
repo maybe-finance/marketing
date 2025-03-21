@@ -9,6 +9,32 @@
     </div>
     OS for your personal finances <%= image_tag("icon-chart.svg", alt: "Chart", class: "inline w-8 md:w-auto") %> built by a small team <%= image_tag("icon-team.png", alt: "Maybe Team", class: "inline h-8 md:h-9") %> alongside an incredible community <%= image_tag("icon-discord.svg", alt: "Discord", class: "inline w-8 md:w-auto") %>
   </div>
+  <section class="bg-white py-20">
+    <div class="max-w-5xl mx-auto">
+      <div>
+        <h2 class="text-[70px] font-medium tracking-tight leading-[1] mb-[-1em]">Transactions <br/> <span class="text-gray-400">handled your way</span></h2>
+        <div class="p-3 mx-auto my-10 bg-black/[0.02] rounded-3xl border border-black/1 shadow-[0px_0px_22.07px_0px_rgba(0,0,0,0.03)]">
+          <%= image_tag "screenshot.png", alt: "Maybe Screenshot", class: "w-full border border-black/1 rounded-2xl shadow-[0_7.36px_7.36px_-3.68px_rgba(11,11,11,0.03)] shadow-[0_18.39px_22.07px_-3.68px_rgba(11,11,11,0.08)]" %>
+        </div>
+      </div>
+      <div class="flex flex-col items-center pt-8 mx-auto mb-4 text-[28px] leading-2 text-gray-500 md:text-3xl ">
+        <div class="mb-10 max-w-xl"><span>Create a new</span> <span class="text-gray-900">income</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">expense</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">or transfer</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>transaction</span></div>
+        <div class="mb-10 max-w-xl"><span class="text-gray-900">Edit</span> <span>it</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>add custom</span> <span class="text-gray-900">categories</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">merchants</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>and</span> <span class="text-gray-900">tags</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %></div>
+        <div class="max-w-xl"><span>Create</span> <span class="text-gray-900">filters</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">Import</span> <span>via CSV</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %></div>
+        <div class="max-w-2xl"><span class="text-gray-900">Link</span> <span>transactions</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>Set up</span> <span class="text-gray-900">rules</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>and more</span></div>
+      </div>
+    </div>
+  </section>
+    <div class="max-w-xl pt-8 mx-auto mb-4 text-[28px] md:text-3xl ">
+      Maybe <%= lucide_icon("arrow-left", class: "h-5 w-5") %>  <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> is a <em class="relative"><span class="border-b-2 border-gray-400 border-dotted">fully</span><sup>*</sup> <span class="absolute w-40 md:w-64 text-xs text-left text-gray-400 left-2 -top-8 md:left-16 md:-top-7 -rotate-3"><sup>*</sup>your finances are secure</span></em> open-source
+      <div class="inline-flex border rounded-md shadow-[0_1px_8px_0_rgba(0,0,0,0.04)] border-gray-200 scale-[0.8] md:scale-100">
+        <%= link_to "https://github.com/maybe-finance/maybe", class: "px-2 py-1.5 border-r shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] bg-gray-100 rounded-l-md border-gray-200 flex items-center justify-center" do %>
+          <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-5 w-5") %>
+        <% end %>
+        <span class="px-2 py-1.5 text-sm font-medium bg-white shadow-[inset_0_-2px_5px_0_rgba(0,0,0,0.07)] rounded-r-md"><%= number_to_human(@stars, format: "%n%u", units: { thousand: "k" }) %></span>
+      </div>
+      OS for your personal finances <%= image_tag("icon-chart.svg", alt: "Chart", class: "inline w-8 md:w-auto") %> built by a small team <%= image_tag("icon-team.png", alt: "Maybe Team", class: "inline h-8 md:h-9") %> alongside an incredible community <%= image_tag("icon-discord.svg", alt: "Discord", class: "inline w-8 md:w-auto") %>
+    </div>
   <div class="mx-auto max-w-96" id="waitlist">
     <%= render_signup_form %>
   </div>
