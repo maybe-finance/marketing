@@ -4,13 +4,10 @@
     <title><%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe: The OS for your personal finances" %></title>
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-
     <meta name="title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe: The OS for your personal finances" %>">
     <meta name="description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe: The OS for your personal finances" %>">
-
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -18,14 +15,12 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#F9F9F9">
     <meta name="msapplication-TileColor" content="#F9F9F9">
     <meta name="theme-color" content="#F9F9F9">
-
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe" %>">
     <meta property="og:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe: The OS for your personal finances" %>">
     <meta property="og:image" content="<%= image_url(content_for?(:meta_image) ? yield(:meta_image) : "meta.png") %>">
     <meta property="og:url" content="<%= request.original_url %>">
-
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe" %>">
@@ -33,9 +28,7 @@
     <meta name="twitter:creator" content="@maybe">
     <meta name="twitter:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe: The OS for your personal finances" %>">
     <meta name="twitter:image" content="<%= image_url(content_for?(:meta_image) ? yield(:meta_image) : "meta.png") %>">
-
     <%= yield :head %>
-
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= combobox_style_tag %>
@@ -44,13 +37,11 @@
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
     <%= render "shared/ga" if Rails.env.production? %>
   </head>
-
   <body class="min-h-screen bg-gradient-to-b from-gray-25 to-gray-50">
     <%= image_tag "border-strip.jpeg", alt: "Maybe Stripe", class: "w-full" %>
     <header class="flex flex-wrap items-center justify-between py-5 px-7" data-controller="navbar" data-navbar-hidden-class="hidden">
       <div class="flex items-center gap-x-3">
         <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
-        <span class="px-1.5 py-0.5 text-[10px] uppercase bg-white border rounded-full border-gray-200/75 text-gray-500">Early Access</span>
       </div>
       <nav class="hidden text-sm text-center gap-x-1 md:flex">
         <%= link_to "Articles", articles_path, class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
@@ -72,14 +63,14 @@
             <li><%= link_to link[:text], link[:path], class: link[:class] %></li>
           <% end %>
           <div class="flex flex-col gap-y-3">
-          <li>
-            <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
-              <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
-            <% end %>
-          </li>
-          <li>
-            <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900 flex w-full" %>
-          </li>
+            <li>
+              <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
+                <%= image_tag("icon-github.svg", alt: "GitHub icon", class: "h-4 w-4") %> Self-Host
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900 flex w-full" %>
+            </li>
           </div>
         </ul>
       </div>
@@ -88,6 +79,34 @@
       <%= yield %>
     </main>
     <footer class="w-full">
+      <div class="max-w-5xl p-6 mx-auto my-8 md:p-4 ">
+        <div class="flex flex-col justify-between gap-x-4 md:flex-row">
+          <div class="flex flex-col gap-y-4 max-w-96">
+            <div><%= link_to image_tag("icon-logo.svg", alt: "Maybe Logo", class: "w-10 inline"), root_path %></div>
+            <p class="text-sm text-gray-500">The OS for your personal finances.</p>
+          </div>
+          <div class="flex flex-col text-sm leading-6 text-gray-500 gap-x-10 md:flex-row">
+            <div>
+              <h4 class="mb-4 text-xs font-medium uppercase">Resources</h4>
+              <ul class="flex flex-col gap-y-1">
+                <% footer_resources.each do |link| %>
+                  <li>
+                    <%= link_to link[:text], link[:path], class: link[:class] %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+            <div>
+              <h4 class="mb-4 text-xs font-medium uppercase">More</h4>
+              <ul class="flex flex-col gap-y-1">
+                <li>
+                  <%= link_to "Join Community", "https://link.maybe.co/discord", class: 'text-[#141414]' %>
+                </li>
+                <li>
+                  <%= link_to "Self-Host", "https://github.com/maybe-finance/maybe", class: 'text-[#141414]' %>
+                </li>
+              </ul>
+            </div>
             <div>
               <h4 class="mb-4 text-xs font-medium uppercase">Legal</h4>
               <ul class="flex flex-col gap-y-1">
@@ -102,7 +121,7 @@
           </div>
         </div>
         <div class="flex flex-col justify-between mt-12 text-sm text-center text-gray-500 md:flex-row md:text-left">
-          <p class="">© <%= Time.now.year %> Maybe Finance, Inc.</p>
+          <p class="">&copy; <%= Time.now.year %> Maybe Finance, Inc.</p>
           <p class="">Built by people around the world. <%= lucide_icon("globe", class: "w-4 h-4 inline") %></p>
         </div>
       </div>
