@@ -47,6 +47,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :features, only: [] do
+    collection do
+      get "tracking"
+      get "transactions"
+      get "budgeting"
+    end
+  end
+
   get "stocks/exchanges/:id", to: "stocks#exchanges", as: :stock_exchange
   get "stocks/sectors/:id", to: "stocks#sectors", as: :stock_sector
   get "stocks/industries/:id", to: "stocks#industries", as: :stock_industry
