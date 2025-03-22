@@ -1,9 +1,9 @@
 <%= form_with( url: signups_path ) do |f| %>
-  <div class="bg-contain bg-top bg-no-repeat p-4 mx-auto" style="background-image: url(<%= asset_path('input-border-bottom.svg')%>">
-    <div class="flex flex-row w-full p-1 mb-5 bg-white border shadow-xs rounded-xl max-w-[380px] mx-auto">
-      <%= f.email_field :email, placeholder: "Enter your email address", class: "font-geist flex-1 border-0 px-2 focus:ring-0 text-sm", required: true %>
-      <%= f.submit "Join waitlist", class: "font-geist py-2 px-3 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 border border-gray-900 text-sm" %>
+  <div class="bg-contain bg-top bg-no-repeat mx-auto" style="background-image: url(<%= asset_path('input-border-bottom.svg')%>">
+    <div class="flex flex-row w-full p-1 mb-5 bg-white border shadow-xs rounded-xl max-w-[384px] mx-auto">
+      <%= f.email_field :email, placeholder: "Enter your email address", class: "flex-1 border-0 px-2 focus:ring-0 text-sm", required: true %>
+      <%= f.submit "Join waitlist", class: "py-2 px-3 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 border border-gray-900 text-sm" %>
     </div>
-    <p class="font-geist text-sm text-gray-400">Don't want to wait? <a href="https://github.com/maybe-finance/maybe" class="text-gray-900 underline">Self-host</a> an early version of Maybe.</p>
+    <p class="text-sm text-gray-400">Don't want to wait? <a href="https://github.com/maybe-finance/maybe" class="text-gray-900 underline">Self-host</a> an early version of Maybe.</p>
   </div>
 <% end %>

@@ -1,13 +1,14 @@
-<footer class="w-full">
-  <div class="max-w-6xl p-6 mx-auto my-8 md:p-4 ">
-    <div class="flex flex-col justify-between gap-x-4 md:flex-row">
+<footer class="bg-contain bg-top bg-no-repeat w-full p-0" style="background-color: #f3f3f3; background-image: url(<%= asset_path('footer-cta-bg.svg') %>)">
+    <%= render "shared/cta_waitlist" %>
+  <section class="w-full pb-8 mx-auto bg-bottom bg-no-repeat" style="background-position: bottom center; background-size: 100vw 6px; background-image: url(<%= asset_path('border-strip.svg') %>)">
+    <div class="max-w-6xl mx-auto mb-12 flex flex-col justify-between gap-x-4 md:flex-row">
       <div class="flex flex-col gap-y-4 w-2/5">
         <div><%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6 inline"), root_path %></div>
         <p class="text-sm text-gray-500">The OS for your personal finances.</p>
       </div>
       <div class="flex flex-col text-sm leading-6 w-3/5 text-gray-500 justify-between md:flex-row">
         <div>
-          <h4 class="mb-4 text-xs font-medium uppercase  text-gray-800">Resources</h4>
+          <h4 class="font-mono mb-4 text-xs font-medium uppercase  text-gray-800">Resources</h4>
           <ul class="flex flex-col gap-y-1">
             <% footer_resources.each do |link| %>
               <li>
@@ -17,7 +18,7 @@
           </ul>
         </div>
         <div>
-          <h4 class="mb-4 text-xs font-medium uppercase  text-gray-800">Tools</h4>
+          <h4 class="font-mono mb-4 text-xs font-medium uppercase text-gray-800">Tools</h4>
           <ul class="flex flex-col gap-y-1 mb-10">
             <% footer_tools.each do |link| %>
               <li>
@@ -25,7 +26,7 @@
               </li>
             <% end %>
           </ul>
-          <h4 class="mb-4 text-xs font-medium uppercase  text-gray-800">Stocks</h4>
+          <h4 class="font-mono mb-4 text-xs font-medium uppercase text-gray-800">Stocks</h4>
           <ul class="flex flex-col gap-y-1">
             <% footer_stocks.each do |link| %>
               <li>
@@ -35,7 +36,7 @@
           </ul>
         </div>
         <div>
-          <h4 class="mb-4 text-xs font-medium uppercase  text-gray-800">Legal</h4>
+          <h4 class="font-mono mb-4 text-xs font-medium uppercase  text-gray-800">Legal</h4>
           <ul class="flex flex-col gap-y-1 mb-10">
             <% footer_legal.each do |link| %>
               <li>
@@ -43,7 +44,7 @@
               </li>
             <% end %>
           </ul>
-          <h4 class="mb-4 text-xs font-medium uppercase text-gray-800">Connect</h4>
+          <h4 class="font-mono mb-4 text-xs font-medium uppercase text-gray-800">Connect</h4>
           <ul class="flex flex-row gap-x-4">
             <% footer_socials.each do |link| %>
               <li>
@@ -54,10 +55,9 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col justify-between mt-12 text-sm text-center text-gray-500 md:flex-row md:text-left">
+    <div class="max-w-6xl mx-auto px-6 md:px-4 flex flex-col justify-between text-sm text-center text-gray-500 md:flex-row md:text-left">
       <p class="">&copy; <%= Time.now.year %> Maybe Finance, Inc.</p>
       <p class="">Built by people around the world. <%= lucide_icon("globe", class: "w-4 h-4 inline") %></p>
     </div>
-  </div>
-  <%= image_tag "border-strip.jpeg", alt: "Maybe Stripe", class: "w-full" %>
+  </section>
 </footer>
