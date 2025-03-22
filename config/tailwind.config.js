@@ -38,6 +38,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        geist: ['Geist', ...defaultTheme.fontFamily.sans],
+        "geist-mono": ['Geist Mono', ...defaultTheme.fontFamily.mono],
       },
     },
   },
