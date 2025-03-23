@@ -1,6 +1,4 @@
-<%# locals: (tool:, min_height: nil) -%>
-<% min_height_style = min_height ? "min-height: #{min_height};" : "" %>
-<%= link_to tool_path(tool), class: "bg-white rounded-2xl border border-alpha-black-25 shadow-sm p-4 text-left cursor-pointer flex flex-row gap-4", style: min_height_style do %>
+<%= link_to tool_path(tool), class: "bg-white rounded-2xl border border-alpha-black-25 shadow-sm p-4 text-left cursor-pointer flex flex-row gap-4" do %>
   <% if tool.category %>
     <div class="w-10 h-10 grid place-items-center rounded-xl <%= tool.category[:bg_class] %>">
       <%= lucide_icon tool.icon, class: "w-6 h-6 #{tool.category[:text_class]}" %>
