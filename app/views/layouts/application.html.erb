@@ -40,7 +40,7 @@
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
     <%= render "shared/ga" if Rails.env.production? %>
   </head>
-  <body class="min-h-screen bg-gradient-to-b from-gray-25 to-gray-50">
+  <body class="min-h-screen bg-cover bg-no-repeat" style="background-image: url(<%= asset_path('site-bg.svg') %>)">
     <%= image_tag "border-strip.jpeg", alt: "Maybe Stripe", class: "w-full" %>
     <header class="flex flex-wrap items-center justify-between py-5 px-7" data-controller="navbar" data-navbar-hidden-class="hidden">
       <div class="flex items-center gap-x-3">
@@ -76,7 +76,7 @@
         </ul>
       </div>
     </header>
-    <main class="bg-gray-50 px-3 mx-auto my-10 md:px-4">
+    <main class="px-3 mx-auto my-10 md:px-4">
       <%= yield %>
     </main>
     <%= render "shared/footer" %>
