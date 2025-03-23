@@ -1,6 +1,12 @@
 class ToolsController < ApplicationController
   def index
     @tools = Tool.all
+    @tools = @tools.where(category_slug: params[:category]) if params[:category].present?
+
+    if params[:q].present?
+      @query = params[:q]
+      @tools = @tools.where("title ILIKE ?", "%#{@query}%")
+    end
   end
 
   def show
