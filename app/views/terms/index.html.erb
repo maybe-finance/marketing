@@ -2,49 +2,47 @@
   title "Financial Terms"
   description "The A-Z of every personal finance, crypto or money related term you can think of."
 %>
-
 <div data-controller="section-links" data-section-links-active-class="text-gray-900 bg-white !border-gray-200 shadow-xs">
-  <div class="mx-auto text-center max-w-96">
-    <div class="mb-1">
-      <div class="flex items-center justify-center gap-x-2">
-        <h1 class="text-3xl font-medium tracking-tight">Financial Terms</h1>
-        <%= image_tag("icon-book.svg", alt: "", class: "inline") %>
-      </div>
-
-      <p class="mt-3 text-sm text-gray-400">The A-Z of every finance, crypto or money related term you can possibly think of.</p>
-
-      <%= form_with method: :get, html: {class: "mt-4 relative"}, data: { controller: "auto-submit-form", turbo_frame: "terms_list" } do |f| %>
-        <%= f.text_field:q, value: @query,
-          class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-sm",
+  <div class="w-full mx-auto max-w-[450px] mb-10">
+    <div class="gap-x-2 mb-6 text-center">
+      <h1 class="text-6xl text-gray-800 leading-[4.5rem] font-medium mb-2 tracking-[-0.02]">Financial terms</h1>
+      <p class="text-xl leading-[1.4] text-gray-400">The A-Z of every personal finance, crypto or money related term you can think of.</p>
+    </div>
+    <%= form_with method: :get, html: {class: "relative mb-4 max-w-[450px] mx-auto"}, data: { controller: "auto-submit-form", turbo_frame: "terms_list" } do |f| %>
+      <%= f.text_field:q, value: @query,
+          class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-base leading-[1.4]",
           placeholder: "Search for any term",
           data: { auto_submit_form_target: "auto" } %>
-        <%= lucide_icon "search", class: "absolute top-2.5 left-3 w-5 h-5 text-gray-500 pointer-events-none" %>
+      <%= lucide_icon "search", class: "absolute top-3 left-3 w-5 h-5 text-gray-500 pointer-events-none" %>
+    <% end %>
+    <div class="flex flex-wrap gap-x-2 gap-y-2 justify-center mx-auto">
+      <% @terms.sample(4).each do |term| %>
+        <%= link_to "#", class: "inline-block p-[4px_10px_4px_8px] rounded-full border hover:border-gray-400 transition-colors" do %>
+          <%= lucide_icon "search", class: "inline w-5 h-5 text-gray-500 pointer-events-none" %>
+          <span class="text-sm text-gray-500 font-medium"><%= term.title %></span>
+        <% end %>
       <% end %>
     </div>
   </div>
-
-  <div class="flex gap-1 pt-7 sticky top-0 bg-[#f9f9f9] overflow-x-auto md:overflow-x-visible whitespace-nowrap md:whitespace-normal" style="scrollbar-width: none;">
+  <div class="flex gap-1 pt-4 pb-2 sticky top-0 bg-[#f5f5f5] overflow-x-auto md:overflow-x-visible whitespace-nowrap md:whitespace-normal" style="scrollbar-width: none;">
     <% dict_groups.each do |group| %>
       <a
         href="#<%= group.delete " " %>"
-        class="flex-1 inline-block px-1 py-2 font-medium text-gray-500 border border-transparent text-md md:text-sm md:grid place-items-center hover:bg-gray-200 hover:text-gray-500 target:bg-white rounded-xl"
+        class="flex-1 inline-block px-1 py-2 font-medium text-gray-500 bg:white border border-transparent text-md md:text-sm md:grid place-items-center hover:bg-gray-200 hover:text-gray-500 target:bg-white rounded-xl"
         data-section-links-target="link">
         <%= group %>
       </a>
     <% end %>
   </div>
-
   <turbo-frame id="terms_list" target="_top">
     <div class="hidden py-56 mx-auto text-center only:block max-w-96">
       <%= lucide_icon "search-x", class: "w-6 h-6 mx-auto text-gray-500" %>
       <p class="mt-4 text-sm font-medium">No results found</p>
       <p class="mt-2 text-sm text-gray-500">We didn't find "<%= @query %>".</p>
     </div>
-
     <% @terms.group_by { |t| dict_group(t.name) }.each do |group, terms| %>
       <div id="<%= group.delete " " %>" class="py-12 border-b last:border-b-0 scroll-mt-10" data-section-links-target="section">
         <h2 class="px-2 text-2xl font-medium tracking-tight"><%= group %></h2>
-
         <div class="grid grid-cols-2 gap-1 mt-6 md:grid-cols-4">
           <% terms.each do |term| %>
             <%= link_to term.name, term_path(term), class: "block p-2 hover:bg-alpha-black-50 rounded-lg" %>
@@ -53,6 +51,4 @@
       </div>
     <% end %>
   </turbo-frame>
-
-  <%= render "shared/cta_waitlist" %>
 </div>

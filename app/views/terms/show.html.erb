@@ -3,32 +3,26 @@
   description "#{markdown(@term.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
   meta_image @term.meta_image_url if @term.meta_image_url.present?
 %>
-
 <%= link_to terms_path, class: "w-9 h-9 rounded-full grid place-items-center mx-auto text-gray-500 hover:bg-gray-200/50 bg-transparent border border-gray-300 hover:border-gray-300 " do %>
   <%= lucide_icon("arrow-left", class: "h-5 w-5") %>
 <% end %>
-
 <div class="max-w-[520px] mt-4 mx-auto prose">
   <p class="text-sm text-center">
     <span class="text-gray-500">Financial Terms / <%= dict_group(@term.name) %> /</span> <%= @term.name %>
   </p>
   <h1 class="text-3xl font-medium tracking-tight text-center"><%= @term.title %></h1>
-
   <% if @term.video_id.present? %>
-  <div class="aspect-w-16 aspect-h-9">
-    <iframe src="https://www.youtube.com/embed/<%= @term.video_id %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-  </div>
+    <div class="aspect-w-16 aspect-h-9">
+      <iframe src="https://www.youtube.com/embed/<%= @term.video_id %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
   <% end %>
-
   <%= markdown @term.content %>
 </div>
-
 <div class="bg-white p-4 border shadow-xs rounded-2xl mt-10 max-w-[594px] mx-auto">
   <div class="rounded-lg grid place-items-center w-10 h-10 bg-[#2E90FA]/5 border border-[#eef2f8]">
     <%= lucide_icon "bookmark", class: "h-6 w-6 text-blue-500" %>
   </div>
   <h2 class="mt-3 text-lg font-medium">Discover more financial terms</h2>
-
   <div class="grid grid-cols-2 gap-x-3 gap-y-[6px] mt-3">
     <% Term.random_sample(6, exclude: @term).each do |term| %>
       <%= link_to term_path(term), class: "flex flex-row items-center py-2.5 px-3 bg-gray-100/50 hover:bg-gray-200/50 rounded-lg" do %>
@@ -38,45 +32,42 @@
     <% end %>
   </div>
 </div>
-
-<%= render "shared/cta_waitlist" %>
-
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "<%= request.original_url %>"
-  },
-  "headline": "<%= @term.name.presence || "#{@term.name} meaning in personal finance" %>",
-  "description": "<%= markdown(@term.content).gsub(%r{</?[^>]+?>}, "") %>",
-  "author": {
-    "@type": "Organization",
-    "name": "Maybe"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Maybe",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://maybefinance.com/apple-icon.png"
-    }
-  },
-  "datePublished": "<%= @term.created_at.iso8601 %>"
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "<%= request.original_url %>"
+    },
+    "headline": "<%= @term.name.presence || "#{@term.name} meaning in personal finance" %>",
+    "description": "<%= markdown(@term.content).gsub(%r{</?[^>]+?>}, "") %>",
+    "author": {
+      "@type": "Organization",
+      "name": "Maybe"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Maybe",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://maybefinance.com/apple-icon.png"
+      }
+    },
+    "datePublished": "<%= @term.created_at.iso8601 %>"
+  }
 </script>
 <% if @term.video_id.present? %>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "<%= @term.title %>",
-  "description": "<%= @term.video_description %>",
-  "thumbnailUrl": "https://i3.ytimg.com/vi/<%= @term.video_id %>/maxresdefault.jpg",
-  "uploadDate": "<%= @term.video_upload_date %>",
-  "duration": "<%= @term.video_duration %>",
-  "embedUrl": "https://www.youtube.com/embed/<%= @term.video_id %>"
-}
-</script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "<%= @term.title %>",
+      "description": "<%= @term.video_description %>",
+      "thumbnailUrl": "https://i3.ytimg.com/vi/<%= @term.video_id %>/maxresdefault.jpg",
+      "uploadDate": "<%= @term.video_upload_date %>",
+      "duration": "<%= @term.video_duration %>",
+      "embedUrl": "https://www.youtube.com/embed/<%= @term.video_id %>"
+    }
+  </script>
 <% end %>
