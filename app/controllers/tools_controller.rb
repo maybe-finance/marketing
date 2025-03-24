@@ -1,11 +1,17 @@
 class ToolsController < ApplicationController
   def index
     @tools = Tool.all
-    @tools = @tools.where(category_slug: params[:category]) if params[:category].present?
+
+    if params[:category].present?
+      # Ensure category_slug is valid by checking against existing values
+      valid_categories = Tool.distinct.pluck(:category_slug)
+      @tools = @tools.where(category_slug: params[:category]) if valid_categories.include?(params[:category])
+    end
 
     if params[:q].present?
-      @query = params[:q]
-      @tools = @tools.where("title ILIKE ?", "%#{@query}%")
+      @query = params[:q].to_s.strip
+      # Use sanitize_sql_like to escape special characters in the search query
+      @tools = @tools.where("title ILIKE ?", "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%")
     end
   end
 
