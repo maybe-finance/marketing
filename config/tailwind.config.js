@@ -38,7 +38,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Geist", ...defaultTheme.fontFamily.sans],
-        "geist-mono": ["Geist Mono", ...defaultTheme.fontFamily.mono],
+        mono: ["Geist Mono", ...defaultTheme.fontFamily.mono],
       },
     },
   },
