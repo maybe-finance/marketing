@@ -2,6 +2,7 @@
   title "Maybe Blog"
   description "Jargon-free, in-depth articles on everything you need to know about personal finance and wealth management."
 %>
+<div class="bg-contain bg-[left_0_top_0] bg-no-repeat" style="background-image: url(<%= asset_path('articles-bg.svg') %>)">
 <div class="max-w-[1100px] mx-auto">
   <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "w-[72px] mb-8 inline") %>
   <h1 class="text-[4.5rem] text-gray-700 max-w-[600px] leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-2">Maybe Blog</h1>
@@ -56,4 +57,5 @@
       <%== pagy_nav(@pagy) %>
     </div>
   </div>
+</div>
 </div>
