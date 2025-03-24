@@ -3,11 +3,9 @@
   description "#{markdown(@article.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
   meta_image @article.meta_image_url if @article.meta_image_url.present?
 %>
-
 <%= link_to articles_path, class: "w-9 h-9 rounded-full grid place-items-center mx-auto text-gray-500 hover:bg-gray-200/50 bg-transparent border border-gray-300 hover:border-gray-300 " do %>
   <%= lucide_icon("arrow-left", class: "h-5 w-5") %>
 <% end %>
-
 <div class="max-w-[720px] mx-auto text-center space-y-4 mt-10">
   <%= tag.div class: "min-h-[240px] rounded-lg bg-gradient-to-b #{article_gradient(@article)}" %>
   <div class="max-w-[520px] mx-auto space-y-4">
@@ -17,7 +15,6 @@
       </span>
       <h1 class="text-3xl font-medium text-gray-900"><%= @article.title %></h1>
     </div>
-
     <% if @article.author_name.present? %>
       <div class="flex flex-col items-center gap-1">
         <%= author_image_tag @article.author_name, class: "w-10 h-10 rounded-full bg-gray-500 mb-3" %>
@@ -27,13 +24,9 @@
     <% end %>
   </div>
 </div>
-
 <div class="max-w-[720px] mt-4 mx-auto prose">
   <%= markdown @article.content %>
 </div>
-
 <div class="grid grid-cols-[repeat(auto-fit,_minmax(min(288px,_100%),_1fr))] gap-4 mt-20">
   <%= render Article.random_sample(3, exclude: @article) %>
 </div>
-
-<%= render "shared/cta_waitlist" %>
