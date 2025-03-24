@@ -13,6 +13,9 @@
 #  updated_at     :datetime         not null
 #
 class Article < ApplicationRecord
+  scope :published, -> { where.not(publish_at: nil).where("publish_at <= ?", Time.current) }
+  scope :latest, -> { order(publish_at: :desc) }
+
   include MetaImage
 
   def self.random_sample(count, exclude:)
