@@ -1,4 +1,6 @@
 <%= form_with method: :get, data: { turbo_frame: frame_id, controller: "stocks-allocator" } do |form| %>
+  <label class="text-xl leading-[30px] tracking-0 font-medium text-gray-900 mb-4">Input your details</label>
+
   <%= render partial: "shared/section_divider", locals: { section_name: "Portfolio" } %>
 
   <% 10.times do |i| %>
