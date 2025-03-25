@@ -57,6 +57,11 @@ class Tool < ApplicationRecord
     end
   end
 
+  def self.random_sample(count, exclude:)
+    where.not(slug: exclude.slug).order(Arel.sql("RANDOM()")).limit(count)
+  end
+
+
   def to_param
     slug
   end
