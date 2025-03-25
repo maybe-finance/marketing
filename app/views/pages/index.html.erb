@@ -1,18 +1,65 @@
-<div>
-  <section class="bg-white py-20">
-    <div class="max-w-5xl mx-auto">
-      <div>
-        <h2 class="text-[70px] text-center font-medium tracking-tight leading-[1] mb-[-1em]">Transactions <br/>
-          <span class="text-gray-400">handled your way</span></h2>
-        <div class="p-3 mx-auto my-10 bg-black/[0.02] rounded-3xl border border-black/1 shadow-[0px_0px_22.07px_0px_rgba(0,0,0,0.03)]">
-          <%= image_tag "screenshot.png", alt: "Maybe Screenshot", class: "w-full border border-black/1 rounded-2xl shadow-[0_7.36px_7.36px_-3.68px_rgba(11,11,11,0.03)] shadow-[0_18.39px_22.07px_-3.68px_rgba(11,11,11,0.08)]" %>
+<article class="bg-contain bg-top bg-no-repeat" style="background-image: url(<%= asset_path('main-bg.svg') %>)">
+  <section class="text-center py-8 mb-[120px]">
+    <div class="flex flex-row items-center w-fit mx-auto m-0 text-center">
+      <span style="padding-right:1.5rem; margin-right: -1rem;" class="mx-auto text-xl text-gray-500 pl-4 py-3 bg-white border border-black/1 rounded-2xl shadow-[0px_0px_22.07px_0px_rgba(0,0,0,0.03)]">Meet Maybe</span>
+       <%= image_tag 'icon-maybe-color.svg', alt: "Maybe Logo", class: "inline w-8" %>
+    </div>
+    <h1 class="text-[4.5rem] text-gray-700 max-w-[600px] mx-auto leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">The OS for your personal finances</h1>
+    <p class="text-xl font-normal leading-[1.4] text-gray-400 tracking-0 mb-4 w-full max-w-[600px] mx-auto">Maybe is the open-source all-in-one personal finance platform. Track, optimize, record, budget and manage your money better.</p>
+    <div class="mb-3"><%= render_signup_form %></div>
+    <div class="mb-9">badges</div>
+    <%= image_tag "maybe-hero.svg", alt: "Maybe Open Source", class: "max-w-[1140px] mx-auto w-full rounded-2xl" %>
+  </section>
+
+  <section>
+    <div class="mx-auto">
+      <h2 class="text-[3.5rem] text-center font-medium tracking-tight leading-[3.75rem] mb-[-1em]">Add anything,<br/>
+        <span class="text-gray-400">yes anything</span></h2>
+      <div class="p-3 mx-auto my-10">
+        <%= image_tag "home-add-anything.svg", alt: "Maybe Screenshot", class: "max-w-[580px] mx-auto mb-[72px]" %>
+      </div>
+      <div class="flex flex-col items-center mx-auto mb-[4.5rem]">
+        <h3 class="mb-10 max-w-[710px] text-[2rem] leading-[calc(2.5rem+4px)] text-gray-400 text-center mx-auto">Track your <span class="text-gray-900">bank accounts </span> <%= image_tag("home-add-anything-bank-accounts.svg", alt: "bank logos", class: "inline") %> , check how your <span class="text-gray-900">stocks</span> <%= image_tag("home-add-anything-stocks.svg", alt: "stock logos", class: "inline md:w-auto") %> and  <span class="text-gray-900">crypto </span> <%= image_tag("home-add-anything-crypto.svg", alt: "crypto logos", class: "inline md:w-auto") %> are doing, and monitor your <span class="text-gray-900">everything</span> else <%= image_tag("home-add-anything-assets.svg", alt: "credit card logos", class: "inline md:w-auto") %> in any <span class="text-gray-900">currency</span> <%= image_tag("home-add-anything-currency.svg", alt: "currency logos", class: "inline md:w-auto") %> all in one place. </h3>
+      </div>
+      <div class="max-w-[1140px] mx-auto grid grid-cols-1 md:grid-cols-3 text-base leading-[1.4] gap-6">
+        <div class="flex flex-col gap-6">
+          <%= image_tag "home-add-anything-link-assets.svg", alt: "Maybe Open Source", class: "w-full rounded-2xl" %>
+          <div class="flex flex-col gap-1">
+            <h4 class="font-medium text-gray-900">Link everything automagically</h4>
+            <p class="text-gray-400">Over 10,000+ institutions to choose from when linking all your accounts.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-6">
+          <%= image_tag "home-add-anything-charted.svg", alt: "Maybe Open Source", class: "w-full rounded-2xl" %>
+          <div class="flex flex-col gap-1">
+            <h4 class="font-medium text-gray-900">All your assets & debts charted</h4>
+            <p class="text-gray-400">Visualize your accounts with charts, making it easy to understand at a glance.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-6">
+          <%= image_tag "home-add-anything-manual-too.svg", alt: "Maybe Open Source", class: "w-full rounded-2xl" %>
+          <div class="flex flex-col gap-1">
+            <h4 class="font-medium text-gray-900">Prefer manual? No problem</h4>
+            <p class="text-gray-400">Add any account manually with custom built flows and import accounts via CSV.</p>
+          </div>
         </div>
       </div>
-      <div class="flex flex-col items-center pt-8 mx-auto mb-4 text-[28px] leading-2 text-gray-500 md:text-3xl ">
-        <div class="mb-10 max-w-xl"><span>Create a new</span> <span class="text-gray-900">income</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">expense</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">or transfer</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>transaction</span></div>
-        <div class="mb-10 max-w-xl"><span class="text-gray-900">Edit</span> <span>it</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>add custom</span> <span class="text-gray-900">categories</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">merchants</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>and</span> <span class="text-gray-900">tags</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %></div>
-        <div class="max-w-xl"><span>Create</span> <span class="text-gray-900">filters</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">Import</span> <span>via CSV</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %></div>
-        <div class="max-w-2xl"><span class="text-gray-900">Link</span> <span>transactions</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>Set up</span> <span class="text-gray-900">rules</span> <%= image_tag("icon-maybe-color.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>and more</span></div>
+    </div>
+  </section>
+  <section class="py-20">
+    <div class="max-w-5xl mx-auto">
+      <div>
+        <h2 class="text-[3.5rem] text-center font-medium tracking-tight leading-[3.75rem] mb-[-1em]">Transactions <br/>
+          <span class="text-gray-400">handled your way</span></h2>
+        <div class="p-3 mx-auto my-10">
+          <%= image_tag "home-transactions.svg", alt: "Maybe Screenshot", class: "max-w-[915px] mx-auto" %>
+        </div>
+      </div>
+      <div class="flex flex-col items-center text-center pt-8 mx-auto mb-4 text-[2rem] leading-[28px] text-gray-400">
+        <div class="mb-10 max-w-xl"><span>Create a new</span> <span class="text-gray-900">income</span> <%= image_tag("filled-add.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">expense</span> <%= image_tag("filled-subtract.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">or transfer</span> <%= image_tag("filled-flow.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>transaction</span></div>
+        <div class="mb-10 max-w-xl"><span class="text-gray-900">Edit</span> it <%= image_tag("filled-pencil.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>add custom</span> <span class="text-gray-900">categories</span> <%= image_tag("filled-customize.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">merchants</span> <%= image_tag("filled-shop.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>and</span> <span class="text-gray-900">tags</span> <%= image_tag("filled-tags.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %></div>
+        <div class="max-w-xl"><span>Create</span> <span class="text-gray-900">filters</span> <%= image_tag("filled-filter.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span class="text-gray-900">Import</span> <span>via CSV</span> <%= image_tag("filled-import.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %></div>
+        <div class="max-w-2xl"><span class="text-gray-900">Link</span> <span>transactions</span> <%= image_tag("filled-link.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>Set up</span> <span class="text-gray-900">rules</span> <%= image_tag("filled-board.svg", alt: "Maybe Logo", class: "inline w-8 md:w-auto") %> <span>and more</span></div>
       </div>
     </div>
   </section>
