@@ -1,38 +1,30 @@
 <%= form_with method: :get, data: { turbo_frame: frame_id } do |form| %>
-  <label class="text-xl leading-[30px] tracking-0 font-medium text-gray-900 mb-4">Input your details</label>
-
+  <label class="text-xl leading-[30px] tracking-normal font-medium text-gray-900 mb-4">Input your details</label>
   <div class="flex flex-col gap-2">
     <%= form.unit_field :annual_salary, label: "Annual salary", value: tool.annual_salary, unit_symbol: "$", data: { controller: "autonumeric" } %>
   </div>
-
   <div class="flex gap-4">
     <div class="relative flex flex-col gap-2">
       <%= form.unit_field :monthly_contribution, label: "Monthly contribution", value: tool.monthly_contribution, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
     </div>
-
     <div class="relative flex flex-col gap-2">
       <%= form.unit_field :annual_salary_increase, label: "Annual salary increase", value: tool.annual_salary_increase, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
     </div>
   </div>
-
   <div class="flex gap-4">
     <div class="relative flex flex-col gap-2">
       <%= form.unit_field :current_age, label: "Current age", value: tool.current_age, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
     </div>
-
     <div class="relative flex flex-col gap-2">
       <%= form.unit_field :retirement_age, label: "Retirement age", value: tool.retirement_age, label_right: "years", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
     </div>
   </div>
-
   <div class="relative flex flex-col gap-2">
     <%= form.unit_field :annual_rate_of_return, label: "Annual rate of return", value: tool.annual_rate_of_return * 100, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
   </div>
-
   <div class="relative flex flex-col gap-2">
     <%= form.unit_field :current_401k_balance, label: "Current 401k balance", value: tool.current_401k_balance, unit_symbol: "$", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
   </div>
-
   <div class="flex gap-4">
     <div class="relative flex flex-col gap-2">
       <%= form.unit_field :employer_match, label: "Employer match", value: tool.employer_match, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
@@ -41,7 +33,6 @@
       <%= form.unit_field :salary_limit_match, label: "Salary limit match", value: tool.salary_limit_match, label_right: "%", data: { controller: "autonumeric", autonumeric_options_value: { decimalPlaces: 0 } } %>
     </div>
   </div>
-
   <div class="mt-auto">
     <%= form.submit "Calculate" %>
   </div>

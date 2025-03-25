@@ -1,21 +1,17 @@
 <%= form_with method: :get, data: { turbo_frame: frame_id } do |form| %>
-  <label class="text-xl leading-[30px] tracking-0 font-medium text-gray-900 mb-4">Input your details</label>
-
+  <label class="text-xl leading-[30px] tracking-normal font-medium text-gray-900 mb-4">Input your details</label>
   <div data-controller="synchronized-input" class="flex flex-col gap-2">
     <%= form.unit_field :current_savings, label: "Current Savings", value: tool.current_savings, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
     <%= range_input_slider class: "from-blue-500 to-blue-500", min: 0, max: 600_000, step: 1_000, value: tool.current_savings %>
   </div>
-
   <div data-controller="synchronized-input" class="flex flex-col gap-2">
     <%= form.unit_field :monthly_expenses, label: "Monthly Expenses", value: tool.monthly_expenses, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
     <%= range_input_slider class: "from-pink-500 to-pink-500", min: 0, max: 10_000, step: 100, value: tool.monthly_expenses %>
   </div>
-
   <div data-controller="synchronized-input" class="flex flex-col gap-2">
     <%= form.unit_field :annual_savings_growth_rate, label: "Annual Savings Growth Rate", step: "any", value: tool.annual_savings_growth_rate, unit_symbol: "%", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
     <%= range_input_slider class: "from-violet-500 to-violet-500", min: 0, max: 20, step: 1, value: tool.annual_savings_growth_rate %>
   </div>
-
   <div class="mt-auto">
     <%= form.submit "Calculate" %>
   </div>

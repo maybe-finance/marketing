@@ -1,27 +1,23 @@
 <%= form_with method: :get, data: { turbo_frame: frame_id } do |form| %>
-  <label class="text-xl leading-[30px] tracking-0 font-medium text-gray-900 mb-4">Input your details</label>
+  <label class="text-xl leading-[30px] tracking-normal font-medium text-gray-900 mb-4">Input your details</label>
   <div data-controller="synchronized-input" class="flex flex-col gap-2">
     <%= form.unit_field :invested_amount, label: "Invested Amount", value: 10_000, unit_symbol: "$", data: { controller: "autonumeric", synchronized_input_target: "input", action: "synchronized-input#syncValue" } %>
     <%= range_input_slider class: "from-pink-500 to-pink-500", min: 1_000, max: 1_000_000, step: 1_000, value: 10_000 %>
   </div>
-
   <div data-controller="synchronized-ranges" class="flex flex-col gap-4">
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
       <%= render partial: "shared/select", locals: { name: "stock_market_ticker", label: "Total Stock Market", value: tool.stock_market_ticker, options: Stock.stock_market_tickers } %>
       <%= render partial: "shared/lock_toggle", locals: { slider_class:"from-blue-500 to-blue-500 grow", name: "stock_market_percentage", id: "stock_market_percentage", value: "40" } %>
     </div>
-
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
       <%= render partial: "shared/select", locals: { name: "international_stock_market_ticker", label: "Total International Stock Market", value: tool.international_stock_market_ticker, options: Stock.international_stock_market_tickers } %>
       <%= render partial: "shared/lock_toggle", locals: { slider_class:"from-cyan-400 to-cyan-400 grow", name: "international_stock_market_percentage", id: "international_stock_market_percentage", value: "30" } %>
     </div>
-
     <div data-controller="synchronized-input" class="flex flex-col gap-2">
       <%= render partial: "shared/select", locals: { name: "bond_market_ticker", label: "Total Bond Market", value: tool.bond_market_ticker, options: Stock.bond_market_tickers } %>
       <%= render partial: "shared/lock_toggle", locals: { slider_class:"from-violet-500 to-violet-500 grow", name: "bond_market_percentage", id: "bond_market_percentage", value: "30" } %>
     </div>
   </div>
-
   <div class="mt-auto">
     <%= form.submit "Calculate" %>
   </div>

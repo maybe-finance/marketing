@@ -1,19 +1,15 @@
 <%= form_with method: :get, data: { turbo_frame: frame_id } do |form| %>
-  <label class="text-xl leading-[30px] tracking-0 font-medium text-gray-900 mb-4">Input your details</label>
-
+  <label class="text-xl leading-[30px] tracking-normal font-medium text-gray-900 mb-4">Input your details</label>
   <div class="flex flex-col gap-2">
     <%= form.unit_field :amount_invested, label: "Amount Invested", value: tool.amount_invested, unit_symbol: "$", data: { controller: "autonumeric" } %>
   </div>
-
   <div class="flex flex-col gap-2">
     <%= form.unit_field :amount_returned, label: "Amount Returned", value: tool.amount_returned, unit_symbol: "$", data: { controller: "autonumeric" } %>
   </div>
-
   <div class="flex form-field">
     <%= form.unit_field :investment_length, label: "Investment Length", value: tool.investment_length, data: { controller: "autonumeric" }, outer_div_class: "border-0 shadow-none focus-within:border-transparent focus-within:ring-0 focus-within:ring-transparent" %>
     <%= render partial: "shared/period_select", locals: { value: "years" } %>
   </div>
-
   <div class="mt-auto">
     <%= form.submit "Calculate" %>
   </div>

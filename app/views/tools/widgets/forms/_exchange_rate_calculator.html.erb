@@ -4,8 +4,7 @@
   exchange_rate_url_debug: true
 } do |form| %>
   <div class="flex flex-col gap-2">
-    <label class="text-xl leading-[30px] tracking-0 font-medium text-gray-900 mb-2">Input your details</label>
-
+    <label class="text-xl leading-[30px] tracking-normal font-medium text-gray-900 mb-2">Input your details</label>
     <%= form.unit_field :amount,
         label: "Amount",
         value: tool.amount.to_i,
@@ -16,7 +15,6 @@
           action: "input->auto-submit-form#submit"
         } %>
   </div>
-
   <div class="flex flex-col gap-2">
     <div class="form-field">
       <label class="form-field__label">From Currency</label>
@@ -32,18 +30,16 @@
             data-auto-submit-form-target="auto"
             data-exchange-rate-url-target="fromCurrency"
             data-action="input->exchange-rate-url#currencyChanged">
-
           <button type="button" class="items-center px-3 py-[6px] cursor-pointer text-gray-900 text-sm w-full flex justify-between" data-select-target="button">
             <span data-select-target="buttonText"><%= tool.currency_options.find { |opt| opt[1] == tool.from_currency }&.first %></span>
             <%= lucide_icon("chevron-down", class: "w-5 h-5 text-gray-500") %>
           </button>
-
           <ul class="hidden absolute z-10 top-[110%] right-0 border border-alpha-black-25 bg-white rounded shadow-xs w-full p-1" data-select-target="list">
             <% tool.currency_options.each do |label, value| %>
               <li class="px-4 py-2 text-sm text-black rounded cursor-pointer hover:bg-alpha-black-50"
                   data-select-target="option"
                   data-action="click->select#selectOption"
-                  data-value="<%= value %>">
+                data-value="<%= value %>">
                 <%= label %>
               </li>
             <% end %>
@@ -52,7 +48,6 @@
       </div>
     </div>
   </div>
-
   <div class="flex flex-col gap-2">
     <div class="form-field">
       <label class="form-field__label">To Currency</label>
@@ -64,18 +59,16 @@
             data-auto-submit-form-target="auto"
             data-exchange-rate-url-target="toCurrency"
             data-action="input->exchange-rate-url#currencyChanged">
-
           <button type="button" class="items-center px-3 py-[6px] cursor-pointer text-gray-900 text-sm w-full flex justify-between" data-select-target="button">
             <span data-select-target="buttonText"><%= tool.currency_options.find { |opt| opt[1] == tool.to_currency }&.first %></span>
             <%= lucide_icon("chevron-down", class: "w-5 h-5 text-gray-500") %>
           </button>
-
           <ul class="hidden absolute z-10 top-[110%] right-0 border border-alpha-black-25 bg-white rounded shadow-xs w-full p-1" data-select-target="list">
             <% tool.currency_options.each do |label, value| %>
               <li class="px-4 py-2 text-sm text-black rounded cursor-pointer hover:bg-alpha-black-50"
                   data-select-target="option"
                   data-action="click->select#selectOption"
-                  data-value="<%= value %>">
+                data-value="<%= value %>">
                 <%= label %>
               </li>
             <% end %>
@@ -84,6 +77,5 @@
       </div>
     </div>
   </div>
-
   <%= form.submit "Calculate", class: "hidden" %>
 <% end %>

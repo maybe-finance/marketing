@@ -34,7 +34,7 @@
   }
 
   .form-field__submit {
-    @apply w-full p-2 text-center text-sm leading-5 tracking-0 text-white bg-black rounded-lg cursor-pointer hover:bg-gray-700;
+    @apply w-full p-2 text-center text-sm leading-5 tracking-normal text-white bg-black rounded-lg cursor-pointer hover:bg-gray-700;
   }
 
   input[type="range"][data-controller*="range-input"] {
