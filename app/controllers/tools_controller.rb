@@ -17,6 +17,7 @@ class ToolsController < ApplicationController
 
   def show
     @tool = Tool.presenter_from tool_params.compact_blank.merge(action_name: action_name)
+    @more_tools = Tool.random_sample(4, exclude: @tool)
   end
 
   private
