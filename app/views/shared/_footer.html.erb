@@ -1,6 +1,6 @@
 <footer class="bg-contain bg-top bg-no-repeat w-full p-0 pt-20" style="background-image: url(<%= asset_path('footer-cta-bg.svg') %>)">
   <%= render "shared/cta_waitlist" %>
-  <section class="w-full pb-8 mx-auto bg-bottom bg-no-repeat" style="background-position: bottom center; background-size: 100vw 6px; background-image: url(<%= asset_path('border-strip.svg') %>)">
+  <section class="w-full pb-8 mx-auto">
     <div class="max-w-6xl mx-auto mb-12 flex flex-col justify-between gap-x-4 md:flex-row">
       <div class="flex flex-col gap-y-4 w-2/5">
         <div><%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6 inline"), root_path %></div>
@@ -60,4 +60,5 @@
       <p class="">Built by people around the world. <%= lucide_icon("globe", class: "w-4 h-4 inline") %></p>
     </div>
   </section>
+  <%= image_tag "border-strip.svg", alt: "Maybe Stripe", class: "object-cover w-full h-[6px]" %>
 </footer>
