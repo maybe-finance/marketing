@@ -42,40 +42,7 @@
   </head>
   <body class="min-h-screen bg-cover bg-no-repeat" style="background-image: url(<%= asset_path('site-bg.svg') %>)">
     <%= image_tag "border-strip.svg", alt: "Maybe Stripe", class: "w-full" %>
-    <header class="flex flex-wrap items-center justify-between py-5 px-7" data-controller="navbar" data-navbar-hidden-class="hidden">
-      <div class="flex items-center gap-x-3">
-        <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
-      </div>
-      <nav class="hidden text-sm text-center gap-x-1 md:flex">
-        <%= link_to "Products", "#", class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
-        <%= link_to "Resources", "#", class: "px-3 py-1.5 text-gray-800 hover:text-gray-900 hover:bg-alpha-black-50 rounded-xl" %>
-        <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-gray-800 hover:text-gray-9000 hover:bg-alpha-black-50 rounded-xl">Contribute</a>
-      </nav>
-      <div class="flex hidden gap-x-2 md:flex">
-        <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
-          Sign in <span><%= lucide_icon("chevron-right", alt: "Menu", class: "bg-gray-500 w-6 h-6 md:hidden") %></span>
-        <% end %>
-        <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900" %>
-      </div>
-      <%= lucide_icon("menu", alt: "Menu", class: "w-6 h-6 md:hidden", 'data-action': 'click->navbar#toggleMobileMenu') %>
-      <div class="flex flex-col hidden w-full mt-4 font-medium md:hidden" data-navbar-target="mobileMenu">
-        <ul class="flex flex-col lg:flex-row lg:space-x-8">
-          <% footer_resources.each do |link| %>
-            <li><%= link_to link[:text], link[:path], class: link[:class] %></li>
-          <% end %>
-          <div class="flex flex-col gap-y-3">
-            <li>
-              <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
-                Sign in <%= lucide_icon("chevron-right", alt: "Menu", class: "bg-gray-500 w-6 h-6 md:hidden") %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900 flex w-full" %>
-            </li>
-          </div>
-        </ul>
-      </div>
-    </header>
+    <%= render "shared/navbar" %>
     <main class="px-3 mx-auto my-10 md:px-4">
       <%= yield %>
     </main>
