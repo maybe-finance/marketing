@@ -119,4 +119,77 @@ module NavigationHelper
       }
     ]
   end
+
+  def header_nav_products
+    [
+      {
+        title: "Tracking",
+        description: "Link all your assets and debts",
+        path: tracking_features_path,
+        icon: "chart-line"
+      },
+      {
+        title: "Transactions",
+        description: "Edit and automate transactions effortlessly.",
+        path: transactions_features_path,
+        icon: "credit-card"
+      },
+      {
+        title: "Budgeting",
+        description: "Set limits, track budgets, and optimize finances.",
+        path: budgeting_features_path,
+        icon: "chart-pie"
+      }
+    ]
+  end
+
+  def header_nav_resources_links
+    [
+      {
+        text: "Blog",
+        path: articles_path
+      },
+      {
+        text: "Financial Terms",
+        path: terms_path
+      },
+      {
+        text: "Stocks",
+        path: stocks_path
+      },
+      {
+        text: "Join Community",
+        path: "https://link.maybe.co/discord"
+      },
+      {
+        text: "Self-Host",
+        path: "https://github.com/maybe-finance/maybe"
+      }
+    ]
+  end
+
+  def header_nav_resources_more
+    [
+      {
+        text: "X",
+        path: "https://x.com/maybe"
+      },
+      {
+        text: "GitHub",
+        path: "https://github.com/maybe-finance/maybe"
+      },
+      {
+        text: "Contact".html_safe + " " + lucide_icon("arrow-up-right", class: "text-gray-400 group-hover/contact:text-gray-900 transition-all duration-150 inline w-4 h-4").html_safe,
+        path: "mailto:contact@maybe.co"
+      },
+      {
+        text: "Terms of Service",
+        path: tos_path
+      },
+      {
+        text: "Privacy Policy",
+        path: privacy_path
+      }
+    ]
+  end
 end
