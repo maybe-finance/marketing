@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 .pagy {
-  @apply my-6 text-xs text-center;
+  @apply my-6 text-base leading-5 text-center;
   a {
     @apply px-3 py-1.5 text-gray-500 border border-transparent;
   }
   .current {
-    @apply font-semibold text-black bg-white border border-gray-200 rounded-lg shadow-xs;
+    @apply text-black font-[450] bg-white border border-gray-200 rounded-lg shadow-xs;
   }
 }
 
