@@ -10,7 +10,7 @@
   <% end %>
   <article>
     <%= tag.div class: "min-h-[480px] mb-10 border bg-gradient-to-b #{article_gradient(@article)}" %>
-    <span class="font-mono text-xs font-medium mb-4 text-gray-500 uppercase">
+    <span class="flex font-mono text-xs font-medium mb-4 text-gray-500 uppercase">
       <%= @article.publish_at.to_date.strftime("%B %-d, %Y") %> &#x2022; <%= article_reading_time(@article) %> &#x2022; INVESTING
     </span>
     <div class="flex flex-row w-full gap-[56px]">
@@ -30,16 +30,16 @@
         </div>
       </div>
       <div class="w-auto">
-        <%= image_tag "icon-maybe-color.svg", class: "w-11 h-11 mb-4" %>
+        <%= image_tag "maybe-logo-glow-4x.png", alt: "Maybe Logo", style:"width: 68px; margin: -14px 0 0 -13px;", class: "mb-4" %>
         <h2 class="text-xl leading-8 tracking-[-0.01em] font-medium text-gray-900">Welcome to the Maybe Blog </h2>
         <p class="text-base text-gray-500 mb-4">Subscribe to get the latest updates and join the waitlist for the hosted version of Maybe.</p>
         <div class="mb-8">
-        <%= form_with( url: signups_path) do |f| %>
-          <div class="flex flex-row w-full p-1 mb-4 bg-white border shadow-xs rounded-xl mt-0">
-            <%= f.email_field :email, placeholder: "Enter your email address", class: "flex-1 border-0 px-2 focus:ring-0 text-sm", required: true %>
-            <%= f.submit "Subscribe", class: "py-2 px-3 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 border border-gray-900 text-sm" %>
-          </div>
-        <% end %>
+          <%= form_with( url: signups_path) do |f| %>
+            <div class="flex flex-row w-full p-1 mb-4 bg-white border shadow-xs rounded-xl mt-0">
+              <%= f.email_field :email, placeholder: "Enter your email address", class: "flex-1 border-0 px-2 focus:ring-0 text-sm", required: true %>
+              <%= f.submit "Subscribe", class: "py-2 px-3 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 border border-gray-900 text-sm" %>
+            </div>
+          <% end %>
         </div>
         <div class="flex flex-col gap-4 mb-8">
           <h2 class="text-xl leading-8 tracking-[-0.01em] font-medium text-gray-900">More articles</h2>
