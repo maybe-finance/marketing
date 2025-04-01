@@ -22,6 +22,8 @@ class StocksController < ApplicationController
            .group_by(&:first)
            .transform_values(&:first)
            .values
+           .sort_by(&:first)
+    end
 
     @featured_stocks = FEATURED_STOCKS.sample(12).map { |stock| Stock.find_by(symbol: stock) }
 
