@@ -1,7 +1,7 @@
 <%
   if @sector
     title "#{@sector} Stocks"
-    description "Explore #{number_with_delimiter @total_stocks} stocks in the #{@sector} sector"
+    description "Explore #{pluralize(number_with_delimiter(@total_stocks), 'stock')} in the #{@sector} sector"
   elsif @exchange
     title "#{@exchange} Stocks"
     description "Explore #{pluralize(number_with_delimiter(@total_stocks), 'stock')} listed on #{@exchange}"
