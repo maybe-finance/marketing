@@ -496,7 +496,6 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   vcr
-  vernier
   web-console
   webmock
 
