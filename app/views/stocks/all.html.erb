@@ -52,14 +52,14 @@
       <% end %>
     </div>
   </div>
-
-  <turbo-frame id="stock_list" target="_top">
-    <div class="hidden py-56 mx-auto text-center only:block max-w-96">
-      <%= lucide_icon "search-x", class: "w-6 h-6 mx-auto text-gray-500" %>
-      <p class="mt-4 text-sm font-medium">No results found</p>
-      <p class="mt-2 text-sm text-gray-500">We didn't find "<%= @query %>".</p>
-    </div>
-
+  <turbo-frame id="stock_list" target="_top" class="w-full flex flex-col mb-12">
+    <% if @stocks.empty? %>
+      <div class="py-56 mx-auto text-center only:block max-w-96">
+        <%= lucide_icon "search-x", class: "w-6 h-6 mx-auto mb-4 text-gray-500" %>
+        <p class="text-sm font-medium mb-[2px]">No results found</p>
+        <p class="text-sm text-gray-500">We didn't find "<%= @query %>".</p>
+      </div>
+    <% end %>
     <div class="grid max-w-full grid-cols-1 gap-3 mt-6 md:grid-cols-3">
       <% @stocks.each do |stock| %>
         <%= link_to stock_path("#{stock.symbol}:#{stock.mic_code}"), class: "block px-4 py-3 bg-white rounded-lg flex items-center gap-x-3 border border-gray-200 shadow-xs hover:border-gray-300 hover:shadow-sm" do %>
