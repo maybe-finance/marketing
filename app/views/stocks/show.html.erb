@@ -3,35 +3,34 @@
   description "Stay updated with the latest stock price, news, and comprehensive information on #{@stock.symbol} (#{@stock.name}). Access real-time data, historical performance, and expert analysis to make informed investment decisions."
   meta_image @stock.meta_image_url if @stock.meta_image_url.present?
 %>
-
-<div class="flex justify-between text-sm">
-  <div class="text-gray-400"><%= link_to "Home", root_path, class: "text-gray-400 hover:text-gray-600" %> / <%= link_to "Stocks", stocks_path, class: "text-gray-400 hover:text-gray-600" %> / <span class="text-black"><%= @stock.symbol %></span></div>
-</div>
-
-<div class="flex items-center justify-between mt-8">
-  <div class="flex items-center gap-3">
-    <img src="https://logo.synthfinance.com/ticker/<%= @stock.symbol %>" alt="<%= @stock.symbol %>" class="w-10 h-10 rounded-full">
-    <h1 class="text-2xl font-medium text-black"><%= @stock.name %> <span class="font-normal text-gray-500 font-mono"><%= @stock.symbol %></span></h1>
-    <div class="flex items-center gap-x-1 text-sm text-gray-500">
-      <%= link_to @stock.mic_code, stock_exchange_path(@stock.exchange), class: "hover:text-gray-700" %>
-      <img src="https://hatscripts.github.io/circle-flags/flags/<%= @stock.country_code.downcase %>.svg" 
-           alt="<%= @stock.country_code %>" 
+<article class="max-w-[1140px] mx-auto sm:px-6 lg:px-8">
+  <div class="flex justify-between text-sm mb-6">
+    <p class="text-gray-400"><%= link_to "Home", root_path, class: "text-gray-400 hover:text-gray-600" %> / <%= link_to "Stocks", stocks_path, class: "text-gray-400 hover:text-gray-600" %> / <span class="text-black"><%= @stock.symbol %></span></p>
+  </div>
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <img src="https://logo.synthfinance.com/ticker/<%= @stock.symbol %>" alt="<%= @stock.symbol %>" class="w-10 h-10 rounded-full">
+      <h1 class="text-2xl font-medium text-black"><%= @stock.name %> <span class="font-normal text-gray-500 font-mono"><%= @stock.symbol %></span></h1>
+      <div class="flex items-center gap-x-1 text-sm text-gray-500">
+        <%= link_to @stock.mic_code, stock_exchange_path(@stock.exchange), class: "hover:text-gray-700" %>
+        <img src="https://hatscripts.github.io/circle-flags/flags/<%= @stock.country_code.downcase %>.svg"
+           alt="<%= @stock.country_code %>"
            class="w-4 h-4 rounded-full">
+      </div>
     </div>
+    <%= link_to "https://synthfinance.com", target: "_blank", class: "flex items-center gap-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg px-3 py-1" do %>
+      Powered by <%= image_tag "logo-synth.svg", alt: "Synth Logo", class: "inline-block h-4" %>
+    <% end %>
   </div>
-  <%= link_to "https://synthfinance.com", target: "_blank", class: "flex items-center gap-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg px-3 py-1" do %>
-    Powered by <%= image_tag "logo-synth.svg", alt: "Synth Logo", class: "inline-block h-4" %>
-  <% end %>
-</div>
-
-<% if @cached_content %>
-  <div class="grid items-start grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-    <%= @cached_content %>
-  </div>
-<% else %>
-  <div data-controller="stock-cache"
+  <% if @cached_content %>
+    <div class="grid items-start grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+      <%= @cached_content %>
+    </div>
+  <% else %>
+    <div data-controller="stock-cache"
        data-stock-cache-key-value="<%= "#{@stock.symbol}:#{@stock.mic_code}" %>"
        data-stock-cache-url-value="<%= cache_stock_path(@stock) %>">
-    <%= render partial: 'stocks/content', locals: { stock: @stock } %>
-  </div>
-<% end %>
+      <%= render partial: 'stocks/content', locals: { stock: @stock } %>
+    </div>
+  <% end %>
+</article>
