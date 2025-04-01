@@ -23,7 +23,28 @@
   
 
   <div class="mt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="space-y-8">
+    <div class="space-y-12">
+      <section>
+        <div class="flex flex-row mb-6 justify-between">
+          <h2 class="text-2xl font-medium tracking-[-0.01em]">Stocks</h2>
+          <span class="flex flex-row font-medium text-base items-center group gap-x-1">
+            <%= link_to "View All", all_stocks_path, class: "text-gray-700 hover:text-gray-800 transition-all" %> <%= lucide_icon "chevron-right", class: "text-gray-500 w-4 h-4 inline group-hover:text-gray-800 transition-all" %>
+          </span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <% @featured_stocks.each do |stock| %>
+            <%= link_to stock_path("#{stock.symbol}:#{stock.mic_code}"), class: "flex flex-row items-start gap-x-3 px-4 py-3 bg-white rounded-2xl border hover:border-gray-400 transition-colors" do %>
+              <img src="https://logo.synthfinance.com/ticker/<%= stock.symbol %>" alt="<%= stock.symbol %>" class="w-10 h-10 rounded-full">
+              <div class="flex flex-col items-start gap-x-2">
+                <h6 class="font-medium"><%= stock.name %></h6>
+                <p class="text-sm text-gray-500">
+                  <%= stock.symbol %>
+                </p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </section>
       <section>
         <div class="flex flex-row mb-6 justify-between">
           <h2 class="text-2xl font-medium tracking-[-0.01em]">Stock Exchanges</h2>
