@@ -12,6 +12,7 @@ class StocksController < ApplicationController
   # @example
   #   GET /stocks
   #   GET /stocks?q=AAPL
+
   def index
     @exchanges = Rails.cache.fetch("stock_exchanges_groupings/v3", expires_in: 24.hours) do
       Stock.where(kind: "stock")
@@ -115,7 +116,6 @@ class StocksController < ApplicationController
              .group_by(&:first)
              .transform_values(&:first)
              .values
-             .sort_by(&:first)
       end
 
       redirect_to stocks_path and return if @exchanges.empty?
