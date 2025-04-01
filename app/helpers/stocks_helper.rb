@@ -64,4 +64,17 @@ module StocksHelper
          .compact
          .find { |sector| sector_slug(sector) == slug }
   end
+
+  def featured_quick_links
+    {
+      stocks: FEATURED_STOCKS.sample(2),
+      exchanges: FEATURED_EXCHANGES.sample(2).map { |exchange, country_code|
+        {
+          name: exchange,
+          country_code: country_code.upcase
+        }
+      },
+      sectors: FEATURED_SECTORS.sample(2)
+    }
+  end
 end
