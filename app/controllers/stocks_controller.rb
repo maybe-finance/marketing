@@ -98,6 +98,7 @@ class StocksController < ApplicationController
         return redirect_to stocks_path if scope.empty?
 
         @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
+        @total_stocks = @pagy.count
         render :all
       else
         redirect_to stocks_path and return
@@ -125,6 +126,7 @@ class StocksController < ApplicationController
       if @industry.present?
         @stocks = Stock.where(industry: @industry).where.not(mic_code: nil).order(:name)
         @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+        @total_stocks = @pagy.count
         render :all
       else
         redirect_to stocks_path and return
@@ -147,6 +149,7 @@ class StocksController < ApplicationController
       if @sector
         @stocks = Stock.where(sector: @sector).where.not(mic_code: nil).order(:name)
         @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+        @total_stocks = @pagy.count
         render :all
       else
         redirect_to stocks_path, status: :moved_permanently
