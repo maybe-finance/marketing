@@ -13,12 +13,11 @@
     description "Explore #{pluralize(number_with_delimiter(@total_stocks), 'stock')} listed on major stock markets"
   end
 %>
-
-<div>
-  <div class="mx-auto text-center max-w-96">
+<div class="max-w-[1140px] mx-auto">
+  <div class="mx-auto text-center max-w-[695px]">
     <div class="mb-1">
-      <div class="flex items-center justify-center gap-x-2">
-        <h1 class="text-3xl font-medium tracking-tight">
+      <div class="flex items-center justify-center">
+        <h1 class="text-6xl leading-[calc(4rem+8px)] font-medium tracking-[-0.02em] mb-2">
           <% if @sector %>
             <%= @sector %> Stocks
           <% elsif @exchange %>
@@ -30,8 +29,7 @@
           <% end %>
         </h1>
       </div>
-      
-      <p class="mt-3 text-sm text-gray-400">
+      <p class="text-xl leading-[1.4] text-gray-400 mb-6">
         <% if @sector %>
           Explore <%= pluralize(number_with_delimiter(@total_stocks), 'stock') %> in the <%= @sector %> sector
         <% elsif @exchange %>
@@ -42,7 +40,6 @@
           Explore <%= pluralize(number_with_delimiter(@total_stocks), 'stock') %> listed on major stock markets
         <% end %>
       </p>
-
       <%= form_with url: all_stocks_path, method: :get, html: {class: "mt-4 relative"} do |f| %>
         <%= f.text_field :q, value: @query,
           class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-sm",
@@ -62,7 +59,7 @@
     <% end %>
     <div class="grid max-w-full grid-cols-1 gap-3 mt-6 md:grid-cols-3">
       <% @stocks.each do |stock| %>
-        <%= link_to stock_path("#{stock.symbol}:#{stock.mic_code}"), class: "block px-4 py-3 bg-white rounded-lg flex items-center gap-x-3 border border-gray-200 shadow-xs hover:border-gray-300 hover:shadow-sm" do %>
+        <%= link_to stock_path("#{stock.symbol}:#{stock.mic_code}"), class: "block px-4 py-3 bg-white rounded-2xl flex items-center gap-x-3 border border-gray-200 shadow-xs hover:border-gray-300 hover:shadow-sm" do %>
           <%= image_tag("https://logo.synthfinance.com/ticker/#{stock.symbol}", alt: "#{stock.name} logo", class: "rounded-full w-10 h-10") %>
           <span class="block overflow-hidden flex-1">
             <h6 class="font-medium truncate whitespace-nowrap"><%= stock.name %></h6>
@@ -70,8 +67,8 @@
               <span class="font-normal text-gray-500 font-mono"><%= stock.symbol %></span>
               <span class="font-normal text-gray-500 flex items-center gap-x-1 text-xs">
                 <%= stock.mic_code %>
-                <img src="https://hatscripts.github.io/circle-flags/flags/<%= stock.country_code.downcase %>.svg" 
-                     alt="<%= stock.country_code %>" 
+                <img src="https://hatscripts.github.io/circle-flags/flags/<%= stock.country_code.downcase %>.svg"
+                     alt="<%= stock.country_code %>"
                      class="w-4 h-4 rounded-full">
               </span>
             </div>
@@ -80,10 +77,7 @@
       <% end %>
     </div>
   </turbo-frame>
-
-  <div class="">
+  <div class="flex justify-center w-full mx-auto">
     <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
   </div>
-
-  <%= render "shared/cta_waitlist" %>
 </div>
