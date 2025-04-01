@@ -2,6 +2,7 @@
 # This controller provides functionality for listing stocks and displaying individual stock details
 class StocksController < ApplicationController
   include Pagy::Backend
+  include StocksHelper
 
   # GET /stocks
   # Lists stocks with optional filtering and pagination
@@ -21,8 +22,8 @@ class StocksController < ApplicationController
            .group_by(&:first)
            .transform_values(&:first)
            .values
-           .sort_by(&:first)
-    end
+
+    @featured_stocks = FEATURED_STOCKS.sample(12).map { |stock| Stock.find_by(symbol: stock) }
 
     @industries = Rails.cache.fetch("stock_industries_groupings/v3", expires_in: 24.hours) do
       Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
