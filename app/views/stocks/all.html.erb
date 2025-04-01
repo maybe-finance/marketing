@@ -4,13 +4,13 @@
     description "Explore #{number_with_delimiter @total_stocks} stocks in the #{@sector} sector"
   elsif @exchange
     title "#{@exchange} Stocks"
-    description "Explore #{number_with_delimiter @total_stocks} stocks listed on #{@exchange}"
+    description "Explore #{pluralize(number_with_delimiter(@total_stocks), 'stock')} listed on #{@exchange}"
   elsif @industry
     title "#{@industry} Stocks"
-    description "Explore #{number_with_delimiter @total_stocks} stocks in the #{@industry} industry"
+    description "Explore #{pluralize(number_with_delimiter(@total_stocks), 'stock')} in the #{@industry} industry"
   else
     title "Stocks"
-    description "Explore #{number_with_delimiter @total_stocks} stocks listed on major stock markets"
+    description "Explore #{pluralize(number_with_delimiter(@total_stocks), 'stock')} listed on major stock markets"
   end
 %>
 
@@ -33,13 +33,13 @@
       
       <p class="mt-3 text-sm text-gray-400">
         <% if @sector %>
-          Explore <%= number_with_delimiter @total_stocks %> stocks in the <%= @sector %> sector
+          Explore <%= pluralize(number_with_delimiter(@total_stocks), 'stock') %> in the <%= @sector %> sector
         <% elsif @exchange %>
-          Explore <%= number_with_delimiter @total_stocks %> stocks listed on the <%= @exchange %> exchange
+          Explore <%= pluralize(number_with_delimiter(@total_stocks), 'stock') %> listed on the <%= @exchange %> exchange
         <% elsif @industry %>
-          Explore <%= number_with_delimiter @total_stocks %> stocks in the <%= @industry %> industry
+          Explore <%= pluralize(number_with_delimiter(@total_stocks), 'stock') %> in the <%= @industry %> industry
         <% else %>
-          Explore <%= number_with_delimiter @total_stocks %> stocks listed on major stock markets
+          Explore <%= pluralize(number_with_delimiter(@total_stocks), 'stock') %> listed on major stock markets
         <% end %>
       </p>
 
