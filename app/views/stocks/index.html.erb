@@ -45,17 +45,22 @@
       </section>
 
       <section>
-        <h2 class="text-xl font-semibold mb-4">Sectors</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <% @sectors.each do |sector| %>
-            <%= link_to stock_sector_path(sector_slug(sector)), class: "p-4 bg-white rounded-lg border hover:border-gray-400 transition-colors" do %>
-              <div class="font-medium"><%= sector %></div>
-              <div class="text-sm text-gray-500">
+        <div class="flex flex-row mb-6 justify-between">
+          <h2 class="text-2xl font-medium tracking-[-0.01em]">Sectors</h2>
+          <span class="flex flex-row font-medium text-base items-center group gap-x-1">
+            <%= link_to "View All", sectors_stocks_path, class: "text-gray-700 hover:text-gray-800 transition-all" %> <%= lucide_icon "chevron-right", class: "text-gray-500 w-4 h-4 inline group-hover:text-gray-800 transition-all" %>
+          </span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <% @sectors.sample(12).each do |sector| %>
+            <%= link_to stock_sector_path(sector_slug(sector)), class: "text-base leading-6 px-4 py-3 bg-white rounded-2xl border hover:border-gray-400 transition-colors" do %>
+              <h6 class="font-medium"><%= sector %></h6>
+              <p class="text-gray-500">
                 <%= Rails.cache.fetch("stocks/sector_count/#{sector.parameterize}", expires_in: 24.hours) do
                   count = Stock.where(sector: sector).count
                   pluralize(count, 'stock')
                 end %>
-              </div>
+              </p>
             <% end %>
           <% end %>
         </div>
