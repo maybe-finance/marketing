@@ -22,24 +22,35 @@ module StocksHelper
     BRKA
   ].freeze
 
-  FEATURED_EXCHANGES = %w[
-    NASDAQ
-    NYSE
-    AMEX
-    BATS
-    SSE
-    Euronext
-    LSE
-    HKEX
-    TSX
-    KRX
-    BSE
-    SZSE
-    TSE
-    ASX
-    NSE
-    BME
-  ].freeze
+  FEATURED_EXCHANGES = [
+    [ "AMEX", "us" ],
+    [ "ASX", "au" ],
+    [ "BATS", "us" ],
+    [ "BME", "es" ],
+    [ "Euronext", "eu" ],
+    [ "HKEX", "hk" ],
+    [ "KRX", "kr" ],
+    [ "LSE", "gb" ],
+    [ "NASDAQ", "us" ],
+    [ "NSE", "in" ],
+    [ "NYSE", "us" ],
+    [ "SSE", "cn" ],
+    [ "TSX", "ca" ],
+    [ "MSE", "in" ],
+    [ "SZSE", "cn" ],
+    [ "TSE", "jp" ]
+  ]
+
+  FEATURED_SECTORS = [
+    "Banking",
+    "Healthcare",
+    "Energy",
+    "Automotive",
+    "Industrials",
+    "Utilities",
+    "Real Estate"
+  ]
+
 
   def sector_slug(sector)
     sector.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/-+$/, "")
