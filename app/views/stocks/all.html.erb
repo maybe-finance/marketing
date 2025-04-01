@@ -15,7 +15,7 @@
 %>
 <div class="max-w-[1140px] mx-auto">
   <div class="mx-auto text-center max-w-[695px]">
-    <div class="mb-1">
+    <div>
       <div class="flex items-center justify-center">
         <h1 class="text-6xl leading-[calc(4rem+8px)] font-medium tracking-[-0.02em] mb-2">
           <% if @sector %>
@@ -40,13 +40,14 @@
           Explore <%= pluralize(number_with_delimiter(@total_stocks), 'stock') %> listed on major stock markets
         <% end %>
       </p>
-      <%= form_with url: all_stocks_path, method: :get, html: {class: "mt-4 relative"} do |f| %>
+      <%= form_with url: all_stocks_path, method: :get, html: {class: "mb-4 relative"} do |f| %>
         <%= f.text_field :q, value: @query,
-          class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-sm",
+          class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl focus:ring-0 focus:border-gray-900 text-sm",
           placeholder: "Search by name or ticker",
           data: { auto_submit_form_target: "auto" } %>
         <%= lucide_icon "search", class: "absolute top-2.5 left-3 w-5 h-5 text-gray-500 pointer-events-none" %>
       <% end %>
+      <%= render "quick_links" %>
     </div>
   </div>
   <turbo-frame id="stock_list" target="_top" class="w-full flex flex-col mb-12">
