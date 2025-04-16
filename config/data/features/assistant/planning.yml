@@ -1,0 +1,81 @@
+title: "Spending Insights"
+cards:
+  impactful_change:
+    title: "Impactful change"
+    questions:
+      - id: 1
+        question: "What's the most impactful change I could make right now?"
+        answer:
+          - "Paying off your credit card saves ~$780/year in interest. Redirecting it to your Roth IRA improves cash flow and compounding."
+
+  when_to_buy_home:
+    title: "When to buy home"
+    questions:
+      - id: 1
+        question: "How far off am I from buying a home?"
+        answer:
+          - "With a $32,000 down payment, you're about 8 months from the typical 20% deposit for a $250,000 property, if you keep saving."
+
+  interest_across_all_debts:
+    title: "Interest across all debts"
+    questions:
+      - id: 1
+        question: "How much am I paying in interest across all debts?"
+        answer:
+          - "Roughly $960/year, mostly from your credit card and auto loan."
+      - id: 2
+        question: "How does that compare to last year?"
+        answer:
+          - "It's down 18%, thanks to reduced credit balances and one extra auto payment."
+
+  retire:
+    title: "Retire"
+    questions:
+      - id: 1
+        question: "Can I retire at 45?"
+        answer:
+          - "To retire at 45 with $48,000/year in spending, you'll need about $1.2M saved."
+      - id: 2
+        question: "How much should I be saving now?"
+        answer:
+          - "You should be saving around $2,000/month. At this moment in time, you're currently saving $1,500/month which is $500 shy."
+      - id: 3
+        question: "What's the result if I stay on this pace?"
+        answer:
+          - "You'd hit your goal by 48 years old —not 45."
+      - id: 4
+        question: "How could I close that gap?"
+        answer:
+          - "Boost savings by $250/month or reduce expected retirement costs by 15%."
+
+  when_to_make_a_purchase:
+    title: "When to buy home"
+    questions:
+      - id: 1
+        question: "What could derail my current financial plan?"
+        answer:
+          - "A large unexpected expense ($5k+), or a prolonged dip in crypto, could delay your FIRE timeline by 1–2 years."
+
+  optimizing_for_time_vs_money:
+    title: "Optimizing for time vs money"
+    questions:
+      - id: 1
+        question: "If I optimized for time instead of money, how would that change my finances?"
+        answer:
+          - "Right now, your schedule is optimized for income generation—you're trading ~50 hours/week for earnings that support a 21% savings rate. But if you reduced work to 35–40 hours and accepted a 10–15% income drop, you'd still cover all core expenses and maintain a 15% savings rate, while gaining ~40 extra hours per month of free time."
+
+  spending_and_goal_alignment:
+    title: "Spending and goal alignment"
+    questions:
+      - id: 1
+        question: "How much am I spending on things that don't align with my goals?"
+        answer:
+          - "Roughly 28% of your discretionary spend (~$410/month) isn't tied to stated goals like home ownership or retirement."
+      - id: 2
+        question: "Where does that go?"
+        answer:
+          - "Mostly to impulse shopping, premium entertainment, and unplanned takeout."
+      - id: 3
+        question: "What if I redirected half of that?"
+        answer:
+          - "You'd boost savings by ~$2,500/year—equal to two extra months of runway or 30% of your Roth IRA cap."

@@ -1,0 +1,87 @@
+title: "Spending Insights"
+cards:
+  spending_habits:
+    title: "Spending habits vs last month"
+    questions:
+      - id: 1
+        question: "What changed in my spending habits this month compared to last?"
+        answer:
+          - "Here's what stood out:"
+          - "You spent $328 more overall this month"
+          - "Dining increased by 41% (+$198), mostly from weekend outings and a few larger group meals"
+          - "Subscriptions dropped by $47 after canceling Disney+ and Grammarly"
+          - "Transportation spending also rose due to increased Uber usage"
+      - id: 2
+        question: "Which months did I also go over for dining? Is this a pattern?"
+        answer:
+          - "December, July, and April are the months you've been going over in spending with dining, in relation to your budget."
+          - "So while it's not exactly a pattern it's still definitely something you should look out for."
+
+  discretionary_spending:
+    title: "Discretionary spending"
+    questions:
+      - id: 1
+        question: "What's my average discretionary spend per month?"
+        answer:
+          - "You've spend around $1,320 across Dining, Shopping, and Travel."
+      - id: 2
+        question: "Is that trending up?"
+        answer:
+          - "Yes—up 12% from Q4 last year, mostly from increased shopping."
+
+  cutting_back:
+    title: "Cutting back"
+    questions:
+      - id: 1
+        question: "Can I cut back on shopping without hurting essentials?"
+        answer:
+          - "Shopping totaled $1,215 last quarter — ~40% of it was discretionary."
+      - id: 2
+        question: "What's \"discretionary\" here?"
+        answer:
+          - "Apparel, home decor, and gifts made up 86% of that total."
+      - id: 3
+        question: "Potential monthly savings?"
+        answer:
+          - "Cutting discretionary shopping by 30% could save you ~$100/month."
+
+  grocery_bill:
+    title: "Grocery bill"
+    questions:
+      - id: 1
+        question: "How much have I spent on groceries this year so far?"
+        answer:
+          - "You've spent $2,136.88 on groceries YTD, averaging $356/month. Most purchases are from Whole Foods (62%) and Trader Joe's (28%)."
+
+  category_spending:
+    title: "Category spending"
+    questions:
+      - id: 1
+        question: "Across all my cards, what category did I spend the most on last month?"
+        answer:
+          - "You spent $826.50 on Dining in March, making it your top category."
+          - "That includes transactions across your Amex Gold, Chase Sapphire, and Apple Card accounts."
+          - "This total reflects 14 individual purchases, mostly restaurants and food delivery, and is 9% higher than your monthly average for this category."
+          - "Compared to the same month last year, you spent 12% more on Dining overall."
+          - "Top merchants include Uber Eats ($124), Chipotle ($58), and The Cheesecake Factory ($204)."
+
+  subscription_spending:
+    title: "Subscription spending this year"
+    questions:
+      - id: 1
+        question: "How much did I spend on subscriptions this year so far?"
+        answer:
+          - "Your highest monthly charges are for Spotify ($9.99), Notion ($12/month), and Figma ($15/month)."
+          - "Most subscriptions are billed monthly to your Chase Sapphire card, with one annual plan (Notion) charged to your Apple Card in January."
+
+  category_increase:
+    title: "Category increase"
+    questions:
+      - id: 1
+        question: "What category saw the biggest increase in spending this month?"
+        answer:
+          - "Dining jumped 37% month-over-month, from $442 to $607."
+      - id: 2
+        question: "Where did I spend mostly?"
+        answer:
+          - "You spent $138 at Olive Garden and $124 on Uber Eats, both higher than usual."

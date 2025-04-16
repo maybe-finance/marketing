@@ -1,0 +1,70 @@
+title: "Your Spending Insights"
+cards:
+  investment_allocation:
+    title: "Investment allocation"
+    questions:
+      - id: 1
+        question: "What's my current investment allocation?"
+        answer:
+          - "52% ETFs, 26% crypto, 14% individual stocks, 8% cash."
+          - "This mix leans moderately aggressive and could benefit from a slight rebalance."
+
+  investment_performance:
+    title: "Investment performance"
+    questions:
+      - id: 1
+        question: "How has my investment strategy performed over the past 12 months?"
+        answer:
+          - "Your portfolio surged by 17.6%, outpacing the S&P 500's 13.4% rise."
+      - id: 2
+        question: "What's driving that?"
+        answer:
+          - "Your strong Ethereum (ETH) position and early Vanguard Total Stock Market ETF (VTI) investment have given you a market edge."
+      - id: 3
+        question: "What underperformed?"
+        answer:
+          - "Unfortunately, your investments in ARK Innovation ETF (ARKK) and small-cap stocks have not fared well, collectively yielding less than 3%."
+      - id: 4
+        question: "Is my risk level appropriate for long-term goals?"
+        answer:
+          - "With 26% of your portfolio allocated to cryptocurrencies and 14% to technology stocks, you are well-positioned for potential growth. However, this strategy also exposes you to significant market volatility."
+
+  investment_fees:
+    title: "Investment fees"
+    questions:
+      - id: 1
+        question: "What's the impact of fees on my investments?"
+        answer:
+          - "Shopping totaled $1,215 last quarter — ~40% of it was discretionary."
+      - id: 2
+        question: 'What''s "discretionary" here?'
+        answer:
+          - "Apparel, home decor, and gifts made up 86% of that total."
+      - id: 3
+        question: "Potential monthly savings?"
+        answer:
+          - "Cutting discretionary shopping by 30% could save you ~$100/month."
+
+  eth_earnings:
+    title: "ETH earnings"
+    questions:
+      - id: 1
+        question: "How much have I earned from ETH this year?"
+        answer:
+          - "Your ETH position grew by $2,110 (+41%) in Q1, making it your best-performing asset so far."
+
+  portfolio_diversification:
+    title: "Portfolio diversification"
+    questions:
+      - id: 1
+        question: "How diversified is my portfolio?"
+        answer:
+          - "You hold 12 assets across 4 sectors, but 68% is concentrated in tech and crypto. Consider adding bonds or dividend ETFs to balance."
+
+  rebalancing_frequency:
+    title: "Rebalancing frequency"
+    questions:
+      - id: 1
+        question: "How often am I rebalancing my portfolio?"
+        answer:
+          - "You've manually rebalanced twice in the past year, most recently in January. Your current asset drift is 9.6% from your last target allocation."
