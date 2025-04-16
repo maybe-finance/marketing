@@ -88,7 +88,7 @@ GEM
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
     ast (2.4.2)
-    avo (3.18.1)
+    avo (3.19.2)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -121,7 +121,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
-    brakeman (7.0.0)
+    brakeman (7.0.2)
       racc
     builder (3.3.0)
     capybara (3.40.0)
@@ -191,7 +191,7 @@ GEM
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     io-console (0.8.0)
-    irb (1.15.1)
+    irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
@@ -341,7 +341,7 @@ GEM
     redis-client (0.23.2)
       connection_pool
     regexp_parser (2.10.0)
-    reline (0.6.0)
+    reline (0.6.1)
       io-console (~> 0.5)
     revise_auth (0.7.1)
       bcrypt (~> 3.1)
@@ -385,7 +385,7 @@ GEM
     ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
     securerandom (0.4.1)
-    selenium-webdriver (4.29.1)
+    selenium-webdriver (4.31.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -427,7 +427,7 @@ GEM
     useragent (0.16.11)
     vcr (6.3.1)
       base64
-    vernier (1.6.0)
+    vernier (1.7.0)
     view_component (3.21.0)
       activesupport (>= 5.2.0, < 8.1)
       concurrent-ruby (~> 1.0)
