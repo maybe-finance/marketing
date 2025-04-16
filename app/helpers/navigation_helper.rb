@@ -18,6 +18,12 @@ module NavigationHelper
         description: "Set limits, track budgets, and optimize finances.",
         path: budgeting_features_path,
         icon: "chart-pie"
+      },
+      {
+        title: "Assistant",
+        description: "Ask anything, get answers fast.",
+        path: assistant_features_path,
+        icon: "sparkles"
       }
     ]
   end
