@@ -1,0 +1,6 @@
+<div class="relative w-full" data-controller="masonry">
+  <div class="masonry-sizer w-1/4"></div>
+  <% content["cards"].each do |card_id, card| %>
+    <%= render "assistant_card", card: card %>
+  <% end %>
+</div>
