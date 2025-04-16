@@ -1,0 +1,13 @@
+<div class="masonry-item w-1/4 bg-white rounded-lg shadow-sm p-4 mb-6">
+  <h3 class="text-lg font-medium mb-4"><%= card["title"] %></h3>
+  <% card["questions"].each do |qa| %>
+    <div class="mb-6 last:mb-0">
+      <h4 class="text-sm text-gray-700 font-medium mb-2"><%= qa["question"] %></h4>
+      <div class="answer-content pl-6 border-l-2 border-blue-100">
+        <% qa["answer"].each do |line| %>
+          <p class="mb-2 text-sm"><%= line %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
