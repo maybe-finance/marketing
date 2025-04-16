@@ -1,0 +1,9 @@
+<article class="bg-contain bg-top bg-no-repeat" style="background-image: url(<%= asset_path('main-bg.svg') %>)">
+  <div class="container mx-auto px-4 py-8">
+    <%= @my_active_category %>
+    <%= render "assistant_tabs", categories: @categories, active: @active_category %>
+    <%= turbo_frame_tag "assistant-content" do %>
+      <%= render "assistant_#{@active_category}", content: @content, class: "grid grid-cols-[repeat(3,_1fr)] grid-flow-row gap-[20px]" %>
+    <% end %>
+  </div>
+</article>
