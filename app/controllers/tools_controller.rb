@@ -4,7 +4,7 @@ class ToolsController < ApplicationController
   end
 
   def show
-    @tool = Tool.presenter_from tool_params.compact_blank.merge(action_name: action_name)
+    @tool = Tool.presenter_from(tool_params.compact_blank.merge(action_name: action_name))
   end
 
   private

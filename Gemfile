@@ -50,6 +50,8 @@ group :development do
   gem "hotwire-livereload"
   gem "ruby-lsp-rails"
   gem "annotate"
+  gem "rails_performance"
+  gem "rack-mini-profiler"
 end
 
 group :test do
