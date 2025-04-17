@@ -1,9 +1,20 @@
 <article class="bg-contain bg-top bg-no-repeat" style="background-image: url(<%= asset_path('main-bg.svg') %>)">
-  <div class="container mx-auto px-4 py-8">
-    <%= @my_active_category %>
-    <%= render "assistant_tabs", categories: @categories, active: @active_category %>
-    <%= turbo_frame_tag "assistant-content" do %>
-      <%= render "assistant_#{@active_category}", content: @content, class: "grid grid-cols-[repeat(3,_1fr)] grid-flow-row gap-[20px]" %>
-    <% end %>
-  </div>
+  <section class="text-center py-8">
+    <p class="text-lg mb-6 text-center">
+      <span class="text-gray-500">Features <%= lucide_icon "chevron-right", class: "text-gray-500 w-4 h-4 inline" %></span> Assistant
+    </p>
+    <h1 class="text-[4.5rem] text-gray-700 max-w-[400px] mx-auto  leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">Talk with your money</h1>
+    <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[400px] mx-auto">Ask questions and automate your finances with Maybe's AI assistant.</p>
+    <div class="mb-[3.75rem]"><%= render_signup_form %></div>
+    <%= image_tag "features/budgeting-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[654px] mx-auto"%>
+  </section>
+  <section class="bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
+    <div class="container mx-auto px-4 py-8">
+      <%= @my_active_category %>
+      <%= render "assistant_tabs", categories: @categories, active: @active_category %>
+      <%= turbo_frame_tag "assistant-content" do %>
+        <%= render "assistant_#{@active_category}", content: @content, class: "grid grid-cols-[repeat(3,_1fr)] grid-flow-row gap-[20px]" %>
+      <% end %>
+    </div>
+  </section>
 </article>

@@ -1,13 +1,24 @@
-<div class="masonry-item w-1/4 bg-white rounded-lg shadow-sm p-4 mb-6">
-  <h3 class="text-lg font-medium mb-4"><%= card["title"] %></h3>
-  <% card["questions"].each do |qa| %>
-    <div class="mb-6 last:mb-0">
-      <h4 class="text-sm text-gray-700 font-medium mb-2"><%= qa["question"] %></h4>
-      <div class="answer-content pl-6 border-l-2 border-blue-100">
-        <% qa["answer"].each do |line| %>
-          <p class="mb-2 text-sm"><%= line %></p>
-        <% end %>
+<div class="masonry-item w-1/4 bg-white rounded-lg shadow-sm mb-6">
+  <div class="flex justify-between items-center px-4 py-3">
+    <span class="flex items-center gap-2">
+      <%= lucide_icon "menu", class: "w-9 h-9 p-2 text-gray-500" %>
+      <h3 class="text-sm font-medium"><%= card["title"] %></h3>
+    </span>
+    <%= lucide_icon "ellipsis-vertical", class: "w-9 h-9 p-2 text-gray-500" %>
+  </div>
+  <div class="p-6 pb-8">
+    <% card["questions"].each do |qa| %>
+      <div class="mb-6 last:mb-0 flex w-full flex-col gap-8">
+        <h6 class="text-sm max-w-[260px] px-3 py-2 flex self-end text-right bg-gray-50 rounded-lg text-gray-800"><%= qa["question"] %></h6>
+        <div class="flex flex-row gap-3 answer-content">
+          <%= image_tag 'assistant-avatar.png', class: "w-[60px] h-[60px] -ml-[14px] -mt-[14px] -mr-3" %>
+          <div class="flex flex-col gap-4">
+            <% qa["answer"].each do |line| %>
+              <p class="text-sm"><%= line %></p>
+            <% end %>
+          </div>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
