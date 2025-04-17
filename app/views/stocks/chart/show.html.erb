@@ -1,5 +1,9 @@
-<%= turbo_frame_tag "stock_chart" do %>
-  <% unless @stock_chart[:error] %>
+<% if @stock_chart[:error] %>
+  <%= turbo_frame_tag "stock_chart" do %>
+    <div class="text-red-500">Error loading chart data</div>
+  <% end %>
+<% else %>
+  <%= turbo_frame_tag "stock_chart", data: { turbo: false } do %>
     <div data-controller="stock-chart" data-stock-chart-data-value="<%= @stock_chart.to_json %>" data-stock-chart-symbol-value="<%= "#{@stock.symbol}:#{@stock.mic_code}" %>" data-stock-price="<%= @stock_chart[:latest_price] %>">
       <div class="flex flex-col mb-4 p-4">
         <h2 class="text-3xl font-medium" data-stock-chart-target="priceDisplay">

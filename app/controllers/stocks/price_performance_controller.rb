@@ -15,6 +15,16 @@ class Stocks::PricePerformanceController < ApplicationController
     else
       @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
     end
+
+    if cached = Rails.cache.read("price_performance/v2/#{@stock.symbol}:#{@stock.mic_code}/24h")
+      @price_performance = cached
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @price_performance }
+      end
+      return
+    end
+
     timeframe = params[:timeframe] || "24h"
 
     @price_performance = Rails.cache.fetch("price_performance/v2/#{@stock.symbol}:#{@stock.mic_code}/#{timeframe}", expires_in: 12.hours) do
@@ -53,7 +63,7 @@ class Stocks::PricePerformanceController < ApplicationController
     end
 
     respond_to do |format|
-      format.html
+      format.html { render :show }
       format.json { render json: @price_performance }
     end
   end

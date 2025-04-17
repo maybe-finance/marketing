@@ -17,6 +17,9 @@ gem "propshaft"
 gem "tailwindcss-rails"
 gem "lucide-rails", github: "maybe-finance/lucide-rails"
 
+# Background Jobs
+gem "sidekiq"
+
 # Hotwire
 gem "stimulus-rails"
 gem "turbo-rails"

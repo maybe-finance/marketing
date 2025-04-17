@@ -14,17 +14,31 @@ class Stocks::StatisticsController < ApplicationController
       @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
     end
 
+    if cached = Rails.cache.read("stock_statistics/v2/#{@stock.symbol}:#{@stock.mic_code}")
+      @stock_statistics = cached
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @stock_statistics }
+      end
+      return
+    end
+
     @stock_statistics = Rails.cache.fetch("stock_statistics/v2/#{@stock.symbol}:#{@stock.mic_code}", expires_in: 24.hours) do
       headers = {
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
-      "X-Source" => "maybe_marketing",
+        "Content-Type" => "application/json",
+        "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
+        "X-Source" => "maybe_marketing",
         "X-Source-Type" => "api"
       }
 
       response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}?mic_code=#{@stock.mic_code}", nil, headers)
       parsed_data = JSON.parse(response.body)["data"]
       parsed_data && parsed_data["market_data"] ? parsed_data["market_data"] : nil
+    end
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @stock_statistics }
     end
   end
 end
