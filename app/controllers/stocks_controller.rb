@@ -2,6 +2,7 @@
 # This controller provides functionality for listing stocks and displaying individual stock details
 class StocksController < ApplicationController
   include Pagy::Backend
+  include StocksHelper
 
   # GET /stocks
   # Lists stocks with optional filtering and pagination
@@ -11,6 +12,7 @@ class StocksController < ApplicationController
   # @example
   #   GET /stocks
   #   GET /stocks?q=AAPL
+
   def index
     @exchanges = Rails.cache.fetch("stock_exchanges_groupings/v3", expires_in: 24.hours) do
       Stock.where(kind: "stock")
@@ -21,8 +23,10 @@ class StocksController < ApplicationController
            .group_by(&:first)
            .transform_values(&:first)
            .values
-           .sort_by(&:first)
+           .sort_by { |exchange, _| exchange.to_s }
     end
+
+    @featured_stocks = FEATURED_STOCKS.sample(12).map { |stock| Stock.find_by(symbol: stock) }
 
     @industries = Rails.cache.fetch("stock_industries_groupings/v3", expires_in: 24.hours) do
       Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
@@ -97,6 +101,7 @@ class StocksController < ApplicationController
         return redirect_to stocks_path if scope.empty?
 
         @pagy, @stocks = pagy(scope, limit: 27, size: [ 1, 3, 3, 1 ])
+        @total_stocks = @pagy.count
         render :all
       else
         redirect_to stocks_path and return
@@ -111,7 +116,6 @@ class StocksController < ApplicationController
              .group_by(&:first)
              .transform_values(&:first)
              .values
-             .sort_by(&:first)
       end
 
       redirect_to stocks_path and return if @exchanges.empty?
@@ -124,6 +128,7 @@ class StocksController < ApplicationController
       if @industry.present?
         @stocks = Stock.where(industry: @industry).where.not(mic_code: nil).order(:name)
         @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+        @total_stocks = @pagy.count
         render :all
       else
         redirect_to stocks_path and return
@@ -146,6 +151,7 @@ class StocksController < ApplicationController
       if @sector
         @stocks = Stock.where(sector: @sector).where.not(mic_code: nil).order(:name)
         @pagy, @stocks = pagy(@stocks, limit: 27, size: [ 1, 3, 3, 1 ])
+        @total_stocks = @pagy.count
         render :all
       else
         redirect_to stocks_path, status: :moved_permanently

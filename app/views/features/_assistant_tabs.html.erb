@@ -1,0 +1,13 @@
+<div class="flex flex-wrap items-center justify-center gap-2 mx-auto mb-8" data-controller="assistant-tabs">
+  <% categories.each do |category| %>
+    <%= link_to assistant_category_path(category: category[:data]),
+        class: "py-2 px-4 flex flex-row items-center gap-1 transition-all duration-150
+                #{active == category[:data] ?
+                  'font-medium rounded-full bg-gray-50' :
+                  'text-gray-500 hover:text-gray-700'}",
+        data: { turbo_frame: "assistant-content", action: "click->assistant-tabs#select" } do %>
+      <%= lucide_icon(category[:icon], variant: :mini, class: "w-5 h-5 mr-2") %>
+      <%= category[:text] %>
+    <% end %>
+  <% end %>
+</div>

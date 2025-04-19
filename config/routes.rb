@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get "/community", to: redirect("https://link.maybe.co/discord", status: 301)
   get "/early-access", to: redirect("https://app.maybefinance.com/early-access", status: 301)
 
+  get "features/assistant/:category", to: "features#assistant", as: "assistant_category"
+  get "features/assistant/:category/content", to: "features#assistant_content", as: "assistant_content"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :signups, only: [ :new, :create ]
@@ -47,6 +49,15 @@ Rails.application.routes.draw do
 
       # Stock symbol route
       get ":symbol", action: :show, constraints: { symbol: /[A-Z]+/ }
+    end
+  end
+
+  resources :features, only: [] do
+    collection do
+      get "tracking"
+      get "transactions"
+      get "budgeting"
+      get "assistant"
     end
   end
 

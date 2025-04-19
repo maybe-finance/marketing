@@ -1,0 +1,36 @@
+<div class="flex flex-wrap gap-x-2 gap-y-2">
+  <%= button_tag type: "button",
+      class: "flex flex-row items-center no-underline bg-white gap-x-2 py-2 px-3 border shadow-xs rounded-full hover:bg-gray-200/50",
+      data: {
+        controller: "clipboard",
+        clipboard_content_value: request.original_url,
+        action: "click->clipboard#copy"
+      } do %>
+    <%= lucide_icon "link-2", class: "inline h-5 w-5" %>
+    <span data-clipboard-target="button" class="text-base leading-[22px] mt-[1px]">Copy link</span>
+  <% end %>
+  <%= link_to "https://twitter.com/intent/tweet?url=#{CGI.escape(request.original_url)}",
+      target: "_blank",
+      class: "flex flex-row items-center no-underline bg-white gap-x-2 py-2 px-3 border shadow-xs rounded-full hover:bg-gray-200/50" do %>
+    <%= image_tag "share-x.svg", class: "inline h-5 w-5 m-0" %>
+    <span class="text-base leading-[22px] mt-[1px]">Share</span>
+  <% end %>
+  <%= link_to "https://www.threads.net/share?url=#{CGI.escape(request.original_url)}",
+      target: "_blank",
+      class: "flex flex-row items-center no-underline bg-white gap-x-2 py-2 px-3 border shadow-xs rounded-full hover:bg-gray-200/50" do %>
+    <%= image_tag "share-threads.svg", class: "inline h-5 w-5 m-0" %>
+    <span class="text-base mt-[1px] leading-[22px]">Share</span>
+  <% end %>
+  <%= link_to "https://www.linkedin.com/sharing/share-offsite/?url=#{CGI.escape(request.original_url)}",
+      target: "_blank",
+      class: "flex flex-row items-center no-underline bg-white gap-x-2 py-2 px-3 border shadow-xs rounded-full hover:bg-gray-200/50" do %>
+    <%= image_tag "share-linkedin.svg", class: "inline h-5 w-5 m-0" %>
+    <span class="text-base leading-[22px] mt-[1px]">Share</span>
+  <% end %>
+  <%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{CGI.escape(request.original_url)}",
+      target: "_blank",
+      class: "flex flex-row items-center no-underline bg-white gap-x-2 py-2 px-3 border shadow-xs rounded-full hover:bg-gray-200/50" do %>
+    <%= image_tag "share-fb.svg", class: "inline h-5 w-5 m-0" %>
+    <span class="text-base leading-[22px] mt-[1px]">Share</span>
+  <% end %>
+</div>

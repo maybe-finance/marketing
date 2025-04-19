@@ -1,20 +1,61 @@
 <%
-  title "Personal Finance Articles"
+  title "Maybe Blog"
   description "Jargon-free, in-depth articles on everything you need to know about personal finance and wealth management."
 %>
-
-<div class="max-w-[1100px] mx-auto text-center">
-  <div class="flex flex-col gap-y-2 max-w-[500px] mx-auto">
-    <div class="flex items-center justify-center gap-x-2">
-      <h1 class="text-3xl font-medium tracking-tight">Personal Finance Articles</h1>
-      <%= image_tag("icon-articles.svg", alt: "Articles", class: "inline") %>
+<div class="bg-contain bg-[left_0_top_0] bg-no-repeat" style="background-image: url(<%= asset_path('articles-bg.svg') %>)">
+  <div class="max-w-[1100px] mx-auto">
+    <%= image_tag("maybe-logo-glow-4x.png", alt: "Maybe Logo", style:"width: 115px; margin-left: -22px;", class: "mb-2 inline") %>
+    <h1 class="text-[4.5rem] text-gray-700 max-w-[600px] leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-2">Maybe Blog</h1>
+    <p class="text-xl font-normal leading-[1.4] max-w-[520px] text-gray-400 tracking-normal mb-2">Jargon-free, in-depth articles on everything you need to know about personal finance and wealth management.</p>
+    <div class="max-w-[400px] mb-12 flex flex-col gap-4">
+      <%= form_with( url: signups_path) do |f| %>
+        <div class="flex flex-row w-full p-1 mb-4 bg-white border shadow-xs rounded-xl mt-0">
+          <%= f.email_field :email, placeholder: "Enter your email address", class: "flex-1 border-0 px-2 focus:ring-0 text-sm", required: true %>
+          <%= f.submit "Subscribe", class: "py-2 px-3 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 border border-gray-900 text-sm" %>
+        </div>
+      <% end %>
+      <small class="text-sm leading-[1.4] text-gray-400">Subscribe to get our latest articles in your inbox. No spam.</small>
     </div>
-    <p class="text-sm text-gray-400">Jargon-free, in-depth articles on everything you need to know about personal finance and wealth management.</p>
-  </div>
-
-  <div class="grid grid-cols-[repeat(auto-fit,_minmax(min(288px,_100%),_1fr))] gap-4 mt-8">
-    <%= render @articles %>
+    <%# Featured (most recent) article %>
+    <div class="mb-12">
+      <%= link_to @featured_article, class: "flex flex-row gap-10 mb-[3.75rem]" do %>
+        <%= tag.div class: "min-h-[220px] md:min-h-[320px] lg:min-h-[420px] w-1/2 rounded-lg border p-1 shadow-xs bg-gradient-to-b #{article_gradient(@featured_article)}" %>
+        <div class="flex flex-col justify-end px-4 py-5 text-left w-1/2">
+          <span class="font-mono text-xs leading[1.5rem] mb-2 text-gray-500 uppercase">
+            <%= @featured_article.publish_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(@featured_article) %>
+          </span>
+          <h2 class="text-[2rem] leading-[2.25rem] font-medium mb-6 text-gray-900"><%= @featured_article.title %></h2>
+          <% if @featured_article.author_name.present? %>
+            <div class="flex flex-row items-center gap-3">
+              <%= author_image_tag @featured_article.author_name, class: "w-8 h-8 rounded-full bg-gray-100" %>
+              <p class="text-sm"><%= @featured_article.author_name %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <%# Grid of subsequent articles %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <% @articles.each do |article| %>
+          <%= link_to article, class: "block" do %>
+            <%= tag.div class: "min-h-[236px] mb-4 border shadow-sm rounded-lg bg-gradient-to-b #{article_gradient(article)}" %>
+            <div class="flex flex-col justify-between">
+              <h2 class="text-xl font-medium text-gray-900"><%= article.title %></h2>
+              <div class="flex flex-row items-center ">
+                <% if article.author_name.present? %>
+                  <%= author_image_tag article.author_name, class: "w-8 h-8 rounded-full bg-gray-100" %>
+                <% end %>
+                <span class="text-xs font-medium font-mono text-gray-500 uppercase">
+                  <%= article.publish_at.to_date.strftime("%B %-d, %Y") %> • <%= article_reading_time(article) %>  • INVESTING
+                </span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <%# Pagination %>
+      <div class="flex justify-center mt-12">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    </div>
   </div>
 </div>
-
-<%= render "shared/cta_waitlist" %>
