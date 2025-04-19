@@ -4,14 +4,19 @@
       <span class="text-gray-500">Features <%= lucide_icon "chevron-right", class: "text-gray-500 w-4 h-4 inline" %></span> Assistant
     </p>
     <h1 class="text-[4.5rem] text-gray-700 max-w-[400px] mx-auto  leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">Talk with your money</h1>
-    <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[400px] mx-auto">Ask questions and automate your finances with Maybe's AI assistant.</p>
+    <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[16em] mx-auto">Ask questions and automate your finances with Maybe's AI assistant.</p>
     <div class="mb-[3.75rem]"><%= render_signup_form %></div>
-    <%= image_tag "features/budgeting-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[654px] mx-auto"%>
+    <%= image_tag "features/assistant-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[654px] mx-auto"%>
   </section>
   <section class="bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
-    <div class="container mx-auto px-4 py-8">
-      <%= @my_active_category %>
-      <%= render "assistant_tabs", categories: @categories, active: @active_category %>
+    <div class="mx-auto text-center max-w-[30rem] mb-8">
+      <%= image_tag "assistant-avatar.png", alt: "Maybe Screenshot", class: "w-[90px]  mx-auto"%>
+      <h2 class="font-medium text-[3.5rem] leading-[3.75rem] tracking-[-0.05em] mb-4">Real answers<br/>
+        <span class="text-gray-400">really fast</span></h2>
+      <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 ">Maybe Assistant gives you real answers in seconds &mdash;no noise, no lag. It's fast, focused, and grounded in your actual financial data. </p>
+    </div>
+    <div class="container max-w-[1200px] mx-auto px-4">
+      <%= render "assistant_tabs", categories: @categories, active: @active_category, class: "mb-8" %>
       <%= turbo_frame_tag "assistant-content" do %>
         <div class="grid grid-cols-1 grid-flow-row">
           <div class="relative w-full" data-controller="masonry" style="margin: 0 -8px;">
