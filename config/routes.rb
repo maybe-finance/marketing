@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/tools/crypto-index-fund", to: redirect("/tools", status: 301)
   get "/tools/low-hanging-fruit-checklist", to: redirect("/tools", status: 301)
   get "/tools/vote", to: redirect("/tools", status: 301)
+  get "/ai", to: redirect("/features/assistant", status: 301)
   get "/ask", to: redirect("/", status: 301)
   get "/roadmap", to: redirect("/", status: 301)
   get "/podcast", to: redirect("/", status: 301)
