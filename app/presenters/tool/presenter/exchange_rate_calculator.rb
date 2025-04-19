@@ -18,19 +18,7 @@ class Tool::Presenter::ExchangeRateCalculator < Tool::Presenter
   end
 
   def current_rate
-    @current_rate ||= begin
-      return 1.0 if from_currency == to_currency
-
-      response = fetch_current_rate
-      Rails.logger.debug "Exchange Rate Response: #{response.inspect}"
-      # Rails.logger.debug "Response rate: #{response&.rate}"
-
-      response
-    rescue StandardError => e
-      Rails.logger.error "Failed to fetch exchange rate: #{e.message}"
-      Rails.logger.error e.backtrace.join("\n")
-      nil
-    end
+    fetch_current_rate
   end
 
   def legend_data
@@ -46,21 +34,25 @@ class Tool::Presenter::ExchangeRateCalculator < Tool::Presenter
   def plot_data
     end_date = Date.today
     start_date = end_date - 365.days
+    cache_key = "exchange_rates/#{from_currency}/#{to_currency}/#{start_date}/#{end_date}"
 
-    Rails.logger.debug "Fetching exchange rates from #{start_date} to #{end_date}"
+    Rails.logger.debug "Fetching exchange rates from #{start_date} to #{end_date}."
 
-    response = Provider::Synth.new.exchange_rates(
-      from_currency: from_currency,
-      to_currency: to_currency,
-      start_date: start_date,
-      end_date: end_date
-    )
+    response = Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+      Rails.logger.debug "Cache miss for #{cache_key}. Fetching from Synth API."
+      synth_client.exchange_rates(
+        from_currency: from_currency,
+        to_currency: to_currency,
+        start_date: start_date,
+        end_date: end_date
+      )
+    end
 
-    return [] unless response.success?
+    return [] unless response&.success?
 
-    Rails.logger.debug "Received rates: #{response.rates.first} to #{response.rates.last}"
+    Rails.logger.debug "Received rates (from cache or API): #{response.rates&.first} to #{response.rates&.last}"
 
-    response.rates.map do |rate_data|
+    (response.rates || []).map do |rate_data|
       date = Date.parse(rate_data["date"])
       {
         date: date,
@@ -105,24 +97,26 @@ class Tool::Presenter::ExchangeRateCalculator < Tool::Presenter
     end
 
     def fetch_current_rate
-      response = synth_client.exchange_rate(
-        from_currency: from_currency,
-        to_currency: to_currency
-      )
+      return 1.0 if from_currency == to_currency
 
-      response.success? ? response.rate : nil
-    end
+      cache_key = "exchange_rate/#{from_currency}/#{to_currency}"
+      Rails.logger.debug "Fetching current exchange rate for #{from_currency}/#{to_currency}."
 
-    def historical_rates
-      start_date = 1.year.ago.to_date
-      end_date = Date.today
+      response = Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+        Rails.logger.debug "Cache miss for #{cache_key}. Fetching from Synth API."
+        synth_client.exchange_rate(
+          from_currency: from_currency,
+          to_currency: to_currency
+        )
+      end
 
-      synth_client.exchange_rates(
-        from_currency: from_currency,
-        to_currency: to_currency,
-        start_date: start_date,
-        end_date: end_date
-      ).rates
+      Rails.logger.debug "Exchange Rate Response (from cache or API): #{response.inspect}"
+
+      response&.success? ? response.rate : nil
+    rescue StandardError => e
+      Rails.logger.error "Failed to fetch exchange rate: #{e.message}"
+      Rails.logger.error e.backtrace.join("\n")
+      nil
     end
 
     def synth_client

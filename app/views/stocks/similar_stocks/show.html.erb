@@ -1,9 +1,9 @@
 <%= turbo_frame_tag "stock_similar_stocks" do %>
-  <% if @similar_stocks_data.present? %>
+  <% if @similar_stocks.present? %>
     <div class="mt-4">
       <span class="text-base text-gray-800">Other stocks</span>
       <div class="space-y-3 mt-2">
-        <% @similar_stocks_data.each_with_index do |stock_data, index| %>
+        <% @similar_stocks.each_with_index do |stock_data, index| %>
           <%= link_to stock_path("#{stock_data[:symbol]}:#{stock_data[:mic_code]}"), class: "block", data: { turbo: false } do %>
             <div class="flex items-start justify-between space-x-4 <%= index < @similar_stocks_data.size - 1 ? 'border-b border-gray-200 pb-3' : '' %>">
               <div class="flex items-center">

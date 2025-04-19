@@ -17,11 +17,19 @@ class Stocks::ChartController < ApplicationController
       @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
     end
 
-    # return redirect_to stocks_path if @stock.nil?
+    time_range = params[:time_range].presence || "1M"
+    cache_key = "stock_chart/v3/#{@stock.symbol}:#{@stock.mic_code}/#{time_range}"
 
-    time_range = params[:time_range].presence || "1M"  # Set default if nil or empty
+    if cached = Rails.cache.read(cache_key)
+      @stock_chart = cached
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @stock_chart }
+      end
+      return
+    end
 
-    @stock_chart = Rails.cache.fetch("stock_chart/v3/#{@stock.symbol}:#{@stock.mic_code}/#{time_range}", expires_in: 12.hours) do
+    @stock_chart = Rails.cache.fetch(cache_key, expires_in: 12.hours) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
@@ -58,20 +66,22 @@ class Stocks::ChartController < ApplicationController
           currency = "USD"
         end
 
-        {
+        chart_data = {
           latest_price: latest_price,
           price_change: price_change,
           price_change_percentage: price_change_percentage,
           currency: currency,
           prices: valid_prices
         }
+        chart_data
       else
+        Rails.logger.error "ChartController#show - Failed to fetch data: #{response.status}"
         { error: "Unable to fetch stock data" }
       end
     end
 
     respond_to do |format|
-      format.html
+      format.html { render :show }
       format.json { render json: @stock_chart }
     end
   end

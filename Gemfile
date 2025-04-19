@@ -17,6 +17,9 @@ gem "propshaft"
 gem "tailwindcss-rails"
 gem "lucide-rails", github: "maybe-finance/lucide-rails"
 
+# Background Jobs
+gem "sidekiq"
+
 # Hotwire
 gem "stimulus-rails"
 gem "turbo-rails"
@@ -50,6 +53,8 @@ group :development do
   gem "hotwire-livereload"
   gem "ruby-lsp-rails"
   gem "annotate"
+  gem "rails_performance"
+  gem "rack-mini-profiler"
 end
 
 group :test do
