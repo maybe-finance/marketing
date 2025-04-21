@@ -14,9 +14,8 @@ module ContentBlocksHelper
     # Use safe_join to concatenate HTML strings safely
     safe_join(blocks.map do |block|
       # Wrap each block's content in a div for potential styling/identification
-      # Use simple_format for basic text formatting and sanitization (newlines -> <br>, paragraphs -> <p>)
-      # Consider ActionText for rich text editing and more robust sanitization.
-      content_tag(:div, simple_format(block.content), class: "content-block mb-6", data: { content_block_id: block.id })
+      # Use the markdown helper for rendering markdown content.
+      content_tag(:div, markdown(block.content), class: "content-block mb-6 prose max-w-none", data: { content_block_id: block.id })
     end)
   end
 end

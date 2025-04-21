@@ -159,10 +159,13 @@ GEM
       rubocop (>= 1)
       smart_properties
     erubi (1.13.1)
+    event_stream_parser (1.0.0)
     faraday (2.13.0)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
+    faraday-multipart (1.1.0)
+      multipart-post (~> 2.0)
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
     ffi (1.17.1)
@@ -238,6 +241,7 @@ GEM
     msgpack (1.8.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
+    multipart-post (2.4.1)
     net-http (0.6.0)
       uri
     net-imap (0.5.6)
@@ -388,6 +392,10 @@ GEM
       sorbet-runtime (>= 0.5.10782)
     ruby-lsp-rails (0.4.0)
       ruby-lsp (>= 0.23.0, < 0.24.0)
+    ruby-openai (8.1.0)
+      event_stream_parser (>= 0.3.0, < 2.0.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
@@ -505,6 +513,7 @@ DEPENDENCIES
   revise_auth
   rubocop-rails-omakase
   ruby-lsp-rails
+  ruby-openai
   selenium-webdriver
   sentry-rails
   sentry-ruby
