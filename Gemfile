@@ -38,6 +38,7 @@ gem "vernier"
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "logtail-rails"
+gem "skylight"
 gem "ffi", ">= 1.17", force_ruby_platform: true
 
 group :development, :test do
