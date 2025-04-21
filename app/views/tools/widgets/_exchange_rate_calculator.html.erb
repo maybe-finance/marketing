@@ -26,8 +26,15 @@
   </div>
 </div>
 
-<div class="max-w-full mt-10 mx-auto prose prose-img:m-0 prose-headings:font-medium prose-a:no-underline bg-white border shadow-xs sm:rounded-xl p-4">
-  <div class=" grid grid-cols-1 md:grid-cols-2 gap-8">
+<% if ContentBlock.for_path(request.path).any? %>
+<div class="max-w-full mt-6 mx-auto prose prose-img:m-0 prose-headings:font-medium prose-a:no-underline bg-white border shadow-xs sm:rounded-xl p-6">
+  <h2 class="text-xl font-medium mb-4 mt-0">Market analysis of <%= tool.from_currency %> to <%= tool.to_currency %> currency exchange rates</h2>
+  <%= render_content_blocks(request.path) %>
+</div>
+<% end %>
+
+<div class="max-w-full mt-6 mx-auto prose prose-img:m-0 prose-headings:font-medium prose-a:no-underline bg-white border shadow-xs sm:rounded-xl p-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div class="bg-gray-50 rounded-lg p-6">
       <h3 class="text-lg font-medium mb-4 mt-0">Convert <%= tool.from_currency %> to <%= tool.to_currency %></h3>
       <div class="space-y-1">

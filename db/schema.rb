@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_11_200851) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_21_183301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_11_200851) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "meta_image_url"
+  end
+
+  create_table "content_blocks", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "url_pattern", null: false
+    t.string "match_type", default: "exact", null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_content_blocks_on_active"
+    t.index ["url_pattern"], name: "index_content_blocks_on_url_pattern"
   end
 
   create_table "stock_prices", force: :cascade do |t|

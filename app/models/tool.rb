@@ -2,18 +2,19 @@
 #
 # Table name: tools
 #
-#  id             :bigint           not null, primary key
-#  category_slug  :string
-#  content        :text
-#  description    :text
-#  icon           :string
-#  intro          :text
-#  meta_image_url :string
+#  id             :integer          not null, primary key
 #  name           :string
 #  slug           :string
+#  intro          :text
+#  description    :text
+#  content        :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  category_slug  :string
+#  icon           :string
+#  meta_image_url :string
 #
+
 class Tool < ApplicationRecord
   include MetaImage
 

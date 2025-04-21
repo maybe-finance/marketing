@@ -2,16 +2,17 @@
 #
 # Table name: articles
 #
-#  id             :bigint           not null, primary key
-#  author_name    :string
-#  content        :text
-#  meta_image_url :string
-#  publish_at     :datetime
-#  slug           :string
+#  id             :integer          not null, primary key
 #  title          :string
+#  slug           :string
+#  content        :text
+#  publish_at     :datetime
+#  author_name    :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  meta_image_url :string
 #
+
 class Article < ApplicationRecord
   include MetaImage
 
