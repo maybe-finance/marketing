@@ -34,20 +34,24 @@ class Tool::Presenter::ExchangeRateCalculator < Tool::Presenter
   def plot_data
     end_date = Date.today
     start_date = end_date - 365.days
-    cache_key = "exchange_rates/#{from_currency}/#{to_currency}/#{start_date}/#{end_date}"
+    cache_key = "exchange_rates/v2/#{from_currency}/#{to_currency}/#{start_date}/#{end_date}"
 
     Rails.logger.debug "Fetching exchange rates from #{start_date} to #{end_date}."
 
     response = Rails.cache.fetch(cache_key, expires_in: 24.hours) do
       Rails.logger.debug "Cache miss for #{cache_key}. Fetching from Synth API."
-      synth_client.exchange_rates(
+      api_response = synth_client.exchange_rates(
         from_currency: from_currency,
         to_currency: to_currency,
         start_date: start_date,
         end_date: end_date
       )
+
+      # Only return the response for caching if it was successful
+      api_response if api_response&.success?
     end
 
+    # If response is nil (cache miss failed, or cached nil) or not successful, return empty
     return [] unless response&.success?
 
     Rails.logger.debug "Received rates (from cache or API): #{response.rates&.first} to #{response.rates&.last}"
@@ -99,19 +103,24 @@ class Tool::Presenter::ExchangeRateCalculator < Tool::Presenter
     def fetch_current_rate
       return 1.0 if from_currency == to_currency
 
-      cache_key = "exchange_rate/#{from_currency}/#{to_currency}"
+      cache_key = "exchange_rate/v2/#{from_currency}/#{to_currency}"
       Rails.logger.debug "Fetching current exchange rate for #{from_currency}/#{to_currency}."
 
+      # Fetch from cache or execute the block if missed
       response = Rails.cache.fetch(cache_key, expires_in: 24.hours) do
         Rails.logger.debug "Cache miss for #{cache_key}. Fetching from Synth API."
-        synth_client.exchange_rate(
+        api_response = synth_client.exchange_rate(
           from_currency: from_currency,
           to_currency: to_currency
         )
+
+        # Only return the response for caching if it was successful
+        api_response if api_response&.success?
       end
 
       Rails.logger.debug "Exchange Rate Response (from cache or API): #{response.inspect}"
 
+      # Return the rate if the response (cached or fresh) is successful, otherwise nil
       response&.success? ? response.rate : nil
     rescue StandardError => e
       Rails.logger.error "Failed to fetch exchange rate: #{e.message}"
