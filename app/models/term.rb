@@ -2,21 +2,22 @@
 #
 # Table name: terms
 #
-#  id                  :bigint           not null, primary key
-#  content             :text
-#  meta_image_url      :string
+#  id                  :integer          not null, primary key
 #  name                :string
-#  slug                :string
 #  title               :string
-#  video_description   :text
-#  video_duration      :string
-#  video_thumbnail_url :string
-#  video_title         :string
-#  video_upload_date   :date
+#  content             :text
+#  slug                :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  video_id            :string
+#  video_title         :string
+#  video_description   :text
+#  video_thumbnail_url :string
+#  video_upload_date   :date
+#  video_duration      :string
+#  meta_image_url      :string
 #
+
 class Term < ApplicationRecord
   include MetaImage
 
