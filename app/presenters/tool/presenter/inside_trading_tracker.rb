@@ -70,7 +70,7 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
     end
 
     def insider_data
-      @insider_data ||= Rails.cache.fetch("insider_trades/v2/#{symbol}/#{180.days.ago.to_date}/#{Date.today}/250", expires_in: 6.hours) do
+      @insider_data ||= Rails.cache.fetch("insider_trades/v2/#{symbol}/#{180.days.ago.to_date}/#{Date.today}/250", expires_in: 12.hours) do
         response = Provider::Synth.new.insider_trades(
           ticker: symbol,
           start_date: 180.days.ago,
@@ -87,7 +87,7 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
     end
 
     def recent_insider_trades
-      Rails.cache.fetch("recent_insider_trades/#{Date.today}", expires_in: 6.hours) do
+      Rails.cache.fetch("recent_insider_trades/#{Date.today}", expires_in: 12.hours) do
         response = Provider::Synth.new.recent_insider_trades(limit: 250)
         return [] unless response[:trades]&.any?
         format_trades(response[:trades])
@@ -137,7 +137,7 @@ class Tool::Presenter::InsideTradingTracker < Tool::Presenter
     def fetch_filtered_trades(filters = {})
       cache_key = "filtered_insider_trades/v2/#{filters.to_json}/#{90.days.ago.to_date}/#{Date.today}"
 
-      Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
+      Rails.cache.fetch(cache_key, expires_in: 12.hours) do
         Rails.logger.warn "Fetching filtered trades with filters: #{filters}"
         response = Provider::Synth.new.recent_insider_trades(
           start_date: 90.days.ago,
