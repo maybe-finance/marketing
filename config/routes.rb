@@ -1,7 +1,10 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   revise_auth
 
   authenticated -> { _1.admin? } do
+    mount Sidekiq::Web => "/sidekiq"
     mount Avo::Engine, at: Avo.configuration.root_path
   end
 

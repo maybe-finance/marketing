@@ -1,7 +1,7 @@
 <%
   title params[:from_currency] && params[:to_currency] ?
-    "#{tool.amount.to_i} #{tool.from_currency} to #{tool.to_currency} Currency Exchange Rate Converter" :
-    "Exchange Rate Calculator"
+    "#{tool.amount.to_i} #{tool.from_currency} to #{tool.to_currency} Currency Exchange Rate Converter and Market Analysis" :
+    "Exchange Rate Calculator and Market Analysis"
 %>
 <div class="flex items-center text-center justify-center mb-8 -mt-8">
   <%= link_to "https://synthfinance.com", target: "_blank", class: "flex items-center gap-2 text-sm text-gray-600 hover:bg-gray-200 rounded-lg px-[10px] py-1 transition-all duration-300" do %>
@@ -24,8 +24,17 @@
     <% end %>
   </div>
 </div>
-<div class="max-w-full mt-10 mx-auto prose prose-img:m-0 prose-headings:font-medium prose-a:no-underline bg-white border shadow-xs sm:rounded-xl p-4">
-  <div class=" grid grid-cols-1 md:grid-cols-2 gap-8">
+<% if ContentBlock.for_path(request.path).any? %>
+  <div class="max-w-full mt-6 mx-auto prose prose-img:m-0 prose-headings:font-medium prose-a:no-underline bg-white border shadow-xs sm:rounded-xl p-6">
+    <h2 class="text-2xl font-medium mb-0 mt-0">Market analysis of <%= tool.from_currency %> to <%= tool.to_currency %> currency exchange rates</h2>
+    <% if content_block = ContentBlock.for_path(request.path).first %>
+      <p class="text-sm text-gray-500 mb-4">Analysis as of <%= content_block.created_at.strftime("%B %Y") %></p>
+    <% end %>
+    <%= render_content_blocks(request.path) %>
+  </div>
+<% end %>
+<div class="max-w-full mt-6 mx-auto prose prose-img:m-0 prose-headings:font-medium prose-a:no-underline bg-white border shadow-xs sm:rounded-xl p-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div class="bg-gray-50 rounded-lg p-6">
       <h3 class="text-lg font-medium mb-4 mt-0">Convert <%= tool.from_currency %> to <%= tool.to_currency %></h3>
       <div class="space-y-1">

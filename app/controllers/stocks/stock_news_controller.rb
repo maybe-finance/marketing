@@ -1,11 +1,4 @@
-# This controller handles requests for stock news.
-# It fetches news articles related to a specific stock from the Synth Finance API.
-class Stocks::NewsController < ApplicationController
-  # GET /stocks/:stock_ticker/news
-  # Retrieves and displays news articles for a specific stock.
-  #
-  # @param stock_ticker [String] The ticker symbol of the stock (passed in the URL)
-  # @return [Array] An array of news articles related to the specified stock
+class Stocks::StockNewsController < ApplicationController
   def show
     if params[:stock_ticker].include?(":")
       symbol, mic_code = params[:stock_ticker].split(":")
@@ -16,14 +9,11 @@ class Stocks::NewsController < ApplicationController
 
     if cached = Rails.cache.read("stock_news/v2/#{@stock.symbol}:#{@stock.mic_code}")
       @news = cached
-      respond_to do |format|
-        format.html { render :show }
-        format.json { render json: @news }
-      end
+      render :show
       return
     end
 
-    @news = Rails.cache.fetch("stock_news/v2/#{@stock.symbol}:#{@stock.mic_code}", expires_in: 12.hours) do
+    @news = Rails.cache.fetch("stock_news/v2/#{@stock.symbol}:#{@stock.mic_code}", expires_in: 1.hour) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
@@ -41,7 +31,7 @@ class Stocks::NewsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :show }
+      format.html
       format.json { render json: @news }
     end
   end

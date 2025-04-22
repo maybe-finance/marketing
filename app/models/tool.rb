@@ -2,18 +2,19 @@
 #
 # Table name: tools
 #
-#  id             :bigint           not null, primary key
-#  category_slug  :string
-#  content        :text
-#  description    :text
-#  icon           :string
-#  intro          :text
-#  meta_image_url :string
+#  id             :integer          not null, primary key
 #  name           :string
 #  slug           :string
+#  intro          :text
+#  description    :text
+#  content        :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  category_slug  :string
+#  icon           :string
+#  meta_image_url :string
 #
+
 class Tool < ApplicationRecord
   include MetaImage
 
@@ -52,7 +53,9 @@ class Tool < ApplicationRecord
 
   class << self
     def presenter_from(params)
-      name = find_by!(slug: params.delete("slug")).slug.delete_prefix("401k-").tr("-", "_").classify
+      slug = params.delete("slug")
+      tool = find_by!(slug: slug)
+      name = tool.slug.delete_prefix("401k-").tr("-", "_").classify
       "Tool::Presenter::#{name}".constantize.new(params)
     end
   end

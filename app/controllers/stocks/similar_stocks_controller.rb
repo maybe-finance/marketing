@@ -14,7 +14,28 @@ class Stocks::SimilarStocksController < ApplicationController
       @stock = Stock.find_by(symbol: params[:stock_ticker], country_code: "US")
     end
 
-    @similar_stocks_data = Rails.cache.fetch("similar_stocks/v2/#{@stock.symbol}/#{@stock.mic_code}", expires_in: 6.hours) do
+    cache_key = "similar_stocks/v2/#{@stock.symbol}:#{@stock.mic_code}"
+
+    cached_data = Rails.cache.read(cache_key)
+
+    if cached_data.present?
+
+      # Ensure we have an array of hashes
+      if cached_data.is_a?(Array) && cached_data.all? { |item| item.is_a?(Hash) }
+        @similar_stocks = cached_data.map { |stock| stock.transform_keys(&:to_sym) }
+
+        respond_to do |format|
+          format.html { render :show }
+          format.json { render json: @similar_stocks }
+        end
+        return
+      else
+        Rails.logger.error "SimilarStocksController#show - Invalid cache format, deleting cache and fetching fresh data"
+        Rails.cache.delete(cache_key)
+      end
+    end
+
+    @similar_stocks = Rails.cache.fetch(cache_key, expires_in: 6.hours) do
       headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{ENV['SYNTH_API_KEY']}",
@@ -23,31 +44,42 @@ class Stocks::SimilarStocksController < ApplicationController
       }
 
       response = Faraday.get("https://api.synthfinance.com/tickers/#{@stock.symbol}/related?mic_code=#{@stock.mic_code}", nil, headers)
-      data = JSON.parse(response.body)["data"]
 
-      similar_stocks = []
-      data["related_tickers"].each do |related_stock|
-        break if similar_stocks.size == 6
+      if response.success?
+        data = JSON.parse(response.body)["data"]
+        similar_stocks = []
 
-        market_data = related_stock["market_data"]
-        next if market_data.nil? || market_data.empty?
-        next if market_data["open_today"].nil? || market_data["price_change"].nil? || market_data["percent_change"].nil?
+        data["related_tickers"].each do |related_stock|
+          break if similar_stocks.size == 6
 
-        current_price = market_data["open_today"].to_f
-        price_change = market_data["price_change"]
-        percent_change = market_data["percent_change"]
+          market_data = related_stock["market_data"]
+          next if market_data.nil? || market_data.empty?
+          next if market_data["open_today"].nil? || market_data["price_change"].nil? || market_data["percent_change"].nil?
 
-        similar_stocks << {
-          name: related_stock["name"],
-          symbol: related_stock["ticker"],
-          mic_code: related_stock["exchange"]["mic_code"],
-          current_price: current_price,
-          price_change: price_change,
-          percent_change: percent_change
-        }
+          current_price = market_data["open_today"].to_f
+          price_change = market_data["price_change"]
+          percent_change = market_data["percent_change"]
+
+          similar_stocks << {
+            name: related_stock["name"],
+            symbol: related_stock["ticker"],
+            mic_code: related_stock["exchange"]["mic_code"],
+            current_price: current_price,
+            price_change: price_change,
+            percent_change: percent_change
+          }
+        end
+
+        similar_stocks
+      else
+        Rails.logger.error "SimilarStocksController#show - Failed to fetch data: #{response.status}"
+        []
       end
+    end
 
-      similar_stocks
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @similar_stocks }
     end
   end
 end

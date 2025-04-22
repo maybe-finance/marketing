@@ -2,12 +2,12 @@
 #
 # Table name: stock_prices
 #
-#  id         :bigint           not null, primary key
-#  date       :string
-#  month      :integer
-#  price      :float
+#  id         :integer          not null, primary key
 #  ticker     :string
+#  price      :float
+#  month      :integer
 #  year       :integer
+#  date       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -15,6 +15,7 @@
 #
 #  index_stock_prices_on_ticker  (ticker)
 #
+
 require "test_helper"
 
 class StockPriceTest < ActiveSupport::TestCase

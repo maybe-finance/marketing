@@ -17,6 +17,9 @@ gem "propshaft"
 gem "tailwindcss-rails"
 gem "lucide-rails", github: "maybe-finance/lucide-rails"
 
+# Background Jobs
+gem "sidekiq"
+
 # Hotwire
 gem "stimulus-rails"
 gem "turbo-rails"
@@ -35,7 +38,9 @@ gem "bannerbear"
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "logtail-rails"
+gem "skylight"
 gem "ffi", ">= 1.17", force_ruby_platform: true
+gem "ruby-openai"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
@@ -50,6 +55,8 @@ group :development do
   gem "hotwire-livereload"
   gem "ruby-lsp-rails"
   gem "annotate"
+  gem "rails_performance"
+  gem "rack-mini-profiler"
 end
 
 group :test do
