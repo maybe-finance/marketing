@@ -23,6 +23,11 @@ module.exports = {
       soft: "0 0 0 10px rgba(0, 0, 0, 0.02)",
       "2xl": "0px 24px 48px -12px rgba(11, 11, 11, 0.12)",
       "3xl": "0px 32px 64px -12px rgba(11, 11, 11, 0.14)",
+      'btn-dark-inset-1': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.3)',
+      'btn-dark-inset-2': 'inset 0 0 1px 0 #000000',
+      'btn-dark-inset-3': 'inset 0 9px 14px -5px rgba(255, 255, 255, 0.3)',
+      'btn-plain-inset-1': 'inset 0 0 0 1px rgba(0, 0, 0, 0.1)',
+      'btn-plain-inset-2': 'inset 0 -6px 6px -5px rgba(30, 30, 30, 0.08)',
     },
     borderRadius: {
       none: "0",
