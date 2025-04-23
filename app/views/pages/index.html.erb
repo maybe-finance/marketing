@@ -10,7 +10,7 @@
     <div class="mb-9 inline-flex items-center backdrop-blur rounded-3xl gap-3">
       <div class="flex items-center gap-2 border shadow-lg backdrop-blur border-black/10 rounded-xl px-2 py-1.5">
         <%= image_tag "badge-github.svg", alt: "github", class: "h-5 w-5 inline" %>
-        <span class="font-mono text-sm leading-5">41.6k</span>
+        <span class="font-mono text-sm leading-5"><%= number_to_k(@stars) %></span>
       </div>
       <div class="flex items-center gap-2 border shadow-lg backdrop-blur border-black/10 rounded-xl p-[5px]">
         <%= image_tag "badge-discord.svg", alt: "discord", class: "h-5 w-5 inline" %>
