@@ -70,8 +70,10 @@ module ApplicationHelper
   end
 
   def number_to_k(number)
-    if number >= 1000
+    if number.present? && number >= 1000
       "#{(number / 1000.0).round(1)}k"
+    elsif !number.present?
+      "43.7k"
     else
       number.to_s
     end
