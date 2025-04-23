@@ -12,6 +12,68 @@
   }
 }
 
+.rainbow-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+}
+
+.rainbow-button::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(circle at var(--x, 0) var(--y, 0),
+      var(--color-a) 0%,
+      var(--color-b) 25%,
+      var(--color-c) 50%);
+  background-size: var(--size, 400px) var(--size, 400px);
+  background-position: center;
+  mask: linear-gradient(white, white) content-box,
+    linear-gradient(white, white);
+  mask-composite: exclude;
+  z-index: -1;
+  transition: 0.4s ease-in-out;
+  transition-property: background-size, background-position;
+}
+
+.rainbow-button:hover::before {
+  background-size: calc(var(--size, 400px) * 1.2) calc(var(--size, 400px) * 1.2);
+}
+
+/* Mobile Menu Animations */
+.mobile-menu-enter {
+  transform: translateX(100%);
+}
+
+.mobile-menu-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms ease-in-out;
+}
+
+.mobile-menu-exit {
+  transform: translateX(0);
+}
+
+.mobile-menu-exit-active {
+  transform: translateX(100%);
+  transition: transform 300ms ease-in-out;
+}
+
+/* Dropdown Animations */
+[data-dropdown-target="icon"] {
+  transition: transform 200ms ease-in-out;
+}
+
+[data-dropdown-target="icon"].rotate {
+  transform: rotate(180deg);
+}
+
+/* Mobile Menu Content */
+.mobile-menu-content {
+  height: calc(100vh - 4rem - 6px);
+  overflow-y: auto;
+}
+
 @layer components {
   .form-field {
     @apply relative bg-white border rounded-md shadow-xs border-alpha-black-100;
