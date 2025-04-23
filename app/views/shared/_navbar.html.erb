@@ -44,11 +44,11 @@
       <a href="/pricing" class="px-3 py-1.5 <%= current_page?('/pricing') ? 'text-gray-900 font-medium' : 'text-gray-800' %> hover:text-gray-9000 hover:bg-alpha-black-50 rounded-xl">Pricing</a>
       <a href="https://github.com/maybe-finance/maybe" class="px-3 py-1.5 text-gray-800 hover:text-gray-9000 hover:bg-alpha-black-50 rounded-xl">Contribute</a>
     </menu>
-    <menu class="flex hidden gap-x-2 md:flex">
-      <%= link_to "https://github.com/maybe-finance/maybe", class: "py-1.5 pl-3 pr-2 text-sm leading-[18px] font-medium text-black group rounded-xl hover:bg-alpha-black-50 bg-transparent border-[1px] border-gray-300 hover:border-gray-300 flex items-center gap-1" do %>
-        Sign in <%= lucide_icon("chevron-right", alt: "Menu", class: "text-gray-500 group-hover:text-gray-800 transition-all duration-150 ease-in-out w-4 h-4") %>
+    <menu class="flex hidden gap-x-2 md:flex font-medium">
+      <%= link_to "Sign in", "https://github.com/maybe-finance/maybe", class: "py-2 px-3 text-sm leading-[18px] text-black group rounded-lg hover:bg-alpha-black-50 bg-transparent border-[1px] border-gray-300 hover:border-gray-300 flex items-center gap-1 shadow-btn-plain-inset-1 shadow-btn-plain-inset-2" %>
+      <%= link_to  "/#waitlist", class: "p-2 pl-3 text-sm leading-[18px] text-white bg-gray-900 rounded-lg group hover:bg-gray-800 border-[1px] border-gray-900 flex items-center gap-1 shadow-btn-dark-inset-1 shadow-btn-dark-inset-2 shadow-btn-dark-inset-3" do %>
+        Sign up <%= lucide_icon("chevron-right", alt: "Menu", class: "text-gray-500 group-hover:text-white transition-all duration-150 ease-in-out w-4 h-4") %>
       <% end %>
-      <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-1.5 text-sm font-medium leading-[18px] text-white bg-gray-900 rounded-xl hover:bg-gray-800 border-[1px] border-gray-900" %>
     </menu>
     <%= lucide_icon("menu", alt: "Menu", class: "w-6 h-6 md:hidden", 'data-action': 'click->navbar#toggleMobileMenu') %>
     <div class="flex flex-col hidden w-full mt-4 font-medium md:hidden" data-navbar-target="mobileMenu">
@@ -57,6 +57,9 @@
           <li><%= link_to link[:text], link[:path], class: link[:class] %></li>
         <% end %>
         <div class="flex flex-col gap-y-3">
+          <li>
+            <%= link_to "https://github.com/maybe-finance/maybe"  "Sign in", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" %>
+          </li>
           <li>
             <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
               Sign in <%= lucide_icon("chevron-right", alt: "Menu", class: "bg-gray-500 w-6 h-6 md:hidden") %>
