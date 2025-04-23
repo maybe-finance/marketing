@@ -110,4 +110,33 @@
       </section>
     </div>
   </section>
+  <%# FAQ Section %>
+  <section class="py-16 px-4">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-3xl font-semibold text-gray-900 mb-8 text-center">Frequently asked questions</h2>
+      <dl class="space-y-4 first:rounded-xl last:rounded-xl" data-controller="faq">
+        <% faq_questions.each_with_index do |faq, index| %>
+          <div class="<%= index == 0 ? 'rounded-t-2xl' : index == faq_questions.length - 1 ? 'rounded-b-2xl' : '' %> border border-gray-200 bg-white">
+            <dt>
+              <button
+                class="flex w-full items-center justify-between p-6 text-left"
+                data-action="faq#toggle"
+                data-faq-target="question"
+                aria-expanded="false"
+              >
+                <span class="text-base font-medium text-gray-900"><%= faq[:question] %></span>
+                <%= lucide_icon "x", class: "w-5 h-5 text-gray-500 rotate-45 transition-transform duration-200",
+                    data: { faq_target: "icon" } %>
+              </button>
+            </dt>
+            <dd class="hidden overflow-hidden transition-[height] duration-200 ease-out" data-faq-target="answer">
+              <div class="px-6 pb-6 text-base text-gray-600">
+                <%= faq[:answer].html_safe %>
+              </div>
+            </dd>
+          </div>
+        <% end %>
+      </dl>
+    </div>
+  </section>
 </article>
