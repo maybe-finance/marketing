@@ -68,4 +68,12 @@ module ApplicationHelper
 
     text.present? ? markdown.render(text).html_safe : ""
   end
+
+  def number_to_k(number)
+    if number >= 1000
+      "#{(number / 1000.0).round(1)}k"
+    else
+      number.to_s
+    end
+  end
 end
