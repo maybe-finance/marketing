@@ -1,8 +1,60 @@
 <header class="flex sticky top-0 z-50 flex-wrap">
   <%= image_tag "border-strip.svg", alt: "Maybe Stripe", class: "object-cover w-full h-[6px]" %>
-  <nav class="flex items-center justify-between w-full py-4 px-6 bg-transparent bg-blur-xl backdrop-blur-xl" data-controller="navbar" data-navbar-hidden-class="hidden">
+  <%# Mobile Navbar %>
+  <nav class="flex flex-col justify-between w-full py-4 px-6 bg-transparent bg-blur-xl backdrop-blur-xl md:hidden" data-controller="navbar">
+    <menu class="flex gap-x-2 md:flex font-medium items-center justify-between" data-navbar-target="mobileNavMenu">
+      <%= link_to image_tag("maybe-logo-mark.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
+      <div class="flex items-center">
+        <%= link_to "Sign in", "https://github.com/maybe-finance/maybe", class: "py-2 px-3 mr-2 text-sm leading-[18px] text-black group rounded-lg hover:bg-alpha-black-50 bg-transparent border-[1px] border-gray-300 hover:border-gray-300 flex items-center gap-1 shadow-btn-plain-inset-1 shadow-btn-plain-inset-2" %>
+        <%= link_to "/#waitlist", class: "p-2 pl-3 mr-4 text-sm leading-[18px] text-white bg-gray-900 rounded-lg group hover:bg-gray-800 border-[1px] border-gray-900 flex items-center gap-1 shadow-btn-dark-inset-1 shadow-btn-dark-inset-2 shadow-btn-dark-inset-3 rainbow-button" do %>
+          Sign up <%= lucide_icon("chevron-right", alt: "Menu", class: "text-gray-500 group-hover:text-white transition-all duration-150 ease-in-out w-4 h-4") %>
+        <% end %>
+        <%= lucide_icon("menu", alt: "Menu", class: "w-6 h-6", data: { navbar_target: "menuIcon", action: "click->navbar#toggleMobileMenu" }) %>
+        <%= lucide_icon("x", alt: "Close", class: "w-6 h-6 hidden", data: { navbar_target: "closeIcon", action: "click->navbar#toggleMobileMenu" }) %>
+      </div>
+    </menu>
+    <%# Mobile Menu Content %>
+    <div class="fixed inset-x-0 top-[calc(4rem+6px)] transition-opacity duration-300 opacity-0 invisible h-[calc(100vh-4rem-6px)] overflow-y-auto bg-cover bg-no-repeat" style="background-image: url(<%= asset_path('site-bg.svg') %>)" data-navbar-target="mobileMenu">
+      <div class="p-6 flex flex-col gap-6">
+        <div data-controller="dropdown">
+          <button data-action="dropdown#toggle" class="flex items-center justify-between w-full text-gray-700">
+            <span class="text-xl leading-[150%]">Product</span>
+            <%= lucide_icon("chevron-down", class: "w-6 h-6 transition-transform", data: { dropdown_target: "icon" }) %>
+          </button>
+          <div class="hidden mt-4 space-y-6" data-dropdown-target="content">
+            <% header_nav_products.each do |item| %>
+              <%= link_to item[:path], class: "flex items-center gap-x-3 transition ease-in-out duration-150" do %>
+                <div class="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-md text-gray-800 bg-white border border-gray-300">
+                  <%= lucide_icon(item[:icon], class: "w-6 h-6") %>
+                </div>
+                <div class="flex flex-col text-sm gap-0">
+                  <p class="font-medium text-gray-900"><%= item[:title] %></p>
+                  <p class="text-sm text-gray-500"><%= item[:description] %></p>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div data-controller="dropdown">
+          <button data-action="dropdown#toggle" class="flex items-center justify-between w-full text-gray-700">
+            <span class="text-xl leading-[150%]">Resources</span>
+            <%= lucide_icon("chevron-down", class: "w-6 h-6 transition-transform", data: { dropdown_target: "icon" }) %>
+          </button>
+          <div class="hidden mt-4" data-dropdown-target="content">
+            <%= render "shared/mobile_resources_menu", mobile: true %>
+          </div>
+        </div>
+        <%= link_to "Pricing", pricing_path, class: "text-xl leading-[150%] text-gray-700" %>
+        <%= link_to "https://github.com/maybe-finance/maybe", class: "text-xl leading-[150%] flex items-center justify-between text-base text-gray-700" do %>
+          Contribute <%= lucide_icon("arrow-up-right", class: "w-6 h-6") %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+  <%# Desktop Navbar %>
+  <nav class="items-center justify-between w-full py-4 px-6 bg-transparent bg-blur-xl backdrop-blur-xl hidden md:flex" data-controller="navbar" data-navbar-hidden-class="hidden">
     <div class="flex items-center gap-x-3">
-      <%= link_to image_tag("logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
+      <%= link_to image_tag("maybe-logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
     </div>
     <menu class="text-sm flex items-center justify-between gap-2">
       <div class="flex items-center space-x-8">
@@ -46,30 +98,50 @@
     </menu>
     <menu class="flex hidden gap-x-2 md:flex font-medium">
       <%= link_to "Sign in", "https://github.com/maybe-finance/maybe", class: "py-2 px-3 text-sm leading-[18px] text-black group rounded-lg hover:bg-alpha-black-50 bg-transparent border-[1px] border-gray-300 hover:border-gray-300 flex items-center gap-1 shadow-btn-plain-inset-1 shadow-btn-plain-inset-2" %>
-      <%= link_to  "/#waitlist", class: "p-2 pl-3 text-sm leading-[18px] text-white bg-gray-900 rounded-lg group hover:bg-gray-800 border-[1px] border-gray-900 flex items-center gap-1 shadow-btn-dark-inset-1 shadow-btn-dark-inset-2 shadow-btn-dark-inset-3" do %>
+      <%= link_to "/#waitlist", class: "p-2 pl-3 text-sm leading-[18px] text-white bg-gray-900 rounded-lg group hover:bg-gray-800 border-[1px] border-gray-900 flex items-center gap-1 shadow-btn-dark-inset-1 shadow-btn-dark-inset-2 shadow-btn-dark-inset-3 rainbow-button" do %>
         Sign up <%= lucide_icon("chevron-right", alt: "Menu", class: "text-gray-500 group-hover:text-white transition-all duration-150 ease-in-out w-4 h-4") %>
       <% end %>
     </menu>
     <%= lucide_icon("menu", alt: "Menu", class: "w-6 h-6 md:hidden", 'data-action': 'click->navbar#toggleMobileMenu') %>
     <div class="flex flex-col hidden w-full mt-4 font-medium md:hidden" data-navbar-target="mobileMenu">
-      <ul class="flex flex-col lg:flex-row lg:space-x-8">
-        <% footer_resources.each do |link| %>
-          <li><%= link_to link[:text], link[:path], class: link[:class] %></li>
-        <% end %>
-        <div class="flex flex-col gap-y-3">
-          <li>
-            <%= link_to "https://github.com/maybe-finance/maybe"  "Sign in", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" %>
-          </li>
-          <li>
-            <%= link_to "https://github.com/maybe-finance/maybe", class: "px-3 py-[0.45rem] text-sm font-medium text-black rounded-xl hover:bg-alpha-black-50 bg-transparent border border-gray-300 hover:border-gray-300 flex items-center gap-2" do %>
-              Sign in <%= lucide_icon("chevron-right", alt: "Menu", class: "bg-gray-500 w-6 h-6 md:hidden") %>
+      <div class="p-6 flex flex-col gap-6">
+        <div data-controller="dropdown">
+          <button data-action="dropdown#toggle" class="flex items-center justify-between w-full text-gray-700">
+            <span class="text-base font-normal">Product</span>
+            <%= lucide_icon("chevron-down", class: "w-4 h-4 transition-transform", data: { dropdown_target: "icon" }) %>
+          </button>
+          <div class="hidden mt-4 space-y-2" data-dropdown-target="content">
+            <% header_nav_products.each do |item| %>
+              <%= link_to item[:path], class: "flex items-center p-2 gap-x-3 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150 group/item" do %>
+                <div class="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-md bg-gray-50 text-gray-400 group-hover/item:text-gray-800 group-hover/item:bg-white group-hover/item:border group-hover/item:border-gray-300">
+                  <%= lucide_icon(item[:icon], class: "w-5 h-5") %>
+                </div>
+                <div class="flex flex-col text-sm gap-0">
+                  <p class="font-medium text-gray-900"><%= item[:title] %></p>
+                  <p class="text-sm text-gray-500"><%= item[:description] %></p>
+                </div>
+              <% end %>
             <% end %>
-          </li>
-          <li>
-            <%= link_to "Join waitlist", "/#waitlist", class: "px-3 py-[0.45rem] text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 border border-gray-900 flex w-full" %>
-          </li>
+          </div>
         </div>
-      </ul>
+        <div data-controller="dropdown">
+          <button data-action="dropdown#toggle" class="flex items-center justify-between w-full text-gray-700">
+            <span class="text-base font-normal">Resources</span>
+            <%= lucide_icon("chevron-down", class: "w-4 h-4 transition-transform", data: { dropdown_target: "icon" }) %>
+          </button>
+          <div class="hidden mt-4" data-dropdown-target="content">
+            <%= render "shared/resources_menu", mobile: true %>
+          </div>
+        </div>
+        <%= link_to "Pricing", pricing_path, class: "text-base text-gray-700" %>
+        <%= link_to "Contribute", "https://github.com/maybe-finance/maybe", class: "text-base text-gray-700" %>
+        <div class="flex flex-col gap-3 mt-4">
+          <%= link_to "Sign in", "https://github.com/maybe-finance/maybe",
+              class: "w-full py-2 px-3 text-sm text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-50" %>
+          <%= link_to "Sign up", "/#waitlist",
+              class: "w-full py-2 px-3 text-sm text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800" %>
+        </div>
+      </div>
     </div>
   </nav>
 </header>
