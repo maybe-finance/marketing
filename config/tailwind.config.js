@@ -20,6 +20,7 @@ module.exports = {
       md: "0px 2px 4px -2px rgba(11, 11, 11, 0.06), 0px 4px 8px -2px rgba(11, 11, 11, 0.10)",
       lg: "0px 4px 6px -2px rgba(11, 11, 11, 0.03), 0px 12px 16px -4px rgba(11, 11, 11, 0.08)",
       xl: "0px 8px 8px -4px rgba(11, 11, 11, 0.03), 0px 20px 24px -4px rgba(11, 11, 11, 0.08)",
+      soft: "0 0 0 10px rgba(0, 0, 0, 0.02)",
       "2xl": "0px 24px 48px -12px rgba(11, 11, 11, 0.12)",
       "3xl": "0px 32px 64px -12px rgba(11, 11, 11, 0.14)",
     },
