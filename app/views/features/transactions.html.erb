@@ -6,11 +6,11 @@
     <h1 class="text-[4.5rem] text-gray-700 max-w-[600px] mx-auto  leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">Take control of your transactions</h1>
     <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[480px] mx-auto">Easily organize your spending, link transactions, set rules, and keep everything in sync.</p>
     <div class="mb-[3.75rem]"><%= render "shared/cta_header" %></div>
-    <%= image_tag "features/transactions-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[915px] mx-auto"%>
+    <%= image_tag "features/transactions-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[915px] px-4 mx-auto mb-10 lg:mb-20 header-effects"%>
   </section>
-  <section class="bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
+  <section class="flex flex-col gap-y-4 lg:gap-y-8 bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
     <!-- Stay on top -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
+    <div class="flex flex-col md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4 max-w-[480px]">
         <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Stay on top of <br />
           <span class="font-normal text-gray-400">every transaction</span></h2>
@@ -47,12 +47,12 @@
           </div>
         </div>
       </div>
-      <div class="md:w-1/2 p-4">
-        <%= image_tag "features/transactions-stay-on-top.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
+      <div class="md:w-1/2 p-4 -mb-[180px]">
+        <%= image_tag "features/transactions-stay-on-top.svg", alt: "Maybe Screenshot", class: "w-full max-w-[560px] object-top object-cover overflow-hidden" %>
       </div>
     </div>
     <!-- Find any transaction -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
+    <div class="flex flex-col-reverse md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4">
         <%= image_tag "features/transactions-find-any.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
       </div>
@@ -95,7 +95,7 @@
       </div>
     </div>
     <!-- Record transactions manually -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
+    <div class="flex flex-col md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4 max-w-[480px]">
         <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Record transactions<br />
           <span class="font-normal text-gray-400">manually too</span></h2>
@@ -137,7 +137,7 @@
       </div>
     </div>
     <!-- Import with CSV -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
+    <div class="flex flex-col-reverse md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4">
         <%= image_tag "features/transactions-import-csv.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
       </div>
@@ -180,7 +180,7 @@
       </div>
     </div>
     <!-- Set up rules -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4 max-w-[480px]">
         <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Set up smart rules<br />
           <span class="font-normal text-gray-400">and start automating</span></h2>
