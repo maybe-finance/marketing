@@ -1,16 +1,16 @@
 <article class="bg-contain bg-top bg-no-repeat" style="background-image: url(<%= asset_path('main-bg.svg') %>)">
-  <section class="text-center py-8">
+  <section class="text-center py-8 px-4">
     <p class="text-lg mb-6 text-center">
       <span class="text-gray-500">Features <%= lucide_icon "chevron-right", class: "text-gray-500 w-4 h-4 inline" %></span> Budgeting
     </p>
-    <h1 class="text-[4.5rem] text-gray-700 max-w-[600px] mx-auto  leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">Stay on track with simple budgeting</h1>
-    <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[480px] mx-auto">Manage your money effortlessly with smart budgets and simple tracking.</p>
-    <div class="mb-[3.75rem]"><%= render_signup_form %></div>
-    <%= image_tag "features/budgeting-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[654px] mx-auto"%>
+    <h1 class="text-[4.5rem] text-gray-700 max-w-[600px] mx-auto leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">Stay on track with simple budgeting</h1>
+    <p class="text-xl px-4 font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[480px] mx-auto">Manage your money effortlessly with smart budgets and simple tracking.</p>
+    <div class="mb-[3.75rem]"><%= render "shared/cta_header" %></div>
+    <%= image_tag "features/budgeting-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[654px] mx-auto mb-10 lg:mb-20 header-effects"%>
   </section>
-  <section class="bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
+  <section class="flex flex-col gap-y-4 lg:gap-y-8 bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
     <!-- Track where your money is going -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
+    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4 max-w-[480px]">
         <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Track where your <br />
           <span class="font-normal text-gray-400">money is going</span></h2>
@@ -52,8 +52,8 @@
       </div>
     </div>
     <!-- Plan ahead with smarter budgeting -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
-      <div class="md:w-1/2 p-4">
+    <div class="flex flex-col-reverse md:flex-row items-center p-6 gap-6 max-w-6xl mx-auto">
+      <div class="md:w-1/2 p-4 -mb-16">
         <%= image_tag "features/budgeting-plan-ahead.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
       </div>
       <div class="md:w-1/2 p-4 max-w-[480px]">
