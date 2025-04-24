@@ -20,7 +20,7 @@
       <%= turbo_frame_tag "assistant-content" do %>
         <div class="grid grid-cols-1 grid-flow-row mb-[6rem]">
           <div class="relative w-full" data-controller="masonry" style="margin: 0 -8px;">
-            <div class="masonry-sizer w-[calc(100%-16px)] md:w-[calc(50%-16px)] lg:w-[calc(33.333%-16px)]"></div>
+            <div class="masonry-sizer w-[calc(100%-16px)] md:w-[calc(50%-16px)] lg:w-[calc(33.333%-16px)] md:ml-0"></div>
             <% @content["cards"].each do |card_id, card| %>
               <%= render "assistant_card", card: card %>
             <% end %>
