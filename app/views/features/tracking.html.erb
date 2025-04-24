@@ -5,12 +5,12 @@
     </p>
     <h1 class="text-[4.5rem] text-gray-700 leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">All your accounts, in one place</h1>
     <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[480px] mx-auto">Track and keep all your accounts in one place and get a clear view of your finances.</p>
-    <div class="mb-[3.75rem]"><%= render_signup_form %></div>
-    <%= image_tag "features/tracking-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[600px] mx-auto"%>
+    <div class="mb-[3.75rem]"><%= render "shared/cta_header" %></div>
+    <%= image_tag "features/tracking-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[600px] px-4 mx-auto mb-10 lg:mb-20 header-effects"%>
   </section>
-  <section class="bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
+  <section class="flex flex-col gap-y-4 lg:gap-y-8 bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
     <!-- Link everything -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
+    <div class="flex flex-col md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4 max-w-[480px]">
         <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Link everything <br />
           <span class="font-normal text-gray-400">automagically, securely</span></h2>
@@ -52,9 +52,9 @@
       </div>
     </div>
     <!-- All your assets, charted -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
-      <div class="md:w-1/2 p-4">
-        <%= image_tag "features/tracking-assets-charted.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
+    <div class="flex flex-col-reverse md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
+      <div class="md:w-1/2 p-4 -mb-[120px] lg:-mb-0">
+        <%= image_tag "features/tracking-assets-charted.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px] md:max-h-[360px] object-top object-cover overflow-hidden" %>
       </div>
       <!-- Right section - Features summary -->
       <div class="md:w-1/2 p-4 max-w-[480px]">
@@ -95,7 +95,7 @@
       </div>
     </div>
     <!-- Multiple currency -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mb-[2rem] mx-auto">
+    <div class="flex flex-col md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4 max-w-[480px]">
         <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Multiple currency <br />
           <span class="font-normal text-gray-400">account management</span></h2>
@@ -137,7 +137,7 @@
       </div>
     </div>
     <!-- Prefer manual? -->
-    <div class="flex flex-col md:flex-row items-center p-6 gap-6 max-w-6xl mx-auto">
+    <div class="flex flex-col-reverse md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
       <div class="md:w-1/2 p-4">
         <%= image_tag "features/tracking-customization.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
       </div>
