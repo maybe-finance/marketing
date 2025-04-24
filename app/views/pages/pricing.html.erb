@@ -65,12 +65,12 @@
               <%= image_tag "pricing-label.svg", alt: "Maybe Plus", class: "h-[36px] mb-7" %>
               <%# Monthly Price %>
               <div data-pricing-target="monthlyPrice">
-                <h4 class="text-[3.5rem] leading-[calc(4.5rem+4px)] tracking-[-0.04em] font-semibold text-gray-700">$9/month</h4>
+                <h4 class="text-[3.5rem] leading-[calc(4.5rem+4px)] tracking-[-0.04em] font-semibold text-transparent bg-clip-text bg-no-repeat bg-cover" style="background-image: url(<%= asset_path('maybe-plus-text-bg.png') %>);">$9/month</h4>
                 <p class="text-gray-400 mb-6">Billed monthly</p>
               </div>
               <%# Annual Price %>
               <div data-pricing-target="yearlyPrice" class="hidden">
-                <h3 class="text-[3.5rem] leading-[calc(4.5rem+4px)] tracking-[-0.04em] font-semibold text-gray-700">$90/year<span class="text-xl font-medium tracking-[0] ml-[14px]" style="color: #7C5D3D"> or $1.73/week</span></h3>
+                <h3 class="text-[3.5rem] leading-[calc(4.5rem+4px)] tracking-[-0.04em] font-semibold text-transparent bg-clip-text bg-no-repeat bg-cover" style="background-image: url(<%= asset_path('maybe-plus-text-bg.png') %>);">$90/year<span class="text-xl font-medium tracking-[0] ml-[14px]" style="color: #7C5D3D"> or $1.73/week</span></h3>
                 <p class="text-gray-400 mb-6">Billed annually, 2 months free</p>
               </div>
               <ul class="space-y-2 mb-8 text-gray-700 text-[1.125rem] leading-[1.4]">
