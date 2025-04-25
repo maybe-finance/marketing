@@ -9,7 +9,7 @@
         <%= link_to "/#waitlist", class: "p-2 pl-3 mr-4 text-sm leading-[18px] text-white bg-gray-900 rounded-lg group hover:bg-gray-800 border-[1px] border-gray-900 flex items-center gap-1 shadow-btn-dark-inset-1 shadow-btn-dark-inset-2 shadow-btn-dark-inset-3 rainbow-button" do %>
           Sign up <%= lucide_icon("chevron-right", alt: "Menu", class: "text-gray-500 group-hover:text-white transition-all duration-150 ease-in-out w-4 h-4") %>
         <% end %>
-        <%= lucide_icon("menu", alt: "Menu", class: "w-6 h-6", data: { navbar_target: "menuIcon", action: "click->navbar#toggleMobileMenu" }) %>
+        <%= lucide_icon("equal", alt: "Menu", class: "w-6 h-6", data: { navbar_target: "menuIcon", action: "click->navbar#toggleMobileMenu" }) %>
         <%= lucide_icon("x", alt: "Close", class: "w-6 h-6 hidden", data: { navbar_target: "closeIcon", action: "click->navbar#toggleMobileMenu" }) %>
       </div>
     </menu>
