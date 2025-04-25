@@ -30,24 +30,23 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4 gap-10 md:gap-6 mb-[6rem]">
         <% assistant_features.each do |feature| %>
           <div class="flex flex-col gap-4 md:gap-7">
-  <div class="w-10 h-10 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
-    <%= lucide_icon feature[:icon], class: "text-gray-500 w-5 h-5" %>
-  </div>
-  <div class="text-[1.125rem] leading-[1.4] tracking-normal">
-    <h3 class="text-gray-800 font-medium mb-0"><%= feature[:title] %></h3>
-    <p class="text-gray-400 font-normal"><%= feature[:description] %></p>
-  </div>
-</div>
-
+            <div class="w-10 h-10 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon feature[:icon], class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class="text-gray-800 font-medium mb-0"><%= feature[:title] %></h3>
+              <p class="text-gray-400 font-normal"><%= feature[:description] %></p>
+            </div>
+          </div>
         <% end %>
       </div>
       <div class="flex flex-col gap-10 -mb-[0rem]">
         <div class="mx-auto text-center max-w-[30rem]">
           <h2 class="font-medium text-[2.5rem] leading-[1.1em] tracking-[-0.05em] mb-4">This is only<br/>
-            <span class="text-gray-400">the start</span></h2>
+            <span class="text-gray-400">just the start</span></h2>
           <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal">AI is everywhere. At Maybe, we're focused on what matters: real financial insight, not noise. Chat is just the start—more powerful tools are on the way.</p>
         </div>
-        <div class="grid grid-cols-4 md:grid-cols-4 w-full mx-auto gap-5">
+        <div class="flex flex-row justify-center items-center gap-5">
           <%= image_tag "features/assistant-forecast.svg", alt: "Maybe Screenshot" %>
           <%= image_tag "features/assistant-bogglehead.svg", alt: "Maybe Screenshot" %>
           <%= image_tag "features/assistant-portfolio.svg", alt: "Maybe Screenshot" %>
