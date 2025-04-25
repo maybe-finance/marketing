@@ -7,7 +7,7 @@
   <div class="flex justify-between text-sm mb-6">
     <p class="text-gray-400"><%= link_to "Home", root_path, class: "text-gray-400 hover:text-gray-600" %> / <%= link_to "Stocks", stocks_path, class: "text-gray-400 hover:text-gray-600" %> / <span class="text-black"><%= @stock.symbol %></span></p>
   </div>
-  <div class="flex items-center justify-between mb-4">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-4 md:gap-0">
     <div class="flex items-center gap-3">
       <img src="https://logo.synthfinance.com/ticker/<%= @stock.symbol %>" alt="<%= @stock.symbol %>" class="w-10 h-10 rounded-full">
       <h1 class="text-2xl font-medium text-black"><%= @stock.name %> <span class="font-normal text-gray-500 font-mono"><%= @stock.symbol %></span></h1>
