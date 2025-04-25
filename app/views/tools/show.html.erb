@@ -8,7 +8,6 @@
   description @tool.intro
   meta_image @tool.meta_image_url if @tool.meta_image_url.present?
 %>
-
 <article class="max-w-[1140px] mx-auto mt-10" >
   <p class="text-sm mb-6">
     <span class="text-gray-500">Tools /</span> <%= @tool.name %>
@@ -19,12 +18,10 @@
       <%= markdown @tool.intro %>
     </div>
   </div>
-
   <div class="mb-10">
     <%= content_for :widget %>
   </div>
-
-  <div class="flex flex-row w-full gap-[56px]">
+  <div class="flex flex-col md:flex-row w-full gap-[56px]">
     <div class="flex flex-col w-full max-w-[680px] gap-1">
       <h2 class="text-3xl leading-[calc(2rem+6px)] font-medium mb-4 text-gray-900">How to use this tool</h2>
       <div class="max-w-[600px] mx-auto prose prose-headings:font-medium">
@@ -42,7 +39,7 @@
                   <%= lucide_icon tool.icon, class: "w-6 h-6 m-2 #{tool.category[:text_class]}" %>
                 </div>
               <% end %>
-              <div class="flex flex-row justify-between w-full">
+              <div class="flex flex-row items-center justify-between w-full">
                 <h2 class="font-medium"><%= tool.name %></h2>
                 <%= lucide_icon "chevron-right", class: "h-5 w-5 ml-auto text-gray-500" %>
               </div>
