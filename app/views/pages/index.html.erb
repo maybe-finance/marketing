@@ -4,18 +4,18 @@
       <span  class="mx-auto text-xl text-gray-500">Meet Maybe</span>
       <%= image_tag 'icon-maybe-color.svg', alt: "Maybe Logo", class: "inline w-8" %>
     </div>
-    <h1 class="text-[4.5rem] text-gray-700 max-w-[600px] mx-auto leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">The OS for your personal finances</h1>
-    <p class="text-xl font-normal leading-[1.4] text-gray-400 mb-4 w-full max-w-[600px] mx-auto">Maybe is the open-source all-in-one personal finance platform. Track, optimize, record, budget and manage your money better.</p>
+    <h1 class="text-[4.5rem] text-gray-700 max-w-[650px] mx-auto leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">The personal finance app for everyone</h1>
+    <p class="text-xl font-normal leading-[1.4] text-gray-400 mb-4 w-full max-w-[600px] mx-auto">Maybe is an all-in-one personal finance platform. Track, optimize, grow, and manage your money through every stage of life.</p>
     <div class="mb-6"><%= render "shared/cta_header" %></div>
     <div class="mb-9 inline-flex items-center backdrop-blur rounded-3xl gap-3">
-      <div class="flex items-center gap-2 border shadow-lg backdrop-blur border-black/10 rounded-xl px-2 py-1.5">
+      <%= link_to "https://github.com/maybe-finance/maybe", target: "_blank", rel: "noopener noreferrer", class: "flex items-center gap-2 border shadow-lg backdrop-blur border-black/10 rounded-xl px-2 py-1.5 hover:bg-gray-50 transition-colors" do %>
         <%= image_tag "badge-github.svg", alt: "github", class: "h-5 w-5 inline" %>
         <span class="font-mono text-sm leading-5"><%= number_to_k(@stars) %></span>
-      </div>
-      <div class="flex items-center gap-2 border shadow-lg backdrop-blur border-black/10 rounded-xl p-[5px]">
+      <% end %>
+      <%= link_to "https://link.maybe.co/discord", target: "_blank", rel: "noopener noreferrer", class: "flex items-center gap-2 border shadow-lg backdrop-blur border-black/10 rounded-xl px-2 py-1.5 hover:bg-gray-50 transition-colors" do %>
         <%= image_tag "badge-discord.svg", alt: "discord", class: "h-5 w-5 inline" %>
-        <span class="font-mono text-sm leading-5">4.95k</span>
-      </div>
+        <span class="font-mono text-sm leading-5">5.4k</span>
+      <% end %>
     </div>
     <%= image_tag "maybe-home-hero.svg", alt: "Maybe Open Source", class: "max-w-[1140px] mx-auto w-full px-4 header-effects" %>
   </section>

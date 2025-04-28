@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe Finance: The OS for your personal finances" %></title>
+    <title><%= content_for?(:title) ? ("#{yield(:title)} - Maybe").html_safe : "Maybe Finance: The personal finance app for everyone" %></title>
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe Finance").html_safe : "Maybe Finance: The OS for your personal finances" %>">
-    <meta name="description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe Finance: The OS for your personal finances" %>">
+    <meta name="title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe Finance").html_safe : "Maybe Finance: The personal finance app for everyone" %>">
+    <meta name="description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe Finance: The personal finance app for everyone" %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -18,7 +18,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe Finance").html_safe : "Maybe Finance" %>">
-    <meta property="og:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe Finance: The OS for your personal finances" %>">
+    <meta property="og:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe Finance: The personal finance app for everyone" %>">
     <meta property="og:image" content="<%= image_url(content_for?(:meta_image) ? yield(:meta_image) : "meta.jpg") %>">
     <meta property="og:url" content="<%= request.original_url %>">
     <!-- Twitter -->
@@ -26,7 +26,7 @@
     <meta name="twitter:title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe Finance").html_safe : "Maybe Finance" %>">
     <meta name="twitter:site" content="@maybe">
     <meta name="twitter:creator" content="@maybe">
-    <meta name="twitter:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe Finance: The OS for your personal finances" %>">
+    <meta name="twitter:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe Finance: The personal finance app for everyone" %>">
     <meta name="twitter:image" content="<%= image_url(content_for?(:meta_image) ? yield(:meta_image) : "meta.jpg") %>">
     <%= yield :head %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
