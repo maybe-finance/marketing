@@ -15,7 +15,7 @@ module PagesHelper
       },
       {
         question: "What is your refund policy?",
-        answer: "If Maybe Plus doesn't work for you, we offer a full refund—no questions asked. Just reach out to us at <a href='mailto:hey@maybe.co' class='font-medium text-gray-900'>hey@maybe.co</a> and we'll take care of it."
+        answer: "If Maybe Plus doesn't work for you, we offer a full refund—no questions asked. Just reach out to us at <a href='mailto:hello@maybe.co' class='font-medium text-gray-900'>hello@maybe.co</a> and we'll take care of it."
       },
       {
         question: "Can I cancel my subscription at any time?",

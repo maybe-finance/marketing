@@ -65,7 +65,7 @@ module NavigationHelper
       },
       {
         text: "Contact".html_safe + " " + lucide_icon("arrow-up-right", class: "text-gray-400 group-hover/contact:text-gray-900 transition-all duration-150 inline w-4 h-4").html_safe,
-        path: "mailto:contact@maybe.co"
+        path: "mailto:hello@maybe.co"
       },
       {
         text: "Terms of Service",
@@ -190,7 +190,7 @@ module NavigationHelper
       },
       {
         icon: image_tag("footer-email.svg", alt: "Email", class: "w-6 h-6"),
-        path: "mailto:contact@maybe.co"
+        path: "mailto:hello@maybe.co"
       },
       {
         icon: image_tag("footer-linkedin.svg", alt: "LinkedIn", class: "w-6 h-6"),
