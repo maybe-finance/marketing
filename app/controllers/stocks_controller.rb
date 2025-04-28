@@ -84,11 +84,11 @@ class StocksController < ApplicationController
       @stock = Stock.find_by(symbol: params[:ticker])
     end
 
+    redirect_to stocks_path, status: :moved_permanently and return unless @stock && @stock.country_code.present?
+
     if cached = Rails.cache.read("stock_page/#{@stock.symbol}:#{@stock.mic_code}")
       @cached_content = cached.html_safe
     end
-
-    redirect_to stocks_path unless @stock && @stock.country_code.present?
   end
 
   def exchanges
