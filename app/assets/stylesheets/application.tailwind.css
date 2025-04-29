@@ -18,6 +18,14 @@
   transition: all 0.4s ease-in-out;
 }
 
+:root {
+  --color-1: 190 86% 53%;
+  --color-2: 215 87% 51%;
+  --color-3: 233 77% 57%;
+  --color-4: 262 71% 50%;
+  --color-5: 331 87% 60%;
+}
+
 .header-effects {
   filter:
     drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.05))
