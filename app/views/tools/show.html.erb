@@ -8,25 +8,48 @@
   description @tool.intro
   meta_image @tool.meta_image_url if @tool.meta_image_url.present?
 %>
-
-<article>
-  <div class="max-w-[520px] mt-4 mb-10 mx-auto">
-    <p class="mb-6 text-sm text-center">
-      <span class="text-gray-500"><%= link_to "Tools", tools_path %> / </span> <%= @tool.name %>
-    </p>
-
-    <h1 class="text-3xl font-medium tracking-tight text-center">
-      <%= @tool.name %>
-    </h1>
-
-    <div class="prose text-center">
+<article class="max-w-[1140px] mx-auto mt-10" >
+  <p class="text-sm mb-6">
+    <span class="text-gray-500">Tools /</span> <%= @tool.name %>
+  </p>
+  <div class="max-w-[720px] mb-6">
+    <h1 class="text-5xl leading-[3.5rem] m-0 mb-2 font-medium tracking-tight"><%= @tool.name %></h1>
+    <div class="prose text-gray-500 text-xl leading-6">
       <%= markdown @tool.intro %>
     </div>
   </div>
-
-  <%= content_for :widget %>
-
-  <div class="max-w-[600px] mt-10 mx-auto prose prose-headings:font-medium">
-    <%= markdown @tool.content %>
+  <div class="mb-10">
+    <%= content_for :widget %>
+  </div>
+  <div class="flex flex-col md:flex-row w-full gap-[56px]">
+    <div class="flex flex-col w-full max-w-[680px] gap-1">
+      <div class="max-w-[600px] mx-auto prose prose-headings:font-medium">
+        <%= markdown @tool.content %>
+      </div>
+    </div>
+    <div class="w-auto">
+      <div class="flex flex-col gap-4 mb-8">
+        <h2 class="text-xl leading-8 tracking-[-0.01em] font-medium text-gray-900">More tools</h2>
+        <div class="grid gap-y-2">
+          <% @more_tools.each do |tool| %>
+            <%= link_to tool_path(tool), class: "flex flex-row gap-4 bg-white rounded-2xl border border-alpha-black-25 shadow-sm p-2 items-center cursor-pointer hover:bg-gray-100/50" do %>
+              <% if tool.category %>
+                <div class="w-10 h-10 flex items-center justify-center rounded-xl <%= tool.category[:bg_class] %>">
+                  <%= lucide_icon tool.icon, class: "w-6 h-6 m-2 #{tool.category[:text_class]}" %>
+                </div>
+              <% end %>
+              <div class="flex flex-row items-center justify-between w-full">
+                <h2 class="font-medium"><%= tool.name %></h2>
+                <%= lucide_icon "chevron-right", class: "h-5 w-5 ml-auto text-gray-500" %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="flex flex-col gap-3">
+        <h2 class="text-xl leading-8 tracking-[-0.01em] font-medium text-gray-900">Share this tool</h2>
+        <%= render "shared/share_buttons" %>
+      </div>
+    </div>
   </div>
 </article>

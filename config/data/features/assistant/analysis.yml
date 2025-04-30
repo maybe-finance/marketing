@@ -1,0 +1,61 @@
+title: "Spending Insights"
+cards:
+  debt_paid_off:
+    title: "Debt paid off"
+    questions:
+      - id: 1
+        question: "How much debt have I paid off this year?"
+        answer:
+          - "$3,250 since January—mostly from your credit card and car loan."
+      - id: 2
+        question: "What's left?"
+        answer:
+          - "$18,780 total. $14,200 in student loans, $3,100 in credit card debt, and $1,480 on your auto loan."
+      - id: 3
+        question: "What APRs am I paying?"
+        answer:
+          - "Credit card: 19.8%, student loan: 4.5%, car: 3.1%."
+      - id: 4
+        question: "What's my priority?"
+        answer:
+          - "The avalanche method suggests focusing on your credit card first to save ~$780/year in interest."
+
+  liquid_net_worth:
+    title: "Liquid net worth"
+    questions:
+      - id: 1
+        question: "How much of my net worth is liquid?"
+        answer:
+          - "About 58% of your net worth is liquid—held in cash, checking, and brokerage accounts. The rest is in your car, property equity, and retirement funds."
+
+  interest_across_all_debts:
+    title: "Interest across all debts"
+    questions:
+      - id: 1
+        question: "How much am I paying in interest across all debts?"
+        answer:
+          - "Roughly $960/year, mostly from your credit card and auto loan."
+      - id: 2
+        question: "How does that compare to last year?"
+        answer:
+          - "It's down 18%, thanks to reduced credit balances and one extra auto payment."
+
+  debt_pay_off_scenario:
+    title: "Debt pay off scenario"
+    questions:
+      - id: 1
+        question: "What would happen to my net worth if I sold my car and paid off my credit card?"
+        answer:
+          - "Selling your car (~$14,300) can pay off your $3,100 credit card and increase your assets by ~$11,000."
+
+  debt_heavy_or_asset_heavy:
+    title: "Debt heavy or asset heavy"
+    questions:
+      - id: 1
+        question: "Am I more debt-heavy or asset-heavy?"
+        answer:
+          - "You have $106,800 in total assets and $18,780 in debt—a ratio of 5.7:1."
+      - id: 2
+        question: "Is that good?"
+        answer:
+          - "That's strong—anything over 3:1 is considered healthy. Your biggest liability is student debt, which has a low interest rate and long-term horizon."

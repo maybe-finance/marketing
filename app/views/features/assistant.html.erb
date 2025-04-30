@@ -1,0 +1,63 @@
+<%
+  title "Talk with your money"
+  description "Ask questions and automate your finances with Maybe's AI assistant."
+%>
+
+<article class="bg-contain bg-top bg-no-repeat" style="background-image: url(<%= asset_path('main-bg.svg') %>)">
+  <section class="text-center py-8">
+    <p class="text-lg mb-6 text-center">
+      <span class="text-gray-500">Features <%= lucide_icon "chevron-right", class: "text-gray-500 w-4 h-4 inline" %></span> Assistant
+    </p>
+    <h1 class="text-[4.5rem] text-gray-700 max-w-[400px] mx-auto  leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">Talk with your money</h1>
+    <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[16em] mx-auto">Ask questions and automate your finances with Maybe's AI assistant.</p>
+    <div class="mb-[3.75rem]"><%= render "shared/cta_header" %></div>
+    <%= image_tag "features/assistant-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[654px] mx-auto"%>
+  </section>
+  <section class="bg-gradient-to-b from-transparent to-white rounded-b-xl overflow-hidden">
+    <div class="mx-auto text-center max-w-[30rem] px-4 mb-8">
+      <%= image_tag "assistant-avatar.png", alt: "Maybe Screenshot", class: "w-[90px]  mx-auto"%>
+      <h2 class="font-medium text-[3.5rem] leading-[3.75rem] tracking-[-0.05em] mb-4">Real answers<br/>
+        <span class="text-gray-400">really fast</span></h2>
+      <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 ">Maybe Assistant gives you real answers in seconds &mdash;no noise, no lag. It's fast, focused, and grounded in your actual financial data.</p>
+    </div>
+    <div class="container max-w-[1232px] mx-auto px-4">
+      <%= render "assistant_tabs", categories: @categories, active: @active_category, class: "mb-8" %>
+      <%= turbo_frame_tag "assistant-content" do %>
+        <div class="grid grid-cols-1 grid-flow-row mb-[6rem]">
+          <div class="relative w-full" data-controller="masonry" style="margin: 0 -8px;">
+            <div class="masonry-sizer w-[calc(100%-16px)] md:w-[calc(50%-16px)] lg:w-[calc(33.333%-16px)] md:ml-0"></div>
+            <% @content["cards"].each do |card_id, card| %>
+              <%= render "assistant_card", card: card %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4 gap-10 md:gap-6 mb-[6rem]">
+        <% assistant_features.each do |feature| %>
+          <div class="flex flex-col gap-4 md:gap-7">
+            <div class="w-10 h-10 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon feature[:icon], class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class="text-gray-800 font-medium mb-0"><%= feature[:title] %></h3>
+              <p class="text-gray-400 font-normal"><%= feature[:description] %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="flex flex-col gap-10 -mb-[0rem]">
+        <div class="mx-auto text-center max-w-[30rem]">
+          <h2 class="font-medium text-[2.5rem] leading-[1.1em] tracking-[-0.05em] mb-4">This is only<br/>
+            <span class="text-gray-400">just the start</span></h2>
+          <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal">AI is everywhere. At Maybe, we're focused on what matters: real financial insight, not noise. Chat is just the start—more powerful tools are on the way.</p>
+        </div>
+        <div class="flex flex-row justify-center items-center gap-5">
+          <%= image_tag "features/assistant-forecast.svg", alt: "Maybe Screenshot" %>
+          <%= image_tag "features/assistant-bogglehead.svg", alt: "Maybe Screenshot" %>
+          <%= image_tag "features/assistant-portfolio.svg", alt: "Maybe Screenshot" %>
+          <%= image_tag "features/assistant-spending.svg", alt: "Maybe Screenshot" %>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>

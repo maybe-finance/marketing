@@ -1,0 +1,24 @@
+<div class="masonry-item w-[calc(100%-16px)] md:w-[calc(50%-16px)] lg:w-[calc(33.333%-16px)] ml-2 md:ml-3 lg:ml-2 box-border bg-white rounded-lg assistant-card-effects mb-6">
+  <div class="flex justify-between items-center px-4 py-3">
+    <span class="flex items-center gap-2">
+      <%= lucide_icon "menu", class: "w-9 h-9 p-2 text-gray-500" %>
+      <h3 class="text-sm font-medium"><%= card["title"] %></h3>
+    </span>
+    <%= lucide_icon "ellipsis-vertical", class: "w-9 h-9 p-2 text-gray-500" %>
+  </div>
+  <div class="p-6 pb-8">
+    <% card["questions"].each do |qa| %>
+      <div class="mb-6 last:mb-0 flex w-full flex-col gap-8">
+        <h6 class="text-sm max-w-[260px] px-3 py-2 flex self-end bg-gray-50 rounded-lg text-gray-800"><%= qa["question"] %></h6>
+        <div class="flex flex-row gap-3 answer-content">
+          <%= image_tag 'assistant-avatar.png', class: "w-[60px] h-[60px] -ml-[14px] -mt-[14px] -mr-3" %>
+          <div class="flex flex-col gap-4">
+            <% qa["answer"].each do |line| %>
+              <p class="text-sm"><%= line %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

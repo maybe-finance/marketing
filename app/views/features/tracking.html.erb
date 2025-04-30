@@ -1,0 +1,188 @@
+<%
+  title "Track and keep all your accounts in one place"
+  description "Track and keep all your accounts in one place and get a clear view of your finances."
+%>
+
+<article class="bg-contain bg-top bg-no-repeat" style="background-image: url(<%= asset_path('main-bg.svg') %>)">
+  <section class="max-w-[600px] mx-auto text-center py-8">
+    <p class="text-lg mb-6 text-center">
+      <span class="text-gray-500">Features <%= lucide_icon "chevron-right", class: "text-gray-500 w-4 h-4 inline" %></span> Tracking
+    </p>
+    <h1 class="text-[4.5rem] text-gray-700 leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-4">All your accounts, in one place</h1>
+    <p class="text-xl font-normal leading-[1.4] text-gray-500 tracking-normal mb-4 max-w-[480px] mx-auto">Track and keep all your accounts in one place and get a clear view of your finances.</p>
+    <div class="mb-[3.75rem]"><%= render "shared/cta_header" %></div>
+    <%= image_tag "features/tracking-header.svg", alt: "Maybe Screenshot", class: "w-full max-w-[600px] px-4 mx-auto mb-10 lg:mb-20 header-effects"%>
+  </section>
+  <section class="flex flex-col gap-y-4 lg:gap-y-8 bg-gradient-to-b from-transparent to-white pb-8 rounded-b-xl">
+    <!-- Link everything -->
+    <div class="flex flex-col md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
+      <div class="md:w-1/2 p-4 max-w-[480px]">
+        <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Link everything <br />
+          <span class="font-normal text-gray-400">automagically, securely</span></h2>
+        <div class="space-y-4 mt-6">
+          <!-- Feature 1 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "link-2", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class=" text-gray-800 font-medium mb-0">Eftortless account linking</h3>
+              <p class="text-gray-400 font-normal">Easily link accounts from over 10,000 financial institutions with best-in-class reliability.</p>
+            </div>
+          </div>
+          <!-- Feature 2 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "shield", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal ">
+              <h3 class=" text-gray-800 font-medium mb-0">Secure &amp; trusted</h3>
+              <p class="text-gray-400 font-normal">Your data is protected with Plaid, a leading secure data provider.</p>
+            </div>
+          </div>
+          <!-- Feature 3 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "link-2", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class=" text-gray-800 font-medium mb-0">Automatic syncing</h3>
+              <p class="text-gray-400 font-normal">Balances, holding, and transactions update in real time, so you're always up to date.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="md:w-1/2 p-4">
+        <%= image_tag "features/tracking-link-everything.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
+      </div>
+    </div>
+    <!-- All your assets, charted -->
+    <div class="flex flex-col-reverse md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
+      <div class="md:w-1/2 p-4 -mb-[120px] lg:-mb-0">
+        <%= image_tag "features/tracking-assets-charted.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px] md:max-h-[360px] object-top object-cover overflow-hidden" %>
+      </div>
+      <!-- Right section - Features summary -->
+      <div class="md:w-1/2 p-4 max-w-[480px]">
+        <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">All your assets <br />
+          <span class="font-normal text-gray-400">and debts, charted</span></h2>
+        <div class="space-y-4 mt-6">
+          <!-- Feature 1 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "chart-line", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class=" text-gray-800 font-medium mb-0">Accounts visualized</h3>
+              <p class="text-gray-400 font-normal">Instantly visualize your accounts with intuitive easy to scan charts.</p>
+            </div>
+          </div>
+          <!-- Feature 2 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "history", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal ">
+              <h3 class=" text-gray-800 font-medium mb-0">Historical comparisons</h3>
+              <p class="text-gray-400 font-normal">Track changes over time and compare against different periods.</p>
+            </div>
+          </div>
+          <!-- Feature 3 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "lightbulb", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class=" text-gray-800 font-medium mb-0">Actionable insight</h3>
+              <p class="text-gray-400 font-normal">Monitor and track trends over time to make informed financial choices.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Multiple currency -->
+    <div class="flex flex-col md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
+      <div class="md:w-1/2 p-4 max-w-[480px]">
+        <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Multiple currency <br />
+          <span class="font-normal text-gray-400">account management</span></h2>
+        <div class="space-y-4 mt-6">
+          <!-- Feature 1 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "globe", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class=" text-gray-800 font-medium mb-0">Global compatibility</h3>
+              <p class="text-gray-400 font-normal">Connect accounts from institutions worldwide &mdash; across personal and business accounts.</p>
+            </div>
+          </div>
+          <!-- Feature 2 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "arrow-right-left", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal ">
+              <h3 class=" text-gray-800 font-medium mb-0">Seamless conversions</h3>
+              <p class="text-gray-400 font-normal">Automatically track currency fluctuations for accurate insights.</p>
+            </div>
+          </div>
+          <!-- Feature 3 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "plug", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class=" text-gray-800 font-medium mb-0">Broad account support</h3>
+              <p class="text-gray-400 font-normal">Connect to banks in the US, EU, and even more regions soon.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="md:w-1/2 p-4">
+        <%= image_tag "features/tracking-multiple-currency.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
+      </div>
+    </div>
+    <!-- Prefer manual? -->
+    <div class="flex flex-col-reverse md:flex-row items-center p-4 lg:p-6 gap-6 max-w-6xl mx-auto">
+      <div class="md:w-1/2 p-4">
+        <%= image_tag "features/tracking-customization.svg", alt: "Maybe Screenshot", class: "w-full max-w-[460px]" %>
+      </div>
+      <!-- Right section - Features summary -->
+      <div class="md:w-1/2 p-4 max-w-[480px]">
+        <h2 class="text-[2.5rem] leading-[1.1em] tracking-[-0.04em] font-medium mb-4 text-gray-800">Prefer manual? <br />
+          <span class="font-normal text-gray-400">No problem</span></h2>
+        <div class="space-y-4 mt-6">
+          <!-- Feature 1 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "keyboard", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class=" text-gray-800 font-medium mb-0">Customizable tracking</h3>
+              <p class="text-gray-400 font-normal">Manually add and update balances for any asset or debt.</p>
+            </div>
+          </div>
+          <!-- Feature 2 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "gem", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal ">
+              <h3 class=" text-gray-800 font-medium mb-0">Track unique assets</h3>
+              <p class="text-gray-400 font-normal">Monitor anything from vintage collectibles to personal loans.</p>
+            </div>
+          </div>
+          <!-- Feature 3 -->
+          <div class="flex">
+            <div class="mr-4 w-8 h-8 p-1.5 flex items-center justify-center bg-gray-100 rounded-full">
+              <%= lucide_icon "chart-candlestick", class: "text-gray-500 w-5 h-5" %>
+            </div>
+            <div class="text-[1.125rem] leading-[1.4] tracking-normal">
+              <h3 class=" text-gray-800 font-medium mb-0">Live data integration</h3>
+              <p class="text-gray-400 font-normal">Combine manually entered investment balances with live market data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>

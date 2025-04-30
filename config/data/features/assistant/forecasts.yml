@@ -1,0 +1,71 @@
+title: "Spending Insights"
+cards:
+  new_apartment:
+    title: "New apartment"
+    questions:
+      - id: 1
+        question: "Can I afford to move into a $2,200/month apartment?"
+        answer:
+          - "That's $500 more than your current rent. Here's the impact:"
+          - "• Monthly surplus drops from $740 → $240"
+          - "• Savings rate falls from 21% → 9.5%"
+      - id: 2
+        question: "What would I need to cut to stay on track?"
+        answer:
+          - "You'd need to trim about $300/month from discretionary categories like shopping and delivery."
+      - id: 3
+        question: "Would my savings goal still be realistic?"
+        answer:
+          - "Without changes, your yearly savings may drop by $6,000. Reassess your budget to increase income or reduce expenses."
+      - id: 4
+        question: "What if I find a roommate to share the apartment?"
+        answer:
+          - "That could help! Splitting the rent means $1,100/month, keeping your surplus at $640 and savings rate around 20%."
+
+  taking_6_months_off:
+    title: "Taking 6 months off"
+    questions:
+      - id: 1
+        question: "How would taking 6 months off affect my finances?"
+        answer:
+          - "You'd spend ~$22,500 with no income. That would use 80% of your liquid savings."
+      - id: 2
+        question: "Could I freelance during that time to ease the burn?"
+        answer:
+          - "Yes. Earning $1,200/month would preserve 40% of your current savings."
+
+  net_worth:
+    title: "Net worth"
+    questions:
+      - id: 1
+        question: "How soon could I hit $100k net worth at my current pace?"
+        answer:
+          - "You're currently at $82,300. Saving $1,280/month with 6% annual growth, you'll reach $100k in ~14 months."
+      - id: 2
+        question: "What if I increase savings by $250/month?"
+        answer:
+          - "You'd reach your goal 4 months earlier—hitting $100k in just 10 months."
+
+  crypto_drop_off:
+    title: "Crypto drop off"
+    questions:
+      - id: 1
+        question: "What happens to my net worth if crypto drops 40%?"
+        answer:
+          - "Your net worth would fall by ~6.7% due to current exposure. That's a ~$4,750 loss across BTC and ETH, but your other assets would cushion the drop."
+
+  stop_working:
+    title: "Stop working"
+    questions:
+      - id: 1
+        question: "If I stopped working today, how long could I stay afloat?"
+        answer:
+          - "With $28,400 in savings and average expenses of $3,750/month, you'd be covered for about 7.5 months."
+
+  five_year_runway:
+    title: "5 year runway"
+    questions:
+      - id: 1
+        question: "What's my 5-year runway if I keep spending like this?"
+        answer:
+          - "You'd save ~$96,000 in 5 years at a 21% savings rate. This could cover 2 years of living expenses without work."

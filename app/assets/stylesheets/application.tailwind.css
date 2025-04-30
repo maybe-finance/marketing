@@ -3,13 +3,116 @@
 @tailwind utilities;
 
 .pagy {
-  @apply my-6 text-xs text-center;
+  @apply my-6 text-base leading-5 text-center;
   a {
     @apply px-3 py-1.5 text-gray-500 border border-transparent;
   }
   .current {
-    @apply font-semibold text-black bg-white border border-gray-200 rounded-lg shadow-xs;
+    @apply text-black font-[450] bg-white border border-gray-200 rounded-lg shadow-xs;
   }
+}
+
+.rainbow-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+}
+
+:root {
+  --color-1: 190 86% 53%;
+  --color-2: 215 87% 51%;
+  --color-3: 233 77% 57%;
+  --color-4: 262 71% 50%;
+  --color-5: 331 87% 60%;
+}
+
+.header-effects {
+  filter:
+    drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.05))
+    drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.06))
+    drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.02))
+    drop-shadow(0px 18.39px 22.07px rgba(8, 8, 8, 0.02));
+  backdrop-filter: blur(3.68px);
+}
+
+.prompt-input-effects {
+  filter:
+    drop-shadow(0px 1px 10px rgba(0, 0, 0, 0.08))
+    drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.02));
+}
+
+/* .assistant-card-effects {
+  filter:
+    drop-shadow(0px 1px 2px rgba(8, 8, 8, 0.05))
+    drop-shadow(0px 0px 0px rgba(8, 8, 8, 0.05))
+    drop-shadow(0px 3.78px 7.57px rgba(8, 8, 8, 0.06))
+    drop-shadow(0px 0px 9.46px rgba(0, 0, 0, 0.02));
+  backdrop-filter: blur(34.06px);
+} */
+
+.assistant-card-effects {
+  box-shadow:
+    0px 1px 2px 0px rgba(8, 8, 8, 0.05),
+    0px 0px 0px 0.95px rgba(8, 8, 8, 0.05),
+    0px 3.78px 7.57px 0px rgba(8, 8, 8, 0.06),
+    0px 0px 0px 9.46px rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(34.06px);
+}
+
+.rainbow-button::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(circle at var(--x, 0) var(--y, 0),
+      var(--color-a) 0%,
+      var(--color-b) 25%,
+      var(--color-c) 50%);
+  background-size: var(--size, 400px) var(--size, 400px);
+  background-position: center;
+  mask: linear-gradient(white, white) content-box,
+    linear-gradient(white, white);
+  mask-composite: exclude;
+  z-index: -1;
+  transition: 0.4s ease-in-out;
+  transition-property: background-size, background-position;
+}
+
+.rainbow-button:hover::before {
+  background-size: calc(var(--size, 400px) * 1.2) calc(var(--size, 400px) * 1.2);
+}
+
+/* Mobile Menu Animations */
+.mobile-menu-enter {
+  transform: translateX(100%);
+}
+
+.mobile-menu-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms ease-in-out;
+}
+
+.mobile-menu-exit {
+  transform: translateX(0);
+}
+
+.mobile-menu-exit-active {
+  transform: translateX(100%);
+  transition: transform 300ms ease-in-out;
+}
+
+/* Dropdown Animations */
+[data-dropdown-target="icon"] {
+  transition: transform 200ms ease-in-out;
+}
+
+[data-dropdown-target="icon"].rotate {
+  transform: rotate(180deg);
+}
+
+/* Mobile Menu Content */
+.mobile-menu-content {
+  height: calc(100vh - 4rem - 6px);
+  overflow-y: auto;
 }
 
 @layer components {
@@ -34,7 +137,7 @@
   }
 
   .form-field__submit {
-    @apply w-full p-3 text-center text-white bg-black rounded-lg cursor-pointer hover:bg-gray-700;
+    @apply w-full p-2 text-center text-sm leading-5 tracking-normal text-white bg-black rounded-lg cursor-pointer hover:bg-gray-700;
   }
 
   input[type="range"][data-controller*="range-input"] {
@@ -74,11 +177,11 @@
   .stock-chart-tooltip {
     @apply visible absolute bg-white border border-gray-200 rounded-md shadow-md p-2 z-50 text-sm;
   }
-  
+
   .has-tooltip:hover .tooltip {
     @apply visible z-50;
   }
-  
+
   path.domain {
     @apply hidden;
   }

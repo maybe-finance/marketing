@@ -1,6 +1,8 @@
 # The ArticlesController handles CRUD operations for articles in the application.
 # It currently provides actions for listing and displaying individual articles.
 class ArticlesController < ApplicationController
+  include Pagy::Backend
+
   # GET /articles
   # Retrieves and displays a list of all published articles, ordered by publish date descending.
   #
@@ -8,7 +10,14 @@ class ArticlesController < ApplicationController
   # @example
   #   GET /articles
   def index
-    @articles = Article.all.order("publish_at DESC").where("publish_at <= ?", Time.now)
+    @featured_article = Article.published.latest.first
+    @pagy, @articles = pagy(
+      Article.published
+            .where.not(id: @featured_article&.id)
+            .latest,
+      items: 6,
+      limit: 6
+    )
   end
 
   # GET /articles/:id

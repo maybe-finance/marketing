@@ -1,0 +1,35 @@
+<section class="max-w-[1408px] mx-auto mb-5 rounded-2xl overflow-hidden" style="background: radial-gradient(circle at center, #242424, #171717 100%);">
+  <div class="flex flex-col gap-6 bg-[top_center] bg-no-repeat" style="background-image: url(<%= asset_path('ai-big-m.svg') %>); background-size: auto;">
+    <div class="mx-auto text-center max-w-[680px] mb-8">
+      <%= image_tag "maybe-ai.png", alt: "Maybe Screenshot", class: "w-[180px]  mx-auto"%>
+      <h2 class="font-medium text-white text-[3.5rem] leading-[3.75rem] tracking-[-0.05em] mb-[-0.45em]">One more thing. <br/>
+        <span class="text-gray-400">And yes, it's AI.</span></h2>
+      <%= image_tag "assistant-dark-prompter.svg", alt: "Maybe Screenshot", class: "max-w-[484px] w-full px-4 mx-auto mb-[56px] prompt-input-effects" %>
+      <h3 class="mb-[72px] text-[2rem] leading-[calc(2.5rem+2px)] tracking-[-0.03em] text-gray-500 text-center mx-auto">
+        Ask <span class="text-white">anything</span> like <%= image_tag("ai-how-portfolio.svg", alt: "bank logos", class: "inline") %> or
+        <%= image_tag("ai-unusual-spend.svg", alt: "stock logos", class: "inline") %> or even
+        <%= image_tag("ai-simulate-worth.svg", alt: "credit card logos", class: "inline") %> and get answered, <span class="text-white">really fast.</span></h3>
+      <%= link_to assistant_features_path, class: "text-gray-800 text-center font-medium flex justify-center items-center gap-2" do %>
+        <span class="text-white font-medium">Explore Maybe AI</span>
+        <span class="bg-gray-700 w-6 h-6 grid place-items-center rounded-full">
+          <%= lucide_icon 'arrow-up-right', class: "text-white w-4 h-4" %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex flex-col justify-center -mb-10">
+    <div class="flex flex-row mx-auto justify-center overflow-hidden">
+      <%= image_tag "ai-analyze.svg", alt: "Maybe Screenshot", class: "" %>
+      <%= image_tag "ai-forecast.svg", alt: "Maybe Screenshot", class: "" %>
+      <%= image_tag "ai-compare.svg", alt: "Maybe Screenshot", class: "" %>
+      <%= image_tag "ai-find-patterns.svg", alt: "Maybe Screenshot", class: "" %>
+      <%= image_tag "ai-summarize.svg", alt: "Maybe Screenshot", class: "" %>
+    </div>
+    <div class="flex flex-row gap-4 mx-auto justify-center overflow-hidden -mb-[12px]">
+      <%= image_tag "ai-dark-spent.png", alt: "Maybe Screenshot", class: "w-[300px]" %>
+      <%= image_tag "ai-dark-spent-bar.png", alt: "Maybe Screenshot", class: "w-[300px]" %>
+      <%= image_tag "ai-dark-stocks.png", alt: "Maybe Screenshot", class: "w-[300px]" %>
+      <%= image_tag "ai-dark-stocks-compare.png", alt: "Maybe Screenshot", class: "w-[300px]" %>
+    </div>
+  </div>
+</section>

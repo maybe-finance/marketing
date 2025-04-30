@@ -20,8 +20,14 @@ module.exports = {
       md: "0px 2px 4px -2px rgba(11, 11, 11, 0.06), 0px 4px 8px -2px rgba(11, 11, 11, 0.10)",
       lg: "0px 4px 6px -2px rgba(11, 11, 11, 0.03), 0px 12px 16px -4px rgba(11, 11, 11, 0.08)",
       xl: "0px 8px 8px -4px rgba(11, 11, 11, 0.03), 0px 20px 24px -4px rgba(11, 11, 11, 0.08)",
+      soft: "0 0 0 10px rgba(0, 0, 0, 0.02)",
       "2xl": "0px 24px 48px -12px rgba(11, 11, 11, 0.12)",
       "3xl": "0px 32px 64px -12px rgba(11, 11, 11, 0.14)",
+      'btn-dark-inset-1': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.3)',
+      'btn-dark-inset-2': 'inset 0 0 1px 0 #000000',
+      'btn-dark-inset-3': 'inset 0 9px 14px -5px rgba(255, 255, 255, 0.3)',
+      'btn-plain-inset-1': 'inset 0 0 0 1px rgba(0, 0, 0, 0.1)',
+      'btn-plain-inset-2': 'inset 0 -6px 6px -5px rgba(30, 30, 30, 0.08)',
     },
     borderRadius: {
       none: "0",
@@ -37,7 +43,24 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ["Geist", ...defaultTheme.fontFamily.sans],
+        mono: ["Geist Mono", ...defaultTheme.fontFamily.mono],
+      },
+      colors: {
+        "color-1": "hsl(var(--color-1))",
+        "color-2": "hsl(var(--color-2))",
+        "color-3": "hsl(var(--color-3))",
+        "color-4": "hsl(var(--color-4))",
+        "color-5": "hsl(var(--color-5))",
+      },
+      animation: {
+        rainbow: "rainbow var(--speed, 2s) infinite linear",
+      },
+      keyframes: {
+        rainbow: {
+          "0%": { "background-position": "0%" },
+          "100%": { "background-position": "200%" },
+        },
       },
     },
   },

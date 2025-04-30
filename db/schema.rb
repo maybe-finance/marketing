@@ -38,6 +38,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_183301) do
     t.index ["url_pattern"], name: "index_content_blocks_on_url_pattern"
   end
 
+  create_table "dictionaries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stock_prices", force: :cascade do |t|
     t.string "ticker"
     t.float "price"
