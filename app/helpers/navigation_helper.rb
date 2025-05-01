@@ -219,7 +219,7 @@ module NavigationHelper
       },
       {
         icon: image_tag("footer-linkedin.svg", alt: "LinkedIn", class: "w-6 h-6"),
-        path: "https://www.linkedin.com/company/maybe-finance"
+        path: "https://www.linkedin.com/company/maybe"
       }
     ]
   end
