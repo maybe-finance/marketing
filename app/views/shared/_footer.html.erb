@@ -8,6 +8,14 @@
       </div>
       <div class="flex flex-col text-sm leading-6 w-[calc(60%+50px)] text-gray-500 justify-between md:flex-row">
         <div class="mb-10 md:mb-0">
+          <h4 class="font-mono mb-4 text-sm leading-[1.125rem] uppercase text-gray-800">Product</h4>
+          <ul class="flex flex-col gap-y-1 mb-10">
+            <% footer_products.each do |link| %>
+              <li>
+                <%= link_to link[:text], link[:path], class: "hover:text-gray-900 transition-all duration-150 ease-in-out" %>
+              </li>
+            <% end %>
+          </ul>
           <h4 class="font-mono mb-4 text-sm leading-[1.125rem] uppercase text-gray-800">Resources</h4>
           <ul class="flex flex-col gap-y-1">
             <% footer_resources.each do |link| %>

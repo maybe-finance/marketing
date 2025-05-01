@@ -78,6 +78,31 @@ module NavigationHelper
     ]
   end
 
+  def footer_products
+    [
+      {
+        text: "Tracking",
+        path: tracking_features_path
+      },
+      {
+        text: "Transactions",
+        path: transactions_features_path
+      },
+      {
+        text: "Budgeting",
+        path: budgeting_features_path
+      },
+      {
+        text: "Assistant",
+        path: assistant_features_path
+      },
+      {
+        text: "Pricing",
+        path: pricing_path
+      }
+    ]
+  end
+
   def footer_resources
     [
       {
