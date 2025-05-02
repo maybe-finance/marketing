@@ -15,7 +15,7 @@ module PagesHelper
       },
       {
         question: "What are your data privacy & security policies?",
-        answer: "We take your data privacy and security seriously. Please refer to our <a href='https://maybe.co/privacy' class='font-medium text-gray-900'>Privacy Policy</a> for more information."
+        answer: "We take your data privacy and security seriously. Please refer to our <a href='https://maybefinance.com/privacy' class='font-medium text-gray-900'>Privacy Policy</a> for more information."
       },
       {
         question: "Is  Maybe open source?",
