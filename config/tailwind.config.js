@@ -46,6 +46,9 @@ module.exports = {
         sans: ["Geist", ...defaultTheme.fontFamily.sans],
         mono: ["Geist Mono", ...defaultTheme.fontFamily.mono],
       },
+      fontWeight: {
+        medium: "450",
+      },
       colors: {
         "color-1": "hsl(var(--color-1))",
         "color-2": "hsl(var(--color-2))",
