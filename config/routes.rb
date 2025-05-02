@@ -64,35 +64,11 @@ Rails.application.routes.draw do
     end
   end
 
-  get "stocks/exchanges/:id", to: "stocks#exchanges", as: :stock_exchange
-  get "stocks/sectors/:id", to: "stocks#sectors", as: :stock_sector
-  get "stocks/industries/:id", to: "stocks#industries", as: :stock_industry
+  # Specific route for stocks index with combobox param
+  get "/stocks", to: "stocks#index", constraints: lambda { |req| req.params[:combobox].present? }, as: :stocks_combobox
 
-  resources :stocks, only: [ :index ] do
-    collection do
-      get :all
-      get :exchanges
-      get :industries
-      get :sectors
-    end
-  end
-
-  resources :stocks, only: [ :show ], param: :ticker, constraints: { ticker: /[^\/]+/ } do
-    scope module: :stocks do
-      resource :info, only: :show, controller: "info"
-      resource :statistics, only: :show
-      resource :news, only: :show
-      resource :chart, only: :show, controller: "chart"
-      resource :price_performance, only: :show, controller: "price_performance"
-      resource :similar_stocks, only: :show, controller: "similar_stocks"
-    end
-  end
-
-  resources :stocks do
-    member do
-      post "cache_page", as: :cache
-    end
-  end
+  # Redirect all other /stocks... paths
+  get "stocks(/*path)", to: redirect("/", status: 301)
 
   get "tos" => "pages#tos"
   get "terms", to: redirect("/tos", status: 301)

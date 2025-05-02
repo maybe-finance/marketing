@@ -5,6 +5,22 @@
       <loc>https://maybefinance.com</loc>
     </url>
     <url>
+      <loc>https://maybefinance.com/pricing</loc>
+    </url>
+    <url>
+      <loc>https://maybefinance.com/features/tracking</loc>
+    </url>
+    <url>
+      <loc>https://maybefinance.com/features/transactions</loc>
+    </url>
+    <url>
+      <loc>https://maybefinance.com/features/budgeting</loc>
+    </url>
+    <url>
+      <loc>https://maybefinance.com/features/assistant</loc>
+    </url>
+
+    <url>
       <loc>https://maybefinance.com/privacy</loc>
     </url>
     <url>
@@ -42,27 +58,6 @@
         </url>
       <% end %>
     <% end %>
-    <url>
-      <loc>https://maybefinance.com/stocks</loc>
-    </url>
-    <url>
-      <loc>https://maybefinance.com/stocks/all</loc>
-    </url>
-    <% @stocks.each do |stock| %>
-    <url>
-      <loc>https://maybefinance.com/stocks/<%= stock.symbol %>:<%= stock.mic_code %></loc>
-    </url>
-  <% end %>
-    <% @exchanges.each do |exchange| %>
-      <url>
-        <loc>https://maybefinance.com<%= stock_exchange_path(exchange.first) %></loc>
-      </url>
-    <% end %>
-    <% @sectors.each do |sector| %>
-      <url>
-        <loc>https://maybefinance.com<%= stock_sector_path(sector_slug(sector)) %></loc>
-      </url>
-    <% end %>
   <% end %>
   <url>
     <loc>https://maybefinance.com/tools/inside-trading-tracker/top-owners</loc>
@@ -73,10 +68,5 @@
   <url>
     <loc>https://maybefinance.com/tools/inside-trading-tracker/top-officers</loc>
   </url>
-  <% @insider_trades.each do |stock| %>
-    <url>
-      <loc>https://maybefinance.com/tools/inside-trading-tracker/<%= stock.symbol %></loc>
-    </url>
-  <% end %>
 </urlset>
 

@@ -1,6 +1,6 @@
 <%= tag.div class: [ "flex items-center gap-2", { "hidden": !index.zero? } ], data: { stocks_allocator_target: "allocation" } do %>
   <div class="search-combobox">
-    <%= combobox_tag "stocks[]", stocks_path(combobox: true),
+    <%= combobox_tag "stocks[]", stocks_combobox_path(combobox: true),
       label: local_assigns[:label],
       placeholder: "Search for a stock",
       required: local_assigns[:required] %>

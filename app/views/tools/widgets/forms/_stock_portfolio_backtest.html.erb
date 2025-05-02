@@ -14,7 +14,7 @@
   <span class="text-red-500 text-xs" data-stocks-allocator-target="warningText"></span>
   <%= render partial: "shared/section_divider", locals: { section_name: "Settings" } %>
   <div class="search-combobox">
-    <%= combobox_tag "benchmark_stock", stocks_path(combobox: true),
+    <%= combobox_tag "benchmark_stock", stocks_combobox_path(combobox: true),
       label: "Benchmark",
       placeholder: "Search for a stock",
       required: true %>

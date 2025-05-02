@@ -39,25 +39,12 @@ module NavigationHelper
         path: terms_path
       },
       {
-        text: "Stocks",
-        path: stocks_path
-      },
-      {
         text: "Join Community",
         path: "https://link.maybe.co/discord"
       },
       {
         text: "Self-Host",
         path: "https://github.com/maybe-finance/maybe"
-      }
-    ]
-  end
-
-  def header_nav_resources_more
-    [
-      {
-        text: "X",
-        path: "https://x.com/maybe"
       },
       {
         text: "GitHub",
@@ -66,14 +53,6 @@ module NavigationHelper
       {
         text: "Contact".html_safe + " " + lucide_icon("arrow-up-right", class: "text-gray-400 group-hover/contact:text-gray-900 transition-all duration-150 inline w-4 h-4").html_safe,
         path: "mailto:hello@maybe.co"
-      },
-      {
-        text: "Terms of Service",
-        path: tos_path
-      },
-      {
-        text: "Privacy Policy",
-        path: privacy_path
       }
     ]
   end
@@ -118,10 +97,6 @@ module NavigationHelper
         path: terms_path
       },
       {
-        text: "Stocks",
-        path: stocks_path
-      },
-      {
         text: "Join Community",
         path: "https://link.maybe.co/discord"
       },
@@ -157,35 +132,6 @@ module NavigationHelper
       {
         text: "All Tools",
         path: tools_path
-      }
-    ]
-  end
-
-  def footer_stocks
-    [
-      {
-        text: "AAPL",
-        path: stock_path("AAPL")
-      },
-      {
-        text: "GOOGL",
-        path: stock_path("GOOGL")
-      },
-      {
-        text: "MSFT",
-        path: stock_path("MSFT")
-      },
-      {
-        text: "AMZN",
-        path: stock_path("AMZN")
-      },
-      {
-        text: "NVDA",
-        path: stock_path("NVDA")
-      },
-      {
-        text: "All Stocks",
-        path: stocks_path
       }
     ]
   end
