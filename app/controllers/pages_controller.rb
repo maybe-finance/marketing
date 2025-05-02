@@ -37,36 +37,8 @@ class PagesController < ApplicationController
     @terms = Term.all
     @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
     @tools = Tool.all
-    @exchanges = Stock.where(kind: "stock")
-                     .where.not(mic_code: nil)
-                     .distinct
-                     .pluck(:exchange, :country_code)
-                     .compact
-                     .group_by(&:first)
-                     .transform_values(&:first)
-                     .values
-                     .sort_by(&:first)
-    @industries = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(industry: nil).distinct.pluck(:industry, :country_code).compact.sort_by(&:first)
-    @sectors = Stock.where(kind: "stock").where.not(mic_code: nil).where.not(sector: nil).distinct.pluck(:sector).compact.sort
+
     @exchange_rate_currencies = Tool::Presenter::ExchangeRateCalculator.new.currency_options
-
-    # Add insider trades pagination
-    @insider_trades = Stock.where(kind: "stock", country_code: "US")
-                          .where.not(mic_code: nil)
-                          .order(name: :asc)
-                          .offset((@page - 1) * 20_000)
-                          .limit(20_000)
-
-    # Adjust stocks pagination to start after insider trades pages
-    stocks_page = @page - (Stock.where(kind: "stock", country_code: "US").count / 20_000.0).ceil
-    @stocks = if stocks_page > 0
-      Stock.order(name: :asc)
-           .where.not(mic_code: nil)
-           .offset((stocks_page - 1) * 20_000)
-           .limit(20_000)
-    else
-      Stock.none
-    end
 
     respond_to do |format|
       format.xml
