@@ -27,29 +27,17 @@ class PagesController < ApplicationController
   def privacy
   end
 
-  # GET /sitemap
-  # Generates a sitemap with links to various resources in the application.
-  # Includes terms, articles, tools, and stocks.
-  #
-  # @return [Array<Term>, Array<Article>, Array<Tool>, Array<Stock>] Collections of resources for the sitemap
-  def sitemap
-    @page = (params[:page] || 1).to_i
-    @terms = Term.all
-    @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
-    @tools = Tool.all
-
-    @exchange_rate_currencies = Tool::Presenter::ExchangeRateCalculator.new.currency_options
-
-    respond_to do |format|
-      format.xml
-    end
-  end
 
   # GET /sitemap.xml
   # Generates a sitemap index file with links to multiple sitemaps.
   #
   # @return [XML] Sitemap index file
   def sitemap_index
+    @terms = Term.all
+    @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
+    @tools = Tool.all
+
+    @exchange_rate_currencies = Tool::Presenter::ExchangeRateCalculator.new.currency_options
     respond_to do |format|
       format.xml
     end
