@@ -1,7 +1,7 @@
 <header class="flex sticky top-0 z-50 flex-wrap">
   <%= image_tag "border-strip.svg", alt: "Maybe Stripe", class: "object-cover w-full h-[6px]" %>
   <%# Mobile Navbar %>
-  <nav class="flex flex-col justify-between w-full py-4 px-4 md:px-6 bg-transparent bg-blur-xl backdrop-blur-xl md:hidden" data-controller="navbar">
+  <nav class="flex flex-col justify-between w-full py-4 px-4 md:px-6 bg-[hsl(0_0%_97%_/_80%)] bg-blur-xl backdrop-blur-xl md:hidden" data-controller="navbar">
     <menu class="flex gap-x-2 md:flex font-medium items-center justify-between" data-navbar-target="mobileNavMenu">
       <%= link_to image_tag("maybe-logo-mark.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
       <div class="flex items-center">
@@ -52,7 +52,7 @@
     </div>
   </nav>
   <%# Desktop Navbar %>
-  <nav class="items-center justify-between w-full py-4 px-6 bg-transparent bg-blur-xl backdrop-blur-xl hidden md:flex" data-controller="navbar" data-navbar-hidden-class="hidden">
+  <nav class="items-center justify-between w-full py-4 px-6 bg-[hsl(0_0%_97%_/_80%)] bg-blur-xl backdrop-blur-xl hidden md:flex" data-controller="navbar" data-navbar-hidden-class="hidden">
     <div class="flex items-center gap-x-3">
       <%= link_to image_tag("maybe-logo.svg", alt: "Maybe Logo", class: "h-6"), root_path %>
     </div>
