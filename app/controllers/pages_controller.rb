@@ -50,13 +50,6 @@ class PagesController < ApplicationController
   #
   # @return [XML] Sitemap index file
   def sitemap_index
-    @us_stocks_count = Stock.where(kind: "stock", country_code: "US").where.not(mic_code: nil).count
-    @total_stocks = Stock.where.not(mic_code: nil).count
-
-    @insider_trades_pages = (@us_stocks_count / 20_000.0).ceil
-    @stocks_pages = ((@total_stocks - @us_stocks_count) / 20_000.0).ceil
-    @sitemap_count = @insider_trades_pages + @stocks_pages
-
     respond_to do |format|
       format.xml
     end

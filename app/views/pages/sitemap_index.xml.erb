@@ -4,10 +4,4 @@
     <loc>https://maybefinance.com/sitemap_1.xml</loc>
     <lastmod><%= Time.current.strftime("%Y-%m-%d") %></lastmod>
   </sitemap>
-  <% 2.upto(@sitemap_count) do |page| %>
-    <sitemap>
-      <loc>https://maybefinance.com/sitemap_<%= page %>.xml</loc>
-      <lastmod><%= Time.current.strftime("%Y-%m-%d") %></lastmod>
-    </sitemap>
-  <% end %>
 </sitemapindex>
