@@ -16,6 +16,8 @@
               </li>
             <% end %>
           </ul>
+        </div>
+        <div class="mb-10 md:mb-0">
           <h4 class="font-mono mb-4 text-sm leading-[1.125rem] uppercase text-gray-800">Resources</h4>
           <ul class="flex flex-col gap-y-1">
             <% footer_resources.each do |link| %>
@@ -29,14 +31,6 @@
           <h4 class="font-mono mb-4 text-sm leading-[1.3] uppercase text-gray-800">Tools</h4>
           <ul class="flex flex-col gap-y-1 mb-10">
             <% footer_tools.each do |link| %>
-              <li>
-                <%= link_to link[:text], link[:path], class: "hover:text-gray-900 transition-all duration-150 ease-in-out" %>
-              </li>
-            <% end %>
-          </ul>
-          <h4 class="font-mono mb-4 text-sm leading-[1.3] uppercase text-gray-800">Stocks</h4>
-          <ul class="flex flex-col gap-y-1">
-            <% footer_stocks.each do |link| %>
               <li>
                 <%= link_to link[:text], link[:path], class: "hover:text-gray-900 transition-all duration-150 ease-in-out" %>
               </li>
