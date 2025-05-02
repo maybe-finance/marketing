@@ -118,10 +118,6 @@ module NavigationHelper
         path: tool_path("roi-calculator")
       },
       {
-        text: "Inside Trading Tracker",
-        path: tool_path("inside-trading-tracker")
-      },
-      {
         text: "Financial Freedom Calculator",
         path: tool_path("financial-freedom-calculator")
       },

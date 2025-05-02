@@ -44,8 +44,6 @@ class ToolsController < ApplicationController
         # Stock Portfolio Backtest
         :benchmark_stock, :investment_amount, :start_date, :end_date, { stocks: [], stock_allocations: [] },
         # Exchange Rate Calculator
-        :amount, :from_currency, :to_currency,
-        # Insider Trading Tracker
-        :symbol, :filter
+        :amount, :from_currency, :to_currency
     end
 end

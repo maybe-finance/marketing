@@ -82,49 +82,6 @@ class Provider::Synth
     end
   end
 
-  def insider_trades(ticker:, start_date: 365.days.ago, end_date: Date.today, limit: 100)
-    response = fetch_insider_trades(
-      ticker: ticker,
-      start_date: start_date,
-      end_date: end_date,
-      limit: limit
-    )
-
-    if response.success?
-      InsiderTradesResponse.new(
-        ticker: ticker,
-        trades: response.parsed_response["data"],
-        success?: true,
-        raw_response: response
-      )
-    else
-      InsiderTradesResponse.new(
-        ticker: ticker,
-        success?: false,
-        raw_response: response
-      )
-    end
-  end
-
-  def recent_insider_trades(filters = {})
-    response = fetch_recent_insider_trades(**filters)
-
-    if response.success?
-      InsiderTradesResponse.new(
-        ticker: nil,
-        trades: response.parsed_response["data"],
-        success?: true,
-        raw_response: response
-      )
-    else
-      InsiderTradesResponse.new(
-        ticker: nil,
-        success?: false,
-        raw_response: response
-      )
-    end
-  end
-
   private
     BASE_URL = "https://api.synthfinance.com"
 
@@ -150,13 +107,6 @@ class Provider::Synth
       :raw_response,
       keyword_init: true
     )
-    InsiderTradesResponse = Struct.new(
-      :ticker,
-      :trades,
-      :success?,
-      :raw_response,
-      keyword_init: true
-    )
 
     def fetch_stock_prices(ticker:, start_date:, end_date:, interval: "day", limit: 100)
       HTTParty.get "#{BASE_URL}/tickers/#{ticker}/open-close",
@@ -178,35 +128,6 @@ class Provider::Synth
           date_start: start_date.to_s,
           date_end: end_date.to_s
         },
-        headers: default_headers
-    end
-
-    def fetch_insider_trades(ticker:, start_date:, end_date:, limit: 100)
-      url = "#{BASE_URL}/insider-trades"
-      query = {
-        ticker: ticker,
-        start_date: start_date.to_s,
-        end_date: end_date.to_s,
-        limit: limit,
-        sort: "transaction_date",
-        direction: "desc"
-      }
-
-      HTTParty.get url,
-        query: query,
-        headers: default_headers
-    end
-
-    def fetch_recent_insider_trades(**filters)
-      url = "#{BASE_URL}/insider-trades"
-      query_params = {
-        limit: 250,
-        sort: "transaction_date",
-        direction: "desc"
-      }.merge(filters)
-
-      HTTParty.get url,
-        query: query_params,
         headers: default_headers
     end
 

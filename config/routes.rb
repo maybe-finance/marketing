@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get "/community", to: redirect("https://link.maybe.co/discord", status: 301)
   get "/early-access", to: redirect("https://app.maybefinance.com/early-access", status: 301)
 
+  # Redirect for removed inside trading tracker
+  get "/tools/inside-trading-tracker(/*path)", to: redirect("/", status: 301)
 
   get "pricing", to: "pages#pricing"
   get "features/assistant/:category", to: "features#assistant", as: "assistant_category"
@@ -41,14 +43,6 @@ Rails.application.routes.draw do
           amount: /\d+(\.\d+)?/
         },
         action: :show
-
-      # Insider trading views
-      get ":filter",
-        action: :show,
-        constraints: {
-          filter: /top-owners|biggest-trades|top-officers/,
-          slug: "inside-trading-tracker"
-        }
 
       # Stock symbol route
       get ":symbol", action: :show, constraints: { symbol: /[A-Z]+/ }
