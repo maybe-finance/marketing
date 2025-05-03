@@ -4,5 +4,5 @@ Sentry.init do |config|
   config.enabled_environments = %w[production]
   config.traces_sample_rate = 0.25
   config.profiles_sample_rate = 0.25
-  # config.profiler_class = Sentry::Vernier::Profiler
+  config.profiler_class = Sentry::Vernier::Profiler
 end
