@@ -89,7 +89,7 @@ module NavigationHelper
         path: articles_path
       },
       {
-        text: "Tools",
+        text: "Personal Finance Tools",
         path: tools_path
       },
       {

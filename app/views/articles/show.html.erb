@@ -2,6 +2,36 @@
   title @article.title
   description "#{markdown(@article.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
   meta_image @article.meta_image_url if @article.meta_image_url.present?
+  content_for :schema_data do
+    content = strip_tags(markdown(@article.content))
+    short_description = truncate(content, length: 300, separator: ' ', omission: '...')
+    json_ld = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": @article.title,
+      "image": @article.meta_image_url.presence || image_url('meta.jpg'),
+      "datePublished": @article.publish_at.iso8601,
+      "dateModified": @article.updated_at.iso8601,
+      "author": {
+        "@type": "Person",
+        "name": @article.author_name.presence || "Maybe Finance"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Maybe Finance",
+        "logo": {
+          "@type": "ImageObject",
+          "url": image_url("maybe-logo-glow-4x.png")
+        }
+      },
+      "description": short_description,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": article_url(@article)
+      }
+    }.to_json.html_safe
+    concat(tag.script(json_ld, type: "application/ld+json"))
+  end
 %>
 <div class="max-w-[1140px] mx-auto space-y-4 mt-10">
   <%= link_to articles_path, class: "h-6 flex flex-row rounded-full gap-[6px] w-fit mb-6 pr-2 items-center text-gray-900 hover:bg-gray-200/50" do %>
@@ -9,7 +39,7 @@
     <span class="text-sm">Back to articles</span>
   <% end %>
   <article>
-    <%= tag.div class: "min-h-[480px] mb-10 border bg-gradient-to-b #{article_gradient(@article)}" %>
+    <%= tag.div class: "min-h-[480px] mb-10 rounded-2xl bg-gradient-to-b #{article_gradient(@article)}" %>
     <span class="flex font-mono text-xs font-medium mb-4 text-gray-500 uppercase">
       <%= @article.publish_at.to_date.strftime("%B %-d, %Y") %> &#x2022; <%= article_reading_time(@article) %> &#x2022; INVESTING
     </span>
@@ -17,10 +47,10 @@
       <div class="flex flex-col w-full max-w-[680px] gap-1">
         <h1 class="text-5xl leading-[3.5rem] font-medium mb-4 text-gray-900"><%= @article.title %></h1>
         <% if @article.author_name.present? %>
-          <div class="flex flex-row gap-3 mb-6">
-            <%= author_image_tag @article.author_name, class: "w-10 h-10 rounded-full bg-gray-500 mb-3" %>
-            <span class="flex flex-col">
-              <p class="text-base leading-5 mb-[2px]"><%= @article.author_name %></p>
+          <div class="flex flex-row items-center gap-3 mb-6">
+            <%= author_image_tag @article.author_name, class: "w-10 h-10 rounded-full bg-gray-500" %>
+            <span class="flex">
+              <p class="text-base leading-5"><%= @article.author_name %></p>
             </span>
           </div>
         <% end %>
@@ -46,7 +76,7 @@
               <%= tag.div class: "min-h-[72px] rounded-lg bg-gradient-to-b #{article_gradient(article)}" %>
               <div class="flex flex-col justify-between text-left">
                 <div class="space-y-2">
-                  <h2 class ="text-2xl font-medium text-gray-900"><%= article.title %></h2>
+                  <h2 class="text-2xl font-medium text-gray-900"><%= article.title %></h2>
                   <span class="font-mono text-xs font-medium text-gray-500 uppercase">
                     <%= article.publish_at.to_date.strftime("%B %-d, %Y") %> — <%= article_reading_time(article) %>
                   </span>
