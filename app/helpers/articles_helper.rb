@@ -22,7 +22,7 @@ module ArticlesHelper
   end
 
   def author_image_tag(name, **options)
-    image_path = "authors/#{name.parameterize}.png"
+    image_path = "authors/#{name.parameterize}.jpg"
 
     if image_exists?(image_path)
       image_tag image_path, **options.reverse_merge(alt: name)
