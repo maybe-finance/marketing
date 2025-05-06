@@ -2,10 +2,78 @@
   title "#{@term.title} - Financial Terms"
   description "#{markdown(@term.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
   meta_image @term.meta_image_url if @term.meta_image_url.present?
+
+  content_for :schema_data do
+    schemas = []
+
+    # Article Schema
+    article_content = strip_tags(markdown(@term.content))
+    article_description = truncate(article_content, length: 300, separator: ' ', omission: '...')
+    article_schema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": request.original_url
+      },
+      "headline": @term.name.presence || "#{@term.name} meaning in personal finance",
+      "description": article_description,
+      "author": {
+        "@type": "Organization",
+        "name": "Maybe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Maybe",
+        "logo": {
+          "@type": "ImageObject",
+          "url": image_url("maybe-logo-glow-4x.png") # Consistent with articles
+        }
+      },
+      "datePublished": @term.created_at.iso8601,
+      "dateModified": @term.updated_at.iso8601 # Added dateModified
+    }
+    schemas << article_schema
+
+    # VideoObject Schema (if video_id is present)
+    if @term.video_id.present?
+      video_schema = {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": @term.title,
+        "description": @term.video_description.presence || article_description, # Fallback for video description
+        "thumbnailUrl": "https://i3.ytimg.com/vi/#{@term.video_id}/maxresdefault.jpg",
+        "uploadDate": @term.video_upload_date.iso8601, # Ensure ISO8601 format
+        "duration": @term.video_duration, # Assuming this is already in ISO8601 duration format (e.g., PT1M3S)
+        "embedUrl": "https://www.youtube.com/embed/#{@term.video_id}",
+        "publisher": { # Added publisher to video
+          "@type": "Organization",
+          "name": "Maybe",
+          "logo": {
+            "@type": "ImageObject",
+            "url": image_url("maybe-logo-glow-4x.png")
+          }
+        }
+      }
+      schemas << video_schema
+    end
+
+    # If there's only one schema, output it directly.
+    # If there are multiple (e.g., Article and VideoObject), output them as a graph.
+    if schemas.size == 1
+      concat(tag.script(schemas.first.to_json.html_safe, type: "application/ld+json"))
+    elsif schemas.size > 1
+      graph_schema = {
+        "@context": "https://schema.org",
+        "@graph": schemas
+      }
+      concat(tag.script(graph_schema.to_json.html_safe, type: "application/ld+json"))
+    end
+  end
 %>
 <div class="max-w-6xl mt-4 mx-auto tracking-[0.02em] prose">
   <p class="text-sm">
-    <span class="text-gray-500">Financial Terms / <%= dict_group(@term.name) %> /</span> <%= @term.name %>
+    <span class="text-gray-500"><%= link_to "Financial Terms", terms_path, class: "text-gray-500 no-underline font-medium" %> / <%= dict_group(@term.name) %> /</span> <%= @term.name %>
   </p>
   <article class="flex flex-col md:flex-row gap-14">
     <div class="w-full md:w-2/3 lg:max-w-[680px]">
@@ -31,42 +99,4 @@
       <%= render "shared/share_buttons" %>
     </div>
   </article>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "<%= request.original_url %>"
-      },
-      "headline": "<%= @term.name.presence || "#{@term.name} meaning in personal finance" %>",
-      "description": "<%= markdown(@term.content).gsub(%r{</?[^>]+?>}, "") %>",
-      "author": {
-        "@type": "Organization",
-        "name": "Maybe"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Maybe",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://maybefinance.com/apple-icon.png"
-        }
-      },
-      "datePublished": "<%= @term.created_at.iso8601 %>"
-    }
-  </script>
-  <% if @term.video_id.present? %>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
-        "name": "<%= @term.title %>",
-        "description": "<%= @term.video_description %>",
-        "thumbnailUrl": "https://i3.ytimg.com/vi/<%= @term.video_id %>/maxresdefault.jpg",
-        "uploadDate": "<%= @term.video_upload_date %>",
-        "duration": "<%= @term.video_duration %>",
-        "embedUrl": "https://www.youtube.com/embed/<%= @term.video_id %>"
-      }
-    </script>
-  <% end %>
+</div>
