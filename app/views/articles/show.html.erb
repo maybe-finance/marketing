@@ -39,12 +39,12 @@
     <span class="text-sm">Back to articles</span>
   <% end %>
   <article>
-    <%= tag.div class: "min-h-[480px] mb-10 rounded-2xl bg-gradient-to-b #{article_gradient(@article)}" %>
+    <%= tag.div class: "min-h-[300px] mb-10 rounded-2xl bg-gradient-to-b #{article_gradient(@article)}" %>
     <span class="flex font-mono text-xs font-medium mb-4 text-gray-500 uppercase">
       <%= @article.publish_at.to_date.strftime("%B %-d, %Y") %> &#x2022; <%= article_reading_time(@article) %> &#x2022; INVESTING
     </span>
-    <div class="flex flex-row w-full gap-[56px]">
-      <div class="flex flex-col w-full max-w-[680px] gap-1">
+    <div class="flex flex-col md:flex-row w-full gap-[56px]">
+      <div class="flex flex-col flex-1 max-w-[680px] gap-1">
         <h1 class="text-5xl leading-[3.5rem] font-medium mb-4 text-gray-900"><%= @article.title %></h1>
         <% if @article.author_name.present? %>
           <div class="flex flex-row items-center gap-3 mb-6">
@@ -58,7 +58,7 @@
           <%= markdown @article.content %>
         </div>
       </div>
-      <div class="w-auto">
+      <div class="w-full md:w-[450px] flex-shrink-0">
         <%= image_tag "maybe-logo-glow-4x.png", alt: "Maybe Logo", style:"width: 68px; margin: -14px 0 0 -13px;", class: "mb-4" %>
         <p class="text-base text-gray-500 mb-4">Subscribe to get the latest updates right in your inbox!</p>
         <div class="mb-8">
