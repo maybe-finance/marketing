@@ -31,7 +31,7 @@ module NavigationHelper
   def header_nav_resources_links
     [
       {
-        text: "Blog",
+        text: "Personal Finance Articles",
         path: articles_path
       },
       {
@@ -85,7 +85,7 @@ module NavigationHelper
   def footer_resources
     [
       {
-        text: "Blog",
+        text: "Personal Finance Articles",
         path: articles_path
       },
       {
