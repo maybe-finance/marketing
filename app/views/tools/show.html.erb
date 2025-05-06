@@ -10,7 +10,7 @@
 %>
 <article class="max-w-[1140px] mx-auto mt-10" >
   <p class="text-sm mb-6">
-    <span class="text-gray-500">Tools /</span> <%= @tool.name %>
+    <span class="text-gray-500"><%= link_to "Tools", tools_path %> /</span> <%= @tool.name %>
   </p>
   <div class="max-w-[720px] mb-6">
     <h1 class="text-5xl leading-[3.5rem] m-0 mb-2 font-medium tracking-tight"><%= @tool.name %></h1>
