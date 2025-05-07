@@ -32,9 +32,7 @@ class SyncSeobotJob < ApplicationJob
             if article_detail_response.success?
               article_detail_data = JSON.parse(article_detail_response.body)
 
-              # Convert HTML content to Markdown
-              markdown_content = ReverseMarkdown.convert(article_detail_data["html"])
-
+              markdown_content = article_detail_data["markdown"]
               # Remove the first H1 heading
               markdown_content = markdown_content.sub(/\A#\s.*\n/, "")
 
