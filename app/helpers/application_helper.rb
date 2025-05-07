@@ -63,7 +63,7 @@ module ApplicationHelper
       tables:             true
     }
 
-    renderer = Redcarpet::Render::HTML.new(options)
+    renderer = CustomMarkdownRenderer.new(options)
     markdown = Redcarpet::Markdown.new(renderer, extensions)
 
     text.present? ? markdown.render(text).html_safe : ""
@@ -77,5 +77,48 @@ module ApplicationHelper
     else
       number.to_s
     end
+  end
+end
+
+# Custom Markdown Renderer to handle ::: syntax
+class CustomMarkdownRenderer < Redcarpet::Render::HTML
+  def preprocess(full_document)
+    # --- TEMPORARY DEBUGGING LINE ---
+    # return "PREPROCESSOR WAS HERE! ORIGINAL CONTAINS '::: faq': #{full_document.include?('::: faq')}"
+
+    doc = full_document.dup # Work on a copy
+
+    # Handle ::: @iframe URL ::: blocks
+    # Expects the closing ::: on the immediately following line.
+    doc.gsub!(/^:::\s*@iframe\s+(https?:\/\/[^\s]+)\s*?\r?\n^:::\s*$/m) do
+      "<div class=\"iframe-container\"><iframe src=\"#{$1}\" width=\"100%\" frameborder=\"0\" allowfullscreen></iframe></div>"
+    end
+
+    # Handle other ::: classname blocks (e.g., ::: faq)
+    # This will match "::: classname" followed by a newline, then capture the content,
+    # and then match the closing ":::".
+    # The 'm' option makes '.' match newlines.
+    doc.gsub!(/^:::\s*([a-zA-Z0-9_-]+)\s*\r?\n(.*?)^:::\s*$/m) do |match|
+      classname = $1
+      content = $2
+      if classname.start_with?("@") # Avoid reprocessing things like @iframe if somehow missed
+        match # Return original match if it's a special @-block not handled above
+      else
+        # Recursively call markdown for the content inside the block
+        # We need to access the main markdown method from ApplicationHelper here.
+        # This is a bit tricky directly inside a Redcarpet Renderer instance method
+        # without passing a reference or using a global call if possible.
+        # For now, let's assume direct call works or we might need to refactor slightly.
+        ApplicationController.helpers.markdown(content.strip)
+        "<div class=\"#{classname}\">\n#{ApplicationController.helpers.markdown(content.strip)}\n</div>"
+      end
+    end
+
+    # The above regex should handle both opening and closing for content blocks.
+    # A standalone closer ':::' regex might no longer be strictly necessary if all blocks have content
+    # and are caught by the rule above. If there's a case for ::: someopening \n content \n ::: \n ::: someotheropening ...,
+    # then the more specific block matching above is better.
+
+    doc
   end
 end
