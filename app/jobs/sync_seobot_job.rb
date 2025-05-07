@@ -36,6 +36,9 @@ class SyncSeobotJob < ApplicationJob
               # Remove the first H1 heading
               markdown_content = markdown_content.sub(/\A#\s.*\n/, "")
 
+              # Remove blank lines/spaces at the start and end of the content
+              markdown_content = markdown_content.strip
+
               Article.create!(
                 title: article_detail_data["headline"],
                 slug: article_detail_data["slug"],
