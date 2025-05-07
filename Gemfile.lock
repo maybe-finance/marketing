@@ -181,6 +181,7 @@ GEM
       rails (>= 7.0.7.2)
       stimulus-rails (>= 1.2)
       turbo-rails (>= 1.2)
+    htmx-rails (0.2.0)
     httparty (0.22.0)
       csv
       mini_mime (>= 1.0.0)
@@ -354,6 +355,8 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
+    reverse_markdown (3.0.0)
+      nokogiri
     revise_auth (0.7.1)
       bcrypt (~> 3.1)
       rails (>= 7.1.0.beta1)
@@ -450,7 +453,6 @@ GEM
     useragent (0.16.11)
     vcr (6.3.1)
       base64
-    vernier (1.7.0)
     view_component (3.21.0)
       activesupport (>= 5.2.0, < 8.1)
       concurrent-ruby (~> 1.0)
@@ -496,6 +498,7 @@ DEPENDENCIES
   ffi (>= 1.17)
   hotwire-livereload
   hotwire_combobox (~> 0.4.0)
+  htmx-rails
   importmap-rails
   jbuilder
   logtail-rails
@@ -510,6 +513,7 @@ DEPENDENCIES
   rails_performance
   redcarpet
   redis (>= 4.0.1)
+  reverse_markdown
   revise_auth
   rubocop-rails-omakase
   ruby-lsp-rails

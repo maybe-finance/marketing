@@ -17,4 +17,9 @@ namespace :content do
 
     Rails.logger.info "Finished enqueuing all exchange rate content generation jobs."
   end
+
+  desc "Enqueues jobs to generate SEObot content"
+  task generate_seobot_content: :environment do
+    SyncSeobotJob.perform_later
+  end
 end

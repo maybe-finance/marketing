@@ -24,6 +24,8 @@ gem "sidekiq"
 gem "stimulus-rails"
 gem "turbo-rails"
 gem "hotwire_combobox", "~> 0.4.0"
+gem "htmx-rails"
+gem "reverse_markdown"
 
 # Other
 gem "faraday"
