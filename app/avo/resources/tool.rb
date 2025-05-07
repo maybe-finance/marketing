@@ -15,8 +15,8 @@ class Avo::Resources::Tool < Avo::BaseResource
       [ [ "No category", "" ] ] + Tool::CATEGORIES.keys.map { |key| [ key.to_s.humanize, key.to_s ] }
     end
 
-    field :intro, as: :markdown
+    field :intro, as: :easy_mde
     field :description, as: :textarea
-    field :content, as: :markdown
+    field :content, as: :easy_mde
   end
 end

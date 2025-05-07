@@ -12,7 +12,7 @@ class Avo::Resources::Article < Avo::BaseResource
     field :id, as: :id
     field :title, as: :text
     field :slug, as: :text
-    field :content, as: :markdown
+    field :content, as: :easy_mde
     field :publish_at, as: :date_time
     field :author_name, as: :text
   end

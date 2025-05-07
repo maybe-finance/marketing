@@ -12,7 +12,7 @@ class Avo::Resources::Term < Avo::BaseResource
     field :id, as: :id
     field :name, as: :text
     field :title, as: :text
-    field :content, as: :markdown
+    field :content, as: :easy_mde
     field :slug, as: :text
     field :video_id, as: :text
     field :video_description, as: :textarea
