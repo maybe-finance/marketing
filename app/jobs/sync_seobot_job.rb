@@ -36,6 +36,10 @@ class SyncSeobotJob < ApplicationJob
               # Remove the first H1 heading
               markdown_content = markdown_content.sub(/\A#\s.*\n/, "")
 
+              # Remove any "h6" headings, i.e. ######
+              # Example: ###### sbb-itb-98d7454
+              markdown_content = markdown_content.gsub(/^#{Regexp.escape('#')}{6}\s+/, "")
+
               # Remove blank lines/spaces at the start and end of the content
               markdown_content = markdown_content.strip
 

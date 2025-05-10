@@ -48,6 +48,11 @@ module ApplicationHelper
   end
 
   def markdown(text)
+    return "" unless text.present?
+
+    # Remove any lines that are h6 headings (###### ...)
+    sanitized_text = text.gsub(/^######.*\n?/, "")
+
     options = {
       filter_html:     false,
       hard_wrap:       true,
@@ -66,7 +71,7 @@ module ApplicationHelper
     renderer = CustomMarkdownRenderer.new(options)
     markdown = Redcarpet::Markdown.new(renderer, extensions)
 
-    text.present? ? markdown.render(text).html_safe : ""
+    markdown.render(sanitized_text).html_safe
   end
 
   def number_to_k(number)
