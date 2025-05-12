@@ -53,6 +53,9 @@ module ApplicationHelper
     # Remove any lines that are h6 headings (###### ...)
     sanitized_text = text.gsub(/^######.*\n?/, "")
 
+    # Remove any lines that start with "sbb-" (from SEOBot)
+    sanitized_text.gsub!(/^sbb-.*\n?/, "")
+
     options = {
       filter_html:     false,
       hard_wrap:       true,

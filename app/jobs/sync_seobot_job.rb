@@ -40,6 +40,9 @@ class SyncSeobotJob < ApplicationJob
               # Example: ###### sbb-itb-98d7454
               markdown_content = markdown_content.gsub(/^#{Regexp.escape('#')}{6}\s+/, "")
 
+              # Remove any lines that start with "sbb-" (from SEOBot)
+              markdown_content = markdown_content.gsub(/^sbb-.*\n?/, "")
+
               # Remove blank lines/spaces at the start and end of the content
               markdown_content = markdown_content.strip
 
