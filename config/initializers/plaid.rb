@@ -82,7 +82,6 @@ module PlaidConfig
       configuration.server_index = environment_index
       configuration.api_key["PLAID-CLIENT-ID"] = client_id
       configuration.api_key["PLAID-SECRET"] = secret
-      configuration.default_headers["Plaid-Version"] = "2020-09-14"
 
       api_client = Plaid::ApiClient.new(configuration)
       Plaid::PlaidApi.new(api_client)
