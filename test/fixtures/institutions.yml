@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  institution_id: "ins_test_1"
+  name: "Test Bank One"
+  country_codes: ["US"]
+  products: ["transactions", "auth"]
+  logo_url: "https://example.com/logo1.png"
+  website: "https://testbank1.com"
+
+two:
+  institution_id: "ins_test_2"
+  name: "Test Bank Two"
+  country_codes: ["CA", "US"]
+  products: ["transactions", "auth", "identity"]
+  logo_url: "https://example.com/logo2.png"
+  website: "https://testbank2.com"

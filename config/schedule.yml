@@ -1,0 +1,16 @@
+# Sidekiq-Cron Schedule Configuration
+# Format: 'JobName': { cron: 'cron_expression', class: 'WorkerClass', args: [optional_args] }
+
+# Daily institution sync from Plaid API
+# Runs at 2:00 AM every day (0 2 * * *)
+institution_daily_sync:
+  cron: '0 2 * * *'
+  class: 'InstitutionSyncJob'
+  description: 'Daily sync of institution data from Plaid API'
+  
+# Optional: Weekly full sync with multiple countries (commented out for now)
+# institution_weekly_sync:
+#   cron: '0 3 * * 0'  # Sunday at 3:00 AM
+#   class: 'InstitutionSyncJob'
+#   args: [['US', 'CA', 'GB']]
+#   description: 'Weekly full sync including additional countries' 

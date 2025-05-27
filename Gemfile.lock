@@ -140,6 +140,9 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    cronex (0.15.0)
+      tzinfo
+      unicode (>= 0.4.4.5)
     csv (3.3.0)
     date (3.4.1)
     debug (1.9.2)
@@ -159,6 +162,8 @@ GEM
       rubocop (>= 1)
       smart_properties
     erubi (1.13.1)
+    et-orbi (1.2.11)
+      tzinfo
     event_stream_parser (1.0.0)
     faraday (2.13.1)
       faraday-net_http (>= 2.0, < 3.5)
@@ -169,6 +174,9 @@ GEM
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
     ffi (1.17.2)
+    fugit (1.11.1)
+      et-orbi (~> 1, >= 1.2.11)
+      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.2)
@@ -273,6 +281,9 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    plaid (24.4.0)
+      faraday (>= 1.0.1, < 3.0)
+      faraday-multipart (>= 1.0.1, < 2.0)
     platform_agent (1.0.1)
       activesupport (>= 5.2.0)
       useragent (~> 0.16.3)
@@ -293,6 +304,7 @@ GEM
     public_suffix (6.0.1)
     puma (6.6.0)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.13)
     rack-mini-profiler (3.3.1)
@@ -418,6 +430,11 @@ GEM
       logger (>= 1.6.2)
       rack (>= 3.1.0)
       redis-client (>= 0.23.2)
+    sidekiq-cron (2.3.0)
+      cronex (>= 0.13.0)
+      fugit (~> 1.8, >= 1.11.1)
+      globalid (>= 1.0.1)
+      sidekiq (>= 6.5.0)
     skylight (6.0.4)
       activesupport (>= 5.2.0)
     smart_properties (1.17.0)
@@ -443,6 +460,7 @@ GEM
       turbo-rails (>= 1.3.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unicode (0.4.4.5)
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -502,6 +520,7 @@ DEPENDENCIES
   mocha
   pagy
   pg (~> 1.5)
+  plaid (~> 24.0)
   propshaft
   puma (>= 5.0)
   rack-mini-profiler
@@ -517,6 +536,7 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sidekiq
+  sidekiq-cron
   skylight
   stimulus-rails
   tailwindcss-rails

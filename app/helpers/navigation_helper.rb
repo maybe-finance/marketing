@@ -103,6 +103,10 @@ module NavigationHelper
       {
         text: "Self-Host",
         path: "https://github.com/maybe-finance/maybe"
+      },
+      {
+        text: "Bank Support",
+        path: bank_search_path
       }
     ]
   end

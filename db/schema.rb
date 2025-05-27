@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_21_183301) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_27_141021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,9 +38,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_183301) do
     t.index ["url_pattern"], name: "index_content_blocks_on_url_pattern"
   end
 
-  create_table "dictionaries", force: :cascade do |t|
+  create_table "institutions", primary_key: "institution_id", id: :string, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "country_codes", default: [], array: true
+    t.string "products", default: [], array: true
+    t.string "logo_url"
+    t.string "website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "oauth"
+    t.string "primary_color"
+    t.index ["country_codes"], name: "index_institutions_on_country_codes", using: :gin
+    t.index ["name"], name: "index_institutions_on_name"
+    t.index ["products"], name: "index_institutions_on_products", using: :gin
   end
 
   create_table "stock_prices", force: :cascade do |t|

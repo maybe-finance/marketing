@@ -19,6 +19,7 @@ gem "lucide-rails", github: "maybe-finance/lucide-rails"
 
 # Background Jobs
 gem "sidekiq"
+gem "sidekiq-cron"
 
 # Hotwire
 gem "stimulus-rails"
@@ -28,6 +29,7 @@ gem "hotwire_combobox", "~> 0.4.0"
 # Other
 gem "faraday"
 gem "jbuilder"
+gem "plaid", "~> 24.0"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "redcarpet"
 gem "avo", ">= 3.2"

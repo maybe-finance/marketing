@@ -1,0 +1,151 @@
+<%
+  content_for(:title) { "Maybe Finance Bank Support" }
+  description "Search for your bank to see if it's supported by Maybe"
+%>
+<div class="max-w-6xl mx-auto">
+  <!-- Header Section -->
+  <div class="w-full mx-auto max-w-[40rem] mb-10 text-center">
+    <div class="gap-x-2 mb-6">
+      <h1 class="text-6xl text-gray-800 leading-[calc(4rem+8px)] font-medium mb-2 tracking-[-0.02em]">Maybe Bank Support</h1>
+      <p class="text-xl leading-[1.4] text-gray-400 mb-4">Search for your bank to see if it's supported by Maybe Finance</p>
+      <p class="text-sm text-gray-500">
+        <%= pluralize(number_with_delimiter(@total_institutions), 'institution') %> available across <%= @countries.length %> countries
+      </p>
+    </div>
+  </div>
+
+  <!-- Search Interface -->
+  <div class="bg-white rounded-2xl border shadow-xs p-6 mb-8" data-controller="bank-search" data-bank-search-url-value="<%= bank_search_api_path %>">
+    <!-- Search Form -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="md:col-span-2">
+        <label for="bank-search-input" class="block text-sm font-medium text-gray-700 mb-2">
+          Search for your bank
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <input 
+            type="text" 
+            id="bank-search-input"
+            data-bank-search-target="input"
+            data-action="input->bank-search#search keydown->bank-search#handleKeydown"
+            placeholder="Enter your bank name..."
+            autocomplete="off"
+            aria-label="Search for your bank"
+            aria-describedby="search-help"
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white shadow-xs"
+          >
+          <button 
+            data-bank-search-target="clearButton"
+            data-action="click->bank-search#clearSearch"
+            class="absolute inset-y-0 right-0 pr-3 flex items-center hidden"
+            aria-label="Clear search"
+            title="Clear search (Esc)"
+          >
+            <svg class="h-5 w-5 text-gray-400 hover:text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <div id="search-help" class="text-xs text-gray-500 mt-1">
+          Press Esc to clear search
+        </div>
+      </div>
+      
+      <div>
+        <label for="country-filter" class="block text-sm font-medium text-gray-700 mb-2">
+          Country
+        </label>
+        <select 
+          id="country-filter"
+          data-bank-search-target="countryFilter"
+          data-action="change->bank-search#search"
+          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white shadow-xs"
+        >
+          <option value="">All Countries</option>
+          <% @countries.each do |country| %>
+            <option value="<%= country %>"><%= country %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <!-- Search Stats -->
+    <div data-bank-search-target="searchStats" class="hidden mb-4 text-sm text-gray-600">
+      <span data-bank-search-target="searchStatsText"></span>
+    </div>
+
+    <!-- Loading State -->
+    <div data-bank-search-target="loading" class="hidden text-center py-8">
+      <div class="inline-flex items-center">
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span class="text-gray-600">Searching...</span>
+      </div>
+    </div>
+
+    <!-- Results Container -->
+    <div data-bank-search-target="results" class="min-h-[400px]">
+      <div class="text-center py-16 text-gray-500">
+        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <p class="text-lg font-medium text-gray-900 mb-2">Start typing to search for banks</p>
+        <p class="text-sm text-gray-500">You can search by bank name or filter by country</p>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div data-bank-search-target="pagination" class="hidden mt-8 flex items-center justify-between border-t border-gray-200 pt-6">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <button data-bank-search-target="prevButton" data-action="click->bank-search#previousPage" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-xs">
+          Previous
+        </button>
+        <button data-bank-search-target="nextButton" data-action="click->bank-search#nextPage" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-xs">
+          Next
+        </button>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Showing <span data-bank-search-target="resultStart">0</span> to <span data-bank-search-target="resultEnd">0</span> of <span data-bank-search-target="resultTotal">0</span> results
+          </p>
+        </div>
+        <div>
+          <nav class="relative z-0 inline-flex rounded-xl shadow-xs -space-x-px" aria-label="Pagination">
+            <button data-bank-search-target="prevButton" data-action="click->bank-search#previousPage" class="relative inline-flex items-center px-2 py-2 rounded-l-xl border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+              <span class="sr-only">Previous</span>
+              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <span data-bank-search-target="pageInfo" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+              Page 1
+            </span>
+            <button data-bank-search-target="nextButton" data-action="click->bank-search#nextPage" class="relative inline-flex items-center px-2 py-2 rounded-r-xl border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+              <span class="sr-only">Next</span>
+              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Footer -->
+  <div class="text-center">
+    <p class="text-sm text-gray-500">
+      Bank data is synced daily from Plaid's supported institutions.
+      <br>
+      Status: <span class="font-semibold text-green-600">✅ Search Ready</span>
+    </p>
+  </div>
+</div> 

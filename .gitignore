@@ -73,4 +73,5 @@ scripts/
 # OS specific
 # Task files
 tasks.json
-tasks/ 
+/tasks/
+.cursor/mcp.json

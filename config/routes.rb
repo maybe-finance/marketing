@@ -58,6 +58,10 @@ Rails.application.routes.draw do
     end
   end
 
+  # Bank search routes
+  get "/bank-search", to: "bank_search#index", as: :bank_search
+  get "/api/bank-search", to: "bank_search#search", as: :bank_search_api
+
   # Specific route for stocks index with combobox param
   get "/stocks", to: "stocks#index", constraints: lambda { |req| req.params[:combobox].present? }, as: :stocks_combobox
 
