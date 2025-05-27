@@ -5,7 +5,7 @@ module PlaidConfig
   # Define supported regions and their corresponding country codes
   # Note: GB (United Kingdom) uses the non-EU endpoint despite being in Europe
   EU_COUNTRIES = %w[ES NL FR IE DE IT PL DK NO SE EE LT LV PT BE AT FI].freeze
-      NON_EU_COUNTRIES = %w[US CA GB].freeze
+      NON_EU_COUNTRIES = %w[US CA].freeze
   ALL_SUPPORTED_COUNTRIES = (EU_COUNTRIES + NON_EU_COUNTRIES).freeze
 
   class << self
