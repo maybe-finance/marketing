@@ -67,7 +67,6 @@ namespace :institutions do
       puts "   Total institutions in database: #{stats[:total_institutions]}"
       puts "   By region: EU=#{stats[:by_region][:eu]}, Non-EU=#{stats[:by_region][:non_eu]}"
       puts "   By country: #{stats[:by_country]}"
-      puts "   By status: #{stats[:by_status]}"
       puts "   Configuration: EU=#{stats[:configuration][:eu_configured] ? 'configured' : 'not configured'}, Non-EU=#{stats[:configuration][:non_eu_configured] ? 'configured' : 'not configured'}"
 
       puts "\n🎉 Institution sync completed successfully!"

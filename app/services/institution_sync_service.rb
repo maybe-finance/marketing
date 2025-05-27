@@ -88,7 +88,7 @@ class InstitutionSyncService
             region: PlaidConfig.region_for_countries(country_codes)
           },
           sync_result: sync_result,
-          sample_institutions: Institution.where(country_codes: country_codes).limit(3).pluck(:institution_id, :name)
+          sample_institutions: Institution.where("country_codes && ARRAY[?]::varchar[]", country_codes).limit(3).pluck(:institution_id, :name)
         }
       rescue => e
         Rails.logger.error "Test sync failed for countries #{country_codes}: #{e.message}"

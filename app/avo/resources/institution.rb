@@ -11,8 +11,9 @@ class Avo::Resources::Institution < Avo::BaseResource
     field :name, as: :text
     field :country_codes, as: :text
     field :products, as: :text
-    field :status, as: :text
     field :logo_url, as: :text
     field :website, as: :text
+    field :oauth, as: :boolean
+    field :primary_color, as: :text
   end
 end
