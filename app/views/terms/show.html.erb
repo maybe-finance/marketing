@@ -1,4 +1,5 @@
 <%
+  include ERB::Util
   title "#{@term.title} - Financial Terms"
   description "#{markdown(@term.content).gsub(%r{</?[^>]+?>}, '')[0...300]}..."
   meta_image @term.meta_image_url if @term.meta_image_url.present?
@@ -16,7 +17,7 @@
         "@type": "WebPage",
         "@id": request.original_url
       },
-      "headline": @term.name.presence || "#{@term.name} meaning in personal finance",
+      "headline": html_escape(@term.name.presence || "#{@term.name} meaning in personal finance"),
       "description": article_description,
       "author": {
         "@type": "Organization",
@@ -61,13 +62,13 @@
     # If there's only one schema, output it directly.
     # If there are multiple (e.g., Article and VideoObject), output them as a graph.
     if schemas.size == 1
-      concat(tag.script(schemas.first.to_json.html_safe, type: "application/ld+json"))
+      concat(tag.script(schemas.first.to_json, type: "application/ld+json"))
     elsif schemas.size > 1
       graph_schema = {
         "@context": "https://schema.org",
         "@graph": schemas
       }
-      concat(tag.script(graph_schema.to_json.html_safe, type: "application/ld+json"))
+      concat(tag.script(graph_schema.to_json, type: "application/ld+json"))
     end
   end
 %>
