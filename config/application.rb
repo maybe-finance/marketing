@@ -26,17 +26,5 @@ module MaybeMarketing
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_support.to_time_preserves_timezone = :zone
-
-    # Configure Logtail only if API key is present, but delay initialization until after fork
-    if ENV["LOGTAIL_API_KEY"].present? && ENV["LOGTAIL_INGESTING_HOST"].present?
-      puts "🌲 Logtail environment variables detected - will configure after worker fork"
-      # Use standard Rails logger initially, will switch to Logtail after fork
-      config.logger = ActiveSupport::Logger.new(STDOUT)
-    else
-      missing_vars = []
-      missing_vars << "LOGTAIL_API_KEY" unless ENV["LOGTAIL_API_KEY"].present?
-      missing_vars << "LOGTAIL_INGESTING_HOST" unless ENV["LOGTAIL_INGESTING_HOST"].present?
-      puts "⚠️  Logtail not configured. Missing environment variables: #{missing_vars.join(', ')}"
-    end
   end
 end
