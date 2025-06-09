@@ -49,7 +49,7 @@ Rails.application.configure do
   config.logger = if ENV["LOGTAIL_API_KEY"].present?
     Logtail::Logger.create_default_logger(
       ENV["LOGTAIL_API_KEY"],
-      telemetry_host: "in.logs.betterstack.com"
+      ingesting_host: ENV["LOGTAIL_INGESTING_HOST"]
     )
   else
     ActiveSupport::Logger.new(STDOUT)

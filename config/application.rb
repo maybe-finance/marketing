@@ -26,7 +26,5 @@ module MaybeMarketing
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_support.to_time_preserves_timezone = :zone
-
-    config.logger = Logtail::Logger.create_default_logger(ENV["LOGTAIL_API_KEY"], ingesting_host: ENV["LOGTAIL_INGESTING_HOST"])
   end
 end
