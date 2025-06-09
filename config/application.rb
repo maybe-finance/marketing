@@ -27,8 +27,30 @@ module MaybeMarketing
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_support.to_time_preserves_timezone = :zone
 
-    if ENV["LOGTAIL_API_KEY"].present? && ENV["LOGTAIL_INGESTING_HOST"].present?
-      config.logger = Logtail::Logger.create_default_logger(ENV["LOGTAIL_API_KEY"], ingesting_host: ENV["LOGTAIL_INGESTING_HOST"])
-    end
+        if ENV["LOGTAIL_API_KEY"].present? && ENV["LOGTAIL_INGESTING_HOST"].present?
+      begin
+        puts "🌲 Configuring Logtail..."
+        puts "   API Key: #{ENV['LOGTAIL_API_KEY'] ? 'Present' : 'Missing'}"
+        puts "   Ingesting Host: #{ENV['LOGTAIL_INGESTING_HOST']}"
+
+        config.logger = Logtail::Logger.create_default_logger(
+          ENV["LOGTAIL_API_KEY"],
+          ingesting_host: ENV["LOGTAIL_INGESTING_HOST"]
+        )
+
+        puts "✅ Logtail logger configured successfully"
+      rescue => e
+        puts "❌ Failed to configure Logtail: #{e.message}"
+        puts "   Backtrace: #{e.backtrace.first(3).join(', ')}"
+        puts "   Using standard Rails logger instead"
+        # Fall back to standard Rails logger
+        config.logger = ActiveSupport::Logger.new(STDOUT)
+      end
+        else
+      missing_vars = []
+      missing_vars << "LOGTAIL_API_KEY" unless ENV["LOGTAIL_API_KEY"].present?
+      missing_vars << "LOGTAIL_INGESTING_HOST" unless ENV["LOGTAIL_INGESTING_HOST"].present?
+      puts "⚠️  Logtail not configured. Missing environment variables: #{missing_vars.join(', ')}"
+        end
   end
 end
