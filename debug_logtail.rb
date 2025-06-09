@@ -2,10 +2,14 @@
 
 require 'bundler/setup'
 require 'logtail-rails'
-require 'dotenv'
 
-# Load environment variables if using .env file
-Dotenv.load if defined?(Dotenv)
+# Try to load dotenv if available (development/test environments)
+begin
+  require 'dotenv'
+  Dotenv.load if defined?(Dotenv)
+rescue LoadError
+  # dotenv not available - this is normal in production
+end
 
 puts "🔍 Debugging Logtail Configuration"
 puts "=================================="
