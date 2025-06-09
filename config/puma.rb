@@ -55,7 +55,7 @@ plugin :tmp_restart
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
 
 # Configure Logtail after worker fork to prevent thread inheritance issues
-if ENV["LOGTAIL_API_KEY"].present? && ENV["LOGTAIL_INGESTING_HOST"].present?
+if ENV["LOGTAIL_API_KEY"] && !ENV["LOGTAIL_API_KEY"].empty? && ENV["LOGTAIL_INGESTING_HOST"] && !ENV["LOGTAIL_INGESTING_HOST"].empty?
   on_worker_boot do
     puts "🔧 Worker #{Process.pid}: Initializing Logtail after fork"
 
