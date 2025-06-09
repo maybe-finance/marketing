@@ -49,7 +49,7 @@ Rails.application.configure do
   config.logger = if ENV["LOGTAIL_API_KEY"].present?
     Logtail::Logger.create_default_logger(
       ENV["LOGTAIL_API_KEY"],
-      telemetry_host: "in.logs.betterstack.com"
+      ingesting_host: ENV["LOGTAIL_INGESTING_HOST"]
     )
   else
     ActiveSupport::Logger.new(STDOUT)
@@ -87,19 +87,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  # Ensure Logtail is configured in production (fallback if Puma hook doesn't work)
-  if ENV["LOGTAIL_API_KEY"] && !ENV["LOGTAIL_API_KEY"].empty? && ENV["LOGTAIL_INGESTING_HOST"] && !ENV["LOGTAIL_INGESTING_HOST"].empty?
-    begin
-      config.logger = Logtail::Logger.create_default_logger(
-        ENV["LOGTAIL_API_KEY"],
-        ingesting_host: ENV["LOGTAIL_INGESTING_HOST"]
-      )
-      puts "🌲 Production: Logtail logger configured as fallback"
-    rescue => e
-      puts "❌ Production: Failed to configure Logtail fallback: #{e.message}"
-    end
-  end
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
