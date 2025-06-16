@@ -45,9 +45,9 @@
 
       <% if @faq.category.present? %>
         <div class="mt-4 mb-6">
-          <%= link_to faqs_path(category: @faq.category), class: "inline-block px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors no-underline" do %>
+          <span class="inline-block px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
             <%= @faq.category %>
-          <% end %>
+          </span>
         </div>
       <% end %>
 

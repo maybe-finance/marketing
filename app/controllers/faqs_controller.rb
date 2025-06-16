@@ -17,18 +17,11 @@ class FaqsController < ApplicationController
   #   GET /faqs?q=budget&category=planning
   def index
     @query = params[:q]
-    @selected_category = params[:category]
 
     @faqs = Faq.alphabetical
 
     # Apply search if query parameter is present
     @faqs = @faqs.search(@query) if @query.present?
-
-    # Apply category filtering if parameter is present
-    @faqs = @faqs.by_category(@selected_category) if @selected_category.present?
-
-    # Get all available categories for filtering
-    @categories = Faq.categories
 
     # Add pagination
     @pagy, @faqs = pagy(@faqs, items: 12)
