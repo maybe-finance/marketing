@@ -35,6 +35,7 @@ class PagesController < ApplicationController
   def sitemap_index
     @terms = Term.all
     @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
+    @faqs = Faq.all.order(:question)
     @tools = Tool.all
 
     @exchange_rate_currencies = Tool::Presenter::ExchangeRateCalculator.new.currency_options

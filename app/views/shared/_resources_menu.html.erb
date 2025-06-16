@@ -10,6 +10,12 @@
         <%= image_tag "nav-resources-terms.svg", class: "w-full mx-auto overflow-hidden object-cover" %>
         <span class="text-sm font-medium leading-5 mb-4 tracking-normal text-center text-gray-800 group-hover:text-gray-900">Learn new terms <%= lucide_icon("chevron-right", class: "inline w-4 h-4") %></span>
       <% end %>
+      <%= link_to faqs_path, class: "flex h-[140px] group flex-col justify-center w-full rounded-[10px] gap-4 bg-gray-50 hover:bg-gray-100 transition-all duration-150" do %>
+        <div class="w-full mx-auto flex items-center justify-center h-16">
+          <%= lucide_icon "help-circle", class: "w-8 h-8 text-gray-600" %>
+        </div>
+        <span class="text-sm font-medium leading-5 mb-4 tracking-normal text-center text-gray-800 group-hover:text-gray-900">Browse FAQs <%= lucide_icon("chevron-right", class: "inline w-4 h-4") %></span>
+      <% end %>
     </div>
     <%# Links Section %>
     <div class="grid grid-rows-1 gap-1 w-[150px]">

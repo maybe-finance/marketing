@@ -39,6 +39,10 @@ module NavigationHelper
         path: terms_path
       },
       {
+        text: "Financial FAQs",
+        path: faqs_path
+      },
+      {
         text: "Join Community",
         path: "https://link.maybe.co/discord"
       },
@@ -95,6 +99,10 @@ module NavigationHelper
       {
         text: "Financial Terms",
         path: terms_path
+      },
+      {
+        text: "Financial FAQs",
+        path: faqs_path
       },
       {
         text: "Join Community",

@@ -42,6 +42,14 @@
     </url>
   <% end %>
   <url>
+    <loc>https://maybefinance.com/financial-faqs</loc>
+  </url>
+  <% @faqs.each do |faq| %>
+    <url>
+      <loc>https://maybefinance.com/financial-faqs/<%= faq.slug %></loc>
+    </url>
+  <% end %>
+  <url>
     <loc>https://maybefinance.com/tools</loc>
   </url>
   <% @tools.each do |tool| %>
@@ -58,4 +66,3 @@
     <% end %>
   <% end %>
 </urlset>
-

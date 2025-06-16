@@ -1,0 +1,83 @@
+<%
+  title "Financial FAQs"
+  description "Get answers to frequently asked questions about personal finance, investing, budgeting, and wealth management."
+%>
+
+<div class="max-w-6xl mx-auto">
+  <div class="w-full mx-auto max-w-[450px] mb-10">
+    <div class="gap-x-2 mb-6 text-center">
+      <%= image_tag("maybe-logo-glow-4x.png", alt: "Maybe Logo", style:"width: 115px; margin-left: -22px;", class: "mb-2 inline") %>
+      <h1 class="text-6xl text-gray-800 leading-[calc(4rem+8px)] font-medium mb-2 tracking-[-0.02em]">Financial FAQs</h1>
+      <p class="text-xl leading-[1.4] text-gray-400">Get answers to frequently asked questions about personal finance, investing, budgeting, and wealth management.</p>
+    </div>
+
+    <%= form_with method: :get, html: {class: "relative mb-4 max-w-[450px] mx-auto"}, data: { controller: "auto-submit-form", turbo_frame: "faqs_list" } do |f| %>
+      <%= f.text_field :q, value: @query,
+          class: "w-full py-2.5 px-3 pl-10 bg-white border border-gray-300 shadow-xs rounded-xl text-base leading-[1.4]",
+          placeholder: "Search FAQs...",
+          data: { auto_submit_form_target: "auto" } %>
+      <%= lucide_icon "search", class: "absolute top-3 left-3 w-5 h-5 text-gray-500 pointer-events-none" %>
+    <% end %>
+
+    <!-- Category Filter -->
+    <% if @categories.any? %>
+      <div class="mb-8">
+        <div class="flex flex-wrap gap-2 justify-center">
+          <%= link_to "All", faqs_path,
+              class: "px-4 py-2 rounded-full text-sm font-medium transition-colors #{@selected_category.blank? ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}" %>
+          <% @categories.each do |category| %>
+            <%= link_to category, faqs_path(category: category),
+                class: "px-4 py-2 rounded-full text-sm font-medium transition-colors #{@selected_category == category ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <turbo-frame id="faqs_list" target="_top">
+    <% if @faqs.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <% @faqs.each do |faq| %>
+          <%= link_to faq_path(faq), class: "block bg-white p-6 rounded-lg border shadow-xs hover:shadow-sm transition-shadow duration-200" do %>
+            <h3 class="text-lg font-semibold mb-3 text-gray-900 leading-tight">
+              <%= faq.question %>
+            </h3>
+            <% if faq.category.present? %>
+              <div class="mb-3">
+                <span class="inline-block px-3 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
+                  <%= faq.category %>
+                </span>
+              </div>
+            <% end %>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              <%= truncate(strip_tags(faq.answer), length: 120, separator: ' ') %>
+            </p>
+            <div class="mt-4 flex items-center text-sm font-medium text-gray-900">
+              Read answer
+              <%= lucide_icon "chevron-right", class: "ml-1 w-4 h-4" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- Pagination -->
+      <% if @pagy.pages > 1 %>
+        <div class="flex justify-center mt-12">
+          <%== pagy_nav(@pagy) %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="py-56 mx-auto text-center max-w-96">
+        <%= lucide_icon "search-x", class: "w-6 h-6 mx-auto text-gray-500" %>
+        <p class="mt-4 text-sm font-medium">No FAQs found</p>
+        <% if @query.present? %>
+          <p class="mt-2 text-sm text-gray-500">We didn't find any FAQs matching "<%= @query %>".</p>
+        <% elsif @selected_category.present? %>
+          <p class="mt-2 text-sm text-gray-500">No FAQs found in the "<%= @selected_category %>" category.</p>
+        <% else %>
+          <p class="mt-2 text-sm text-gray-500">No FAQs available yet.</p>
+        <% end %>
+      </div>
+    <% end %>
+  </turbo-frame>
+</div>

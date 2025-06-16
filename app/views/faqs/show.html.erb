@@ -1,0 +1,94 @@
+<%
+  title "#{@faq.question} - Financial FAQs"
+  description "#{strip_tags(@faq.answer)[0...300]}..."
+  meta_image @faq.meta_image_url if @faq.meta_image_url.present?
+
+  content_for :schema_data do
+    faq_schema = {
+      "@context": "https://schema.org",
+      "@type": "QAPage",
+      "mainEntity": {
+        "@type": "Question",
+        "name": @faq.question,
+        "text": @faq.question,
+        "answerCount": 1,
+        "dateCreated": @faq.created_at.iso8601,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": strip_tags(@faq.answer),
+          "dateCreated": @faq.created_at.iso8601
+        }
+      }
+    }
+
+    concat(tag.script(faq_schema.to_json.html_safe, type: "application/ld+json"))
+  end
+%>
+
+<div class="max-w-6xl mt-4 mx-auto tracking-[0.02em] prose">
+  <p class="text-sm">
+    <span class="text-gray-500">
+      <%= link_to "Financial FAQs", faqs_path, class: "text-gray-500 no-underline font-medium" %>
+      <% if @faq.category.present? %>
+        / <%= @faq.category %>
+      <% end %>
+      /
+    </span>
+    <%= truncate(@faq.question, length: 50) %>
+  </p>
+
+  <article class="flex flex-col md:flex-row gap-14">
+    <div class="w-full md:w-2/3 lg:max-w-[680px]">
+      <h1 class="text-5xl leading-[3.5rem] m-0 font-medium tracking-tight">
+        <%= @faq.question %>
+      </h1>
+
+      <% if @faq.category.present? %>
+        <div class="mt-4 mb-6">
+          <%= link_to faqs_path(category: @faq.category), class: "inline-block px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors no-underline" do %>
+            <%= @faq.category %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="text-gray-600">
+        <%= markdown @faq.answer %>
+      </div>
+    </div>
+
+    <div class="w-full md:w-1/3 lg:max-w-[410px]">
+      <% if @related_faqs.any? %>
+        <h2 class="text-xl leading-[2rem] m-0 tracking-[-0.01rem] mb-4 font-medium">Related FAQs</h2>
+        <div class="grid gap-y-[6px] mb-8">
+          <% @related_faqs.each do |related_faq| %>
+            <%= link_to faq_path(related_faq), class: "no-underline bg-white flex flex-row py-2.5 px-3 border shadow-xs rounded-lg hover:bg-gray-200/50" do %>
+              <span class="text-sm leading-relaxed"><%= truncate(related_faq.question, length: 60) %></span>
+              <%= lucide_icon "chevron-right", class: "h-5 w-5 ml-auto text-gray-500 flex-shrink-0" %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <h2 class="text-xl leading-[2rem] m-0 tracking-[-0.01rem] mb-4 font-medium">Explore more</h2>
+      <div class="grid gap-y-[6px] mb-8">
+        <%= link_to faqs_path, class: "no-underline bg-white flex flex-row py-2.5 px-3 border shadow-xs rounded-lg hover:bg-gray-200/50" do %>
+          <span>All Financial FAQs</span>
+          <%= lucide_icon "arrow-right", class: "h-5 w-5 ml-auto text-gray-500" %>
+        <% end %>
+
+        <%= link_to terms_path, class: "no-underline bg-white flex flex-row py-2.5 px-3 border shadow-xs rounded-lg hover:bg-gray-200/50" do %>
+          <span>Financial Terms</span>
+          <%= lucide_icon "arrow-right", class: "h-5 w-5 ml-auto text-gray-500" %>
+        <% end %>
+
+        <%= link_to articles_path, class: "no-underline bg-white flex flex-row py-2.5 px-3 border shadow-xs rounded-lg hover:bg-gray-200/50" do %>
+          <span>Financial Articles</span>
+          <%= lucide_icon "arrow-right", class: "h-5 w-5 ml-auto text-gray-500" %>
+        <% end %>
+      </div>
+
+      <h2 class="text-xl leading-[2rem] m-0 tracking-[-0.01rem] mb-4 font-medium">Share this FAQ</h2>
+      <%= render "shared/share_buttons" %>
+    </div>
+  </article>
+</div>

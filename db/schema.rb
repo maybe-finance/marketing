@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_27_141021) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_16_112307) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,6 +36,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_141021) do
     t.datetime "updated_at", null: false
     t.index ["active"], name: "index_content_blocks_on_active"
     t.index ["url_pattern"], name: "index_content_blocks_on_url_pattern"
+  end
+
+  create_table "faqs", force: :cascade do |t|
+    t.string "question"
+    t.text "answer"
+    t.string "slug"
+    t.string "category"
+    t.string "meta_image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_faqs_on_category"
+    t.index ["slug"], name: "index_faqs_on_slug", unique: true
   end
 
   create_table "institutions", primary_key: "institution_id", id: :string, force: :cascade do |t|
