@@ -17,8 +17,5 @@ class Avo::Resources::Redirect < Avo::BaseResource
 
     field :active, as: :boolean, required: true
     field :priority, as: :number, required: true, help: "Lower numbers have higher priority"
-
-    field :created_at, as: :date_time, hide_on: [ :new, :edit ]
-    field :updated_at, as: :date_time, hide_on: [ :new, :edit ]
   end
 end
