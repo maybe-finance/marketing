@@ -1,15 +1,15 @@
 class Tool::Presenter::RetirementCalculator < Tool::Presenter
   attribute :retirement_age, :tool_integer, default: 65, max: 100
-  attribute :current_age, :tool_integer, default: 0, min: 0
+  attribute :current_age, :tool_integer, default: 30, min: 0
 
-  attribute :annual_salary, :tool_float, default: 0.0
-  attribute :current_401k_balance, :tool_float, default: 0.0
+  attribute :annual_salary, :tool_float, default: 75000.0
+  attribute :current_401k_balance, :tool_float, default: 25000.0
 
   attribute :annual_rate_of_return, :tool_percentage, default: 5.0
-  attribute :monthly_contribution, :tool_percentage, default: 0.0
-  attribute :annual_salary_increase, :tool_percentage, default: 0.0
-  attribute :employer_match, :tool_percentage, default: 0.0
-  attribute :salary_limit_match, :tool_percentage, default: 0.0
+  attribute :monthly_contribution, :tool_percentage, default: 6.0
+  attribute :annual_salary_increase, :tool_percentage, default: 3.0
+  attribute :employer_match, :tool_percentage, default: 50.0
+  attribute :salary_limit_match, :tool_percentage, default: 6.0
 
   def blank?
     [ annual_salary, monthly_contribution, annual_salary_increase,

@@ -1,13 +1,13 @@
 class Tool::Presenter::StockPortfolioBacktest < Tool::Presenter
-  attribute :benchmark_stock, :string
+  attribute :benchmark_stock, :string, default: "SPY"
 
   attribute :investment_amount, :tool_float, default: 10_000.0
 
-  attribute :start_date, :date
+  attribute :start_date, :date, default: -> { 1.year.ago }
   attribute :end_date, :date, default: -> { Date.today }
 
-  attribute :stocks, :tool_array, type: :string, default: [], max: 10
-  attribute :stock_allocations, :tool_array, type: :percentage, default: [], max: 10
+  attribute :stocks, :tool_array, type: :string, default: [ "AAPL", "MSFT", "GOOGL" ], max: 10
+  attribute :stock_allocations, :tool_array, type: :percentage, default: [ 0.34, 0.33, 0.33 ], max: 10
 
   def blank?
     [ benchmark_stock, start_date ].all?(&:blank?)

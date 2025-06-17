@@ -1,7 +1,7 @@
 class Tool::Presenter::RoiCalculator < Tool::Presenter
-  attribute :amount_invested, :tool_float, default: 0.0
-  attribute :amount_returned, :tool_float, default: 0.0
-  attribute :investment_length, :tool_float, default: 0.0
+  attribute :amount_invested, :tool_float, default: 10000.0
+  attribute :amount_returned, :tool_float, default: 12500.0
+  attribute :investment_length, :tool_float, default: 3.0
 
   attribute :investment_period, :tool_enum, enum: %w[ years weeks days ], default: "years"
 

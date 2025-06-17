@@ -1,9 +1,9 @@
 class Tool::Presenter::CompoundInterestCalculator < Tool::Presenter
-  attribute :annual_interest_rate, :tool_percentage, default: 0.0
+  attribute :annual_interest_rate, :tool_percentage, default: 7.0
 
-  attribute :initial_investment, :tool_float, default: 0.0
-  attribute :monthly_contribution, :tool_float, default: 0.0
-  attribute :years_to_grow, :tool_float, default: 0.0, min: 0.0, max: 150.0
+  attribute :initial_investment, :tool_float, default: 5000.0
+  attribute :monthly_contribution, :tool_float, default: 500.0
+  attribute :years_to_grow, :tool_float, default: 20.0, min: 0.0, max: 150.0
   attribute :filter, :string
 
   def blank?

@@ -1,8 +1,8 @@
 class Tool::Presenter::FinancialFreedomCalculator < Tool::Presenter
-  attribute :annual_savings_growth_rate, :tool_percentage, default: 0.0
+  attribute :annual_savings_growth_rate, :tool_percentage, default: 7.0
 
-  attribute :current_savings, :tool_float, default: 0.0
-  attribute :monthly_expenses, :tool_float, default: 0.0
+  attribute :current_savings, :tool_float, default: 50000.0
+  attribute :monthly_expenses, :tool_float, default: 4000.0
 
   def blank?
     [ current_savings, monthly_expenses, annual_savings_growth_rate ].all?(&:zero?)

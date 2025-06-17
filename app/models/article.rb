@@ -28,7 +28,7 @@ class Article < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["author_name", "content", "created_at", "id", "meta_image_url", "publish_at", "slug", "title", "updated_at"]
+    [ "author_name", "content", "created_at", "id", "meta_image_url", "publish_at", "slug", "title", "updated_at" ]
   end
 
   private
