@@ -29,6 +29,26 @@ class Term < ApplicationRecord
     slug
   end
 
+  # Ransack configuration
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      content
+      created_at
+      id
+      meta_image_url
+      name
+      slug
+      title
+      updated_at
+      video_description
+      video_duration
+      video_id
+      video_thumbnail_url
+      video_title
+      video_upload_date
+    ]
+  end
+
   private
 
   def create_meta_image

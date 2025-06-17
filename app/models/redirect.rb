@@ -42,4 +42,19 @@ class Redirect < ApplicationRecord
   rescue RegexpError
     destination_path
   end
+
+  # Ransack configuration
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      active
+      created_at
+      destination_path
+      id
+      pattern_type
+      priority
+      redirect_type
+      source_path
+      updated_at
+    ]
+  end
 end

@@ -46,4 +46,20 @@ class Institution < ApplicationRecord
       primary_color: primary_color
     }
   end
+
+  # Ransack configuration
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      country_codes
+      created_at
+      institution_id
+      logo_url
+      name
+      oauth
+      primary_color
+      products
+      updated_at
+      website
+    ]
+  end
 end

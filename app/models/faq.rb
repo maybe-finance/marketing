@@ -63,6 +63,20 @@ class Faq < ApplicationRecord
     slug
   end
 
+  # Ransack configuration
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      answer
+      category
+      created_at
+      id
+      meta_image_url
+      question
+      slug
+      updated_at
+    ]
+  end
+
   private
 
   def create_meta_image

@@ -70,6 +70,27 @@ class Stock < ApplicationRecord
     end
   end
 
+  # Ransack configuration
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      country_code
+      created_at
+      description
+      exchange
+      id
+      industry
+      kind
+      legal_name
+      links
+      meta_image_url
+      mic_code
+      name
+      sector
+      symbol
+      updated_at
+    ]
+  end
+
   private
     def create_meta_image
       super("#{symbol} Stock Price, Information and News")

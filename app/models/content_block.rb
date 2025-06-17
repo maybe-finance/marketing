@@ -41,4 +41,19 @@ class ContentBlock < ApplicationRecord
       false
     end
   end
+
+  # Ransack configuration
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      active
+      content
+      created_at
+      id
+      match_type
+      position
+      title
+      updated_at
+      url_pattern
+    ]
+  end
 end

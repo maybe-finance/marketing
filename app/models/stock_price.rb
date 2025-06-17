@@ -31,4 +31,18 @@ class StockPrice < ApplicationRecord
       end
     end
   end
+
+  # Ransack configuration
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      created_at
+      date
+      id
+      month
+      price
+      ticker
+      updated_at
+      year
+    ]
+  end
 end
