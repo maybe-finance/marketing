@@ -1,7 +1,7 @@
 class Tool::Presenter::LoanCalculator < Tool::Presenter
-  attribute :loan_amount, :tool_float, default: 0.0
-  attribute :interest_rate, :tool_percentage, default: 0.0
-  attribute :loan_term, :tool_integer, default: 0
+  attribute :loan_amount, :tool_float, default: 25000.0
+  attribute :interest_rate, :tool_percentage, default: 5.5
+  attribute :loan_term, :tool_integer, default: 5
   attribute :loan_period, :tool_enum, enum: %w[ years months ], default: "years"
   attribute :date, :date, default: -> { Date.today }
 

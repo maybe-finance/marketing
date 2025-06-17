@@ -1,5 +1,5 @@
 class Tool::Presenter::BogleheadsGrowthCalculator < Tool::Presenter
-  attribute :invested_amount, :tool_float, default: 0.0
+  attribute :invested_amount, :tool_float, default: 10000.0
 
   attribute :stock_market_percentage, :tool_percentage, default: 40.0
   attribute :international_stock_market_percentage, :tool_percentage, default: 30.0

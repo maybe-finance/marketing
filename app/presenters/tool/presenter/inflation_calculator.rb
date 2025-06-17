@@ -1,8 +1,8 @@
 class Tool::Presenter::InflationCalculator < Tool::Presenter
   attribute :inflation_percentage, :tool_percentage, default: 3.0
 
-  attribute :initial_amount, :tool_float, default: 0.0
-  attribute :years, :tool_float, default: 0.0
+  attribute :initial_amount, :tool_float, default: 1000.0
+  attribute :years, :tool_float, default: 10.0
 
   def blank?
     [ initial_amount, years ].all?(&:zero?)
