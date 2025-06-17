@@ -21,5 +21,4 @@ class Avo::Resources::Redirect < Avo::BaseResource
     field :created_at, as: :date_time, hide_on: [ :new, :edit ]
     field :updated_at, as: :date_time, hide_on: [ :new, :edit ]
   end
-
 end
