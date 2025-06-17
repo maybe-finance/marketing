@@ -1,5 +1,5 @@
 class Tool::Presenter::EarlyMortgagePayoffCalculator < Tool::Presenter
-  attribute :loan_amount, :tool_float, default: 500_000, min: 0.0, max: 1_000_000.0
+  attribute :loan_amount, :tool_float, default: 500_000, min: 0.0, max: 10_000_000.0
   attribute :extra_payment, :tool_float, default: 500.0
 
   attribute :interest_rate, :tool_percentage, default: 6.5
