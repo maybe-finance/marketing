@@ -86,4 +86,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pages#index"
+
+  # Catch-all route for redirects (must be last)
+  get "*path", to: "redirects#catch_all", constraints: lambda { |req| !req.path.start_with?("/rails/") }
 end

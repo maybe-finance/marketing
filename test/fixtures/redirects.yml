@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source_path: /test-path-one
+  destination_path: /new-path-one
+  redirect_type: permanent
+  pattern_type: exact
+  active: true
+  priority: 1
+
+two:
+  source_path: /test-path-two
+  destination_path: /new-path-two
+  redirect_type: temporary
+  pattern_type: exact
+  active: true
+  priority: 2

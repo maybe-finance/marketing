@@ -12,6 +12,7 @@ export default class extends Controller {
 
   #initialElementWidth = 0;
   #initialElementHeight = 0;
+  #resizeHandler = null;
 
   connect() {
     console.log(this.showLegendValue, this.values);
@@ -25,6 +26,57 @@ export default class extends Controller {
       this.#drawLegend();
     }
     this.#installTooltip();
+    this.#addResizeListener();
+  }
+
+  disconnect() {
+    this.#removeResizeListener();
+  }
+
+  #redrawChart() {
+    this.#clearChart();
+    this.#rememberInitialElementSize();
+    this.#drawGridlines();
+    this.#drawBogleheadsGrowthChart();
+    if (this.useLabelsValue) {
+      this.#drawXAxis();
+    }
+    if (this.showLegendValue) {
+      this.#drawLegend();
+    }
+    this.#installTooltip();
+  }
+
+  #clearChart() {
+    this.#d3TooltipMemo = null;
+    this.#d3GroupMemo = null;
+    this.#d3SvgMemo = null;
+    this.#d3Element.selectAll("*").remove();
+  }
+
+  #addResizeListener() {
+    this.#resizeHandler = this.#debounce(() => {
+      this.#redrawChart();
+    }, 250);
+    window.addEventListener('resize', this.#resizeHandler);
+  }
+
+  #removeResizeListener() {
+    if (this.#resizeHandler) {
+      window.removeEventListener('resize', this.#resizeHandler);
+    }
+  }
+
+  #debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   }
 
   // Normalize data when it is set
@@ -352,7 +404,9 @@ export default class extends Controller {
       .append("svg")
       .attr("width", this.#initialElementWidth)
       .attr("height", this.#initialElementHeight)
-      .attr("viewBox", [0, 0, this.#initialElementWidth, this.#initialElementHeight]);
+      .attr("viewBox", [0, 0, this.#initialElementWidth, this.#initialElementHeight])
+      .style("max-width", "100%")
+      .style("height", "auto");
 
     this.#d3SvgMemo.append("defs")
       .append("clipPath")

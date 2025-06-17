@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_16_112307) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_17_104958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -63,6 +63,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_16_112307) do
     t.index ["country_codes"], name: "index_institutions_on_country_codes", using: :gin
     t.index ["name"], name: "index_institutions_on_name"
     t.index ["products"], name: "index_institutions_on_products", using: :gin
+  end
+
+  create_table "redirects", force: :cascade do |t|
+    t.string "source_path", null: false
+    t.string "destination_path", null: false
+    t.string "redirect_type", default: "permanent", null: false
+    t.string "pattern_type", default: "exact", null: false
+    t.boolean "active", default: true
+    t.integer "priority", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active", "priority"], name: "index_redirects_on_active_and_priority"
+    t.index ["source_path"], name: "index_redirects_on_source_path", unique: true
   end
 
   create_table "stock_prices", force: :cascade do |t|

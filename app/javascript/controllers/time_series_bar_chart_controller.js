@@ -11,14 +11,17 @@ export default class extends Controller {
   #d3GroupMemo = null;
   #d3SvgMemo = null;
   #data = [];
+  #resizeHandler = null;
 
   connect() {
     this.#install();
+    this.#addResizeListener();
     document.addEventListener("turbo:load", this.#reinstall);
   }
 
   disconnect() {
     this.#teardown();
+    this.#removeResizeListener();
     document.removeEventListener("turbo:load", this.#reinstall);
   }
 
@@ -44,6 +47,31 @@ export default class extends Controller {
       this.#drawLegend();
     }
     this.#installTooltip();
+  }
+
+  #addResizeListener() {
+    this.#resizeHandler = this.#debounce(() => {
+      this.#reinstall();
+    }, 250);
+    window.addEventListener('resize', this.#resizeHandler);
+  }
+
+  #removeResizeListener() {
+    if (this.#resizeHandler) {
+      window.removeEventListener('resize', this.#resizeHandler);
+    }
+  }
+
+  #debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   }
 
   // Normalize data when it is set
@@ -311,7 +339,9 @@ export default class extends Controller {
       .append("svg")
       .attr("width", this.#initialElementWidth)
       .attr("height", this.#initialElementHeight)
-      .attr("viewBox", [ 0, 0, this.#initialElementWidth, this.#initialElementHeight ]);
+      .attr("viewBox", [ 0, 0, this.#initialElementWidth, this.#initialElementHeight ])
+      .style("max-width", "100%")
+      .style("height", "auto");
 
     this.#d3SvgMemo.append("defs")
       .append("clipPath")

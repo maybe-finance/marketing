@@ -8,6 +8,7 @@ export default class extends Controller {
 
   #data = [];
   #isMobile = window.innerWidth <= 768;
+  #resizeHandler = null;
 
   dataValueChanged(value) {
     this.#data = value;
@@ -16,14 +17,47 @@ export default class extends Controller {
 
   connect() {
     this.#drawChart();
+    this.#addResizeListener();
+  }
+
+  disconnect() {
+    this.#removeResizeListener();
+  }
+
+  #addResizeListener() {
+    this.#resizeHandler = this.#debounce(() => {
+      this.#isMobile = window.innerWidth <= 768;
+      this.#drawChart();
+    }, 250);
+    window.addEventListener('resize', this.#resizeHandler);
+  }
+
+  #removeResizeListener() {
+    if (this.#resizeHandler) {
+      window.removeEventListener('resize', this.#resizeHandler);
+    }
+  }
+
+  #debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   }
 
   #drawChart() {
     const data = this.#data.segments;
     const desiredHomePrice = this.#data.desiredHomePrice;
 
+    // Use container width instead of fixed widths
+    const containerWidth = this.element.clientWidth || 320;
     const margin = this.#isMobile ? { top: 20, right: 10, bottom: 40, left: 10 } : { top: 20, right: 30, bottom: 40, left: 50 };
-    const width = (this.#isMobile ? 350 : 600) - margin.left - margin.right;
+    const width = Math.max(280, containerWidth - margin.left - margin.right);
     const height = 400 - margin.top - margin.bottom;
 
     const svg = d3.select(this.element)
@@ -31,6 +65,9 @@ export default class extends Controller {
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+      .style("max-width", "100%")
+      .style("height", "auto")
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 

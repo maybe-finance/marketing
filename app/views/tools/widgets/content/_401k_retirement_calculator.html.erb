@@ -1,16 +1,16 @@
 <div class="relative p-4">
-  <div class="flex gap-12">
-    <div>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+    <div class="min-w-0">
       <p class="text-sm text-gray-500">Estimated retirement</p>
-      <p class="text-xl font-medium"><%= number_to_currency(tool.current_total_value) %></p>
+      <p class="text-lg sm:text-xl font-medium break-words"><%= number_to_currency(tool.current_total_value) %></p>
     </div>
-    <div>
+    <div class="min-w-0">
       <p class="text-sm text-gray-500">Employee contributions</p>
-      <p class="text-xl font-medium"><%= number_to_currency(tool.total_employee_contributions) %></p>
+      <p class="text-lg sm:text-xl font-medium break-words"><%= number_to_currency(tool.total_employee_contributions) %></p>
     </div>
-    <div>
+    <div class="min-w-0">
       <p class="text-sm text-gray-500">Employer contributions</p>
-      <p class="text-xl font-medium"><%= number_to_currency(tool.total_employer_contributions) %></p>
+      <p class="text-lg sm:text-xl font-medium break-words"><%= number_to_currency(tool.total_employer_contributions) %></p>
     </div>
   </div>
 
