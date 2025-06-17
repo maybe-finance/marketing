@@ -352,6 +352,10 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.3.0)
+    ransack (4.3.0)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
@@ -528,6 +532,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 8.0)
   rails_performance
+  ransack
   redcarpet
   redis (>= 4.0.1)
   revise_auth
