@@ -21,6 +21,7 @@
     <meta property="og:description" content="<%= content_for?(:description) ? (yield(:description)) : "Maybe Finance: The personal finance app for everyone" %>">
     <meta property="og:image" content="<%= image_url(content_for?(:meta_image) ? yield(:meta_image) : "meta.jpg") %>">
     <meta property="og:url" content="<%= request.original_url %>">
+    <link rel="canonical" href="<%= content_for?(:canonical_url) ? yield(:canonical_url) : request.original_url %>" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<%= content_for?(:title) ? ("#{yield(:title)} - Maybe Finance").html_safe : "Maybe Finance" %>">
