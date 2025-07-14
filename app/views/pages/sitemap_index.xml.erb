@@ -2,59 +2,75 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://maybefinance.com</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <url>
     <loc>https://maybefinance.com/pricing</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <url>
     <loc>https://maybefinance.com/features/tracking</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <url>
     <loc>https://maybefinance.com/features/transactions</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <url>
     <loc>https://maybefinance.com/features/budgeting</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <url>
     <loc>https://maybefinance.com/features/assistant</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
 
   <url>
     <loc>https://maybefinance.com/privacy</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <url>
     <loc>https://maybefinance.com/tos</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <url>
     <loc>https://maybefinance.com/financial-terms</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <% @terms.each do |term| %>
     <url>
       <loc>https://maybefinance.com/financial-terms/<%= term.slug %></loc>
+      <lastmod><%= term.updated_at.iso8601 %></lastmod>
     </url>
   <% end %>
   <url>
     <loc>https://maybefinance.com/articles</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <% @articles.each do |article| %>
     <url>
       <loc>https://maybefinance.com/articles/<%= article.slug %></loc>
+      <lastmod><%= article.updated_at.iso8601 %></lastmod>
     </url>
   <% end %>
   <url>
     <loc>https://maybefinance.com/financial-faqs</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <% @faqs.each do |faq| %>
     <url>
       <loc>https://maybefinance.com/financial-faqs/<%= faq.slug %></loc>
+      <lastmod><%= faq.updated_at.iso8601 %></lastmod>
     </url>
   <% end %>
   <url>
     <loc>https://maybefinance.com/tools</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <% @tools.each do |tool| %>
     <url>
       <loc>https://maybefinance.com/tools/<%= tool.slug %></loc>
+      <lastmod><%= tool.updated_at.iso8601 %></lastmod>
     </url>
   <% end %>
   <% @exchange_rate_currencies.each do |from_currency| %>
@@ -62,6 +78,7 @@
       <% next if from_currency.last == to_currency.last # Skip same currency pairs %>
       <url>
         <loc>https://maybefinance.com/tools/exchange-rate-calculator/<%= from_currency.last %>/<%= to_currency.last %></loc>
+        <lastmod><%= Date.today.iso8601 %></lastmod>
       </url>
     <% end %>
   <% end %>
