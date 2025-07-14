@@ -23,4 +23,23 @@ class Avo::Resources::Article < Avo::BaseResource
       end
     end
   end
+
+  def update_model_record(model, params, **args)
+    author_id = params.delete(:author_id)
+
+    super(model, params, **args)
+
+    if author_id.present?
+      # Remove existing authorship if present
+      model.authorship&.destroy
+
+      # Create new authorship with the selected author
+      model.create_authorship(author_id: author_id, role: "primary")
+    elsif author_id == ""
+      # If author_id is blank, remove the authorship
+      model.authorship&.destroy
+    end
+
+    model
+  end
 end
