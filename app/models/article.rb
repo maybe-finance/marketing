@@ -26,7 +26,15 @@ class Article < ApplicationRecord
   end
 
   def author_id=(id)
-    # This is handled in the Avo resource
+    if id.blank?
+      self.authorship&.destroy
+    else
+      if self.authorship
+        self.authorship.update(author_id: id)
+      else
+        self.create_authorship(author_id: id, role: "primary")
+      end
+    end
   end
 
   include MetaImage
