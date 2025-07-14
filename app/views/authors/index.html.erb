@@ -1,0 +1,39 @@
+<%
+  title "Personal Finance Authors"
+  description "Meet the experts behind our personal finance content."
+%>
+<div class="bg-contain bg-[left_0_top_0] bg-no-repeat" style="background-image: url(<%= asset_path('articles-bg.svg') %>)">
+  <div class="max-w-[1100px] mx-auto">
+    <%= image_tag("maybe-logo-glow-4x.png", alt: "Maybe Logo", style:"width: 115px; margin-left: -22px;", class: "mb-2 inline") %>
+    <h1 class="text-[4.5rem] text-gray-700 max-w-[800px] leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-2">Our Authors</h1>
+    <p class="text-xl font-normal leading-[1.4] max-w-[520px] text-gray-400 tracking-normal mb-12">Meet the experts behind our personal finance content.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <% @authors.each do |author| %>
+        <%= link_to author_path(author), class: "block bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow" do %>
+          <div class="flex items-start gap-4">
+            <% if author.avatar_url.present? %>
+              <%= image_tag author.avatar_url, alt: author.name, class: "w-16 h-16 rounded-full object-cover" %>
+            <% else %>
+              <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+                <span class="text-2xl font-medium text-gray-600"><%= author.name.first %></span>
+              </div>
+            <% end %>
+            <div class="flex-1">
+              <h2 class="text-xl font-medium text-gray-900 mb-1"><%= author.name %></h2>
+              <% if author.position.present? %>
+                <p class="text-sm text-gray-600 mb-2"><%= author.position %></p>
+              <% end %>
+              <% if author.bio.present? %>
+                <p class="text-sm text-gray-500 line-clamp-3"><%= author.bio %></p>
+              <% end %>
+              <p class="text-sm text-gray-400 mt-3">
+                <%= pluralize(author.authorships.count, 'article') %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

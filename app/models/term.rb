@@ -19,6 +19,9 @@
 #
 
 class Term < ApplicationRecord
+  has_one :authorship, as: :authorable, dependent: :destroy
+  has_one :author, through: :authorship
+  
   include MetaImage
 
   def self.random_sample(count, exclude:)

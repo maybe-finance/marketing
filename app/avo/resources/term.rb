@@ -18,5 +18,12 @@ class Avo::Resources::Term < Avo::BaseResource
     field :video_description, as: :textarea
     field :video_upload_date, as: :date
     field :video_duration, as: :text
+    
+    tabs do
+      tab "Author" do
+        field :authorship, as: :has_one
+        field :author, as: :has_one, through: :authorship
+      end
+    end
   end
 end

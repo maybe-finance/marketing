@@ -41,7 +41,7 @@ class FaqsController < ApplicationController
   # @example
   #   GET /faqs/what-is-compound-interest
   def show
-    @faq = Faq.find_by(slug: params[:id])
+    @faq = Faq.includes(:authorship => :author).find_by(slug: params[:id])
 
     unless @faq
       redirect_to faqs_path, alert: "FAQ not found"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_17_104958) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_14_193904) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,35 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_104958) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "meta_image_url"
+  end
+
+  create_table "authors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.text "bio"
+    t.string "avatar_url"
+    t.string "position"
+    t.string "email"
+    t.jsonb "social_links", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_authors_on_name"
+    t.index ["slug"], name: "index_authors_on_slug", unique: true
+  end
+
+  create_table "authorships", force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.string "authorable_type", null: false
+    t.bigint "authorable_id", null: false
+    t.string "role", default: "primary"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id", "authorable_type"], name: "index_authorships_on_author_id_and_authorable_type"
+    t.index ["author_id"], name: "index_authorships_on_author_id"
+    t.index ["authorable_type", "authorable_id"], name: "index_authorships_on_authorable"
+    t.index ["authorable_type", "authorable_id"], name: "index_authorships_on_authorable_type_and_authorable_id"
+    t.index ["position"], name: "index_authorships_on_position"
   end
 
   create_table "content_blocks", force: :cascade do |t|
@@ -152,4 +181,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_104958) do
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
+
+  add_foreign_key "authorships", "authors"
 end

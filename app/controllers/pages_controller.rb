@@ -27,6 +27,14 @@ class PagesController < ApplicationController
   def privacy
   end
 
+  # GET /about
+  # Renders the About Us page.
+  def about
+    @stars = Rails.cache.fetch("stargazers_count", expires_in: 72.hours) do
+      fetch_stars_count
+    end
+  end
+
 
   # GET /sitemap.xml
   # Generates a sitemap index file with links to multiple sitemaps.
@@ -37,6 +45,7 @@ class PagesController < ApplicationController
     @articles = Article.all.order(publish_at: :desc).where("publish_at <= ?", Time.now)
     @faqs = Faq.all.order(:question)
     @tools = Tool.all
+    @authors = Author.all
 
     @exchange_rate_currencies = Tool::Presenter::ExchangeRateCalculator.new.currency_options
     respond_to do |format|

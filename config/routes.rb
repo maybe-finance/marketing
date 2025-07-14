@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get "/tools/inside-trading-tracker(/*path)", to: redirect("/", status: 301)
 
   get "pricing", to: "pages#pricing"
+  get "about", to: "pages#about"
   get "features/assistant/:category", to: "features#assistant", as: "assistant_category"
   get "features/assistant/:category/content", to: "features#assistant_content", as: "assistant_content"
 
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   resources :articles, only: [ :index, :show ]
   resources :terms, only: [ :index, :show ], path: "financial-terms"
   resources :faqs, only: [ :index, :show ], path: "financial-faqs"
+  resources :authors, only: [ :index, :show ], param: :slug
   resources :tools, only: [ :index, :show ], param: :slug do
     member do
       # Exchange rate calculator routes

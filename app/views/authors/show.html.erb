@@ -1,0 +1,95 @@
+<%
+  title @author.name
+  description @author.bio || "Read articles and content by #{@author.name}"
+%>
+<div class="bg-contain bg-[left_0_top_0] bg-no-repeat" style="background-image: url(<%= asset_path('articles-bg.svg') %>)">
+  <div class="max-w-[1100px] mx-auto">
+    <%= link_to authors_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+      </svg>
+      All Authors
+    <% end %>
+
+    <div class="mb-12">
+      <div class="flex items-start gap-8 mb-8">
+        <% if @author.avatar_url.present? %>
+          <%= image_tag @author.avatar_url, alt: @author.name, class: "w-32 h-32 rounded-full object-cover" %>
+        <% else %>
+          <div class="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center">
+            <span class="text-5xl font-medium text-gray-600"><%= @author.name.first %></span>
+          </div>
+        <% end %>
+        <div class="flex-1">
+          <h1 class="text-[3rem] text-gray-700 leading-[calc(1em+4px)] tracking-[-0.04em] font-medium mb-2"><%= @author.name %></h1>
+          <% if @author.position.present? %>
+            <p class="text-xl text-gray-600 mb-4"><%= @author.position %></p>
+          <% end %>
+          <% if @author.bio.present? %>
+            <p class="text-lg text-gray-500 mb-6 max-w-3xl"><%= @author.bio %></p>
+          <% end %>
+          <% if @author.social_links.present? && @author.social_links.any? %>
+            <div class="flex gap-4">
+              <% @author.social_links.each do |platform, url| %>
+                <%= link_to url, target: "_blank", rel: "noopener", class: "text-gray-500 hover:text-gray-700" do %>
+                  <%= platform.capitalize %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="border-t pt-8">
+        <% if @articles.any? %>
+          <div class="mb-12">
+            <h2 class="text-2xl font-medium text-gray-900 mb-6">Articles by <%= @author.name %></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <% @articles.each do |article| %>
+                <%= link_to article, class: "block" do %>
+                  <%= tag.div class: "min-h-[236px] mb-4 border shadow-sm rounded-lg bg-gradient-to-b #{article_gradient(article)}" %>
+                  <div class="flex flex-col justify-between">
+                    <h3 class="text-xl font-medium text-gray-900"><%= article.title %></h3>
+                    <span class="text-xs font-medium font-mono text-gray-500 uppercase">
+                      <%= article.publish_at.to_date.strftime("%b %-d, %Y") %> • <%= article_reading_time(article) %>
+                    </span>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @terms.any? %>
+          <div class="mb-12">
+            <h2 class="text-2xl font-medium text-gray-900 mb-6">Financial Terms</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <% @terms.each do |term| %>
+                <%= link_to term, class: "block bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow" do %>
+                  <h3 class="text-lg font-medium text-gray-900 mb-1"><%= term.title %></h3>
+                  <p class="text-sm text-gray-500"><%= term.name %></p>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @faqs.any? %>
+          <div class="mb-12">
+            <h2 class="text-2xl font-medium text-gray-900 mb-6">FAQs</h2>
+            <div class="space-y-4">
+              <% @faqs.each do |faq| %>
+                <%= link_to faq, class: "block bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow" do %>
+                  <h3 class="text-lg font-medium text-gray-900 mb-1"><%= faq.question %></h3>
+                  <% if faq.category.present? %>
+                    <span class="text-sm text-gray-500"><%= faq.category %></span>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

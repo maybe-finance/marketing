@@ -46,7 +46,25 @@
     <div class="flex flex-col md:flex-row w-full gap-[56px]">
       <div class="flex flex-col flex-1 max-w-[680px] gap-1">
         <h1 class="text-5xl leading-[3.5rem] font-medium mb-4 text-gray-900"><%= @article.title %></h1>
-        <% if @article.author_name.present? %>
+        <% if @article.author %>
+          <div class="flex flex-row items-center gap-3 mb-6">
+            <%= link_to author_path(@article.author), class: "flex items-center gap-3 hover:opacity-80" do %>
+              <% if @article.author.avatar_url.present? %>
+                <%= image_tag @article.author.avatar_url, alt: @article.author.name, class: "w-10 h-10 rounded-full object-cover" %>
+              <% else %>
+                <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center">
+                  <span class="text-white font-medium"><%= @article.author.name.first %></span>
+                </div>
+              <% end %>
+              <span class="flex flex-col">
+                <p class="text-base leading-5"><%= @article.author.name %></p>
+                <% if @article.author.position.present? %>
+                  <p class="text-sm text-gray-500"><%= @article.author.position %></p>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+        <% elsif @article.author_name.present? %>
           <div class="flex flex-row items-center gap-3 mb-6">
             <%= author_image_tag @article.author_name, class: "w-10 h-10 rounded-full bg-gray-500" %>
             <span class="flex">

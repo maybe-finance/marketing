@@ -51,6 +51,26 @@
         </div>
       <% end %>
 
+      <% if @faq.author %>
+        <div class="flex flex-row items-center gap-3 my-6">
+          <%= link_to author_path(@faq.author), class: "flex items-center gap-3 hover:opacity-80 no-underline" do %>
+            <% if @faq.author.avatar_url.present? %>
+              <%= image_tag @faq.author.avatar_url, alt: @faq.author.name, class: "w-10 h-10 rounded-full object-cover" %>
+            <% else %>
+              <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center">
+                <span class="text-white font-medium"><%= @faq.author.name.first %></span>
+              </div>
+            <% end %>
+            <span class="flex flex-col">
+              <p class="text-base leading-5 m-0 text-gray-900"><%= @faq.author.name %></p>
+              <% if @faq.author.position.present? %>
+                <p class="text-sm text-gray-500 m-0"><%= @faq.author.position %></p>
+              <% end %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+
       <div class="text-gray-600">
         <%= markdown @faq.answer %>
       </div>

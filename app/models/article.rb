@@ -14,6 +14,9 @@
 #
 
 class Article < ApplicationRecord
+  has_one :authorship, as: :authorable, dependent: :destroy
+  has_one :author, through: :authorship
+  
   scope :published, -> { where.not(publish_at: nil).where("publish_at <= ?", Time.current) }
   scope :latest, -> { order(publish_at: :desc) }
 

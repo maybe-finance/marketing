@@ -5,6 +5,10 @@
     <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
   <url>
+    <loc>https://maybefinance.com/about</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
+  </url>
+  <url>
     <loc>https://maybefinance.com/pricing</loc>
     <lastmod><%= Date.today.iso8601 %></lastmod>
   </url>
@@ -51,6 +55,16 @@
     <url>
       <loc>https://maybefinance.com/articles/<%= article.slug %></loc>
       <lastmod><%= article.updated_at.iso8601 %></lastmod>
+    </url>
+  <% end %>
+  <url>
+    <loc>https://maybefinance.com/authors</loc>
+    <lastmod><%= Date.today.iso8601 %></lastmod>
+  </url>
+  <% @authors.each do |author| %>
+    <url>
+      <loc>https://maybefinance.com/authors/<%= author.slug %></loc>
+      <lastmod><%= author.updated_at.iso8601 %></lastmod>
     </url>
   <% end %>
   <url>

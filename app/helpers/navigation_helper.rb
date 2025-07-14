@@ -43,6 +43,10 @@ module NavigationHelper
         path: faqs_path
       },
       {
+        text: "About Us",
+        path: about_path
+      },
+      {
         text: "Join Community",
         path: "https://link.maybe.co/discord"
       },
@@ -93,6 +97,10 @@ module NavigationHelper
         path: articles_path
       },
       {
+        text: "Personal Finance Authors",
+        path: authors_path
+      },
+      {
         text: "Personal Finance Tools",
         path: tools_path
       },
@@ -115,6 +123,10 @@ module NavigationHelper
       {
         text: "Bank Support",
         path: bank_search_path
+      },
+      {
+        text: "About Us",
+        path: about_path
       }
     ]
   end

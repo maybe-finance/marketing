@@ -78,6 +78,25 @@
   <article class="flex flex-col md:flex-row gap-14">
     <div class="w-full md:w-2/3 lg:max-w-[680px]">
       <h1 class="text-5xl leading-[3.5rem] m-0 font-medium tracking-tight"><%= @term.title %></h1>
+      <% if @term.author %>
+        <div class="flex flex-row items-center gap-3 my-6">
+          <%= link_to author_path(@term.author), class: "flex items-center gap-3 hover:opacity-80 no-underline" do %>
+            <% if @term.author.avatar_url.present? %>
+              <%= image_tag @term.author.avatar_url, alt: @term.author.name, class: "w-10 h-10 rounded-full object-cover" %>
+            <% else %>
+              <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center">
+                <span class="text-white font-medium"><%= @term.author.name.first %></span>
+              </div>
+            <% end %>
+            <span class="flex flex-col">
+              <p class="text-base leading-5 m-0 text-gray-900"><%= @term.author.name %></p>
+              <% if @term.author.position.present? %>
+                <p class="text-sm text-gray-500 m-0"><%= @term.author.position %></p>
+              <% end %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
       <% if @term.video_id.present? %>
         <div class="aspect-w-16 aspect-h-9">
           <iframe src="https://www.youtube.com/embed/<%= @term.video_id %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

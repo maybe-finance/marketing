@@ -14,5 +14,12 @@ class Avo::Resources::Faq < Avo::BaseResource
     field :answer, as: :easy_mde
     field :slug, as: :text
     field :category, as: :select, options: Faq::CATEGORIES
+    
+    tabs do
+      tab "Author" do
+        field :authorship, as: :has_one
+        field :author, as: :has_one, through: :authorship
+      end
+    end
   end
 end

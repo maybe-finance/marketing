@@ -18,6 +18,9 @@
 #
 
 class Faq < ApplicationRecord
+  has_one :authorship, as: :authorable, dependent: :destroy
+  has_one :author, through: :authorship
+  
   include MetaImage
 
   # Constants for category options
