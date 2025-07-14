@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_action :set_public_cache
+
   include SentryContext
   include Redirectable
 
@@ -12,5 +14,11 @@ class ApplicationController < ActionController::Base
     Rails.logger.error e.backtrace.take(10).join("\\n")
     Sentry.capture_exception(e) if defined?(Sentry)
     raise e
+  end
+
+  private
+
+  def set_public_cache
+    response.headers["Cache-Control"] = "public, max-age=3600"
   end
 end
