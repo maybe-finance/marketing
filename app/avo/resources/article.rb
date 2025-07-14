@@ -25,7 +25,11 @@ class Avo::Resources::Article < Avo::BaseResource
   end
 
   def create_model_record(model, params, **args)
-    author_id = params.delete(:author_id)
+    Rails.logger.debug "=== Article Create Params: #{params.inspect}"
+    
+    # Try different possible param keys
+    author_id = params.delete(:author_id) || params.delete("author_id") || params.dig(:author, :id) || params.dig("author", "id")
+    Rails.logger.debug "=== Author ID extracted: #{author_id.inspect}"
 
     super(model, params, **args)
 
@@ -35,7 +39,11 @@ class Avo::Resources::Article < Avo::BaseResource
   end
 
   def update_model_record(model, params, **args)
-    author_id = params.delete(:author_id)
+    Rails.logger.debug "=== Article Update Params: #{params.inspect}"
+    
+    # Try different possible param keys
+    author_id = params.delete(:author_id) || params.delete("author_id") || params.dig(:author, :id) || params.dig("author", "id")
+    Rails.logger.debug "=== Author ID extracted: #{author_id.inspect}"
 
     super(model, params, **args)
 
@@ -47,15 +55,20 @@ class Avo::Resources::Article < Avo::BaseResource
   private
 
   def handle_author_assignment(model, author_id)
+    Rails.logger.debug "=== Handling author assignment with ID: #{author_id.inspect}"
+    
     if author_id.present?
       # Remove existing authorship if present
       model.authorship&.destroy
+      Rails.logger.debug "=== Destroyed existing authorship"
 
       # Create new authorship with the selected author
-      model.create_authorship(author_id: author_id, role: "primary")
+      authorship = model.create_authorship(author_id: author_id, role: "primary")
+      Rails.logger.debug "=== Created new authorship: #{authorship.inspect}, valid: #{authorship.valid?}, errors: #{authorship.errors.full_messages}"
     elsif author_id == ""
       # If author_id is blank, remove the authorship
       model.authorship&.destroy
+      Rails.logger.debug "=== Removed authorship (blank author_id)"
     end
   end
 end
