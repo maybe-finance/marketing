@@ -15,7 +15,7 @@ class Avo::Resources::Article < Avo::BaseResource
     field :content, as: :easy_mde
     field :publish_at, as: :date_time
     field :author_name, as: :text, hide_on: [ :forms ]
-    field :author, as: :belongs_to, searchable: true, display_with_value: -> { record.name }
+    field :author, as: :belongs_to, searchable: true, display_with_value: -> { record.name }, use_resource: Avo::Resources::Author
 
     tabs do
       tab "Author Details" do
@@ -24,11 +24,29 @@ class Avo::Resources::Article < Avo::BaseResource
     end
   end
 
+  def create_model_record(model, params, **args)
+    author_id = params.delete(:author_id)
+
+    super(model, params, **args)
+
+    handle_author_assignment(model, author_id)
+
+    model
+  end
+
   def update_model_record(model, params, **args)
     author_id = params.delete(:author_id)
 
     super(model, params, **args)
 
+    handle_author_assignment(model, author_id)
+
+    model
+  end
+
+  private
+
+  def handle_author_assignment(model, author_id)
     if author_id.present?
       # Remove existing authorship if present
       model.authorship&.destroy
@@ -39,7 +57,5 @@ class Avo::Resources::Article < Avo::BaseResource
       # If author_id is blank, remove the authorship
       model.authorship&.destroy
     end
-
-    model
   end
 end

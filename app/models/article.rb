@@ -20,6 +20,15 @@ class Article < ApplicationRecord
   scope :published, -> { where.not(publish_at: nil).where("publish_at <= ?", Time.current) }
   scope :latest, -> { order(publish_at: :desc) }
 
+  # Virtual attribute for Avo
+  def author_id
+    author&.id
+  end
+
+  def author_id=(id)
+    # This is handled in the Avo resource
+  end
+
   include MetaImage
 
   def self.random_sample(count, exclude:)
