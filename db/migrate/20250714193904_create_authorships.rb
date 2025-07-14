@@ -8,9 +8,9 @@ class CreateAuthorships < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    
-    add_index :authorships, [:authorable_type, :authorable_id]
-    add_index :authorships, [:author_id, :authorable_type]
+
+    add_index :authorships, [ :authorable_type, :authorable_id ]
+    add_index :authorships, [ :author_id, :authorable_type ]
     add_index :authorships, :position
   end
 end

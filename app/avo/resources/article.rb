@@ -14,8 +14,8 @@ class Avo::Resources::Article < Avo::BaseResource
     field :slug, as: :text
     field :content, as: :easy_mde
     field :publish_at, as: :date_time
-    field :author_name, as: :text, hide_on: [:forms]
-    
+    field :author_name, as: :text, hide_on: [ :forms ]
+
     tabs do
       tab "Author" do
         field :authorship, as: :has_one

@@ -10,12 +10,12 @@ class ArticlesController < ApplicationController
   # @example
   #   GET /articles
   def index
-    @featured_article = Article.published.latest.includes(:authorship => :author).first
+    @featured_article = Article.published.latest.includes(authorship: :author).first
     @pagy, @articles = pagy(
       Article.published
             .where.not(id: @featured_article&.id)
             .latest
-            .includes(:authorship => :author),
+            .includes(authorship: :author),
       items: 6,
       limit: 6
     )
@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
   # @example
   #   GET /articles/my-first-article
   def show
-    @article = Article.includes(:authorship => :author).find_by(slug: params[:id])
+    @article = Article.includes(authorship: :author).find_by(slug: params[:id])
     redirect_to articles_path unless @article
   end
 end

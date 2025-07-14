@@ -16,8 +16,8 @@ class Avo::Resources::Author < Avo::BaseResource
     field :avatar_url, as: :text
     field :position, as: :text
     field :email, as: :text
-    field :social_links, as: :code, language: 'javascript'
-    
+    field :social_links, as: :code, language: "javascript"
+
     tabs do
       tab "Content" do
         field :articles, as: :has_many
