@@ -15,11 +15,11 @@ class Avo::Resources::Article < Avo::BaseResource
     field :content, as: :easy_mde
     field :publish_at, as: :date_time
     field :author_name, as: :text, hide_on: [ :forms ]
+    field :author, as: :belongs_to, searchable: true, display_with_value: -> { record.name }
 
     tabs do
-      tab "Author" do
+      tab "Author Details" do
         field :authorship, as: :has_one
-        field :author, as: :has_one, through: :authorship
       end
     end
   end

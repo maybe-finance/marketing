@@ -14,15 +14,15 @@ class Avo::Resources::Term < Avo::BaseResource
     field :title, as: :text
     field :content, as: :easy_mde
     field :slug, as: :text
+    field :author, as: :belongs_to, searchable: true, display_with_value: -> { record.name }
     field :video_id, as: :text
     field :video_description, as: :textarea
     field :video_upload_date, as: :date
     field :video_duration, as: :text
 
     tabs do
-      tab "Author" do
+      tab "Author Details" do
         field :authorship, as: :has_one
-        field :author, as: :has_one, through: :authorship
       end
     end
   end
