@@ -16,8 +16,14 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": strip_tags(@faq.answer),
-          "dateCreated": @faq.created_at.iso8601
-        }
+          "dateCreated": @faq.created_at.iso8601,
+          "author": @faq.author ? {
+            "@type": "Person",
+            "name": @faq.author.name,
+            "url": author_url(@faq.author),
+            "jobTitle": @faq.author.position
+          }.compact : nil
+        }.compact
       }
     }
 

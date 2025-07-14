@@ -19,9 +19,11 @@
       "headline": @term.name.presence || "#{@term.name} meaning in personal finance",
       "description": article_description,
       "author": {
-        "@type": "Organization",
-        "name": "Maybe"
-      },
+        "@type": @term.author ? "Person" : "Organization",
+        "name": @term.author&.name || "Maybe",
+        "url": @term.author ? author_url(@term.author) : nil,
+        "jobTitle": @term.author&.position
+      }.compact,
       "publisher": {
         "@type": "Organization",
         "name": "Maybe",

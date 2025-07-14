@@ -1,6 +1,26 @@
 <%
   title @author.name
   description @author.bio || "Read articles and content by #{@author.name}"
+  
+  content_for :schema_data do
+    author_schema = {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": @author.name,
+      "url": author_url(@author),
+      "jobTitle": @author.position,
+      "description": @author.bio,
+      "image": @author.avatar_url,
+      "sameAs": @author.social_links&.values&.compact || [],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Maybe Finance",
+        "url": "https://maybefinance.com"
+      }
+    }.compact
+    
+    concat(tag.script(author_schema.to_json.html_safe, type: "application/ld+json"))
+  end
 %>
 <div class="bg-contain bg-[left_0_top_0] bg-no-repeat" style="background-image: url(<%= asset_path('articles-bg.svg') %>)">
   <div class="max-w-[1100px] mx-auto">

@@ -14,8 +14,10 @@
       "dateModified": @article.updated_at.iso8601,
       "author": {
         "@type": "Person",
-        "name": @article.author_name.presence || "Maybe Finance"
-      },
+        "name": @article.author&.name || @article.author_name.presence || "Maybe Finance",
+        "url": @article.author ? author_url(@article.author) : nil,
+        "jobTitle": @article.author&.position
+      }.compact,
       "publisher": {
         "@type": "Organization",
         "name": "Maybe Finance",

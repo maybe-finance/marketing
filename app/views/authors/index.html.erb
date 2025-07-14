@@ -1,6 +1,31 @@
 <%
   title "Personal Finance Authors"
   description "Meet the experts behind our personal finance content."
+  
+  content_for :schema_data do
+    authors_list_schema = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Personal Finance Authors",
+      "description": "Meet the experts behind our personal finance content.",
+      "itemListElement": @authors.map.with_index do |author, index|
+        {
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": {
+            "@type": "Person",
+            "name": author.name,
+            "url": author_url(author),
+            "jobTitle": author.position,
+            "description": author.bio,
+            "image": author.avatar_url
+          }.compact
+        }
+      end
+    }
+    
+    concat(tag.script(authors_list_schema.to_json.html_safe, type: "application/ld+json"))
+  end
 %>
 <div class="bg-contain bg-[left_0_top_0] bg-no-repeat" style="background-image: url(<%= asset_path('articles-bg.svg') %>)">
   <div class="max-w-[1100px] mx-auto">
