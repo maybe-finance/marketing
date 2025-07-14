@@ -6,6 +6,11 @@ class SyncSeobotJob < ApplicationJob
 
     return unless ENV["SEOBOT_API_KEY"].present?
 
+    # Find or create Travis Woods author
+    travis_woods = Author.find_or_create_by(name: "Travis Woods") do |author|
+      author.slug = "travis-woods"
+    end
+
     conn = Faraday.new(
       url: "https://cdn.seobotai.com/",
       headers: { "Content-Type" => "application/json" }
@@ -46,13 +51,20 @@ class SyncSeobotJob < ApplicationJob
               # Remove blank lines/spaces at the start and end of the content
               markdown_content = markdown_content.strip
 
-              Article.create!(
+              article = Article.create!(
                 title: article_detail_data["headline"],
                 slug: article_detail_data["slug"],
                 content: markdown_content,
                 publish_at: Time.zone.parse(article_detail_data["publishedAt"]), # Assuming 'publishedAt' is a valid date string
-                author_name: "Josh Pigford",
+                author_name: "Travis Woods",
                 meta_image_url: article_detail_data["image"]
+              )
+
+              # Create authorship to attach article to Travis Woods
+              Authorship.create!(
+                author: travis_woods,
+                authorable: article,
+                role: "primary"
               )
               Rails.logger.info "Successfully created article: #{article_detail_data['headline']}"
             else
