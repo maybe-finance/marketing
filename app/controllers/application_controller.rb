@@ -17,10 +17,15 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    if Rails.env.production? || Rails.env.development?
-      render "errors/not_found", status: :not_found
-    else
-      render file: Rails.root.join("public", "404.html"), status: :not_found, layout: false
+    respond_to do |format|
+      format.html do
+        if Rails.env.production? || Rails.env.development?
+          render "errors/not_found", status: :not_found
+        else
+          render file: Rails.root.join("public", "404.html"), status: :not_found, layout: false
+        end
+      end
+      format.any { head :not_found }
     end
   end
 
