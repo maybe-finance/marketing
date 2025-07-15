@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
           render file: Rails.root.join("public", "404.html"), status: :not_found, layout: false
         end
       end
+      format.json { head :not_found }
       format.any { head :not_found }
     end
   end
