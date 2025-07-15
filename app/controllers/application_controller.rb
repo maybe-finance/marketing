@@ -16,6 +16,14 @@ class ApplicationController < ActionController::Base
     raise e
   end
 
+  def not_found
+    if Rails.env.production? || Rails.env.development?
+      render "errors/not_found", status: :not_found
+    else
+      render file: Rails.root.join("public", "404.html"), status: :not_found, layout: false
+    end
+  end
+
   private
 
   def set_public_cache

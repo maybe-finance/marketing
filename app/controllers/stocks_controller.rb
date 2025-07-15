@@ -13,7 +13,7 @@ class StocksController < ApplicationController
       @total_stocks = @pagy.count
       render :index, variants: [ :combobox ]
     else
-      redirect_to root_path, status: :moved_permanently
+      head :not_found
     end
   end
 end

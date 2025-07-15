@@ -1,67 +1,172 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
+  <title>Page Not Found - Maybe Finance</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
-
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
-
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
-
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f9fafb;
+      color: #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    
+    .container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 600px;
+    }
+    
+    .error-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      margin-bottom: 2rem;
+      font-size: 1.875rem;
+      font-weight: 600;
+      color: #374151;
+      font-family: monospace;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 500;
+      margin: 0 0 1rem 0;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+    
+    p {
+      font-size: 1.25rem;
+      color: #6b7280;
+      margin: 0 0 2rem 0;
+      line-height: 1.4;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .primary-button {
+      background-color: #111827;
+      color: white;
+      border: 1px solid #111827;
+    }
+    
+    .primary-button:hover {
+      background-color: #1f2937;
+      border-color: #1f2937;
+    }
+    
+    .secondary-button {
+      background-color: transparent;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
+    
+    .secondary-button:hover {
+      background-color: #f9fafb;
+      border-color: #9ca3af;
+    }
+    
+    .links {
+      margin-top: 4rem;
+      padding-top: 4rem;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    .links p {
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .link-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.2s;
+    }
+    
+    .link-item:hover {
+      background-color: #f3f4f6;
+    }
+    
+    .link-item strong {
+      color: #111827;
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .link-item span {
+      color: #6b7280;
+      font-size: 0.75rem;
+    }
   </style>
 </head>
 
-<body class="rails-default-error-page">
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <div>
-      <h1>The page you were looking for doesn't exist.</h1>
-      <p>You may have mistyped the address or the page may have moved.</p>
+<body>
+  <div class="container">
+    <div class="error-code">404</div>
+    
+    <h1>Oops! Page not found</h1>
+    
+    <p>The page you're looking for might have been moved, deleted, or maybe it never existed in the first place.</p>
+    
+    <div class="button-group">
+      <a href="/" class="primary-button">Go back home</a>
+      <a href="/tools" class="secondary-button">View all tools</a>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
+    
+    <div class="links">
+      <p>Here are some helpful links instead:</p>
+      <div class="link-grid">
+        <a href="/articles" class="link-item">
+          <strong>Blog</strong>
+          <span>Read our articles</span>
+        </a>
+        <a href="/tools" class="link-item">
+          <strong>Tools</strong>
+          <span>Financial calculators</span>
+        </a>
+        <a href="https://link.maybe.co/discord" class="link-item">
+          <strong>Support</strong>
+          <span>Join our Discord</span>
+        </a>
+      </div>
+    </div>
   </div>
 </body>
 </html>

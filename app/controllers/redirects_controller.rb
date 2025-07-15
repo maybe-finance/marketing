@@ -8,7 +8,11 @@ class RedirectsController < ApplicationController
       destination = redirect_rule.process_destination(request.path)
       redirect_to destination, status: redirect_rule.status_code
     else
-      render file: Rails.root.join("public", "404.html"), status: :not_found, layout: false
+      if Rails.env.production? || Rails.env.development?
+        render "errors/not_found", status: :not_found
+      else
+        render file: Rails.root.join("public", "404.html"), status: :not_found, layout: false
+      end
     end
   end
 

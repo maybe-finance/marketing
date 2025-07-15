@@ -1,0 +1,45 @@
+<% content_for :title, "Unprocessable request" %>
+<% content_for :description, "We couldn't process your request." %>
+
+<article class="min-h-[60vh] flex items-center justify-center px-4">
+  <section class="max-w-[600px] mx-auto text-center">
+    <!-- 422 Badge -->
+    <div class="mb-8">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-yellow-100 border border-yellow-200 shadow-sm">
+        <span class="text-3xl font-mono font-semibold text-yellow-700">422</span>
+      </div>
+    </div>
+
+    <!-- Main Heading -->
+    <h1 class="text-[3rem] md:text-[3.5rem] text-gray-700 leading-tight tracking-[-0.04em] font-medium mb-4">
+      Unable to process request
+    </h1>
+
+    <!-- Description -->
+    <p class="text-xl font-normal leading-[1.4] text-gray-400 mb-8 max-w-[500px] mx-auto">
+      The change you requested was rejected. This might be due to invalid data or insufficient permissions.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <%= link_to "Go back", "javascript:history.back()", 
+          class: "group relative inline-flex h-11 animate-rainbow cursor-pointer items-center justify-center rounded-lg border-0 bg-[length:200%] px-6 py-2 font-medium text-white transition-colors [background-clip:padding-box,border-box,border-box] [background-origin:border-box] [border:calc(0.08*1rem)_solid_transparent] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 before:absolute before:bottom-[-20%] before:left-1/2 before:z-0 before:h-1/5 before:w-3/5 before:-translate-x-1/2 before:animate-rainbow before:bg-[linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))] before:bg-[length:200%] before:[filter:blur(calc(0.8*1rem))] bg-[linear-gradient(#121213,#121213),linear-gradient(#121213_50%,rgba(18,18,19,0.6)_80%,rgba(18,18,19,0)),linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))]" %>
+      
+      <%= link_to "Go to homepage", root_path,
+          class: "py-2 px-6 text-sm leading-[18px] text-black group rounded-lg hover:bg-alpha-black-50 bg-transparent border-[1px] border-gray-300 hover:border-gray-300 flex items-center gap-1 shadow-btn-plain-inset-1 shadow-btn-plain-inset-2" %>
+    </div>
+
+    <!-- Help Section -->
+    <div class="mt-16 pt-16 border-t border-gray-200">
+      <p class="text-sm text-gray-500 mb-4">Common reasons for this error:</p>
+      <div class="flex flex-col gap-2 max-w-[400px] mx-auto text-sm text-left">
+        <p class="text-gray-600">• The form data you submitted was incomplete or invalid</p>
+        <p class="text-gray-600">• Your session may have expired</p>
+        <p class="text-gray-600">• You don't have permission to perform this action</p>
+      </div>
+      <p class="text-sm text-gray-500 mt-6">
+        If you continue to experience issues, please <%= link_to "contact support", "https://link.maybe.co/discord", target: "_blank", rel: "noopener noreferrer", class: "text-gray-900 underline hover:no-underline" %>.
+      </p>
+    </div>
+  </section>
+</article>

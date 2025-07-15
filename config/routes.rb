@@ -68,8 +68,8 @@ Rails.application.routes.draw do
   # Specific route for stocks index with combobox param
   get "/stocks", to: "stocks#index", constraints: lambda { |req| req.params[:combobox].present? }, as: :stocks_combobox
 
-  # Redirect all other /stocks... paths
-  get "stocks(/*path)", to: redirect("/", status: 301)
+  # Return 404 for all other /stocks... paths
+  get "stocks(/*path)", to: "application#not_found"
 
   get "tos" => "pages#tos"
   get "terms", to: redirect("/tos", status: 301)
@@ -88,6 +88,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pages#index"
+
+  # Error page routes (for testing in development)
+  if Rails.env.development?
+    get "/404", to: "errors#not_found"
+    get "/422", to: "errors#unprocessable_entity"
+    get "/500", to: "errors#internal_server_error"
+  end
 
   # Catch-all route for redirects (must be last)
   get "*path", to: "redirects#catch_all", constraints: lambda { |req| !req.path.start_with?("/rails/") }
